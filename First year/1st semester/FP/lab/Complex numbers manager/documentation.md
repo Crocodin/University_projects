@@ -82,28 +82,28 @@
 ### *T2:* modificare elemente din listă
 - T2.1: șterge element de pe o poziție dată
 
-    | Ecran                             | Utilizator        | Backend                         |
-    |-----------------------------------|-------------------|---------------------------------|
-    | de pe ce pozitie stergem valoarea | p                 | este pozitia valid?             |
-    |                                   |                   | -> da: stergem                  |
-    |                                   |                   | -> nu: eroare face T2.1 din nou |
+  | Ecran                             | Utilizator        | Backend                         |
+  |-----------------------------------|-------------------|---------------------------------|
+  | de pe ce pozitie stergem valoarea | p                 | este pozitia valid?             |
+  |                                   |                   | -> da: stergem                  |
+  |                                   |                   | -> nu: eroare face T2.1 din nou |
 - T2.2: șterge element de pe un interval de poziții
 
-    | Ecran                                        | Utilizator        | Backend                                |
-    |----------------------------------------------|-------------------|----------------------------------------|
-    | care este pozitia de inceput si cea de final | p1, p2            | -> da: stergem de la p1 la p2 inclusiv |
-    |                                              |                   | -> nu: eroare face T2.1 din nou        |
+  | Ecran                                        | Utilizator        | Backend                                |
+  |----------------------------------------------|-------------------|----------------------------------------|
+  | care este pozitia de inceput si cea de final | p1, p2            | -> da: stergem de la p1 la p2 inclusiv |
+  |                                              |                   | -> nu: eroare face T2.1 din nou        |
 
 - T2.3: înlocuiește toate aparițiile unui număr complex cu un alt număr complex
 
-    | Ecran                                    | Utilizator     | Backend                                |
-    |------------------------------------------|----------------|----------------------------------------|
-    | ce numar vrei sa inlocuiesti             | n              | exista numarul?                        |
-    |                                          |                | -> da: continua                        |
-    |                                          |                | -> nu: mesaj eroare face T2.1 din nou  |
-    | cu ce numar vrei sa inlocuiesti valoarea | x              | este numarul valid?                    |
-    |                                          |                | -> da: inlocuieste                     |
-    |                                          |                | -> nu: mesaj eroare  face T1.2 din nou |
+  | Ecran                                    | Utilizator     | Backend                                |
+  |------------------------------------------|----------------|----------------------------------------|
+  | ce numar vrei sa inlocuiesti             | n              | exista numarul?                        |
+  |                                          |                | -> da: continua                        |
+  |                                          |                | -> nu: mesaj eroare face T2.1 din nou  |
+  | cu ce numar vrei sa inlocuiesti valoarea | x              | este numarul valid?                    |
+  |                                          |                | -> da: inlocuieste                     |
+  |                                          |                | -> nu: mesaj eroare  face T1.2 din nou |
 
 - T2.4 si T2.5 la fel ca **T1.3, respectiv T1.4**
 - T2.6 sterge intreaga lista
@@ -112,12 +112,12 @@
 - T3.1: tipărește partea imaginară pentru numerele din listă. Se dă intervalul de pozitii (sub secvențe)
    T3.1.1 afiseaza partea imaginara a numerelor din subsecventa
 
-    | Ecren                                        | Utilizator    | Backend                                  |
-    |----------------------------------------------|---------------|------------------------------------------|
-    | care este pozitia de inceput si cea de final |               |                                          |
-    |                                              | p1, p2        | este pozitia valid?                      |
-    |                                              |               | -> da: tipareste de la p1 la p2 inclusiv |
-    |                                              |               | -> nu: mesaj eroare face T3.1 din nou    |
+  | Ecren                                        | Utilizator    | Backend                                  |
+  |----------------------------------------------|---------------|------------------------------------------|
+  | care este pozitia de inceput si cea de final |               |                                          |
+  |                                              | p1, p2        | este pozitia valid?                      |
+  |                                              |               | -> da: tipareste de la p1 la p2 inclusiv |
+  |                                              |               | -> nu: mesaj eroare face T3.1 din nou    |
 
 >[!NOTE] 
 > Aceste functii vor fi o singura functie cu un parametru lambda
@@ -125,12 +125,12 @@
 - T3.3: tipărește toate numerele complexe care au modului mai mic decât 10
 - T3.4: tipărește toate numerele complexe care au modului egal 10
 
-    | Ecren                                        | Utilizator    | Backend                                  |
-    |----------------------------------------------|---------------|------------------------------------------|
-    | care este pozitia de inceput si cea de final |               |                                          |
-    |                                              | p1, p2        | este pozitia valid?                      |
-    |                                              |               | -> da: tipareste de la p1 la p2 inclusiv |
-    |                                              |               | -> nu: mesaj eroare face T3.1 din nou    |
+  | Ecren                                        | Utilizator    | Backend                                  |
+  |----------------------------------------------|---------------|------------------------------------------|
+  | care este pozitia de inceput si cea de final |               |                                          |
+  |                                              | p1, p2        | este pozitia valid?                      |
+  |                                              |               | -> da: tipareste de la p1 la p2 inclusiv |
+  |                                              |               | -> nu: mesaj eroare face T3.1 din nou    |
 
 ### *T4:* operații cu numerele din listă
 - T4.1: suma numerelor dintr-o subsecvență dată
