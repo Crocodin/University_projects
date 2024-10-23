@@ -84,11 +84,12 @@ def swap_value() -> None:
 
 def sum_complex() -> None:
     l:list = [[0, 0]]
-    assert utility.sum_complex(l) == [0, 0]
+    assert utility.sum_complex(l, 0, 0) == [0, 0]
     utility.append_to_list(l, [], [12, 3])
-    assert utility.sum_complex(l) == [12, 3]
+    assert utility.sum_complex(l, 0, 1) == [12, 3]
     utility.append_to_list(l, [], [21, -6])
-    assert utility.sum_complex(l) == [33, -3]
+    assert utility.sum_complex(l, 0, 2) == [33, -3]
+    assert  utility.sum_complex(l, 2, 2) == [21, -6]
 
 def prod_of_two_complex() -> None:
     assert utility.prod_of_two_complex([1, 1], [1, 1]) == [0, 2]
@@ -97,13 +98,27 @@ def prod_of_two_complex() -> None:
 
 def product_complex() -> None:
     l:list = [[1, 1], [1, -1]]
-    assert utility.product_complex(l) == [2, 0]
+    assert utility.product_complex(l, 0, 1) == [2, 0]
     utility.append_to_list(l, [], [12, -6])
-    assert utility.product_complex(l) == [24, -12]
+    assert utility.product_complex(l, 0, 2) == [24, -12]
+    assert utility.product_complex(l, 2, 2) == [12, -6]
 
 def sort_list_des() -> None:
     l:list = [[0, -32], [21, -9], [12, -4], [-9, -4], [12, -4], [32, -8], [12, -4]]
     assert utility.sort_list_des(l) == [[-9, -4], [12, -4], [12, -4], [12, -4], [32, -8], [21, -9], [0, -32]]
+
+def undo() -> None:
+    manager = {'current': [[0, -32], [21, -9], [12, -4], [-9, -4]], 'past': [[], [[12, -4]], [[12, -4], [-9, -4]], [[0, -32], [12, -4], [-9, -4]]]}
+    utility.undo(complex_number.m_get_complex_list(manager), complex_number.m_get_undo_list(manager))
+    assert manager == {'current': [[0, -32], [12, -4], [-9, -4]], 'past': [[], [[12, -4]], [[12, -4], [-9, -4]]]}
+    utility.undo(complex_number.m_get_complex_list(manager), complex_number.m_get_undo_list(manager))
+    assert manager == {'current': [[12, -4], [-9, -4]], 'past': [[], [[12, -4]]]}
+    utility.undo(complex_number.m_get_complex_list(manager), complex_number.m_get_undo_list(manager))
+    utility.undo(complex_number.m_get_complex_list(manager), complex_number.m_get_undo_list(manager))
+    assert manager == {'current': [], 'past': []}
+    utility.undo(complex_number.m_get_complex_list(manager), complex_number.m_get_undo_list(manager))
+    assert manager == {'current': [], 'past': []}
+    del manager
 
 if __name__ == 'test':
     modul_real()
@@ -121,4 +136,5 @@ if __name__ == 'test':
     sum_complex()
     prod_of_two_complex()
     product_complex()
+    undo()
     print("test worked")
