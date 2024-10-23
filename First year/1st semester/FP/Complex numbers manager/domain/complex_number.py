@@ -1,3 +1,4 @@
+# this is the domain
 from domain.utility import valid_int
 
 
@@ -6,6 +7,12 @@ def CreateManager() -> dict:
         this function creates the manager; a manager, in this case, is a pear of two lists: the first one is a lista of complex numbers [int, int] and the second one is a list of multiple lists (this will be used for the undo function)
     """
     return {'current': [], 'past': []}
+
+def m_get_complex_list(manager:dict) -> list[list[int]]:
+    return manager['current']
+
+def m_get_undo_list(manager:dict) -> list[list[list[int]]]:
+    return manager['past']
 
 def number_complex(number:str) -> list[int]:
     """

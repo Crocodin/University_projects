@@ -75,7 +75,7 @@ def append_to_list(l:list[list[int]], l_undo:list[list[list[int]]], number:list[
         l.append(number)
 
 def valid_index(l:list, index:int) -> bool:
-    if index >= len(l) or index < 0 and isinstance(index, int): return False
+    if index >= len(l) or index <= 0 and not isinstance(index, int): return False
     return True
 
 def index_to_list(l:list[list[int]], l_undo:list[list[list[int]]], number:list[int], index:int) -> None:
@@ -90,18 +90,19 @@ def index_to_list(l:list[list[int]], l_undo:list[list[list[int]]], number:list[i
         l_undo.append(copy_list(l))
         l.insert(index, number)
 
-def valid_undo(l_undo:list[list[int]]) -> bool:
+def valid_undo(l_undo:list[list[list[int]]]) -> bool:
     return len(l_undo) > 0
 
-def undo(l:list[list[int]], l_undo:list[list[int]]) -> None:
+def undo(l:list[list[int]], l_undo:list[list[list[int]]]) -> None:
     """
         this function removes the last element of the list and changes l to that removed element
         :param l: a list of complex numbers
         :param l_undo: a list of all the past list of complex numbers
     """
     if valid_undo(l_undo):
-        l = copy_list(l_undo[len(l_undo)-1])
-        l_undo = l_undo.pop()
+        l.clear()
+        l.extend(l_undo[len(l_undo)-1])
+        l_undo.pop()
 
 def pop_at_index(l:list[list[int]], l_undo:list[list[list[int]]], index:int) -> None:
     """
@@ -114,6 +115,16 @@ def pop_at_index(l:list[list[int]], l_undo:list[list[list[int]]], index:int) -> 
         l_undo.append(copy_list(l))
         l.pop(index)
 
+def valid_index_interval(l, start, end) -> bool:
+    """
+        checks to se if the numbers are included in a valid interval and that they are valid
+        :param l: a list of complex numbers
+        :param start: the start of the interval
+        :param end: the end of the interval
+    """
+    if not isinstance(start, int) or not isinstance(end, int): return False
+    return start <= end and valid_index(l, start) and valid_index(l, end)
+
 def pop_at_interval(l:list[list[int]], l_undo:list[list[list[int]]], start:int, end:int) -> None:
     """
        this function eliminates the element between the start and end index
@@ -122,7 +133,7 @@ def pop_at_interval(l:list[list[int]], l_undo:list[list[list[int]]], start:int, 
        :param start: the index from where we start removing element
        :param end: the index from where we end removing element
     """
-    if valid_index(l, start) and valid_index(l, end):
+    if valid_index_interval(l, start, end):
         l_undo.append(copy_list(l))
         while start <= end:
             l.pop(end)
@@ -147,15 +158,16 @@ def swap_value(l:list[list[int]], l_undo:list[list[list[int]]], value:list[int],
                 l[index] = number
             index += 1
 
-def sum_complex(l:list[list[int]]) -> list[int]:
+def sum_complex(l:list[list[int]], start, end) -> list[int]:
     """
         return the sum of the complex numbers
         :param l: a list of complex numbers
     """
     sum_of_numbers = [0, 0]
-    for element in l:
-        sum_of_numbers[0] += element[0]
-        sum_of_numbers[1] += element[1]
+    while start <= end:
+        sum_of_numbers[0] += l[end][0]
+        sum_of_numbers[1] += l[end][1]
+        end -= 1
     return sum_of_numbers
 
 def prod_of_two_complex(a:list[int], b:list[int]) -> list[int]:
@@ -165,14 +177,15 @@ def prod_of_two_complex(a:list[int], b:list[int]) -> list[int]:
     """
     return [(a[0] * b[0] - a[1] * b[1]), (a[0] * b[1] + b[0] * a[1])]
 
-def product_complex(l:list[list[int]]) -> list[int]:
+def product_complex(l:list[list[int]], start, end) -> list[int]:
     """
        return the product of the complex numbers
        :param l: a list of complex numbers
     """
     product = [1, 0] # this is e; e * a = a and a * e = a
-    for element in l:
-        product = prod_of_two_complex(product, element)
+    while start <= end:
+        product = prod_of_two_complex(product, l[end])
+        end -= 1
     return product
 
 def sort_list_des(l:list[list[int]]) -> list[list[int]]:
@@ -192,6 +205,12 @@ def sort_list_des(l:list[list[int]]) -> list[list[int]]:
         if not swapped: break
     return array
 
+def complex_number_prime(number:list[int]) -> bool:
+    """
+        this function returns true if and only if the real part of a complex number is prime, otherwise false
+    """
+    return prime(number[0])
+
 def filter_with_function(l:list[list[int]], undo:list[list[list[int]]], function) -> bool:
     """
        this function filters the list with function, this function can be anything as long as it return a boolean
@@ -200,12 +219,14 @@ def filter_with_function(l:list[list[int]], undo:list[list[list[int]]], function
        :param function: a function that takes one complex number [int, int] and returns a boolean
     """
     modified:bool = False
-    index:int = len(l)
-    while index:
+    index:int = len(l) - 1
+    while index >= 0:
         if function(l[index]):
             if not modified:
                 modified = True
                 undo.append(copy_list(l))
-            l[index].pop(index)
+            l.pop(index)
         index -= 1
     return modified
+
+
