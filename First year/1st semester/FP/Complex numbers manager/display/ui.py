@@ -67,11 +67,11 @@ def print_functions_menu() -> None:
         ----------------------// cautare de numere //----------------------
 
             1. Tipareste parte imaginara a numerelor
-            2. Tipareste nr. cu modulul <, =, > ca a valoare data
+            2. Tipareste nr. cu modulul <, =, > ca 10
 
                     U. Undo                         B. Back
     """
-    print("----------------------// cautare de numere //----------------------\n\n        1. Tipareste parte imaginara a numerelor\n        2. Tipareste nr. cu modulul <, =, > ca a valoare data\n\n                U. Undo                         B. Back")
+    print("----------------------// cautare de numere //----------------------\n\n        1. Tipareste parte imaginara a numerelor\n        2. Tipareste nr. cu modulul <, =, > ca 10\n\n                U. Undo                         B. Back")
 
 def operatii_cu_lista() -> None:
     """
