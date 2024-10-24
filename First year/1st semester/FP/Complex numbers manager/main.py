@@ -1,5 +1,3 @@
-from operator import truediv
-
 import test
 from display import ui
 from display import prints
@@ -78,21 +76,22 @@ def print_functions(manager:dict) -> None:
         ui.print_functions_menu()
         choice = ui.get_choice()
         match choice:
-            case '1': prints.print_list(complex_number.m_get_complex_list(manager))
+            case '1':
+                interval = while_not_interval(manager)
+                prints.print_imaginary_part(complex_number.m_get_complex_list(manager), interval[0], interval[1])
             case '2':
-                index:int = while_not_index(ui.print_number_comperation)
                 while True:
                     ui.mai_mare_mic_egal()
                     choice = ui.get_choice()
                     match choice:
                         case '>':
-                            prints.print_with_function(complex_number.m_get_complex_list(manager), lambda a: utility.modul_complex(a) > index)
+                            prints.print_with_function(complex_number.m_get_complex_list(manager), lambda a: utility.modul_complex(a) > 10)
                             break
                         case '<':
-                            prints.print_with_function(complex_number.m_get_complex_list(manager), lambda a: utility.modul_complex(a) < index)
+                            prints.print_with_function(complex_number.m_get_complex_list(manager), lambda a: utility.modul_complex(a) < 10)
                             break
                         case '=':
-                            prints.print_with_function(complex_number.m_get_complex_list(manager), lambda a: utility.modul_complex(a) == index)
+                            prints.print_with_function(complex_number.m_get_complex_list(manager), lambda a: utility.modul_complex(a) == 10)
                             break
                         case _: ui.invalid_index()
             case 'B' | 'BACK': break
