@@ -4,4 +4,4 @@ This repository houses all of the projects I've completed for university up to t
 
 :file_folder: Semenster 1: <br>
 > :snake:[Programming fundamentals](1st%20semester/FP) <br>
-> [Computr system architecture](1st%20semester/ASC)
+> :electric_plug:[Computr system architecture](1st%20semester/ASC)
