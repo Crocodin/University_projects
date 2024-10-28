@@ -1,0 +1,42 @@
+     1                                  ;(10*a-5*b)+(d-5*c)
+     2                                  
+     3                                  bits 32 
+     4                                  global start
+     5                                  extern exit               
+     6                                  import exit msvcrt.dll   
+     7                                  
+     8                                  
+     9                                  segment data use32 class=data
+    10 00000000 32                          a db 32h
+    11 00000001 4D                          b db 4Dh
+    12 00000002 80                          c db 80h
+    13 00000003 871C                        d dw 1c87h
+    14 00000005 05                          calc db 5
+    15                                      
+    16                                  segment code use32 class=code
+    17                                      start:
+    18                                      
+    19 00000000 A0[01000000]                    mov al, [b]
+    20 00000005 F625[05000000]                  mul byte [calc]       ; ax <- al * clacl (b * 5)
+    21                                          
+    22 0000000B C605[05000000]0A                mov [calc], byte 10   ; calc <- 10
+    23 00000012 6689C2                          mov dx, ax            ; dx <- ax
+    24                                                  
+    25 00000015 A0[00000000]                    mov al, [a]
+    26 0000001A F625[05000000]                  mul byte [calc]       ; al <- al * calc (10 * a) 
+    27                                          
+    28 00000020 6629D0                          sub ax, dx            ; ax <- ax - dx (10*a-5*b) 
+    29                                          
+    30 00000023 6689C2                          mov dx, ax            ; dx <- ax (10*a-5*b)
+    31                                          
+    32 00000026 A0[02000000]                    mov al, [c]
+    33 0000002B F625[05000000]                  mul byte [calc]       ; ax <- al * calc (5 * c)
+    34 00000031 6689C3                          mov bx, ax            ; bx <- ax (c * 5)
+    35                                          
+    36 00000034 66A1[03000000]                  mov ax, [d]
+    37 0000003A 6629D8                          sub ax, bx            ; ax <- (d-5*c)
+    38                                          
+    39 0000003D 6601D0                          add ax, dx            ;(10*a-5*b)+(d-5*c)
+    40                                      
+    41 00000040 6A00                            push    dword 0     
+    42 00000042 FF15[00000000]                  call    [exit]
