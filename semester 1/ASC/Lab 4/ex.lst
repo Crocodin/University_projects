@@ -1,0 +1,43 @@
+     1                                  ;Se da dublucuvantul M. Sa se obtina dublucuvantul MNew astfel:
+     2                                  ;bitii 0-3 a lui MNew sunt identici cu bitii 5-8 a lui M
+     3                                  ;bitii 4-7 a lui MNew au valoarea 1
+     4                                  ;bitii 27-31 a lui MNew au valoarea 0
+     5                                  ;bitii 8-26 din MNew sunt identici cu bitii 8-26 a lui M.
+     6                                  
+     7                                  bits 32
+     8                                  global start
+     9                                  
+    10                                  extern exit
+    11                                  import exit msvcrt.dll
+    12                                  
+    13                                  segment data use32 class = data
+    14 00000000 8109F19A                    M dd 9AF10981h         ; 1001.10101111000100001001.1000.0001
+    15 00000004 <res 00000004>              MNew resd 1
+    16                                      
+    17                                  segment code use32 class = code
+    18                                      start:
+    19 00000000 A1[00000000]                    mov eax, [M]
+    20 00000005 25E0010000                      and eax, 000001E0h
+    21 0000000A C1C805                          ror eax, byte 5
+    22 0000000D A3[04000000]                    mov [MNew], eax      
+    23                                          ; 000000000000000000000000.0000.1100
+    24                                          ; bitii 0-3 a lui MNew sunt identici cu bitii 5-8 a lui M
+    25                                          
+    26 00000012 B8F0000000                      mov eax, 000000F0h
+    27 00000017 0905[04000000]                  or [MNew], eax
+    28                                          ; 000000000000000000000000.1111.1100
+    29                                          ; bitii 4-7 a lui MNew au valoarea 1
+    30                                          
+    31                                          ; 0000.0000.0000.0000.0000.0000.1111.1100
+    32                                          ;      ^ pana aici au 0
+    33                                          ; bitii 27-31 a lui MNew au valoarea 0
+    34                                          
+    35 0000001D A1[00000000]                    mov eax, [M]
+    36 00000022 2500FFFF07                      and eax, 07FFFF00h
+    37                                          
+    38 00000027 0905[04000000]                  or [MNew], eax
+    39                                          ; 0000.0010.1111.0001.0000.1001.1111.1100 := 02F109FC
+    40                                          ;bitii 8-26 din MNew sunt identici cu bitii 8-26 a lui M
+    41                                          
+    42 0000002D 6A00                            push dword 0
+    43 0000002F FF15[00000000]                  call [exit]

@@ -1,0 +1,47 @@
+     1                                  ; a-(7+x)/(b*b-c/d+2); a-doubleword; b,c,d-byte; x-qword  //   interpretare cu semn
+     2                                  
+     3                                  bits 32
+     4                                  global start
+     5                                  
+     6                                  extern exit
+     7                                  import exit msvcrt.dll
+     8                                  
+     9                                  segment data use32 class = data:
+    10 00000000 CE05FEFF                    a dd -1FA32h
+    11 00000004 11                          b db 11h
+    12 00000005 FF                          c db -1h
+    13 00000006 03                          d db 3h
+    14 00000007 CDDDEED5B0FFFFFF            x dq -4F2A112233h
+    15                                      
+    16                                  segment code use32 class = code:
+    17                                      start:
+    18 00000000 A0[04000000]                    mov al, [b]
+    19 00000005 F6E8                            imul al           ; ax <- b*b
+    20                                          
+    21 00000007 6650                            push ax
+    22                                          
+    23 00000009 A0[05000000]                    mov al, [c]       
+    24 0000000E 6698                            cbw               ; ax <- c
+    25                                          idiv [d]          ; ax <- c/d
+    25          ******************       error: operation size not specified
+    26 00000010 6683C002                        add ax, byte 2    ; ax <- c/d+2
+    27                                          
+    28 00000014 665A                            pop dx
+    29 00000016 6629C2                          sub dx, ax        ; dx <- b*b-c/d+2
+    30                                          
+    31 00000019 6689D0                          mov ax, dx
+    32 0000001C 98                              cwde
+    33 0000001D 89C3                            mov ebx, eax      ; ebx <- b*b-c/d+2
+    34                                          
+    35 0000001F A1[07000000]                    mov eax, [x]
+    36 00000024 8B15[0B000000]                  mov edx, [x + 4]
+    37 0000002A 83C007                          add eax, 7
+    38 0000002D 83D200                          adc edx, 0        ; edx:eax <- 7+x
+    39                                          
+    40 00000030 F7FB                            idiv ebx          ; eax <- (7+x)/(b*b-c/d+2)
+    41                                          
+    42 00000032 8B15[00000000]                  mov edx, [a]
+    43 00000038 29C2                            sub edx, eax      ; edx <- a-(7+x)/(b*b-c/d+2)
+    44                                      
+    45 0000003A 6A00                            push dword 0
+    46 0000003C FF15[00000000]                  call [exit]

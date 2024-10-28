@@ -1,0 +1,40 @@
+     1                                  ; (a + b + c) - d + (b - c) Interpretare cu semn
+     2                                  
+     3                                  bits 32
+     4                                  global start
+     5                                  
+     6                                  extern exit
+     7                                  import exit msvcrt.dll
+     8                                  
+     9                                  segment data use32 class = data
+    10 00000000 FF                          a db 0FFh              ; byte
+    11 00000001 2211                        b dw 1122h             ; word
+    12 00000003 44332211                    c dd 11223344h         ; dword
+    13 00000007 8877665544332211            d dq 1122334455667788h ; qword
+    14                                      
+    15                                  segment code use32 class = code
+    16                                      start:
+    17                                          
+    18 00000000 A0[00000000]                    mov al, [a]
+    19 00000005 6698                            cbw
+    20 00000007 660305[01000000]                add ax, [b]
+    21 0000000E 98                              cwde
+    22                                          cdqe       ; pentru a putea folosi OF cand facem (a + b + c) - d 
+    22          ******************       error: instruction not supported in 32-bit mode
+    23 0000000F 0305[03000000]                  add eax, [c]
+    24                                          
+    25 00000015 2B05[07000000]                  sub eax, [d]
+    26 0000001B 1B15[0B000000]                  sbb edx, [d + 4]  ; edx:eax <- (a + b + c) - d
+    27 00000021 A3[07000000]                    mov [d], eax
+    28 00000026 8915[0B000000]                  mov [d + 4], edx  ; d <- edx:eax = (a + b + c) - d
+    29                                          
+    30 0000002C 66A1[01000000]                  mov ax, [b]
+    31 00000032 98                              cwde
+    32 00000033 2B05[03000000]                  sub eax, [c]      ; eax <- b - c
+    33                                          
+    34 00000039 0305[07000000]                  add eax, [d]
+    35 0000003F BA00000000                      mov edx, 0
+    36 00000044 1315[0B000000]                  adc edx, [d + 4]  ; edx:eax <- (a + b + c) - d + (b - c)
+    37                                          
+    38 0000004A 6A00                            push dword 0
+    39 0000004C FF15[00000000]                  call [exit]

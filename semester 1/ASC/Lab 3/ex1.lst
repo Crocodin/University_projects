@@ -1,0 +1,45 @@
+     1                                  ;((a + b) + (a + c) + (b + c)) - d
+     2                                  
+     3                                  bits 32 
+     4                                  global start        
+     5                                  
+     6                                  extern exit               
+     7                                  import exit msvcrt.dll   
+     8                                  
+     9                                  segment data use32 class=data
+    10 00000000 11                          a db 11h                  ; a byte
+    11 00000001 2211                        b dw 1122h                ; a word
+    12 00000003 44332211                    c dd 11223344h            ; a dword
+    13 00000007 8877665544332211            d dq 1122334455667788h    ; a qword
+    14                                  
+    15                                  segment code use32 class=code
+    16                                      start:
+    17 00000000 66B80000                        mov ax, 0
+    18 00000004 A0[00000000]                    mov al, [a]           ; ax <- a (pot trata ca fiind un word)
+    19 00000009 660305[01000000]                add ax, [b]           ; ax <- a + b
+    20                                          
+    21 00000010 BA00000000                      mov edx, 0
+    22 00000015 668B15[01000000]                mov dx, [b]           ; edx <- b (pot trata ca fiind un dword)
+    23 0000001C 0315[03000000]                  add edx, [c]          ; edx <- b + c
+    24                                          
+    25 00000022 66A3[01000000]                  mov [b], ax           ; b <- a + b
+    26                                          
+    27 00000028 B800000000                      mov eax, 0
+    28 0000002D A0[00000000]                    mov al, [a]           ; eax <- a (pot trata ca fiind un dword)
+    29 00000032 0305[03000000]                  add eax, [c]          ; eax <- a + c
+    30                                          
+    31 00000038 01D0                            add eax, edx          ; eax <- (a + c) + (b + c)
+    32                                          
+    33 0000003A BA00000000                      mov edx, 0
+    34 0000003F 668B15[01000000]                mov dx, [b]
+    35 00000046 01D0                            add eax, edx          ; eax <- ((a + b) + (a + c) + (b + c))
+    36 00000048 BA00000000                      mov edx, 0
+    37                                          
+    38 0000004D 0305[07000000]                  add eax, [d]
+    39 00000053 1315[0B000000]                  adc edx, [d + 4]      ; edx:eax <- ((a + b) + (a + c) + (b + c)) - d
+    40                                  
+    41                                          
+    42                                          
+    43                                          
+    44 00000059 6A00                            push    dword 0      ; push the parameter for exit onto the stack
+    45 0000005B FF15[00000000]                  call    [exit]       ; call exit to terminate the program

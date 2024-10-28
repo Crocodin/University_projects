@@ -1,0 +1,49 @@
+     1                                  ; a-(7+x)/(b*b-c/d+2); a-doubleword; b,c,d-byte; x-qword
+     2                                  
+     3                                  bits 32
+     4                                  global start
+     5                                  
+     6                                  extern exit
+     7                                  import exit msvcrt.dll
+     8                                  
+     9                                  segment data use32 class=data
+    10 00000000 44332211                    a dd 11223344h
+    11 00000004 11                          b db 11h
+    12 00000005 11                          c db 11h
+    13 00000006 11                          d db 11h
+    14 00000007 8877665544332211            x dq 1122334455667788h
+    15                                      
+    16                                  segment code use32 class=code
+    17                                      start:
+    18 00000000 66B80000                        mov ax, 0
+    19 00000004 A0[05000000]                    mov al, [c]     ; ax <- c
+    20 00000009 F635[06000000]                  div byte [d]         ; al <- c/d
+    21                                          
+    22 0000000F A2[06000000]                    mov [d], al
+    23 00000014 A0[04000000]                    mov al, [b]
+    24 00000019 F6E0                            mul al          ; ax <- b*b
+    25                                          
+    26 0000001B 66BB0000                        mov bx, 0
+    27 0000001F 8A1D[06000000]                  mov bl, [d]     ; ax <- c/d
+    28 00000025 6629D8                          sub ax, bx      ; ax <- b*b-c/d
+    29 00000028 6683C002                        add ax, 2       ; ax <- b*b-c/d+2
+    30 0000002C 6650                            push ax
+    31                                          ; --// striva //--
+    32                                          ;    ax
+    33                                          
+    34 0000002E A1[07000000]                    mov eax, [x]
+    35 00000033 8B15[0B000000]                  mov edx, [x + 4]; edx:eax <- x
+    36 00000039 83C007                          add eax, 7
+    37 0000003C 83D200                          adc edx, 0      ; edx:eax <- 7+x
+    38                                          
+    39 0000003F BB00000000                      mov ebx, 0
+    40 00000044 665B                            pop bx          ; ebx <- b*b-c/d+2
+    41                                          
+    42 00000046 F7F3                            div ebx         ; eax <- (7+x)/(b*b-c/d+2)
+    43 00000048 BB[00000000]                    mov ebx, a      ; ebx <- a
+    44 0000004D 29C3                            sub ebx, eax      ; a <- a-(7+x)/(b*b-c/d+2)
+    45                                          
+    46 0000004F 6A00                            push dword 0
+    47 00000051 FF15[00000000]                  call [exit]
+    48                                          
+    49                                          
