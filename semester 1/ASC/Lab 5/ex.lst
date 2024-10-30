@@ -1,0 +1,43 @@
+     1                                  ; Se dau 2 siruri de octeti A si B. Sa se construiasca sirul R care sa contina elementele lui B in ordine inversa urmate de elementele in ordine inversa ale lui A
+     2                                  
+     3                                  bits 32
+     4                                  global start
+     5                                  
+     6                                  extern exit
+     7                                  import exit msvcrt.dll
+     8                                  
+     9                                  segment data use32 class = data
+    10 00000000 0201FD00                    A db 2, 1, -3, 0
+    11                                      lA equ $ - A
+    12 00000004 040507060201                B db 4, 5, 7, 6, 2, 1
+    13                                      lB equ $ - B
+    14 0000000A <res 0000000A>              R resb $ - A
+    15                                      
+    16                                  segment code use32 class = code
+    17                                      start:
+    18 00000000 BE[03000000]                    mov esi, A + lA - 1
+    19 00000005 BF[0A000000]                    mov edi, R
+    20 0000000A B904000000                      mov ecx, lA
+    21 0000000F E30C                            jecxz final_1
+    22                                          _loop_1:
+    23 00000011 8A06                                mov al, [esi]
+    24 00000013 8807                                mov [edi], al
+    25 00000015 83EE01                              sub esi, 1
+    26 00000018 83C701                              add edi, 1
+    27 0000001B E2F4                            loop _loop_1
+    28                                          final_1:
+    29                                          
+    30 0000001D BE[09000000]                    mov esi, B + lB - 1
+    31 00000022 B906000000                      mov ecx, lB
+    32 00000027 E30C                            jecxz final_2
+    33                                          _loop_2:
+    34 00000029 8A06                                mov al, [esi]
+    35 0000002B 8807                                mov [edi], al
+    36 0000002D 83EE01                              sub esi, 1
+    37 00000030 83C701                              add edi, 1
+    38 00000033 E2F4                            loop _loop_2
+    39                                          final_2:
+    40                                          
+    41 00000035 6A00                            push dword 0
+    42 00000037 FF15[00000000]                  call [exit]
+    43                                      
