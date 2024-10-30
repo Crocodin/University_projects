@@ -11,13 +11,13 @@
     11 00000004 11                          b db 11h
     12 00000005 11                          c db 11h
     13 00000006 11                          d db 11h
-    14 00000007 8877665544332211            x dq 1122334455667788h
+    14 00000007 8800000000000000            x dq 88h
     15                                      
     16                                  segment code use32 class=code
     17                                      start:
     18 00000000 66B80000                        mov ax, 0
     19 00000004 A0[05000000]                    mov al, [c]     ; ax <- c
-    20 00000009 F635[06000000]                  div byte [d]         ; al <- c/d
+    20 00000009 F635[06000000]                  div byte [d]    ; al <- c/d
     21                                          
     22 0000000F A2[06000000]                    mov [d], al
     23 00000014 A0[04000000]                    mov al, [b]
@@ -39,9 +39,9 @@
     39 0000003F BB00000000                      mov ebx, 0
     40 00000044 665B                            pop bx          ; ebx <- b*b-c/d+2
     41                                          
-    42 00000046 F7F3                            div ebx         ; eax <- (7+x)/(b*b-c/d+2)
+    42 00000046 F7F3                            div ebx         ; eax <- (7+x)/(b*b-c/d+2)     // AM OVERFLOW - CE ESTE DE FACUT?
     43 00000048 BB[00000000]                    mov ebx, a      ; ebx <- a
-    44 0000004D 29C3                            sub ebx, eax      ; a <- a-(7+x)/(b*b-c/d+2)
+    44 0000004D 29C3                            sub ebx, eax    ; a <- a-(7+x)/(b*b-c/d+2)
     45                                          
     46 0000004F 6A00                            push dword 0
     47 00000051 FF15[00000000]                  call [exit]

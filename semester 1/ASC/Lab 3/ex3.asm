@@ -11,13 +11,13 @@ segment data use32 class=data
     b db 11h
     c db 11h
     d db 11h
-    x dq 1122334455667788h
+    x dq 88h
     
 segment code use32 class=code
     start:
         mov ax, 0
         mov al, [c]     ; ax <- c
-        div byte [d]         ; al <- c/d
+        div byte [d]    ; al <- c/d
         
         mov [d], al
         mov al, [b]
