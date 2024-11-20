@@ -1,6 +1,6 @@
-from . import utility
+from .utility import Utility
 
-class Book(utility.Utility):
+class Book(Utility):
 
     def __init__(self, title: str = '', author: str = '', description: str = '') -> None:
         self.title = title.capitalize()
@@ -8,6 +8,7 @@ class Book(utility.Utility):
         self.description = description
         self.__id = self.generate_id()
         self.rented: bool = False
+        self.__how_many_time_rented: int = 0
 
     def __str__(self) -> str:
         return f'"{self.title}" - {self.author}'
@@ -21,6 +22,8 @@ class Book(utility.Utility):
 
     def eq_with_id(self, other) -> bool:
         if not isinstance(other, Book):
+            if isinstance(other, str):
+                return self.__id == other
             return False
         return self.__id == other.__id
 
@@ -38,4 +41,15 @@ class Book(utility.Utility):
 
     def get_id(self) -> str:
         return self.__id
+
+    def set_rented(self) -> None:
+        self.rented = (self.rented + 1) % 2
+        if self.rented == 1: self.__how_many_time_rented += 1
+
+    def get_how_many_time_rented(self) -> int:
+        return self.__how_many_time_rented
+
+
+
+
 
