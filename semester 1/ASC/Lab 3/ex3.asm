@@ -39,7 +39,7 @@ segment code use32 class=code
         mov ebx, 0
         pop bx          ; ebx <- b*b-c/d+2
         
-        div ebx         ; eax <- (7+x)/(b*b-c/d+2)     // AM OVERFLOW - CE ESTE DE FACUT?
+        div ebx         ; eax <- (7+x)/(b*b-c/d+2)
         mov ebx, a      ; ebx <- a
         sub ebx, eax    ; a <- a-(7+x)/(b*b-c/d+2)
         

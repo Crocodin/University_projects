@@ -63,8 +63,9 @@ class Run:
                 case '2': self.ui.print_clients(self.biblioteca.get_clients_with_rented_book(), self.biblioteca)
                 case '3':
                     most_activ = self.ui.biggest_in_list(self.biblioteca.get_clients(), lambda client: client.rented_books)
-                    print(f"The most activ client is: {most_activ}, with a record number of {len(most_activ.rented_books)} rented books!")
+                    print(f"The most activ client is: {most_activ}, with a record number of {most_activ.rented_books} rented books!")
                 case 'B' | 'BACK': break
+
 
     def run(self):
         while True:
@@ -78,6 +79,8 @@ class Run:
                     self.find_book()
                 case '4':
                     self.add_client()
+                case 'EDIT' | 'EDIT BOOK':
+                    self.ui.edit_book(self.biblioteca)
                 case '5':
                     self.ui.remove_client(self.biblioteca)
                 case '6':
@@ -87,9 +90,10 @@ class Run:
                 case '8':
                     self.ui.rent_book(self.biblioteca)
                 case '9':
-                    self.statistics()
+                    self.ui.statistics()
                 case 'P' | 'PRT' | 'PRINT':
                     self.biblioteca.print_all_books()
+                    self.biblioteca.print_all_clients()
                 case 'E': break
 
 
