@@ -139,7 +139,6 @@ class Biblioteca:
         for book in self.__book_list:
             rented.append([book.get_how_many_time_rented(), book.get_id()])
         rented.sort(key = lambda book_id: book_id[0])
-        print("rented: ", rented)
         return rented
 
     def get_clients_with_rented_book(self) -> list[str]:
@@ -151,3 +150,12 @@ class Biblioteca:
 
     def get_clients(self):
         return self.__client_list
+
+    def print_all_clients(self):
+        print("---------------// all the clients //---------------\n")
+        index: int = 1
+        for client in self.__client_list:
+            print(f"{index}. {str(client)}, {client.get_id()}", end='\n')
+            index += 1
+        print(end='\n')
+

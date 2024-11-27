@@ -12,6 +12,7 @@ class Options:
                 1. Add a book             4. Add a client
                 2. Remove a book          5. Remove a client
                 3. Find a book            6. Find a client
+                E. EDIT BOOK
 
                 7. Return book            8. Rent book
 
@@ -19,7 +20,7 @@ class Options:
 
                 E. exit                   P. print
         """
-        print("---------------// main menu //---------------\n\n    1. Add a book             4. Add a client\n    2. Remove a book          5. Remove a client\n    3. Find a book            6. Find a client\n\n    7. Return book            8. Rent book\n\n                 9. Statistics\n\n     E. exit                   P. print")
+        print("---------------// main menu //---------------\n\n    1. Add a book             4. Add a client\n    2. Remove a book          5. Remove a client\n    3. Find a book            6. Find a client\n    EDIT. BOOK\n\n    7. Return book            8. Rent book\n\n                 9. Statistics\n\n     E. exit                   P. print")
 
     @staticmethod
     def match_input() -> str:
@@ -87,7 +88,7 @@ class Options:
                         print(f"{e}")
                 case "2":
                     try:
-                        bib.pop_at_index(get_number())
+                        bib.pop_at_index(get_number() - 1)
                         print("     Removed book successfully!")
                     except BookExistError as e:
                         print(f"{e}")
@@ -213,9 +214,50 @@ class Options:
     @staticmethod
     def print_clients(lista, bib: Biblioteca) -> None:
         for element in lista:
-            print(str(bib.get_client(element)))
+            print(f" >> {str(bib.get_client(element))}, he has rented {bib.get_client(element).rented_books} books")
 
     @staticmethod
     def biggest_in_list(lista, function):
         lista.sort(key=function)
         return lista[0] # this returns the first element
+
+    @staticmethod
+    def edit_book_options():
+        """
+        ---------------// EDIT BOOK //---------------
+
+            1. Change title
+            2. Change author
+            3. Change description
+
+            B. back
+        """
+
+    def edit_book(self, bib: Biblioteca) -> None:
+        id_ = self.get_input_with_title("   Book id: ", is_string)
+        try:
+            book = bib.get_book_with_id_string(id_)
+            self.edit_book_options()
+            while True:
+                 match self.match_input():
+                     case '1':
+                         title = self.get_input_with_title("    Title: ", is_string)
+                         book.change_title(title)
+                         break
+                     case '2':
+                         author = self.get_input_with_title("    Author: ", is_string)
+                         book.change_author(author)
+                         break
+                     case '3':
+                         description = self.get_input_with_title("    Description: ", is_string)
+                         book.change_description(description)
+                         break
+                     case _:
+                         self.invalid_input("edit option")
+        except BookFoundError as e:
+            print(f"{e}")
+
+
+
+
+
