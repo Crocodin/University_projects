@@ -2,13 +2,14 @@ from .utility import Utility
 
 class Book(Utility):
 
-    def __init__(self, title: str = '', author: str = '', description: str = '') -> None:
+    def __init__(self, title: str = '', author: str = '', description: str = '', id_ = '', rented: bool = False, number: int = 0) -> None:
         self.title = title.capitalize()
         self.author = self.format_name(author)
         self.description = description
-        self.__id = self.generate_id()
-        self.rented: bool = False
-        self.__how_many_time_rented: int = 0
+        if id_ == '': self.__id = self.generate_id()
+        else : self.__id = id_
+        self.rented: bool = rented
+        self.__how_many_time_rented: int = number
 
     def __str__(self) -> str:
         return f'"{self.title}" - {self.author}'

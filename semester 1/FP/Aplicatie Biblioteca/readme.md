@@ -26,9 +26,8 @@
  - Documentația conține: Enunț, lista de funcționalități, planul de iterații. Pentru fiecare funcționalitate: scenariu de rulare
 
 > [!NOTE] 
-> **Urmatoarele functii vor putea fi chemate peste tot prin folosirea unui short cut**
-> - **print** | **p**: afisează lista
-> - **undo** | **u**: functia de undo, intoarce lista la ultima iteratie <br>
+> **Urmatoarele functii vor putea fi folosirea unui short cut**
+> - **print** | **prt** | **p**: afisează lista
 
 > [!NOTE] 
 > **Functionalitatea de verificare se afla la fiecare etapa (aceasta nu va fi scrisa pentru a evita repetitia)**[^1]
@@ -65,6 +64,8 @@
  - Optinuea de exit: *'e' sau "exit" pentru a iesi din program*
  - Optiunea de und0: *'u' sau "undo" pentru a executa functia de undo*
 
+form `ui/options.py`
+
 | Ecran         | Utilizator | Backend                        |
 |---------------|------------|--------------------------------|
 | T1            |            |                                |
@@ -79,8 +80,17 @@
 |               |            | -> greșit: error dose T1 again |
 
 ### *T2:*
-- **T2.1:** adaugă
+- **T2.1:** adaugă 
+  - `def __add_client(self, client: Client) -> None`
+  - `def __add_book(self, book: Book) -> None`
 - **T2.2:** șterge
+  - for the delete function we have more the one method for both domain:
+    - `def remove_book(self, other: Book) -> None`
+    - `def pop_at_index(self, index: int) -> None`
+      - removing the book that is index at a specific place
+    - `def remove_all_books(self, other: Book) -> None`
+      - removing all the book that are equal to the name of this book
+    - `def remove_client(self, other: Client) -> None`
 - **T2.3:** modifică
   - T2.3.1: lista de cărți
   - T2.3.1: lista de clienți
@@ -106,6 +116,49 @@
  
 >[!NOTE]
 > The "go back" function is going to appear in every function/task, this will not be mentioned again
+
+### *T3:* 
+- **T3.1:** căutare carte
+- **T3.2:** căutare clienți
+
+| Ecran         | Utilizator  | Backend                        |
+|---------------|-------------|--------------------------------|
+| T3.1          |             |                                |
+| T3.2          |             |                                |
+| *exit / undo* |             |                                |
+|               | input       | validare input:                |
+|               |             | -> corect: go in the function  |
+|               |             | -> greșit: error dose T3 again |
+|               | 2.3         |                                |
+| T2.3.1        |             |                                |
+| T2.3.2        |             |                                |
+|               | input       | validare input:                |
+|               |             | -> corect: go in the function  |
+|               |             | -> greșit: error dose T3 again |
+
+All of these functions are in the `bibloteca` domain, this domain is the "repository" for both the `client` and `book` domains. Containing:
+`list[Book]` & `list[Client]`
+- `def get_book(self, book_name: str) -> Book`
+  - gets the book that has this name (the first on found)
+- `def get_book_with_id_string(self, id_: str) -> Book`
+  - gets the book with a id, we give the id
+- `def get_book_with_id(self, other: Book) -> Book`
+  - gets the book that has the same id with a different book, we give the book
+- `def get_client_with_cnp(self, cnp: str) -> Client`
+- `def get_client(self, id_: str) -> Client`
+
+### *T4:* 
+- **T4.1:** Închiriere carte
+- **T4.2:** Returnare carte
+
+| Ecran         | Utilizator  | Backend                        |
+|---------------|-------------|--------------------------------|
+| T4.1          |             |                                |
+| T4.2          |             |                                |
+|               | input       | validare input:                |
+|               |             | -> corect: go in the function  |
+|               |             | -> greșit: error dose T4 again |
+
 
 
 
