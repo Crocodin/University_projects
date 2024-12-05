@@ -1,6 +1,9 @@
+from Domain import rented_class
 from errors.my_errors import *
 from validators.valid_type import *
 from Repository.biblioteca_class import Biblioteca
+from Domain.client_class import Client
+from Domain.rented_class import RentedClass
 
 class Options:
 
@@ -75,14 +78,14 @@ class Options:
         """
 
         while True:
-            print("---------------// remove book //---------------\n\n    1. Remove with id\n    2. Remove with list index\n    3. Remove with name (this will remove all the book with this name that aren't rented)\n    B. back\n\n")
+            print("---------------// remove book //---------------\n\n    1. Remove with id\n    2. Remove with list index\n    3. Remove with name (this will remove all the book with this name that aren't rented)\n\n    B. back\n")
 
             option = self.match_input()
             match option:
                 case "1":
                     id_ = self.get_input_with_title("   Book id: ", is_string)
                     try:
-                        bib.remove_book(bib.get_book_with_id_string(id_))
+                        bib.remove_book(bib.get_book_with_id(id_))
                         print("     Removed book successfully!")
                     except BookFoundError as e:
                         print(f"{e}")
@@ -96,7 +99,7 @@ class Options:
                     title = self.get_input_with_title("   Title: ", is_string)
                     removed: bool = False
                     while bib.find_book(title):
-                        bib.remove_book(bib.get_book_with_id_string(title))
+                        bib.remove_book(bib.get_book_with_id(title))
                         removed = True
                     if removed: print("     Removed book successfully!")
                     else: print("     No book found!")
@@ -117,7 +120,7 @@ class Options:
         cnp = self.get_input_with_title("   CNP: ", is_cnp)
         return name, cnp
 
-    def remove_client(self, bib: Biblioteca) -> None:
+    def remove_client(self, bib: Biblioteca, lista: list[RentedClass]) -> None:
         """
         ---------------// remove client //---------------
 
@@ -134,14 +137,24 @@ class Options:
                 case "1":
                     cnp_ = self.get_input_with_title("   Client cnp: ", is_cnp)
                     try:
-                        bib.remove_client(bib.get_client_with_cnp(cnp_))
+                        client = bib.get_client_with_cnp(cnp_)
+                        for rented in lista:
+                            if rented.get_id_client() == client.get_id():
+                                for item in rented.get_id_books():
+                                    bib.get_book_with_id(item).set_rented()
+                        bib.remove_client(client)
                         print("     Removed client successfully!")
                     except ClientFoundError as e:
                         print(f"{e}")
                 case '2':
                     id_ = self.get_input_with_title("   Client id: ", is_string)
                     try:
-                        bib -= bib.get_client(id_)
+                        client = bib.get_client(id_)
+                        for rented in lista:
+                            if rented.get_id_client() == client.get_id():
+                                for item in rented.get_id_books():
+                                    bib.get_book_with_id(item).set_rented()
+                        bib.remove_client(client)
                         print("     Removed client successfully!")
                     except ClientFoundError as e:
                         print(f"{e}")
@@ -149,31 +162,48 @@ class Options:
                 case _:
                     self.invalid_input(option)
 
-    def return_book(self, bib: Biblioteca) -> None:
+    def return_book(self, bib: Biblioteca, lista: list[RentedClass]) -> None:
         id_ = self.get_input_with_title("   Client id: ", is_string)
         try:
             client = bib.get_client(id_)
+            id_ = self.get_input_with_title("   Book id: ", is_string)
+            try:
+                bib.get_book_with_id(id_).set_rented()
+                for rented in lista:
+                    if rented.get_id_client() == client.get_id():
+                        try:
+                            rented.get_id_books().remove(id_)
+                            if rented.number_of_books() == 0:
+                                del rented
+                        except IndexError:
+                            print("Book not found! Unsuccessfully returned!")
+                        break
+                print("     Returned book successfully!")
+            except BookFoundError as e:
+                print(f"{e}")
+            except IndexError as e:
+                print(f"{e}")
         except ClientFoundError as e:
             print(f"{e}")
             return
-        id_ = self.get_input_with_title("   Book id: ", is_string)
-        try:
-            bib.get_book(id_).set_rented()
-            client.get_book_rented().remove(id_)
-            print("     Returned book successfully!")
-        except BookFoundError as e:
-            print(f"{e}")
-        except IndexError as e:
-            print(f"{e}")
 
-    def rent_book(self, bib: Biblioteca) -> None:
+    @staticmethod
+    def append_rent_book(rented_books: list, id_client: str, id_book: str) -> None:
+        for rented in rented_books:
+            if rented.get_id_client() == id_client:
+                rented.rent_book(id_book)
+                return
+        rented = RentedClass(id_client, [id_book])
+        rented_books.append(rented)
+
+    def rent_book(self, bib: Biblioteca, rented_books:list) -> None:
         client = self.get_input_with_title("    Client id: ", is_string)
         try:
             client = bib.get_client(client)
         except ClientFoundError as e:
             print(f"{e}")
             return
-        title = input("    Title: ")
+        title = input("    Title & author: ")
         try:
             book = bib.get_book_reserved(title, False)
             print(f"{str(book)} is available! Want to rent? (y/n)")
@@ -182,7 +212,8 @@ class Options:
                 match option:
                     case 'Y' | 'YES':
                         book.set_rented()
-                        client.add_rented_book(book.get_id())
+                        client.rented_books += 1
+                        self.append_rent_book(rented_books, client.get_id(), book.get_id())
                         print("     Rented book successfully!")
                         break
                     case 'N' | 'NO':
@@ -206,19 +237,14 @@ class Options:
         print("---------------// statistics //---------------\n\n    1. The most rented books (top 5)\n    2. Clients with rented books\n    3. The most active clients\n\n    B. back")
 
     @staticmethod
-    def print_top_5(lista, bib: Biblioteca) -> None:
+    def print_top_5(lista: list[tuple[int, str]]) -> None:
         lista = lista[:5]
         for element in lista:
-            print(str(bib.get_book_with_id(element[1])))
+            print(element[1])
 
     @staticmethod
-    def print_clients(lista, bib: Biblioteca) -> None:
-        for element in lista:
-            print(f" >> {str(bib.get_client(element))}, he has rented {bib.get_client(element).rented_books} books")
-
-    @staticmethod
-    def biggest_in_list(lista, function):
-        lista.sort(key=function)
+    def biggest_in_list(lista: list, function):
+        lista.sort(key=function, reverse=True)
         return lista[0] # this returns the first element
 
     @staticmethod
@@ -236,7 +262,7 @@ class Options:
     def edit_book(self, bib: Biblioteca) -> None:
         id_ = self.get_input_with_title("   Book id: ", is_string)
         try:
-            book = bib.get_book_with_id_string(id_)
+            book = bib.get_book_with_id(id_)
             self.edit_book_options()
             while True:
                  match self.match_input():
@@ -256,7 +282,6 @@ class Options:
                          self.invalid_input("edit option")
         except BookFoundError as e:
             print(f"{e}")
-
 
 
 
