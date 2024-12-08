@@ -37,9 +37,6 @@ class Book(Utility):
     def change_description(self, description: str) -> None:
         self.description = description
 
-    def get_description(self) -> str:
-        return self.description
-
     def get_id(self) -> str:
         return self.__id
 

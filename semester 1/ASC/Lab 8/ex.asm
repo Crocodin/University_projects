@@ -13,7 +13,7 @@ segment data use32 class = data
     b resd 1
     k dd 10
     
-    format_citire db '%d', '%d', 0       ; %d <=> un numar decimal (baza 10)
+    format_citire db '%d%d', 0       ; %d <=> un numar decimal (baza 10)
     format_afisare db '%s', 0
     
     sir_binar times 32 db '0'            ; 32 bits + 1 null terminator
@@ -59,7 +59,7 @@ segment code use32 class = code
             CMP EAX, 0
         JNE loopy
         
-        
+        CLD
         ; printf(format, val)
         push sir_binar
         push format_afisare
