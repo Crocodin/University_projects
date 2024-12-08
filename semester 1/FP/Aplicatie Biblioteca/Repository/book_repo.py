@@ -1,10 +1,23 @@
 from Domain.book_class import Book
+from errors.my_errors import *
 
 class BookRepo:
 
     def __init__(self, filename: str):
         self.__book_list: list[Book] = []
         self.filename = filename
+
+    def add_book(self, other: Book):
+        self.__book_list.append(other)
+
+    def remove_book(self, other: Book):
+        self.__book_list.remove(other)
+
+    def get_book(self, other) -> Book:
+        for book in self.__book_list:
+            if book.eq_with_id(other):
+                return book
+        raise BookFoundError
 
     def read_from_file(self) -> None:
         with open(self.filename, "r") as file:

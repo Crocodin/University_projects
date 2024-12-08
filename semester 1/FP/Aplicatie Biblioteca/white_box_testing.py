@@ -1,42 +1,33 @@
 import unittest
 
+from Repository.book_repo import BookRepo
+from Repository.rented_repo import RentedClassRepo
+from Repository.client_repo import ClientRepo
 from validators.valid_type import *
 from Domain.book_class import Book
 from Domain.client_class import Client
 from Domain.rented_class import RentedClass
-from Repository.biblioteca_class import Biblioteca
+from Service.biblioteca_class import Biblioteca
+from Service.rented_service import RentedService
 from ui.options import Options
 from errors.my_errors import *
 
 class WhiteBoxTesting(unittest.TestCase):
 
     def setUp(self) -> None:
-        self.biblioteca = Biblioteca()
-        self.rented_books: list[RentedClass] = []
+
+        self.__book_repo = BookRepo('data/test_book.txt')
+        self.__client_repo = ClientRepo('data/test_client.txt')
+        self.__rented_repo = RentedClassRepo('data/test_rented.txt')
+
+        self.rented_service = RentedService(self.__rented_repo)
+
+        self.__book_repo.read_from_file()
+        self.__client_repo.read_from_file()
+
+        self.biblioteca = Biblioteca(self.__book_repo.get_list(), self.__client_repo.get_list())
         self.options: Options = Options()
-
-        with open("data/test_book.txt", "r") as file:
-            for line in file:
-                line = line.split(',')
-                line[5] = line[5].strip()
-                if line[4] == "False": line[4] = False
-                else: line[4] = True
-                book = Book(line[0], line[1], line[2], line[3], bool(line[4]), int(line[5]))
-                self.biblioteca._Biblioteca__add_book(book)
-
-        with open("data/test_client.txt", "r") as file:
-            for line in file:
-                line = line.split(',')
-                line[1] = line[1].strip()
-                client = Client(line[0], line[1], line[2], int(line[3]))
-                self.biblioteca += client
-
-        with open("data/test_rented.txt", "r") as file:
-            for line in file:
-                line = line.split(',')
-                line[len(line) - 1] = line[len(line) - 1].strip()
-                rented = RentedClass(line[0], line[1:])
-                self.rented_books.append(rented)
+        self.rented_books: list[RentedClass] = self.rented_service.get_all()
 
     def test_create_book(self):
         book = Book()
@@ -153,3 +144,15 @@ class WhiteBoxTesting(unittest.TestCase):
     def test_get_client_with_cnp(self):
         self.assertEqual(self.biblioteca.get_client_with_cnp('5050213110001').get_cnp(), '5050213110001')
         self.assertRaises(ClientFoundError, self.biblioteca.get_client_with_cnp, 'i-invented-a-random-cnp')
+
+
+    def test_most_rented_book(self):
+        self.assertEqual(self.biblioteca.most_rented_book(),
+                         [(2, '"Lord of the flies" - William Golding'), (1, '"V de la vendeta" - Alan Moore'), (1, '"V de la vendeta" - Alan Moore'), (1, '"Prietena mea geniala" - Elena Ferrante'), (1, '"Maestrul si margareta" - Mihail Bulgakov'), (1, '"Man\'s search for meaning" - Viktor E. Frankel'), (0, '"V de la vendeta" - Alan Moore'), (0, '"The last snow" - Allen Eskens'), (0, '"The last snow" - Allen Eskens'), (0, '"Prietena mea geniala" - Elena Ferrante'), (0, '"Prietena mea geniala" - Elena Ferrante'), (0, '"Povestea noului nume" - Elena Ferrante'), (0, '"Crima si pedeapsa" - Feodor Dostoievski'), (0, '"Calatorul singuratic" - Jack Kerouac'), (0, '"Cel mai iubit dintre cetatieni" - Marin Preda'), (0, '"Cel mai iubit dintre cetatieni" - Marin Preda'), (0, '"Cel mai iubit dintre cetatieni" - Marin Preda'), (0, '"The book thief" - Markus Zusak'), (0, '"The broken earth" - N. K. Jemisin'), (0, '"Principele" - Niccolo Machiavelli'), (0, '"Principele" - Niccolo Machiavelli'), (0, '"Fahrenheit 451" - Ray Bradbury')])
+
+    def test_add_rented(self):
+        client = self.biblioteca.get_client('46857144-d401-4100-8f67-46bc4ac3d751')
+        book = self.biblioteca.get_book_with_id('dae9e51d-2501-4f0d-b0ee-55c3355a6fa6')
+        self.rented_service.add_rented(client, book)
+        self.assertIsNotNone(self.rented_service.get_client('46857144-d401-4100-8f67-46bc4ac3d751'))
+        self.assertRaises(RentedExistError, self.rented_service.get_client, 'i-invented-a-random-id')
