@@ -1,5 +1,5 @@
 from Domain.client_class import Client
-from errors.my_errors import *
+from Errors.my_errors import *
 
 class ClientRepo:
 

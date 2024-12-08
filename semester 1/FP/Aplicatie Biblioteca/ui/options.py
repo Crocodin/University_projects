@@ -1,4 +1,4 @@
-from errors.my_errors import *
+from Errors.my_errors import *
 from validators.valid_type import *
 from Service.biblioteca_class import Biblioteca
 from Service.rented_service import RentedService

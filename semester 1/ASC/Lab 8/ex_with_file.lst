@@ -1,0 +1,80 @@
+     1                                  ;Se dau un nume de fisier si un text (definite in segmentul de date). Textul contine litere mici, litere mari, cifre si caractere speciale. Sa se inlocuiasca toate CIFRELE din textul dat cu caracterul 'C'. Sa se cre
+     2                                  
+     3                                  bits 32
+     4                                  global start
+     5                                  
+     6                                  ; declare external functions needed by our program
+     7                                  extern exit, fopen, fprintf, fclose
+     8                                  import exit msvcrt.dll  
+     9                                  import fopen msvcrt.dll           ; deschiderea fisierului
+    10                                  import fprintf msvcrt.dll         ; scriere in fisier
+    11                                  import fclose msvcrt.dll          ; inchiderea fisierului 
+    12                                  
+    13                                  segment data use32 class = data
+    14 00000000 66696C652E74787400          nume_fisier db "file.txt", 0  ; numele fisierului care va fi creat
+    15 00000009 7700                        mod_acces db "w", 0           ; w - pentru scriere. daca fiserul nu exista, se va crea                                   
+    16 0000000B FFFFFFFF                    descriptor_fis dd -1
+    17 0000000F 496E20616E756C2032-         text db 'In anul 2024, pe data de 15 aprilie, la ora 14:30, Mihai a parcurs 12.345 de pasi pe munte, urcand pana la altitudinea de 2.789 metri.', 0
+    17 00000018 3032342C2070652064-
+    17 00000021 617461206465203135-
+    17 0000002A 20617072696C69652C-
+    17 00000033 206C61206F72612031-
+    17 0000003C 343A33302C204D6968-
+    17 00000045 616920612070617263-
+    17 0000004E 7572732031322E3334-
+    17 00000057 352064652070617369-
+    17 00000060 207065206D756E7465-
+    17 00000069 2C20757263616E6420-
+    17 00000072 70616E61206C612061-
+    17 0000007B 6C7469747564696E65-
+    17 00000084 6120646520322E3738-
+    17 0000008D 39206D657472692E00 
+    18                                                                    ; textul pe care in vom modifica
+    19 00000096 3A00                        comper_number dw '9' + 1      ; '9' + 1
+    20 00000098 2000                        comper_space dw ' '           ; is space
+    21                                  
+    22                                  segment code use32 class = code
+    23                                      start:
+    24                                          ; eax = fopen(nume_fisier, mod_acces)
+    25 00000000 68[09000000]                    push dword mod_acces     
+    26 00000005 68[00000000]                    push dword nume_fisier
+    27 0000000A FF15[00000000]                  call [fopen]
+    28 00000010 83C408                          add esp, 4 * 2            ; eliberam parametrii de pe stiva
+    29                                          
+    30 00000013 A3[0B000000]                    mov [descriptor_fis], eax ; salvam valoarea returnata de fopen in variabila descriptor_fis
+    31                                          
+    32                                          ; verificam daca functia fopen a creat cu succes fisierul (daca EAX != 0)
+    33 00000018 83F800                          cmp eax, 0
+    34 0000001B 7446                            je final
+    35                                  
+    36                                          ; esi = inceputul sirului care trebuie modificat
+    37 0000001D BE[0F000000]                    mov esi, text
+    38                                          repeta:
+    39 00000022 8A06                                mov al, [esi]
+    40 00000024 B400                                mov ah, byte 0
+    41 00000026 3A05[96000000]                      cmp al, [comper_number]     ; ESI - ('9' + 1), daca rez > 0 atunci ESI era un numar
+    42 0000002C 790C                                jns nu_este_numar
+    43 0000002E 663B05[98000000]                    cmp ax, [comper_space]
+    44 00000035 7403                                jz nu_este_numar
+    45                                              ; este un numar
+    46 00000037 C60643                                  mov [esi], byte 'C'
+    47                                              nu_este_numar:
+    48 0000003A 46                                  inc esi                      ; esi += 1
+    49 0000003B 803E00                              cmp byte [esi], 0            ; daca esi != null nu sa terminat textul
+    50 0000003E 75E2                            jnz repeta
+    51                                          
+    52                                          ; fprintf(descriptor_fis, text)
+    53 00000040 68[0F000000]                    push dword text
+    54 00000045 FF35[0B000000]                  push dword [descriptor_fis]
+    55 0000004B FF15[00000000]                  call [fprintf]
+    56 00000051 83C408                          add esp, 4 * 2
+    57                                          
+    58                                          ; fclose(descriptor_fis)
+    59 00000054 FF35[0B000000]                  push dword [descriptor_fis]
+    60 0000005A FF15[00000000]                  call [fclose]
+    61 00000060 83C404                          add esp, 4
+    62                                          
+    63                                          final:
+    64                                              ; exit(0)
+    65 00000063 6A00                                push dword 0      
+    66 00000065 FF15[00000000]                      call [exit] 

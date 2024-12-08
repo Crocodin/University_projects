@@ -1,7 +1,7 @@
 from Domain.rented_class import RentedClass
 from Domain.book_class import Book
 from Domain.client_class import Client
-from errors.my_errors import *
+from Errors.my_errors import *
 
 
 

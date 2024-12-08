@@ -2,7 +2,7 @@ from Service.book_service import BookService
 from Service.client_service import ClientService
 from Service.rented_service import RentedService
 from ui.display import Display
-from errors.my_errors import *
+from Errors.my_errors import *
 
 
 class Console:

@@ -1,5 +1,5 @@
 from Domain.book_class import Book
-from errors.my_errors import *
+from Errors.my_errors import *
 
 class BookRepo:
 

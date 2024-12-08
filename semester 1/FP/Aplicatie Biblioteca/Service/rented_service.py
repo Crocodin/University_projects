@@ -4,7 +4,7 @@ from Domain.client_class import Client
 from Repository.rented_repo import RentedClassRepo
 from Repository.client_repo import ClientRepo
 from Repository.book_repo import BookRepo
-from errors.my_errors import *
+from Errors.my_errors import *
 
 class RentedService:
 
