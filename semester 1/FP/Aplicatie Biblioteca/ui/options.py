@@ -1,29 +1,13 @@
-from Domain import rented_class
 from errors.my_errors import *
 from validators.valid_type import *
-from Repository.biblioteca_class import Biblioteca
+from Service.biblioteca_class import Biblioteca
+from Service.rented_service import RentedService
 from Domain.client_class import Client
+from Domain.book_class import Book
 from Domain.rented_class import RentedClass
 
 class Options:
 
-    @staticmethod
-    def main_menu() -> None:
-        """
-            ---------------// main menu //---------------
-
-                1. Add a book             4. Add a client
-                2. Remove a book          5. Remove a client
-                3. Find a book            6. Find a client
-                E. EDIT BOOK
-
-                7. Return book            8. Rent book
-
-                             9. Statistics
-
-                E. exit                   P. print
-        """
-        print("---------------// main menu //---------------\n\n    1. Add a book             4. Add a client\n    2. Remove a book          5. Remove a client\n    3. Find a book            6. Find a client\n    EDIT. BOOK\n\n    7. Return book            8. Rent book\n\n                 9. Statistics\n\n     E. exit                   P. print")
 
     @staticmethod
     def match_input() -> str:
@@ -196,7 +180,7 @@ class Options:
         rented = RentedClass(id_client, [id_book])
         rented_books.append(rented)
 
-    def rent_book(self, bib: Biblioteca, rented_books:list) -> None:
+    def rent_book(self, bib: Biblioteca, rented_service: RentedService) -> None:
         client = self.get_input_with_title("    Client id: ", is_string)
         try:
             client = bib.get_client(client)
@@ -211,9 +195,7 @@ class Options:
                 option = self.match_input()
                 match option:
                     case 'Y' | 'YES':
-                        book.set_rented()
-                        client.rented_books += 1
-                        self.append_rent_book(rented_books, client.get_id(), book.get_id())
+                        rented_service.add_rented(client, book)
                         print("     Rented book successfully!")
                         break
                     case 'N' | 'NO':
@@ -222,19 +204,6 @@ class Options:
                     case _: self.invalid_input(option)
         except BookFoundError as e:
             print(f"{e}")
-
-    @staticmethod
-    def statistics() -> None:
-        """
-        ---------------// statistics //---------------
-
-            1. The most rented books (top 5)
-            2. Clients with rented books
-            3. The most active clients
-
-            B. back
-        """
-        print("---------------// statistics //---------------\n\n    1. The most rented books (top 5)\n    2. Clients with rented books\n    3. The most active clients\n\n    B. back")
 
     @staticmethod
     def print_top_5(lista: list[tuple[int, str]]) -> None:
@@ -283,6 +252,27 @@ class Options:
         except BookFoundError as e:
             print(f"{e}")
 
+    @staticmethod
+    def print_activ_client(client: Client) -> None:
+        print(
+            f"The most activ client is: {client}, with a record number of {client.rented_books} rented books!")
 
+    @staticmethod
+    def print_all_clients(client_list: list[Client]) -> None:
+        print("---------------// all the clients //---------------\n")
+        index: int = 1
+        for client in client_list:
+            print(f"{index}. {str(client)}, {client.get_id()}", end='\n')
+            index += 1
+        print(end='\n')
 
-
+    @staticmethod
+    def print_all_books_with_name(book_list: list[Book], title: str) -> None:
+        index: int = 1
+        for book in book_list:
+            if str(book) == title:
+                print(f"{index}. {str(book)}; {book.get_id()}", end='')
+                if book.rented: print(" rented")
+                else: print(" not rented")
+            index += 1
+        print('\n')

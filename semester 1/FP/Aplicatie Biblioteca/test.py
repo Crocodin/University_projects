@@ -2,7 +2,7 @@
 
 from Domain.book_class import Book
 from Domain.client_class import Client
-from Repository.biblioteca_class import Biblioteca
+from Service.biblioteca_class import Biblioteca
 from errors.my_errors import *
 
 def get_bib_with_elements() -> Biblioteca:

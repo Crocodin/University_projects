@@ -10,3 +10,6 @@ class ClientExistError(Exception):
 
 class ClientFoundError(Exception):
     pass
+
+class RentedExistError(Exception):
+    pass

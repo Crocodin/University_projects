@@ -95,47 +95,10 @@ class Biblioteca:
                 return book
         raise BookFoundError(f"No books with this name were found that are {rented} reserved")
 
-    def print_all_books(self):
-        print("---------------// all the books //---------------\n")
-        index: int = 1
-        for book in self.__book_list:
-            print(f"{index}. {str(book)}", end=';')
-            if book.rented: print(" rented")
-            else: print(" not rented")
-            index += 1
-        print(end='\n')
-
-    def print_all_books_with_name(self, title: str) -> None:
-        index: int = 1
-        for book in self.__book_list:
-            if str(book) == title:
-                print(f"{index}. {str(book)}; {book.get_id()}", end='')
-                if book.rented: print(" rented")
-                else: print(" not rented")
-            index += 1
-
     def most_rented_book(self) -> list[tuple[int, str]]:
         rented = [] # first element is the number of time it was rented, the second the id
         for book in self.__book_list:
             rented.append((book.get_how_many_time_rented(), str(book)))
         rented.sort(reverse=True, key = lambda rented_object: rented_object[0])
         return rented
-
-    def get_clients_with_rented_book(self) -> list[str]:
-        clients_with_rented_book = []
-        for client in self.__client_list:
-            if len(client.get_self_book_rented()) > 0:
-                clients_with_rented_book.append(client.get_id())
-        return clients_with_rented_book
-
-    def get_clients(self):
-        return self.__client_list
-
-    def print_all_clients(self):
-        print("---------------// all the clients //---------------\n")
-        index: int = 1
-        for client in self.__client_list:
-            print(f"{index}. {str(client)}, {client.get_id()}", end='\n')
-            index += 1
-        print(end='\n')
 

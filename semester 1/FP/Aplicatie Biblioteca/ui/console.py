@@ -1,121 +1,102 @@
-from ui.options import Options
-from Repository.biblioteca_class import Biblioteca
-from Repository.book_repo import BookRepo
-from Repository.client_repo import ClientRepo
-from Repository.rented_repo import RentedClassRepo
-from Domain.book_class import Book
-from Domain.client_class import Client
-from Domain.rented_class import RentedClass
+from Service.book_service import BookService
+from Service.client_service import ClientService
+from Service.rented_service import RentedService
+from ui.display import Display
 from errors.my_errors import *
 
 
 class Console:
 
-    def __init__(self, book_repo, client_repo, rented_repo):
-        self.ui = Options()
-        self.__book_repo: BookRepo = book_repo
-        self.__client_repo: ClientRepo = client_repo
-        self.biblioteca: Biblioteca = self.init_biblioteca()
-        self.__rented_repo: RentedClassRepo = rented_repo
-        self.rented_books: list[RentedClass] = self.init_rented_class()
+    def __init__(self, book_service, client_service, rented_service):
+        self.__book_service: BookService = book_service
+        self.__client_service: ClientService = client_service
+        self.__rented_service: RentedService = rented_service
+        self.__display = Display() # all the menus
 
-    def init_rented_class(self) -> list[RentedClass]:
-        self.__rented_repo.read_from_file()
-        return self.__rented_repo.get_list()
-
-    def init_biblioteca(self) -> Biblioteca:
-        self.__book_repo.read_from_file()
-        self.__client_repo.read_from_file()
-        return Biblioteca(self.__book_repo.get_list(), self.__client_repo.get_list())
-
-    def add_book(self) -> None:
-        book_info = self.ui.add_book()
-        book = Book(book_info[0], book_info[1], book_info[2])
-        try:
-            self.biblioteca += book
-        except BookExistError:
-            print("This book already exists. Are you sure you want to add it? (y/n)")
-            while True:
-                x = self.ui.match_input()
-                match x:
-                    case 'Y' | 'YES':
-                        self.biblioteca._Biblioteca__add_book(book)
-                        break
-                    case 'N' | 'NO': break
-                    case _: pass
-
-    def add_client(self) -> None:
-            client_info = self.ui.add_client()
-            client = Client(client_info[0], client_info[1])
-            try:
-                self.biblioteca += client
-            except ClientExistError:
-                print(f"This client already exists. INVALID ID")
-
-    def find_book(self) -> None:
-        title = input("    Title & author: ")
-        if self.biblioteca.find_book(title):
-            self.biblioteca.print_all_books_with_name(title)
-        else: print("The book was not found")
-
-    def find_client(self) -> None:
-        cnp = input("    CNP: ")
-        try:
-            client = self.biblioteca.get_client_with_cnp(cnp)
-            print(f"    Client name: {client}, {client.get_id()}\n")
-            found: bool = False
-            for rented in self.rented_books:
-                if client.id__eq__(rented.get_id_client()):
-                    if not found: print(f"=================// {str(client)} //=================")
-                    for book_id in rented.get_id_books():
-                        print(str(self.biblioteca.get_book_with_id(book_id)))
-        except ClientFoundError as e:
-            print(f"{e}")
-
-    def statistics(self):
+    def run(self) -> None:
         while True:
-            self.ui.statistics()
-            match self.ui.match_input():
-                case '1': self.ui.print_top_5(self.biblioteca.most_rented_book())
-                case '2':
-                    for rented in self.rented_books:
-                        print(f"{str(self.biblioteca.get_client(rented.get_id_client()))}, with {rented.number_of_books()} rented books")
-                case '3':
-                    most_activ = self.ui.biggest_in_list(self.biblioteca.get_clients(), lambda client: client.rented_books)
-                    print(f"The most activ client is: {most_activ}, with a record number of {most_activ.rented_books} rented books!")
-                case 'B' | 'BACK': break
-
-    def wright_to_file(self):
-        self.__rented_repo.wright_to_file()
-        self.__book_repo.wright_to_file()
-        self.__client_repo.wright_to_file()
-
-    def run(self):
-        while True:
-            self.ui.main_menu()
-            match self.ui.match_input():
-                case '1':
-                    self.add_book()
-                case '2':
-                    self.ui.remove_book(self.biblioteca)
-                case '3':
-                    self.find_book()
-                case '4':
-                    self.add_client()
-                case 'EDIT' | 'EDIT BOOK':
-                    self.ui.edit_book(self.biblioteca)
-                case '5':
-                    self.ui.remove_client(self.biblioteca, self.rented_books)
-                case '6':
-                    self.find_client()
-                case '7':
-                    self.ui.return_book(self.biblioteca, self.rented_books)
-                case '8':
-                    self.ui.rent_book(self.biblioteca, self.rented_books)
-                case '9':
-                    self.statistics()
-                case 'P' | 'PRT' | 'PRINT':
-                    self.biblioteca.print_all_books()
-                    self.biblioteca.print_all_clients()
-                case 'E' | 'EXIT': break
-        self.wright_to_file()
+            self.__display.main_menu()
+            option = input(self.__display.input_text_choice).strip().upper()
+            match option:
+                case "1":
+                    title = input(self.__display.input_text_title)
+                    author = input(self.__display.input_text_author)
+                    description = input(self.__display.input_text_description)
+                    self.__book_service.add_book(title, author, description)
+                case "2":
+                    id_book = input(self.__display.input_text_id_book)
+                    try:
+                        self.__book_service.remove(id_book)
+                        self.__rented_service.remove_book(id_book)
+                    except ValueError:
+                        print("Book not found with given id")
+                case "3":
+                    id_book = input(self.__display.input_text_id_book)
+                    try:
+                        book = self.__book_service.get_book(id_book)
+                        self.__display.book_info(book)
+                    except BookFoundError:
+                        print("Book not found with given id")
+                case "4":
+                    name = input(self.__display.input_text_name)
+                    cnp = input(self.__display.input_text_cnp)
+                    try:
+                        self.__client_service.add_client(name, cnp)
+                    except Exception:
+                        print("Invalid CNP")
+                case "5":
+                    id_client = input(self.__display.input_text_id_client)
+                    try:
+                        self.__client_service.remove_client(id_client)
+                        self.__rented_service.remove_client(id_client)
+                    except ClientExistError:
+                        print("Client not found with given id")
+                case "6":
+                    id_client = input(self.__display.input_text_id_client)
+                    client = self.__client_service.find_client(id_client)
+                    self.__display.client_info(client, self.__rented_service.get_client(id_client), self.__book_service)
+                case "7":
+                    id_book = input(self.__display.input_text_id_book)
+                    id_client = input(self.__display.input_text_id_client)
+                    try:
+                        self.__rented_service.remove_rented(id_client, id_book)
+                    except RentedExistError:
+                        print("No client with given id rented book with given id")
+                case "8":
+                    id_book = input(self.__display.input_text_id_book)
+                    id_client = input(self.__display.input_text_id_client)
+                    try:
+                        book = self.__book_service.get_book(id_book)
+                        client = self.__client_service.find_client(id_client)
+                        self.__rented_service.add_rented(client, book)
+                    except Exception:
+                        print("    Invalid input, try again.")
+                case "9":
+                    while True:
+                        self.__display.statistics()
+                        option = input(self.__display.input_text_choice).strip().upper()
+                        match option:
+                            case "1":
+                                lista = self.__book_service.get_sorted_rented()
+                                for book in lista[:5]:
+                                    print(f"    {str(book)}")
+                            case "2":
+                                for rented in self.__rented_service.get_all():
+                                    print(f"    {str(self.__client_service.find_client(rented.get_id_client()))}")
+                            case "3":
+                                client = self.__client_service.get_sorted_rented()[0]
+                                self.__display.client_info(client, self.__rented_service.get_client(client.get_id()), self.__book_service)
+                            case "B" | "BACK":
+                                break
+                case "E" | "EXIT":
+                    break
+                case "P" | "PRINT":
+                    print("---------------// books //---------------")
+                    for book in self.__book_service.get_all():
+                        print(f"    {str(book)}, rented status: {book.rented}")
+                    print("---------------// clients //---------------")
+                    for client in self.__client_service.get_all():
+                        print(f"    {str(client)}")
+        self.__book_service.load()
+        self.__client_service.load()
+        self.__rented_service.wright_to_file()
