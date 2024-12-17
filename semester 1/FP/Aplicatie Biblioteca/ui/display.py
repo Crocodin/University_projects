@@ -25,7 +25,6 @@ class Display:
                 1. Add a book             4. Add a client
                 2. Remove a book          5. Remove a client
                 3. Find a book            6. Find a client
-                E. EDIT BOOK
 
                 7. Return book            8. Rent book
 
@@ -34,7 +33,7 @@ class Display:
                 E. exit                   P. print
         """
         print(
-            "---------------// main menu //---------------\n\n    1. Add a book             4. Add a client\n    2. Remove a book          5. Remove a client\n    3. Find a book            6. Find a client\n    EDIT. BOOK\n\n    7. Return book            8. Rent book\n\n                 9. Statistics\n\n     E. exit                   P. print")
+            "---------------// main menu //---------------\n\n    1. Add a book             4. Add a client\n    2. Remove a book          5. Remove a client\n    3. Find a book            6. Find a client\n    7. Return book            8. Rent book\n\n                 9. Statistics\n\n     E. exit                   P. print")
 
     @staticmethod
     def statistics() -> None:
@@ -58,7 +57,7 @@ class Display:
 
         if it;s rented           how meny time it was rented
         """
-        print(f"=====// {str(book)}//=====\n\n    {book.description}\n")
+        print(f"\n=====// {str(book)}//=====\n\n    {book.description}\n")
         if book.rented:
             print(f"The book is rented               rented {book.get_how_many_time_rented()} times")
         else: print(f"The book is rented               rented {book.get_how_many_time_rented()} times")
@@ -70,7 +69,8 @@ class Display:
 
         what book he has rented
         """
-        print(f"=====// {str(client)}//=====\n")
+        print(f"\n=====// {str(client)} //=====\n")
         for book_id in rented.get_id_books():
             print(f"    {str(service.get_book(book_id))}")
+        print('\n')
 
