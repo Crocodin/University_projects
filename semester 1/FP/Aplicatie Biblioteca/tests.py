@@ -14,6 +14,8 @@ from Service.book_service import BookService
 from Service.client_service import ClientService
 from Service.rented_service import RentedService
 
+from sorting_algorithm.bubble_sort import Sort
+
 class Test(unittest.TestCase):
 
     def setUp(self):
@@ -129,3 +131,13 @@ class Test(unittest.TestCase):
         self.rented_service.wright_to_file()
         self.client_service.load()
         self.book_service.load()
+
+    def test_sort(self):
+        lista = [8, 7, 4, 3, 2, 6, 5, 9, 1]
+        sort = Sort()
+        self.assertEqual([1, 2, 3, 4, 5, 6, 7, 8, 9],sort.bubble_sort(lista))
+        self.assertEqual([9, 8, 7, 6, 5, 4, 3, 2, 1],sort.bubble_sort(lista, reverse=True))
+        self.assertEqual([1, 2, 3, 4, 5, 6, 7, 8, 9],sort.shell_sort(lista))
+        self.assertEqual([9, 8, 7, 6, 5, 4, 3, 2, 1],sort.shell_sort(lista, reverse=True))
+        self.assertEqual([1, 2, 3, 4, 5, 6, 7, 8, 9],sort.bubble_sort_recursive(lista))
+        self.assertEqual([9, 8, 7, 6, 5, 4, 3, 2, 1],sort.bubble_sort_recursive(lista, reverse=True))

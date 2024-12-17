@@ -12,9 +12,22 @@ class RentedClassRepo:
         self.filename = filename
 
     def add_rented(self, other):
+        """
+        adds a rented class to the rented list
+        :param other: rented class
+        :return: None
+        """
         self.__rented_list.append(other)
 
     def remove_rented(self, id_client, id_book) -> None:
+        """
+        removes a rented book from the rented list
+        :param id_client: id of the client that rented the book
+        :param id_book: id of book
+        :return: None
+        :raise: BookFoundError, if no book has this id
+        :raise: ClientFoundError, if no client has this id
+        """
         for rented_class in self.__rented_list:
             if rented_class.get_id_client() == id_client:
                 for book in rented_class.get_id_books():
@@ -28,6 +41,10 @@ class RentedClassRepo:
 
 
     def read_from_file(self) -> None:
+        """
+        read from file all the rented class objects
+        :return: None
+        """
         with open(self.filename, "r") as file:
             for line in file:
                 line = line.split(',')
@@ -36,6 +53,10 @@ class RentedClassRepo:
                 self.__rented_list.append(rented)
 
     def wright_to_file(self) -> None:
+        """
+        write to file all the rented class objects
+        :return: None
+        """
         with open(self.filename, "w") as file:
             for rented in self.__rented_list:
                 file.write(rented.get_id_client())
@@ -44,4 +65,8 @@ class RentedClassRepo:
                 file.write("\n")
 
     def get_list(self) -> list[RentedClass]:
+        """
+        returns all the rented class objects
+        :return: list of rented class
+        """
         return self.__rented_list

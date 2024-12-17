@@ -4,6 +4,10 @@ class Utility:
 
     @staticmethod
     def generate_id() -> str:
+        """
+        generates an id
+        :return: string
+        """
         return str(uuid.uuid4())
 
     @staticmethod

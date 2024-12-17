@@ -1,17 +1,17 @@
+V de la vendeta,Alan Moore,,26469b6a-12fc-45b4-b446-df993cf84a7a,False,0
 V de la vendeta,Alan Moore,,38b5eb36-a3e5-4575-99dc-cc9046986f44,True,1
 V de la vendeta,Alan Moore,,c7139b21-9daf-4cf0-a4fa-defda324dc3e,True,1
-V de la vendeta,Alan Moore,,26469b6a-12fc-45b4-b446-df993cf84a7a,False,0
 The last snow,Allen Eskens,,b1334734-706a-4cec-bd60-35f73115f33d,False,0
 The last snow,Allen Eskens,,d73a7c75-4c9a-46a9-bd04-67b2c62ddbd8,False,0
-Prietena mea geniala,Elena Ferrante,,f532b29e-0c6d-4f53-9f9d-dff86892f122,True,1
-Prietena mea geniala,Elena Ferrante,,84226df5-42d5-44c8-ae33-fd9be3f6acfc,False,0
 Prietena mea geniala,Elena Ferrante,,627a87d3-be20-4b40-ac63-fb74d8eb4543,False,0
 Povestea noului nume,Elena Ferrante,,29e94c67-c49e-49f1-a665-96e5338a69ee,False,0
+Prietena mea geniala,Elena Ferrante,,f532b29e-0c6d-4f53-9f9d-dff86892f122,True,1
+Prietena mea geniala,Elena Ferrante,,84226df5-42d5-44c8-ae33-fd9be3f6acfc,False,0
 Crima si pedeapsa,Feodor Dostoievski,,dae9e51d-2501-4f0d-b0ee-55c3355a6fa6,False,0
 Calatorul singuratic,Jack Kerouac,,d1ed1369-876a-4b00-88fc-a69344d69b50,False,0
+Cel mai iubit dintre cetatieni,Marin Preda,,0066a837-f5f6-4df5-bf7e-c6f78f37bb52,False,0
 Cel mai iubit dintre cetatieni,Marin Preda,,7fb16dd2-ca7a-4f6c-b82b-a293bc7b5509,True,1
 Cel mai iubit dintre cetatieni,Marin Preda,,9310d6d8-2fe7-409f-8090-8e21ca2b1fd6,False,1
-Cel mai iubit dintre cetatieni,Marin Preda,,0066a837-f5f6-4df5-bf7e-c6f78f37bb52,False,0
 The book thief,Markus Zusak,,0df07fdc-a471-478e-9590-372c818d4ee9,False,0
 Maestrul si margareta,Mihail Bulgakov,,e8d5669f-2ae9-4d93-88c4-9451a28b837f,True,1
 The broken earth,N. K. Jemisin,,f60e37db-0273-40ef-887f-3a297d115eb3,False,0
