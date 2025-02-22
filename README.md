@@ -5,3 +5,6 @@ This repository houses all of the projects I've completed for university up to t
 :file_folder: Semenster 1: <br>
 > :snake:[Programming fundamentals](semester%201/FP) <br>
 > :electric_plug:[Computr system architecture](semester%201/ASC)
+> :chart_with_upwards_trend:Calculus
+> :book::open_book:Algebra
+> :hash:Computational Logic
