@@ -1,5 +1,6 @@
 from Repository.client_repo import ClientRepo
 from Domain.client_class import Client
+from sorting_algorithm.bubble_sort import Sort
 
 class ClientService:
 
@@ -40,7 +41,12 @@ class ClientService:
         returns a sorted list of the client based on the amount of books rented
         :return: list of clients
         """
-        return sorted(self.__repo.get_list(), key=lambda client: client.rented_books, reverse=True)
+        sort = Sort()
+        return sort.bubble_sort(
+            self.__repo.get_list(),
+            key=lambda client: client.rented_books,
+            reverse=True
+        )
 
     def load(self):
         """

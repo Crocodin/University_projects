@@ -141,3 +141,4 @@ class Test(unittest.TestCase):
         self.assertEqual([9, 8, 7, 6, 5, 4, 3, 2, 1],sort.shell_sort(lista, reverse=True))
         self.assertEqual([1, 2, 3, 4, 5, 6, 7, 8, 9],sort.bubble_sort_recursive(lista))
         self.assertEqual([9, 8, 7, 6, 5, 4, 3, 2, 1],sort.bubble_sort_recursive(lista, reverse=True))
+        self.assertEqual([1, 2, 3, 4, 5, 6, 7, 8, 9],sort.call_quick_sort(lista))
