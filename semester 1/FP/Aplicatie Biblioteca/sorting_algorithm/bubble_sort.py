@@ -71,10 +71,9 @@ class Sort:
             j: int = gap
             # Check the array in from left to right
             while j < length:
-                i: int = j - gap  # This will keep help in maintain gap value
+                i: int = j - gap
                 while i >= 0:
-                    # If value on right side is already greater than left side value
-                    # We don't do swap else we swap
+                    # If value on the right side is already greater than left side value it don't do swap else we swap
                     if not reverse:
                         if key(array[i + gap]) > key(array[i]): break
                     else:
@@ -82,7 +81,47 @@ class Sort:
                     array[i + gap], array[i] = array[i], array[i + gap]
 
                     i = i - gap  # To check left side also
-                    # If the element present is greater than current element
                 j += 1
             gap = gap // 2
         return array
+
+    @staticmethod
+    def __pivot(array: list, left: int, right: int, key) -> int:
+        """
+        splits the values: smaller, pivot, greater
+        :param left: all the values that are < pivot
+        :param right: all the values that are > pivot
+        :return: the pivot position
+        """
+        pivot = array[left]
+        i = left
+        j = right
+        while i != j:
+            while key(array[j]) >= key(pivot) and i < j:
+                j -= 1
+            array[i] = array[j]
+            while key(array[i]) <= key(pivot) and i < j:
+                i += 1
+            array[j] = array[i]
+        array[i] = pivot
+        return i
+
+    def quick_sort(self, array: list, left: int, right: int, key = lambda element: element) -> None:
+        """
+        sorts the list using the quick sort algorithm
+        :param array: list to be sorted
+        :param key: based on what we sort
+        :return: None
+        """
+        pos = self.__pivot(array, left, right, key)
+        if left < pos - 1:
+            self.quick_sort(array, left, pos - 1, key)
+        if pos + 1 < right:
+            self.quick_sort(array, pos + 1, right, key)
+
+
+    def call_quick_sort(self, array: list, key = lambda element: element) -> list:
+        array = self.deepcopy(array)
+        self.quick_sort(array, 0, len(array) - 1, key)
+        return array
+

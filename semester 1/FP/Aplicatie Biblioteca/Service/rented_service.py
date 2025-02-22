@@ -19,7 +19,7 @@ class RentedService:
         add a book to the rented class if the client already has one associated to him, else it created a new one
         :param client: client object
         :param book: book object with we add
-        :return: None
+        :return: None n
         """
         for rented in self.__repo.get_list():
             if rented.get_id_client() == client.get_id():
@@ -94,3 +94,42 @@ class RentedService:
             if rented.get_id_client() == id_:
                 return rented
         raise RentedExistError
+
+    def get_client_recursive(self, id_, index) -> RentedClass:
+        """
+        returns the rented object for client with the given id
+        :param id_: the id of the client
+        :param index: rented object index
+        :return: rented object
+        :raise: RentedExistError, if there is no client with the given id
+
+
+        // ------- COMPLEXITY ------- //
+        *Q = theta
+
+        BC = when the first element is the searched element
+        T(n) = Q(1)
+        WC = when the second element is the last element
+        T(n) = Q(n)
+
+               / 1 if elem.id = id
+        T(n) = |
+               \ T(n - 1) + 1 otherwise
+
+        T(n) = T(n - 1) + 1
+        T(n - 1) = T(n - 2) + 1
+        ...
+        T(1) = 1
+        ---------// +
+        T(n) = 1 + 1 + ... + 1, n times
+        T(n) = Q(n)
+
+        AC: Sum E(i)P(i) = Sum 1/n*i = 1/n Sum i = 1/n * n(n - 1)/2 = (n - 1)/2 is in Q(n)
+
+        => overall time complexity = O(n)
+        """
+        if index == len(self.__repo.get_list()):
+            raise RentedExistError
+        if self.__repo.get_list()[index].get_id_client() == id_:
+            return self.__repo.get_list()[index]
+        return self.get_client_recursive(id_, index + 1)

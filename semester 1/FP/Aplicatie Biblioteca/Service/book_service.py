@@ -1,9 +1,11 @@
 from Domain.book_class import Book
 from Repository.book_repo import BookRepo
+from sorting_algorithm.bubble_sort import Sort
+
 
 class BookService:
 
-    def __init__(self, repo: BookRepo):
+    def  __init__(self, repo: BookRepo):
         self.__repo: BookRepo = repo
         self.__repo.read_from_file()
 
@@ -41,7 +43,12 @@ class BookService:
         returns a sorted list of books sorted by the amount of times they were rented
         :return: list of books
         """
-        return sorted(self.__repo.get_list(), key=lambda book: book.get_how_many_time_rented(), reverse=True)
+        sort = Sort()
+        return sort.bubble_sort(
+            self.__repo.get_list(),
+            key=lambda book: book.get_how_many_time_rented(),
+            reverse=True
+        )
 
     def load(self):
         """
