@@ -9,14 +9,14 @@ typedef struct repo {
 	unsigned int size;
 
 	/// :param Repo: repo* the caller is "this"
-	struct repo* (*resize)(struct repo* Repo);
+	void (*resize)(struct repo* Repo);
 	void (*add_medicament)(struct repo* Repo, meds_t* Med);
 	meds_t* (*find)(const struct repo* Repo, const meds_t* Med);
 	int (*generate_id)(const struct repo* Repo);
 	void (*clear)(struct repo* Repo);
 	meds_t* (*find_with_name)(const struct repo* Repo, const char* name);
 	int (*get_index_with_name)(const struct repo* Repo, const char* name);
-	void (*remove_med_index)(const struct repo* Repo, const int index);
+	void (*remove_med_index)(struct repo* Repo, const int index);
 } repo;
 
 /// !MOST IMPORTANT FUNCTION!
@@ -32,7 +32,7 @@ void declare_repo(repo* Repo);
 
 /// doubles the size of the list
 /// :return: new repo
-repo* resize(repo* Repo);
+void resize(repo* Repo);
 
 /// add to the repo medicine
 /// :param Med: meds_t*
@@ -65,6 +65,6 @@ int get_index_with_name(const repo* Repo, const char* name);
 /// removes the med at the given index
 /// :param index: int
 /// :return: NULL
-void remove_med_index(const repo* Repo, const int index);
+//void remove_med_index(repo* Repo, const int index);
 
 #endif //REPO_H

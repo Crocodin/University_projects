@@ -1,0 +1,32 @@
+        -:    0:Source:C:/Users/codri/Documents/GitHub/University_projects/semester 2/OOP/object_oriented_in_C/domain/meds.c
+        -:    0:Graph:C:\Users\codri\Documents\GitHub\University_projects\semester 2\OOP\object_oriented_in_C\cmake-build-debug-coverage\CMakeFiles\object_oriented_in_C.dir\domain\meds.c.gcno
+        -:    0:Data:C:\Users\codri\Documents\GitHub\University_projects\semester 2\OOP\object_oriented_in_C\cmake-build-debug-coverage\CMakeFiles\object_oriented_in_C.dir\domain\meds.c.gcda
+        -:    0:Runs:1
+        -:    1:#include <string.h>
+        -:    2:#include "meds.h"
+        -:    3:
+        -:    4:#include <stdlib.h>
+        -:    5:
+function initialization called 9 returned 100% blocks executed 100%
+        9:    6:void initialization(meds_t* Med) {
+        9:    7:	Med->change_quantity = change_quantity;
+        9:    8:	Med->equal = equal;
+        9:    9:	Med->set_name = set_name;
+        9:   10:}
+        -:   11:
+function change_quantity called 2 returned 100% blocks executed 100%
+        2:   12:void change_quantity(meds_t* Med, const int number) {
+        2:   13:	Med->quantity = number;
+        2:   14:}
+        -:   15:
+function equal called 13 returned 100% blocks executed 100%
+       13:   16:_Bool equal(const meds_t* Med1, const meds_t* Med2) {
+       13:   17:	return strcmp(Med1->name, Med2->name) == 0;
+       13:   17-block  0
+        -:   18:}
+        -:   19:
+function set_name called 13 returned 100% blocks executed 100%
+       13:   20:void set_name(meds_t* Med, const char *name) {
+       13:   21:	Med->name = (char*)malloc(strlen(name) + 1);
+       13:   22:	strcpy(Med->name, name);
+       13:   23:}

@@ -5,7 +5,16 @@
 #include "repository/repo.h"
 #include "domain/validator.h"
 
+#include "test/test.h"
+
 int main(void) {
+	/// testing
+	test* Test = (test*)malloc(sizeof(test));
+	initialization_test(Test);
+	Test->run_test(Test);
+	free(Test);
+	/// end fo tests
+
 	validator* Validator = (validator*)malloc(sizeof(validator));
 	initialization_validator(Validator);
 
@@ -22,4 +31,6 @@ int main(void) {
 	Console->Service = Service;
 
 	run(Console);
+	free(Console);
+	return 0;
 }

@@ -1,0 +1,160 @@
+        -:    0:Source:C:/Users/codri/Documents/GitHub/University_projects/semester 2/OOP/object_oriented_in_C/service/service.c
+        -:    0:Graph:C:\Users\codri\Documents\GitHub\University_projects\semester 2\OOP\object_oriented_in_C\cmake-build-debug-coverage\CMakeFiles\object_oriented_in_C.dir\service\service.c.gcno
+        -:    0:Data:C:\Users\codri\Documents\GitHub\University_projects\semester 2\OOP\object_oriented_in_C\cmake-build-debug-coverage\CMakeFiles\object_oriented_in_C.dir\service\service.c.gcda
+        -:    0:Runs:1
+        -:    1:#include "service.h"
+        -:    2:#include <stdlib.h>
+        -:    3:#include <string.h>
+        -:    4:
+function initialization_service called 2 returned 100% blocks executed 100%
+        2:    5:void initialization_service(service* Service) {
+        2:    6:	Service->add_meds = add_meds;
+        2:    7:	Service->Clear = Clear;
+        2:    8:	Service->modify_med = modify_med;
+        2:    9:	Service->remove_stock = remove_stock;
+        2:   10:}
+        -:   11:
+function add_meds called 3 returned 100% blocks executed 82%
+        3:   12:_Bool add_meds(const service* Service, const char* name, const char* concentration, const char* quantity) {
+       3*:   13:	if (!Service->Validator->valid_name(name)) return 0;
+        3:   13-block  0
+call    0 returned 3
+branch  1 taken 0 (fallthrough)
+branch  2 taken 3
+    %%%%%:   13-block  1
+       3*:   14:	if (!Service->Validator->valid_number(concentration)) return 0;
+        3:   14-block  0
+call    0 returned 3
+branch  1 taken 0 (fallthrough)
+branch  2 taken 3
+    %%%%%:   14-block  1
+       3*:   15:	if (!Service->Validator->valid_number(quantity)) return 0;
+        3:   15-block  0
+call    0 returned 3
+branch  1 taken 0 (fallthrough)
+branch  2 taken 3
+    %%%%%:   15-block  1
+        -:   16:
+        3:   17:	meds_t* Med = (meds_t*)malloc(sizeof(meds_t));
+        3:   18:	initialization(Med);
+        3:   18-block  0
+call    0 returned 3
+        3:   19:	Med->id = Service->Repo->generate_id(Service->Repo);
+call    0 returned 3
+        3:   20:	Med->set_name(Med, name);
+call    0 returned 3
+        3:   21:	Med->concentration = Service->Validator->convert_char_to_int(concentration);
+call    0 returned 3
+        3:   22:	Med->quantity = Service->Validator->convert_char_to_int(quantity);
+call    0 returned 3
+        3:   23:	Service->Repo->add_medicament(Service->Repo, Med);
+call    0 returned 3
+        3:   24:	return 1;
+        -:   25:}
+        -:   26:
+function Clear called 1 returned 100% blocks executed 100%
+        1:   27:void Clear(service* Service) {
+        1:   28:	Service->Repo->clear(Service->Repo);
+        1:   28-block  0
+call    0 returned 1
+        1:   29:	free(Service);
+        1:   30:}
+        -:   31:
+function modify_med called 3 returned 100% blocks executed 81%
+        3:   32:_Bool modify_med(const service* Service, const char* current_name,
+        -:   33:				const char* new_name, const char* new_concentration) {
+       3*:   34:	if (!Service->Validator->valid_name(current_name)) return 0;
+        3:   34-block  0
+call    0 returned 3
+branch  1 taken 0 (fallthrough)
+branch  2 taken 3
+    %%%%%:   34-block  1
+       3*:   35:	if (!Service->Validator->valid_name(new_name)) return 0;
+        3:   35-block  0
+call    0 returned 3
+branch  1 taken 0 (fallthrough)
+branch  2 taken 3
+    %%%%%:   35-block  1
+       3*:   36:	if (!Service->Validator->valid_number(new_concentration)) return 0;
+        3:   36-block  0
+call    0 returned 3
+branch  1 taken 0 (fallthrough)
+branch  2 taken 3
+    %%%%%:   36-block  1
+        -:   37:
+        3:   38:	int index = Service->Repo->get_index_with_name(Service->Repo, new_name);
+        3:   38-block  0
+call    0 returned 3
+       3*:   39:	if (index != -1) return 0;
+branch  0 taken 0 (fallthrough)
+branch  1 taken 3
+    %%%%%:   39-block  0
+        -:   40:		// meds_t* Med = Service->Repo->list[index];
+        -:   41:		// Med->change_quantity(Med,Med->quantity + Service->Validator->convert_char_to_int(new_concentration));
+        -:   42:		// Service->Repo->remove_med_index(Service->Repo, index);
+        -:   43:		// return 1;
+        3:   44:	index = Service->Repo->get_index_with_name(Service->Repo, current_name);
+        3:   44-block  0
+call    0 returned 3
+       3*:   45:	if (index == -1) return 0;
+branch  0 taken 0 (fallthrough)
+branch  1 taken 3
+    %%%%%:   45-block  0
+        3:   46:	meds_t* Med = Service->Repo->list[index];
+        -:   47:
+        3:   48:	Med->concentration = Service->Validator->convert_char_to_int(new_concentration);
+        3:   48-block  0
+call    0 returned 3
+        3:   49:	free(Med->name);
+        3:   50:	Med->set_name(Med, new_name);
+call    0 returned 3
+        -:   51:
+        3:   52:	int i = index; // now a quick sort so that the new element will be at the right position
+        -:   53:	// Move element forward if it's too small
+        4:   54:	while (i > 0 && strcmp(Service->Repo->list[i - 1]->name, Med->name) > 0) {
+        4:   54-block  0
+branch  0 taken 1 (fallthrough)
+branch  1 taken 3
+        1:   54-block  1
+branch  2 taken 1
+branch  3 taken 0 (fallthrough)
+        1:   55:		Service->Repo->list[i] = Service->Repo->list[i - 1];  // Shift left
+        1:   56:		i--;
+        1:   56-block  0
+        -:   57:	} // Move element backward if it's too large
+        5:   58:	while (i < Service->Repo->number_of_meds - 1 && strcmp(Service->Repo->list[i + 1]->name, Med->name) < 0) {
+        3:   58-block  0
+        5:   58-block  1
+branch  0 taken 3 (fallthrough)
+branch  1 taken 2
+        3:   58-block  2
+branch  2 taken 2
+branch  3 taken 1 (fallthrough)
+        2:   59:		Service->Repo->list[i] = Service->Repo->list[i + 1];  // Shift right
+        2:   60:		i++;
+        2:   60-block  0
+        -:   61:	} // Insert the misplaced element at the correct position
+        3:   62:	Service->Repo->list[i] = Med;
+        3:   63:	return 1;
+        3:   63-block  0
+        -:   64:}
+        -:   65:
+function remove_stock called 1 returned 100% blocks executed 75%
+        1:   66:_Bool remove_stock(const service* Service, const char* name) {
+       1*:   67:	if (!Service->Validator->valid_name(name)) return 0;
+        1:   67-block  0
+call    0 returned 1
+branch  1 taken 0 (fallthrough)
+branch  2 taken 1
+    %%%%%:   67-block  1
+        1:   68:	meds_t* Med = Service->Repo->find_with_name(Service->Repo, name);
+        1:   68-block  0
+call    0 returned 1
+       1*:   69:	if (Med == NULL) return 0;
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:   69-block  0
+        1:   70:	Med->quantity = 0;
+        1:   71:	return 1;
+        1:   71-block  0
+        -:   72:}

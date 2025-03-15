@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.30)
+cmake_minimum_required(VERSION 3.28.3)
 project(object_oriented_in_C C)
 
 set(CMAKE_C_STANDARD 11)
@@ -13,4 +13,6 @@ add_executable(object_oriented_in_C main.c
         domain/validator.c
         domain/validator.h
         console/console.c
-        console/console.h)
+        console/console.h
+        test/test.c
+        test/test.h)

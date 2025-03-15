@@ -1,0 +1,11 @@
+# ninja log v6
+9	300	7635805464163713	CMakeFiles/object_oriented_in_C.dir/test/test.c.obj	5a9eb1d8bcc32235
+32	358	7635792297012362	CMakeFiles/object_oriented_in_C.dir/service/service.c.obj	2cff4cf40ede1a1a
+24	333	7635034537538931	CMakeFiles/object_oriented_in_C.dir/domain/meds.c.obj	7ffbaf55bd2149b2
+46	337	7635034537756710	CMakeFiles/object_oriented_in_C.dir/domain/validator.c.obj	9cb1ea79713431eb
+15	309	7635799979368294	CMakeFiles/object_oriented_in_C.dir/main.c.obj	2e196a29e4f292d8
+26	364	7635792296938913	CMakeFiles/object_oriented_in_C.dir/repository/repo.c.obj	75a3da412d8c6bc1
+41	404	7635792297094769	CMakeFiles/object_oriented_in_C.dir/console/console.c.obj	d7cecb1736918318
+302	559	7635805467087950	object_oriented_in_C.exe	7dd016f191e9318d
+11	302	7635805957677497	CMakeFiles/object_oriented_in_C.dir/test/test.c.obj	5a9eb1d8bcc32235
+303	570	7635805960592647	object_oriented_in_C.exe	7dd016f191e9318d
