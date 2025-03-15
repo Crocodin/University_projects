@@ -9,7 +9,7 @@ void filter(console* restrict Console) {
 	char size[10];
 	printf("Filtering service...\n");
 	printf("Stock filter:");
-	scanf("%10s", &size); getchar();
+	scanf("%10s", size); getchar();
 	if (!Console->Service->Validator->valid_number(size)) {
 		printf("Invalid input.\n");
 		return;
@@ -35,9 +35,10 @@ static void display(this) {
 	printf("Ascending (0) or descending (1)?\n");
 	scanf("%1s", input); getchar();
 	if (input[0] == '1') {
+		printf("\n------------------// meds \\\\------------------\n");
 		for (unsigned int i = Console->Service->Repo->number_of_meds; i > 0; -- i) {
 			const meds_t* Med = Console->Service->Repo->list[i - 1];
-			if (Console->stock_filter < Med->quantity &&
+			if (Console->stock_filter <= Med->quantity &&
 				(Console->letter_filter == Med->name[0] || Console->letter_filter == '\0'))
 				printf("ID %d: %s - %d%%, stock %d\n", Med->id, Med->name, Med->concentration, Med->quantity);
 		}
@@ -46,7 +47,7 @@ static void display(this) {
 	printf("\n------------------// meds \\\\------------------\n");
 	for (unsigned int i = 0; i < Console->Service->Repo->number_of_meds; i++) {
 		const meds_t* Med = Console->Service->Repo->list[i];
-		if (Console->stock_filter < Med->quantity &&
+		if (Console->stock_filter <= Med->quantity &&
 			(Console->letter_filter == Med->name[0] || Console->letter_filter == '\0'))
 			printf("ID %d: %s - %d%%, stock %d\n", Med->id, Med->name, Med->concentration, Med->quantity);
 	}
@@ -122,7 +123,6 @@ void run(console* restrict Console) {
 				break;
 		}
 	}
-	Console->Service->Clear(Console->Service);
 	free(Console->Service->Validator);
-	free(Console);
+	Console->Service->Clear(Console->Service);
 }

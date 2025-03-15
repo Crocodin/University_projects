@@ -1,0 +1,175 @@
+        -:    0:Source:C:/Users/codri/Documents/GitHub/University_projects/semester 2/OOP/object_oriented_in_C/repository/repo.c
+        -:    0:Graph:C:\Users\codri\Documents\GitHub\University_projects\semester 2\OOP\object_oriented_in_C\cmake-build-debug-coverage\CMakeFiles\object_oriented_in_C.dir\repository\repo.c.gcno
+        -:    0:Data:C:\Users\codri\Documents\GitHub\University_projects\semester 2\OOP\object_oriented_in_C\cmake-build-debug-coverage\CMakeFiles\object_oriented_in_C.dir\repository\repo.c.gcda
+        -:    0:Runs:1
+        -:    1:#include "repo.h"
+        -:    2:
+        -:    3:#include <stdlib.h>
+        -:    4:#include <string.h>
+        -:    5:
+function initialization_repo called 3 returned 100% blocks executed 100%
+        3:    6:void initialization_repo(repo* Repo) {
+        3:    7:	Repo->add_medicament = add_medicament;
+        3:    8:	Repo->resize = resize;
+        3:    9:	Repo->find = find;
+        3:   10:	Repo->find_with_name = find_with_name;
+        3:   11:	Repo->generate_id = generate_id;
+        3:   12:	Repo->clear = clear;
+        3:   13:	Repo->get_index_with_name = get_index_with_name;
+        -:   14:	// Repo->remove_med_index = remove_med_index;
+        3:   15:	declare_repo(Repo);
+        3:   15-block  0
+call    0 returned 3
+        3:   16:}
+        -:   17:
+function declare_repo called 3 returned 100% blocks executed 100%
+        3:   18:void declare_repo(repo* Repo) {
+        3:   19:	Repo->number_of_meds = 0;
+        3:   20:	Repo->size = 16;
+        3:   21:	Repo->list = (meds_t**)malloc(Repo->size * sizeof(meds_t*));
+        3:   22:}
+        -:   23:
+function resize called 2 returned 100% blocks executed 100%
+        2:   24:void resize(repo* Repo) {
+        2:   25:	Repo->size = Repo->size << 1;
+        2:   26:	meds_t** new_list = (meds_t**)realloc(Repo->list, Repo->size * sizeof(meds_t*));
+        2:   27:	if (new_list != NULL)
+        2:   27-block  0
+branch  0 taken 2 (fallthrough)
+branch  1 taken 0
+        2:   28:		Repo->list = new_list;
+        2:   28-block  0
+        2:   29:}
+        -:   30:
+function add_medicament called 7 returned 100% blocks executed 100%
+        7:   31:void add_medicament(repo* Repo, meds_t* Med) {
+        7:   32:	meds_t* NewMed = Repo->find(Repo, Med);
+        7:   32-block  0
+call    0 returned 7
+        7:   33:	if (NewMed == NULL) {
+branch  0 taken 6 (fallthrough)
+branch  1 taken 1
+        6:   34:		if (Repo->number_of_meds == Repo->size - 1)
+        6:   34-block  0
+branch  0 taken 2 (fallthrough)
+branch  1 taken 4
+        2:   35:			Repo->resize(Repo);
+        2:   35-block  0
+call    0 returned 2
+        -:   36:		// insert at the right position
+        6:   37:		int position = 0;
+        9:   38:		while (position < Repo->number_of_meds)
+        6:   38-block  0
+        9:   38-block  1
+branch  0 taken 6
+branch  1 taken 3 (fallthrough)
+        6:   39:			if (strcmp(Repo->list[position]->name, Med->name) < 0)
+        6:   39-block  0
+branch  0 taken 3 (fallthrough)
+branch  1 taken 3
+        3:   40:				position++;
+        3:   40-block  0
+        3:   41:			else break;
+        3:   41-block  0
+        9:   42:		for (unsigned int k = Repo->number_of_meds; k > position; --k)
+        6:   42-block  0
+        9:   42-block  1
+branch  0 taken 3
+branch  1 taken 6 (fallthrough)
+        3:   43:			Repo->list[k] = Repo->list[k - 1];
+        3:   43-block  0
+        6:   44:		Repo->number_of_meds++;
+        6:   45:		Repo->list[position] = Med;
+        6:   45-block  0
+        -:   46:	}
+        -:   47:	else {
+        1:   48:		NewMed->change_quantity(NewMed, NewMed->quantity + Med->quantity);
+        1:   48-block  0
+call    0 returned 1
+        1:   49:		free(Med->name);
+        1:   50:		free(Med);
+        -:   51:	}
+        7:   52:}
+        -:   53:
+function find called 9 returned 100% blocks executed 100%
+        9:   54:meds_t* find(const repo* Repo, const meds_t* Med) {
+       17:   55:	for (int i = 0; i < Repo->number_of_meds; i++)
+        9:   55-block  0
+        8:   55-block  1
+       17:   55-block  2
+branch  0 taken 11
+branch  1 taken 6 (fallthrough)
+       11:   56:		if (Repo->list[i]->equal(Repo->list[i], Med))
+       11:   56-block  0
+call    0 returned 11
+branch  1 taken 3 (fallthrough)
+branch  2 taken 8
+        3:   57:			return Repo->list[i];
+        3:   57-block  0
+        6:   58:	return NULL;
+        6:   58-block  0
+        -:   59:}
+        -:   60:
+function generate_id called 4 returned 100% blocks executed 100%
+        4:   61:int generate_id(const repo* Repo) {
+        4:   62:	return (int)Repo->number_of_meds;
+        4:   62-block  0
+        -:   63:}
+        -:   64:
+function clear called 2 returned 100% blocks executed 100%
+        2:   65:void clear(repo* Repo) {
+        8:   66:	for (int i = 0; i < Repo->number_of_meds; i++)
+        2:   66-block  0
+        8:   66-block  1
+branch  0 taken 6
+branch  1 taken 2 (fallthrough)
+        6:   67:		free(Repo->list[i]->name), free(Repo->list[i]);
+        6:   67-block  0
+        2:   68:	free(Repo->list);
+        2:   69:	free(Repo);
+        2:   70:}
+        -:   71:
+function find_with_name called 7 returned 100% blocks executed 100%
+        7:   72:meds_t* find_with_name(const repo* Repo, const char* name) {
+       11:   73:	for (int i = 0; i < Repo->number_of_meds; i++)
+        7:   73-block  0
+        4:   73-block  1
+       11:   73-block  2
+branch  0 taken 10
+branch  1 taken 1 (fallthrough)
+       10:   74:		if (strcmp(Repo->list[i]->name, name) == 0)
+       10:   74-block  0
+branch  0 taken 6 (fallthrough)
+branch  1 taken 4
+        6:   75:			return Repo->list[i];
+        6:   75-block  0
+        1:   76:	return NULL;
+        1:   76-block  0
+        -:   77:}
+        -:   78:
+function get_index_with_name called 8 returned 100% blocks executed 100%
+        8:   79:int get_index_with_name(const repo* Repo, const char* name) {
+       20:   80:	for (int i = 0; i < Repo->number_of_meds; i++)
+        8:   80-block  0
+       12:   80-block  1
+       20:   80-block  2
+branch  0 taken 16
+branch  1 taken 4 (fallthrough)
+       16:   81:		if (strcmp(Repo->list[i]->name, name) == 0)
+       16:   81-block  0
+branch  0 taken 4 (fallthrough)
+branch  1 taken 12
+        4:   82:			return i;
+        4:   82-block  0
+        4:   83:	return -1;
+        4:   83-block  0
+        -:   84:}
+        -:   85:
+        -:   86:// void remove_med_index(repo* Repo, const int index) {
+        -:   87:// 	free(Repo->list[index]->name);
+        -:   88:// 	free(Repo->list[index]);
+        -:   89:// 	for (int i = index; i < Repo->number_of_meds - 1; i++) {
+        -:   90:// 		Repo->list[i] = Repo->list[i + 1];
+        -:   91:// 	}
+        -:   92:// 	Repo->number_of_meds--;
+        -:   93:// }

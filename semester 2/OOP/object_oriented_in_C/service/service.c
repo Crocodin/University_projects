@@ -6,6 +6,7 @@ void initialization_service(service* Service) {
 	Service->add_meds = add_meds;
 	Service->Clear = Clear;
 	Service->modify_med = modify_med;
+	Service->remove_stock = remove_stock;
 }
 
 _Bool add_meds(const service* Service, const char* name, const char* concentration, const char* quantity) {
@@ -35,12 +36,11 @@ _Bool modify_med(const service* Service, const char* current_name,
 	if (!Service->Validator->valid_number(new_concentration)) return 0;
 
 	int index = Service->Repo->get_index_with_name(Service->Repo, new_name);
-	if (index != -1) {
-		meds_t* Med = Service->Repo->list[index];
-		Med->change_quantity(Med,Med->quantity + Service->Validator->convert_char_to_int(new_concentration));
-		Service->Repo->remove_med_index(Service->Repo, index);
-		return 1;
-	}
+	if (index != -1) return 0;
+		// meds_t* Med = Service->Repo->list[index];
+		// Med->change_quantity(Med,Med->quantity + Service->Validator->convert_char_to_int(new_concentration));
+		// Service->Repo->remove_med_index(Service->Repo, index);
+		// return 1;
 	index = Service->Repo->get_index_with_name(Service->Repo, current_name);
 	if (index == -1) return 0;
 	meds_t* Med = Service->Repo->list[index];
@@ -49,7 +49,7 @@ _Bool modify_med(const service* Service, const char* current_name,
 	free(Med->name);
 	Med->set_name(Med, new_name);
 
-	int i = index; // new a quick sort so that the new element will be at the right position
+	int i = index; // now a quick sort so that the new element will be at the right position
 	// Move element forward if it's too small
 	while (i > 0 && strcmp(Service->Repo->list[i - 1]->name, Med->name) > 0) {
 		Service->Repo->list[i] = Service->Repo->list[i - 1];  // Shift left

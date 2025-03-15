@@ -1,0 +1,542 @@
+        -:    0:Source:C:/Users/codri/Documents/GitHub/University_projects/semester 2/OOP/object_oriented_in_C/test/test.c
+        -:    0:Graph:C:\Users\codri\Documents\GitHub\University_projects\semester 2\OOP\object_oriented_in_C\cmake-build-debug-coverage\CMakeFiles\object_oriented_in_C.dir\test\test.c.gcno
+        -:    0:Data:C:\Users\codri\Documents\GitHub\University_projects\semester 2\OOP\object_oriented_in_C\cmake-build-debug-coverage\CMakeFiles\object_oriented_in_C.dir\test\test.c.gcda
+        -:    0:Runs:1
+        -:    1:#include "test.h"
+        -:    2:
+        -:    3:#include <stdio.h>
+        -:    4:#include <stdlib.h>
+        -:    5:#include <string.h>
+        -:    6:
+        -:    7:#include "../repository/repo.h"
+        -:    8:
+function initialization_test called 1 returned 100% blocks executed 100%
+        1:    9:void initialization_test(test* Test) {
+        1:   10:	Test->run_test = run_test;
+        1:   11:}
+        -:   12:
+function run_test called 1 returned 100% blocks executed 100%
+        1:   13:void run_test(const test* Test) {
+        1:   14:	test_domain();
+        1:   14-block  0
+call    0 returned 1
+        1:   15:	test_validator();
+call    0 returned 1
+        1:   16:	test_initialization_repo();
+call    0 returned 1
+        1:   17:	test_add_medicament();
+call    0 returned 1
+        1:   18:	test_initialization_service();
+call    0 returned 1
+        1:   19:	test_service();
+call    0 returned 1
+        1:   20:}
+        -:   21:
+function test_domain called 1 returned 100% blocks executed 74%
+        1:   22:void test_domain() {
+        -:   23:	meds_t Med;
+        1:   24:	initialization(&Med);
+        1:   24-block  0
+call    0 returned 1
+       1*:   25:	assert(Med.change_quantity == change_quantity);
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:   25-block  0
+call    2 never executed
+        1:   25-block  1
+       1*:   26:	assert(Med.equal == equal);
+        1:   26-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:   26-block  1
+call    2 never executed
+        1:   26-block  2
+       1*:   27:	assert(Med.set_name == set_name);
+        1:   27-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:   27-block  1
+call    2 never executed
+        1:   27-block  2
+        1:   28:	Med.id = 0;
+       1*:   29:	assert(Med.id == 0);
+        1:   29-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:   29-block  1
+call    2 never executed
+        1:   29-block  2
+        1:   30:	Med.set_name(&Med, "test");
+        1:   30-block  0
+call    0 returned 1
+       1*:   31:	assert(strcmp(Med.name, "test") == 0);
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:   31-block  0
+call    2 never executed
+        1:   31-block  1
+        1:   32:	Med.concentration = 0;
+       1*:   33:	assert(Med.concentration == 0);
+        1:   33-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:   33-block  1
+call    2 never executed
+        1:   33-block  2
+        1:   34:	Med.quantity = 0;
+       1*:   35:	assert(Med.quantity == 0);
+        1:   35-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:   35-block  1
+call    2 never executed
+        1:   35-block  2
+        1:   36:	Med.change_quantity(&Med, 1);
+        1:   36-block  0
+call    0 returned 1
+       1*:   37:	assert(Med.quantity == 1);
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:   37-block  0
+call    2 never executed
+        1:   37-block  1
+        -:   38:	meds_t Med2;
+        1:   39:	initialization(&Med2);
+        1:   39-block  0
+call    0 returned 1
+        1:   40:	Med2.set_name(&Med2, "test");
+call    0 returned 1
+       1*:   41:	assert(Med2.equal(&Med2, &Med) == 1);
+call    0 returned 1
+branch  1 taken 0 (fallthrough)
+branch  2 taken 1
+    %%%%%:   41-block  0
+call    3 never executed
+        1:   41-block  1
+        1:   42:	Med2.set_name(&Med2, "_test_");
+        1:   42-block  0
+call    0 returned 1
+       1*:   43:	assert(Med2.equal(&Med2, &Med) == 0);
+call    0 returned 1
+branch  1 taken 0 (fallthrough)
+branch  2 taken 1
+    %%%%%:   43-block  0
+call    3 never executed
+        1:   43-block  1
+        1:   44:	free(Med.name);
+        1:   45:	free(Med2.name);
+        1:   46:}
+        -:   47:
+function test_validator called 1 returned 100% blocks executed 74%
+        1:   48:void test_validator() {
+        -:   49:	validator Valid;
+        1:   50:	initialization_validator(&Valid);
+        1:   50-block  0
+call    0 returned 1
+       1*:   51:	assert(Valid.valid_name == valid_name);
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:   51-block  0
+call    2 never executed
+        1:   51-block  1
+       1*:   52:	assert(Valid.valid_number == valid_number);
+        1:   52-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:   52-block  1
+call    2 never executed
+        1:   52-block  2
+       1*:   53:	assert(Valid.convert_char_to_int == convert_char_to_int);
+        1:   53-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:   53-block  1
+call    2 never executed
+        1:   53-block  2
+       1*:   54:	assert(Valid.valid_name("test"));
+        1:   54-block  0
+call    0 returned 1
+branch  1 taken 0 (fallthrough)
+branch  2 taken 1
+    %%%%%:   54-block  1
+call    3 never executed
+        1:   54-block  2
+       1*:   55:	assert(Valid.valid_number("1234"));
+        1:   55-block  0
+call    0 returned 1
+branch  1 taken 0 (fallthrough)
+branch  2 taken 1
+    %%%%%:   55-block  1
+call    3 never executed
+        1:   55-block  2
+       1*:   56:	assert(!Valid.valid_number("12ab"));
+        1:   56-block  0
+call    0 returned 1
+branch  1 taken 0 (fallthrough)
+branch  2 taken 1
+    %%%%%:   56-block  1
+call    3 never executed
+        1:   56-block  2
+       1*:   57:	assert(Valid.convert_char_to_int("1234") == 1234);
+        1:   57-block  0
+call    0 returned 1
+branch  1 taken 0 (fallthrough)
+branch  2 taken 1
+    %%%%%:   57-block  1
+call    3 never executed
+        1:   57-block  2
+        1:   58:}
+        -:   59:
+function test_initialization_repo called 1 returned 100% blocks executed 69%
+        1:   60:void test_initialization_repo() {
+        1:   61:	repo *Repo = (repo*)malloc(sizeof(repo));
+        1:   62:	initialization_repo(Repo);
+        1:   62-block  0
+call    0 returned 1
+        -:   63:
+        -:   64:	// Check if function pointers are correctly initialized
+       1*:   65:	assert(Repo->add_medicament != NULL);
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:   65-block  0
+call    2 never executed
+        1:   65-block  1
+       1*:   66:	assert(Repo->resize != NULL);
+        1:   66-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:   66-block  1
+call    2 never executed
+        1:   66-block  2
+       1*:   67:	assert(Repo->find != NULL);
+        1:   67-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:   67-block  1
+call    2 never executed
+        1:   67-block  2
+       1*:   68:	assert(Repo->generate_id != NULL);
+        1:   68-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:   68-block  1
+call    2 never executed
+        1:   68-block  2
+       1*:   69:	assert(Repo->clear != NULL);
+        1:   69-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:   69-block  1
+call    2 never executed
+        1:   69-block  2
+       1*:   70:	assert(Repo->find_with_name != NULL);
+        1:   70-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:   70-block  1
+call    2 never executed
+        1:   70-block  2
+       1*:   71:	assert(Repo->get_index_with_name != NULL);
+        1:   71-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:   71-block  1
+call    2 never executed
+        1:   71-block  2
+       1*:   72:	assert(Repo->remove_med_index != NULL);
+        1:   72-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:   72-block  1
+call    2 never executed
+        1:   72-block  2
+        -:   73:
+        -:   74:	// Check initial state
+       1*:   75:	assert(Repo->number_of_meds == 0);
+        1:   75-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:   75-block  1
+call    2 never executed
+        1:   75-block  2
+       1*:   76:	assert(Repo->size == 16);
+        1:   76-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:   76-block  1
+call    2 never executed
+        1:   76-block  2
+        -:   77:
+        1:   78:	free(Repo);
+        1:   79:}
+        -:   80:
+function test_add_medicament called 1 returned 100% blocks executed 83%
+        1:   81:void test_add_medicament() {
+        1:   82:	repo *Repo = (repo*)malloc(sizeof(repo));
+        1:   83:	initialization_repo(Repo);
+        1:   83-block  0
+call    0 returned 1
+        1:   84:	Repo->size = 1;
+        -:   85:
+        -:   86:	// Create two medications
+        1:   87:	meds_t *med1 = (meds_t*)malloc(sizeof(meds_t));
+        1:   88:	initialization(med1);
+call    0 returned 1
+        1:   89:	med1->set_name(med1, "Aspirin");
+call    0 returned 1
+        1:   90:	med1->id = Repo->generate_id(Repo);
+call    0 returned 1
+        1:   91:	med1->quantity = 100;
+       1*:   92:	assert(med1->id == 0);
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:   92-block  0
+call    2 never executed
+        1:   92-block  1
+        -:   93:
+        1:   94:	meds_t *med2 = (meds_t*)malloc(sizeof(meds_t));
+        1:   95:	initialization(med2);
+        1:   95-block  0
+call    0 returned 1
+        1:   96:	med2->set_name(med2, "Paracetamol");
+call    0 returned 1
+        1:   97:	med2->quantity = 50;
+        -:   98:
+        1:   99:	meds_t *med3 = (meds_t*)malloc(sizeof(meds_t));
+        1:  100:	initialization(med3);
+call    0 returned 1
+        1:  101:	med2->set_name(med3, "Codrinol");
+call    0 returned 1
+        1:  102:	med2->quantity = 90;
+        -:  103:
+        1:  104:	meds_t *med4 = (meds_t*)malloc(sizeof(meds_t));
+        1:  105:	initialization(med4);
+call    0 returned 1
+        1:  106:	med2->set_name(med4, "Codrinol");
+call    0 returned 1
+        1:  107:	med2->quantity = 90;
+        -:  108:
+        -:  109:	// Add med1 and med2 to the repo
+        1:  110:	Repo->add_medicament(Repo, med1);
+call    0 returned 1
+        1:  111:	Repo->add_medicament(Repo, med2);
+call    0 returned 1
+        -:  112:
+        -:  113:	// Check that both meds are added
+       1*:  114:	assert(Repo->number_of_meds == 2);
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  114-block  0
+call    2 never executed
+        1:  114-block  1
+       1*:  115:	assert(strcmp(Repo->find(Repo, med1)->name, "Aspirin") == 0);
+        1:  115-block  0
+call    0 returned 1
+branch  1 taken 0 (fallthrough)
+branch  2 taken 1
+    %%%%%:  115-block  1
+call    3 never executed
+        1:  115-block  2
+       1*:  116:	assert(strcmp(Repo->find(Repo, med2)->name, "Paracetamol") == 0);
+        1:  116-block  0
+call    0 returned 1
+branch  1 taken 0 (fallthrough)
+branch  2 taken 1
+    %%%%%:  116-block  1
+call    3 never executed
+        1:  116-block  2
+        -:  117:
+        1:  118:	Repo->add_medicament(Repo, med3);
+        1:  118-block  0
+call    0 returned 1
+        1:  119:	Repo->add_medicament(Repo, med4);
+call    0 returned 1
+        -:  120:
+       1*:  121:	assert(Repo->number_of_meds == 3);
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  121-block  0
+call    2 never executed
+        1:  121-block  1
+        -:  122:
+        1:  123:	int index = Repo->get_index_with_name(Repo, "Codrinol");
+        1:  123-block  0
+call    0 returned 1
+        1:  124:	meds_t* med = Repo->find_with_name(Repo, "Codrinol");
+call    0 returned 1
+       1*:  125:	assert(strcmp(Repo->list[index]->name, med->name) == 0);
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  125-block  0
+call    2 never executed
+        1:  125-block  1
+        -:  126:
+        1:  127:	index = Repo->get_index_with_name(Repo, "asdfg");
+        1:  127-block  0
+call    0 returned 1
+        1:  128:	med = Repo->find_with_name(Repo, "asdfg");
+call    0 returned 1
+        -:  129:
+       1*:  130:	assert(index == -1);
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  130-block  0
+call    2 never executed
+        1:  130-block  1
+       1*:  131:	assert(med == NULL);
+        1:  131-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  131-block  1
+call    2 never executed
+        1:  131-block  2
+        -:  132:
+        1:  133:	Repo->clear(Repo);
+        1:  133-block  0
+call    0 returned 1
+        1:  134:}
+        -:  135:
+function test_initialization_service called 1 returned 100% blocks executed 71%
+        1:  136:void test_initialization_service() {
+        1:  137:	service* Service = (service*)malloc(sizeof(service));
+        1:  138:	initialization_service(Service);
+        1:  138-block  0
+call    0 returned 1
+       1*:  139:	assert(Service->add_meds != NULL);
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  139-block  0
+call    2 never executed
+        1:  139-block  1
+       1*:  140:	assert(Service->modify_med != NULL);
+        1:  140-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  140-block  1
+call    2 never executed
+        1:  140-block  2
+       1*:  141:	assert(Service->remove_stock != NULL);
+        1:  141-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  141-block  1
+call    2 never executed
+        1:  141-block  2
+       1*:  142:	assert(Service->Clear != NULL);
+        1:  142-block  0
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  142-block  1
+call    2 never executed
+        1:  142-block  2
+        1:  143:}
+        -:  144:
+function test_service called 1 returned 100% blocks executed 79%
+        1:  145:void test_service() {
+        1:  146:	_Bool succes = 0;
+        -:  147:
+        1:  148:	validator* Validator = (validator*)malloc(sizeof(validator));
+        1:  149:	initialization_validator(Validator);
+        1:  149-block  0
+call    0 returned 1
+        -:  150:
+        1:  151:	repo* Repo = (repo*)malloc(sizeof(repo));
+        1:  152:	initialization_repo(Repo);
+call    0 returned 1
+        -:  153:
+        1:  154:	service* Service = (service*)malloc(sizeof(service));
+        1:  155:	initialization_service(Service);
+call    0 returned 1
+        -:  156:
+        1:  157:	Service->Repo = Repo;
+        1:  158:	Service->Validator = Validator;
+        -:  159:
+        1:  160:	succes = Service->add_meds(Service, "Codrinol", "90", "1");
+call    0 returned 1
+       1*:  161:	assert(succes == 1);
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  161-block  0
+call    2 never executed
+        1:  161-block  1
+       1*:  162:	assert(Service->Repo->find_with_name(Service->Repo, "Codrinol") != NULL);
+        1:  162-block  0
+call    0 returned 1
+branch  1 taken 0 (fallthrough)
+branch  2 taken 1
+    %%%%%:  162-block  1
+call    3 never executed
+        1:  162-block  2
+        -:  163:
+        1:  164:	succes = Service->remove_stock(Service, "Codrinol");
+        1:  164-block  0
+call    0 returned 1
+       1*:  165:	assert(succes == 1);
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  165-block  0
+call    2 never executed
+        1:  165-block  1
+       1*:  166:	assert(Service->Repo->find_with_name(Service->Repo, "Codrinol")->quantity == 0);
+        1:  166-block  0
+call    0 returned 1
+branch  1 taken 0 (fallthrough)
+branch  2 taken 1
+    %%%%%:  166-block  1
+call    3 never executed
+        1:  166-block  2
+        -:  167:
+        1:  168:	succes = Service->modify_med(Service, "Codrinol", "Teodorino", "1");
+        1:  168-block  0
+call    0 returned 1
+       1*:  169:	assert(succes == 1);
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  169-block  0
+call    2 never executed
+        1:  169-block  1
+       1*:  170:	assert(Service->Repo->find_with_name(Repo, "Teodorino") != NULL);
+        1:  170-block  0
+call    0 returned 1
+branch  1 taken 0 (fallthrough)
+branch  2 taken 1
+    %%%%%:  170-block  1
+call    3 never executed
+        1:  170-block  2
+       1*:  171:	assert(Service->Repo->find_with_name(Repo, "Teodorino")->concentration == 1);
+        1:  171-block  0
+call    0 returned 1
+branch  1 taken 0 (fallthrough)
+branch  2 taken 1
+    %%%%%:  171-block  1
+call    3 never executed
+        1:  171-block  2
+        -:  172:
+        1:  173:	Service->add_meds(Service, "Codrinol", "90", "1");
+        1:  173-block  0
+call    0 returned 1
+        1:  174:	Service->add_meds(Service, "Mirciulino", "90", "1");
+call    0 returned 1
+        -:  175:
+        1:  176:	succes = Service->modify_med(Service, "Mirciulino", "Aaaaa", "1");
+call    0 returned 1
+       1*:  177:	assert(succes == 1);
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  177-block  0
+call    2 never executed
+        1:  177-block  1
+        1:  178:	succes = Service->modify_med(Service, "Aaaaa", "Xxxxx", "1");
+        1:  178-block  0
+call    0 returned 1
+       1*:  179:	assert(succes == 1);
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  179-block  0
+call    2 never executed
+        1:  179-block  1
+        -:  180:
+        1:  181:	Service->Clear(Service);
+        1:  181-block  0
+call    0 returned 1
+        1:  182:}

@@ -1,0 +1,42 @@
+# Ignore all .idea files (JetBrains IDEs)
+.idea/workspace.xml
+.idea/cmake-build-debug/
+
+
+# Ignore CMake build directories
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+
+# Ignore compiled binary files
+*.exe
+*.out
+*.o
+*.obj
+
+# Ignore dependency libraries
+*.a
+*.lib
+*.so
+*.dll
+*.dylib
+
+# Ignore VSCode settings
+.vscode/
+
+# Ignore system files (macOS, Windows, Linux)
+.DS_Store
+Thumbs.db
+
+# Ignore log and temporary files
+*.log
+*.tmp
+*.swp
+*.swo
+
+#Python files
+__pycache__/
+*.pyc
+*.pyo
+

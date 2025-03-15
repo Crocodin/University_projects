@@ -11,7 +11,7 @@ void initialization_repo(repo* Repo) {
 	Repo->generate_id = generate_id;
 	Repo->clear = clear;
 	Repo->get_index_with_name = get_index_with_name;
-	Repo->remove_med_index = remove_med_index;
+	// Repo->remove_med_index = remove_med_index;
 	declare_repo(Repo);
 }
 
@@ -21,12 +21,11 @@ void declare_repo(repo* Repo) {
 	Repo->list = (meds_t**)malloc(Repo->size * sizeof(meds_t*));
 }
 
-repo* resize(repo* Repo) {
-	repo* NewRepo = (repo*)malloc(sizeof(repo));
-	NewRepo->size = Repo->size << 1;
-	NewRepo->number_of_meds = Repo->number_of_meds;
-	NewRepo->list = (meds_t**)realloc(Repo->list, NewRepo->size * sizeof(meds_t*));
-	return NewRepo;
+void resize(repo* Repo) {
+	Repo->size = Repo->size << 1;
+	meds_t** new_list = (meds_t**)realloc(Repo->list, Repo->size * sizeof(meds_t*));
+	if (new_list != NULL)
+		Repo->list = new_list;
 }
 
 void add_medicament(repo* Repo, meds_t* Med) {
@@ -84,8 +83,11 @@ int get_index_with_name(const repo* Repo, const char* name) {
 	return -1;
 }
 
-void remove_med_index(const repo* Repo, const int index) {
-	for (int i = index; i < Repo->number_of_meds - 1; i++) {
-		Repo->list[i] = Repo->list[i + 1];
-	}
-}
+// void remove_med_index(repo* Repo, const int index) {
+// 	free(Repo->list[index]->name);
+// 	free(Repo->list[index]);
+// 	for (int i = index; i < Repo->number_of_meds - 1; i++) {
+// 		Repo->list[i] = Repo->list[i + 1];
+// 	}
+// 	Repo->number_of_meds--;
+// }

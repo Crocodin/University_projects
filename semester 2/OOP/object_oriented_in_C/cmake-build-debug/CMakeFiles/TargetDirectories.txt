@@ -1,3 +1,0 @@
-C:/Users/codri/Documents/GitHub/University_projects/semester 2/OOP/object_oriented_in_C/cmake-build-debug/CMakeFiles/object_oriented_in_C.dir
-C:/Users/codri/Documents/GitHub/University_projects/semester 2/OOP/object_oriented_in_C/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/codri/Documents/GitHub/University_projects/semester 2/OOP/object_oriented_in_C/cmake-build-debug/CMakeFiles/rebuild_cache.dir

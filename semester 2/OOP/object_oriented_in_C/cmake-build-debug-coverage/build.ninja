@@ -39,7 +39,7 @@ include CMakeFiles/rules.ninja
 #############################################
 # Logical path to working directory; prefix for absolute paths.
 
-cmake_ninja_workdir = C$:/Users/codri/Documents/GitHub/University_projects/semester$ 2/OOP/object_oriented_in_C/cmake-build-debug/
+cmake_ninja_workdir = C$:/Users/codri/Documents/GitHub/University_projects/semester$ 2/OOP/object_oriented_in_C/cmake-build-debug-coverage/
 # =============================================================================
 # Object build statements for EXECUTABLE target object_oriented_in_C
 
@@ -51,7 +51,7 @@ build cmake_object_order_depends_target_object_oriented_in_C: phony || .
 
 build CMakeFiles/object_oriented_in_C.dir/main.c.obj: C_COMPILER__object_oriented_in_C_unscanned_Debug C$:/Users/codri/Documents/GitHub/University_projects/semester$ 2/OOP/object_oriented_in_C/main.c || cmake_object_order_depends_target_object_oriented_in_C
   DEP_FILE = CMakeFiles\object_oriented_in_C.dir\main.c.obj.d
-  FLAGS = -g -std=gnu11 -fdiagnostics-color=always
+  FLAGS = --coverage -g -std=gnu11 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\object_oriented_in_C.dir
   OBJECT_FILE_DIR = CMakeFiles\object_oriented_in_C.dir
   TARGET_COMPILE_PDB = CMakeFiles\object_oriented_in_C.dir\
@@ -59,7 +59,7 @@ build CMakeFiles/object_oriented_in_C.dir/main.c.obj: C_COMPILER__object_oriente
 
 build CMakeFiles/object_oriented_in_C.dir/domain/meds.c.obj: C_COMPILER__object_oriented_in_C_unscanned_Debug C$:/Users/codri/Documents/GitHub/University_projects/semester$ 2/OOP/object_oriented_in_C/domain/meds.c || cmake_object_order_depends_target_object_oriented_in_C
   DEP_FILE = CMakeFiles\object_oriented_in_C.dir\domain\meds.c.obj.d
-  FLAGS = -g -std=gnu11 -fdiagnostics-color=always
+  FLAGS = --coverage -g -std=gnu11 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\object_oriented_in_C.dir
   OBJECT_FILE_DIR = CMakeFiles\object_oriented_in_C.dir\domain
   TARGET_COMPILE_PDB = CMakeFiles\object_oriented_in_C.dir\
@@ -67,7 +67,7 @@ build CMakeFiles/object_oriented_in_C.dir/domain/meds.c.obj: C_COMPILER__object_
 
 build CMakeFiles/object_oriented_in_C.dir/repository/repo.c.obj: C_COMPILER__object_oriented_in_C_unscanned_Debug C$:/Users/codri/Documents/GitHub/University_projects/semester$ 2/OOP/object_oriented_in_C/repository/repo.c || cmake_object_order_depends_target_object_oriented_in_C
   DEP_FILE = CMakeFiles\object_oriented_in_C.dir\repository\repo.c.obj.d
-  FLAGS = -g -std=gnu11 -fdiagnostics-color=always
+  FLAGS = --coverage -g -std=gnu11 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\object_oriented_in_C.dir
   OBJECT_FILE_DIR = CMakeFiles\object_oriented_in_C.dir\repository
   TARGET_COMPILE_PDB = CMakeFiles\object_oriented_in_C.dir\
@@ -75,7 +75,7 @@ build CMakeFiles/object_oriented_in_C.dir/repository/repo.c.obj: C_COMPILER__obj
 
 build CMakeFiles/object_oriented_in_C.dir/service/service.c.obj: C_COMPILER__object_oriented_in_C_unscanned_Debug C$:/Users/codri/Documents/GitHub/University_projects/semester$ 2/OOP/object_oriented_in_C/service/service.c || cmake_object_order_depends_target_object_oriented_in_C
   DEP_FILE = CMakeFiles\object_oriented_in_C.dir\service\service.c.obj.d
-  FLAGS = -g -std=gnu11 -fdiagnostics-color=always
+  FLAGS = --coverage -g -std=gnu11 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\object_oriented_in_C.dir
   OBJECT_FILE_DIR = CMakeFiles\object_oriented_in_C.dir\service
   TARGET_COMPILE_PDB = CMakeFiles\object_oriented_in_C.dir\
@@ -83,7 +83,7 @@ build CMakeFiles/object_oriented_in_C.dir/service/service.c.obj: C_COMPILER__obj
 
 build CMakeFiles/object_oriented_in_C.dir/domain/validator.c.obj: C_COMPILER__object_oriented_in_C_unscanned_Debug C$:/Users/codri/Documents/GitHub/University_projects/semester$ 2/OOP/object_oriented_in_C/domain/validator.c || cmake_object_order_depends_target_object_oriented_in_C
   DEP_FILE = CMakeFiles\object_oriented_in_C.dir\domain\validator.c.obj.d
-  FLAGS = -g -std=gnu11 -fdiagnostics-color=always
+  FLAGS = --coverage -g -std=gnu11 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\object_oriented_in_C.dir
   OBJECT_FILE_DIR = CMakeFiles\object_oriented_in_C.dir\domain
   TARGET_COMPILE_PDB = CMakeFiles\object_oriented_in_C.dir\
@@ -91,7 +91,7 @@ build CMakeFiles/object_oriented_in_C.dir/domain/validator.c.obj: C_COMPILER__ob
 
 build CMakeFiles/object_oriented_in_C.dir/console/console.c.obj: C_COMPILER__object_oriented_in_C_unscanned_Debug C$:/Users/codri/Documents/GitHub/University_projects/semester$ 2/OOP/object_oriented_in_C/console/console.c || cmake_object_order_depends_target_object_oriented_in_C
   DEP_FILE = CMakeFiles\object_oriented_in_C.dir\console\console.c.obj.d
-  FLAGS = -g -std=gnu11 -fdiagnostics-color=always
+  FLAGS = --coverage -g -std=gnu11 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\object_oriented_in_C.dir
   OBJECT_FILE_DIR = CMakeFiles\object_oriented_in_C.dir\console
   TARGET_COMPILE_PDB = CMakeFiles\object_oriented_in_C.dir\
@@ -99,7 +99,7 @@ build CMakeFiles/object_oriented_in_C.dir/console/console.c.obj: C_COMPILER__obj
 
 build CMakeFiles/object_oriented_in_C.dir/test/test.c.obj: C_COMPILER__object_oriented_in_C_unscanned_Debug C$:/Users/codri/Documents/GitHub/University_projects/semester$ 2/OOP/object_oriented_in_C/test/test.c || cmake_object_order_depends_target_object_oriented_in_C
   DEP_FILE = CMakeFiles\object_oriented_in_C.dir\test\test.c.obj.d
-  FLAGS = -g -std=gnu11 -fdiagnostics-color=always
+  FLAGS = --coverage -g -std=gnu11 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\object_oriented_in_C.dir
   OBJECT_FILE_DIR = CMakeFiles\object_oriented_in_C.dir\test
   TARGET_COMPILE_PDB = CMakeFiles\object_oriented_in_C.dir\
@@ -114,7 +114,7 @@ build CMakeFiles/object_oriented_in_C.dir/test/test.c.obj: C_COMPILER__object_or
 # Link the executable object_oriented_in_C.exe
 
 build object_oriented_in_C.exe: C_EXECUTABLE_LINKER__object_oriented_in_C_Debug CMakeFiles/object_oriented_in_C.dir/main.c.obj CMakeFiles/object_oriented_in_C.dir/domain/meds.c.obj CMakeFiles/object_oriented_in_C.dir/repository/repo.c.obj CMakeFiles/object_oriented_in_C.dir/service/service.c.obj CMakeFiles/object_oriented_in_C.dir/domain/validator.c.obj CMakeFiles/object_oriented_in_C.dir/console/console.c.obj CMakeFiles/object_oriented_in_C.dir/test/test.c.obj
-  FLAGS = -g
+  FLAGS = --coverage -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\object_oriented_in_C.dir
   POST_BUILD = cd .
@@ -129,7 +129,7 @@ build object_oriented_in_C.exe: C_EXECUTABLE_LINKER__object_oriented_in_C_Debug 
 # Utility command for edit_cache
 
 build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D "C:\Users\codri\Documents\GitHub\University_projects\semester 2\OOP\object_oriented_in_C\cmake-build-debug" && "E:\Programs folder\CLion 2024.3.3\bin\cmake\win\x64\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
+  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D "C:\Users\codri\Documents\GitHub\University_projects\semester 2\OOP\object_oriented_in_C\cmake-build-debug-coverage" && "E:\Programs folder\CLion 2024.3.3\bin\cmake\win\x64\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
   DESC = No interactive CMake dialog available...
   restat = 1
 
@@ -140,7 +140,7 @@ build edit_cache: phony CMakeFiles/edit_cache.util
 # Utility command for rebuild_cache
 
 build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D "C:\Users\codri\Documents\GitHub\University_projects\semester 2\OOP\object_oriented_in_C\cmake-build-debug" && "E:\Programs folder\CLion 2024.3.3\bin\cmake\win\x64\bin\cmake.exe" --regenerate-during-build -S"C:\Users\codri\Documents\GitHub\University_projects\semester 2\OOP\object_oriented_in_C" -B"C:\Users\codri\Documents\GitHub\University_projects\semester 2\OOP\object_oriented_in_C\cmake-build-debug""
+  COMMAND = C:\Windows\system32\cmd.exe /C "cd /D "C:\Users\codri\Documents\GitHub\University_projects\semester 2\OOP\object_oriented_in_C\cmake-build-debug-coverage" && "E:\Programs folder\CLion 2024.3.3\bin\cmake\win\x64\bin\cmake.exe" --regenerate-during-build -S"C:\Users\codri\Documents\GitHub\University_projects\semester 2\OOP\object_oriented_in_C" -B"C:\Users\codri\Documents\GitHub\University_projects\semester 2\OOP\object_oriented_in_C\cmake-build-debug-coverage""
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -158,7 +158,7 @@ build object_oriented_in_C: phony object_oriented_in_C.exe
 # =============================================================================
 
 #############################################
-# Folder: C:/Users/codri/Documents/GitHub/University_projects/semester 2/OOP/object_oriented_in_C/cmake-build-debug
+# Folder: C:/Users/codri/Documents/GitHub/University_projects/semester 2/OOP/object_oriented_in_C/cmake-build-debug-coverage
 
 build all: phony object_oriented_in_C.exe
 

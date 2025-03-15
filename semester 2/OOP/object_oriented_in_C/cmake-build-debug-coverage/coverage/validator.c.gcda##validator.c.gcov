@@ -1,0 +1,53 @@
+        -:    0:Source:C:/Users/codri/Documents/GitHub/University_projects/semester 2/OOP/object_oriented_in_C/domain/validator.c
+        -:    0:Graph:C:\Users\codri\Documents\GitHub\University_projects\semester 2\OOP\object_oriented_in_C\cmake-build-debug-coverage\CMakeFiles\object_oriented_in_C.dir\domain\validator.c.gcno
+        -:    0:Data:C:\Users\codri\Documents\GitHub\University_projects\semester 2\OOP\object_oriented_in_C\cmake-build-debug-coverage\CMakeFiles\object_oriented_in_C.dir\domain\validator.c.gcda
+        -:    0:Runs:1
+        -:    1:#include "validator.h"
+        -:    2:
+function initialization_validator called 2 returned 100% blocks executed 100%
+        2:    3:void initialization_validator(validator* Valid) {
+        2:    4:	Valid->convert_char_to_int = convert_char_to_int;
+        2:    5:	Valid->valid_name = valid_name;
+        2:    6:	Valid->valid_number = valid_number;
+        2:    7:}
+        -:    8:
+function valid_name called 11 returned 100% blocks executed 100%
+       11:    9:_Bool valid_name(const char* name) {
+       11:   10:	return 1;
+       11:   10-block  0
+        -:   11:}
+        -:   12:
+function valid_number called 11 returned 100% blocks executed 100%
+       11:   13:_Bool valid_number(const char* number) {
+       29:   14:	for (unsigned int i = 0; number[i] != '\0'; ++i)
+       11:   14-block  0
+       18:   14-block  1
+       29:   14-block  2
+branch  0 taken 19
+branch  1 taken 10 (fallthrough)
+       19:   15:		if (!('0' <= number[i] && number[i] <= '9'))
+       19:   15-block  0
+branch  0 taken 19 (fallthrough)
+branch  1 taken 0
+       19:   15-block  1
+branch  2 taken 1 (fallthrough)
+branch  3 taken 18
+        1:   16:			return 0;
+        1:   16-block  0
+       10:   17:	return 1;
+       10:   17-block  0
+        -:   18:}
+        -:   19:
+function convert_char_to_int called 10 returned 100% blocks executed 100%
+       10:   20:int convert_char_to_int(const char* string) {
+       10:   21:	int result = 0;
+       26:   22:	for (unsigned int i = 0; string[i] != '\0'; ++i)
+       10:   22-block  0
+       26:   22-block  1
+branch  0 taken 16
+branch  1 taken 10 (fallthrough)
+       16:   23:		result = result * 10 + (string[i] - '0');
+       16:   23-block  0
+       10:   24:	return result;
+       10:   24-block  0
+        -:   25:}
