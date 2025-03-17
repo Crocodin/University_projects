@@ -13,8 +13,6 @@ Colectie::Colectie() {
 
 
 void Colectie::adauga(TElem elem) {
-	if (elem == NULL_TELEM) throw std::runtime_error("Can't add NULL element");
-
 	if (this->distinct_current_size == this->distinct_max_size) {
 		// reallocation for double size
 		this->distinct_max_size = this->distinct_max_size << 1;
@@ -52,8 +50,6 @@ void Colectie::adauga(TElem elem) {
 
 
 bool Colectie::sterge(TElem elem) {
-	if (elem == NULL_TELEM) return false;
-
 	int index_TElem = -1;
 	for (int i = 0; i < this->distinct_current_size and index_TElem == -1; i++)
 		if (this->distinct[i] == elem)
@@ -61,7 +57,7 @@ bool Colectie::sterge(TElem elem) {
 	if (index_TElem == -1) return false;
 
 	bool eliminated = false, there_are_more = false;
-	for (int i = this->position_current_size; i > -1 and !there_are_more; -- i)
+	for (int i = this->position_current_size - 1; i > -1 and !there_are_more; -- i)
 		if (this->position[i] == index_TElem) {
 			// now we shift all the elements down
 			if (!eliminated) {
@@ -77,19 +73,21 @@ bool Colectie::sterge(TElem elem) {
 	if (!eliminated) return false;
 	if (there_are_more) return true;
 	// deleting the TElem from distinct
-	while (index_TElem < this->distinct_current_size - 1)
-		this->distinct[index_TElem] = this->distinct[index_TElem++];
+	int aux = index_TElem;
+	while (index_TElem < this->distinct_current_size - 1) {
+		this->distinct[index_TElem] = this->distinct[index_TElem + 1];
+		index_TElem++;
+	}
 	this->distinct_current_size--;
 
 	for (int i = 0; i < this->position_current_size; i++)
-		if (this->position[i] > index_TElem)
+		if (this->position[i] > aux)
 			this->position[i]--;
 	return true;
 }
 
 
 bool Colectie::cauta(TElem elem) const {
-	if (elem == NULL_TELEM) return false;
 
 	for (int i = 0; i < this->distinct_current_size; i++)
 		if (this->distinct[i] == elem)
@@ -99,7 +97,6 @@ bool Colectie::cauta(TElem elem) const {
 }
 
 int Colectie::nrAparitii(TElem elem) const {
-	if (elem == NULL_TELEM) return 0;
 
 	int index_TElem = -1;
 	for (int i = 0; i < this->distinct_current_size and index_TElem == -1; i++)

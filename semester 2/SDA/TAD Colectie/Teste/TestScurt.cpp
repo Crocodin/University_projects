@@ -1,5 +1,8 @@
 #include "TestScurt.h"
 #include <assert.h>
+#include <iostream>
+#include <ostream>
+
 #include "Colectie.h"
 #include "IteratorColectie.h"
 

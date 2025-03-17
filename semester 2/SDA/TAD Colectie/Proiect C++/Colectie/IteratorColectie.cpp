@@ -1,29 +1,34 @@
 #include "IteratorColectie.h"
+
+#include <stdexcept>
+
 #include "Colectie.h"
 
 
 IteratorColectie::IteratorColectie(const Colectie& c): col(c) {
-	/* de adaugat */
+	this->position = 0;
 }
 
 void IteratorColectie::prim() {
-	/* de adaugat */
+	this->position = 0;
 }
 
 
 void IteratorColectie::urmator() {
-	/* de adaugat */
+	if (!this->valid()) throw std::runtime_error("Invalid call of IteratorColectie::urmator()");
+	this->position++;
 }
 
 
 bool IteratorColectie::valid() const {
-	/* de adaugat */
+	if (this->position < this->col.position_current_size or this->position < 0)
+		return true;
 	return false;
 }
 
 
 
 TElem IteratorColectie::element() const {
-	/* de adaugat */
-	return -1;
+	if (!this->valid()) throw std::out_of_range("Invalid iterator, out of range");
+	return this->col.distinct[this->col.position[this->position]];
 }
