@@ -146,6 +146,7 @@ void testSterge() {
 			assert(c.sterge(i) == true);
 			assert(c.sterge(i) == true);
 			assert(c.sterge(i) == false);
+			assert(c.sterge(i) == false);
 		}
 	}	
 	assert(c.dim() == 0);
@@ -175,7 +176,6 @@ void testSterge() {
 		}
 	}
 	assert(c.dim() == 342);
-
  }
 
 
