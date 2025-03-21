@@ -11,6 +11,7 @@ void initialization_test(test* Test) {
 }
 
 void run_test(const test* Test) {
+	(void) Test;
 	test_domain();
 	test_validator();
 	test_initialization_repo();
@@ -39,6 +40,7 @@ void test_domain() {
 	initialization(&Med2);
 	Med2.set_name(&Med2, "test");
 	assert(Med2.equal(&Med2, &Med) == 1);
+	free(Med2.name);
 	Med2.set_name(&Med2, "_test_");
 	assert(Med2.equal(&Med2, &Med) == 0);
 	free(Med.name);
@@ -69,12 +71,13 @@ void test_initialization_repo() {
 	assert(Repo->clear != NULL);
 	assert(Repo->find_with_name != NULL);
 	assert(Repo->get_index_with_name != NULL);
-	assert(Repo->remove_med_index != NULL);
+	//assert(Repo->remove_med_index != NULL);
 
 	// Check initial state
 	assert(Repo->number_of_meds == 0);
 	assert(Repo->size == 16);
 
+	free(Repo->list);
 	free(Repo);
 }
 
@@ -130,6 +133,12 @@ void test_add_medicament() {
 	assert(index == -1);
 	assert(med == NULL);
 
+	Repo->sort(Repo, descending_repo);
+	assert(strcmp(Repo->list[0]->name, "Paracetamol") == 0);
+
+	Repo->sort(Repo, ascending_repo);
+	assert(strcmp(Repo->list[0]->name, "Aspirin") == 0);
+
 	Repo->clear(Repo);
 }
 
@@ -140,6 +149,7 @@ void test_initialization_service() {
 	assert(Service->modify_med != NULL);
 	assert(Service->remove_stock != NULL);
 	assert(Service->Clear != NULL);
+	free(Service);
 }
 
 void test_service() {

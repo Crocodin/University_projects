@@ -76,157 +76,186 @@ call    0 never executed
     #####:   36:	scanf("%1s", input); getchar();
 call    0 never executed
 call    1 never executed
-    #####:   37:	if (input[0] == '1') {
+    #####:   37:	if (input[0] == '0') {
 branch  0 never executed (fallthrough)
 branch  1 never executed
-    #####:   38:		printf("\n------------------// meds \\\\------------------\n");
+    #####:   38:		Console->Service->Repo->sort(Console->Service->Repo, descending_repo);
     %%%%%:   38-block  0
 call    0 never executed
-    #####:   39:		for (unsigned int i = Console->Service->Repo->number_of_meds; i > 0; -- i) {
-    %%%%%:   39-block  0
-    %%%%%:   39-block  1
+    #####:   39:		printf("\n------------------// meds \\\\------------------\n");
+call    0 never executed
+    #####:   40:		for (unsigned int i = Console->Service->Repo->number_of_meds; i > 0; -- i) {
+    %%%%%:   40-block  0
+    %%%%%:   40-block  1
 branch  0 never executed
 branch  1 never executed (fallthrough)
-    #####:   40:			const meds_t* Med = Console->Service->Repo->list[i - 1];
-    #####:   41:			if (Console->stock_filter <= Med->quantity &&
-    %%%%%:   41-block  0
-branch  0 never executed (fallthrough)
-branch  1 never executed
-    #####:   42:				(Console->letter_filter == Med->name[0] || Console->letter_filter == '\0'))
-    %%%%%:   42-block  0
-branch  0 never executed (fallthrough)
-branch  1 never executed
-    %%%%%:   42-block  1
-branch  2 never executed (fallthrough)
-branch  3 never executed
-    #####:   43:				printf("ID %d: %s - %d%%, stock %d\n", Med->id, Med->name, Med->concentration, Med->quantity);
+    #####:   41:			const meds_t* Med = Console->Service->Repo->list[i - 1];
+        -:   42:			// here we test for the filter
+    #####:   43:			if (Console->stock_filter <= Med->quantity &&
     %%%%%:   43-block  0
-call    0 never executed
-        -:   44:		}
-    #####:   45:		return;
-    %%%%%:   45-block  0
-        -:   46:	}
-    #####:   47:	printf("\n------------------// meds \\\\------------------\n");
-    %%%%%:   47-block  0
-call    0 never executed
-    #####:   48:	for (unsigned int i = 0; i < Console->Service->Repo->number_of_meds; i++) {
-    %%%%%:   48-block  0
-    %%%%%:   48-block  1
-branch  0 never executed
-branch  1 never executed (fallthrough)
-    #####:   49:		const meds_t* Med = Console->Service->Repo->list[i];
-    #####:   50:		if (Console->stock_filter <= Med->quantity &&
-    %%%%%:   50-block  0
 branch  0 never executed (fallthrough)
 branch  1 never executed
-    #####:   51:			(Console->letter_filter == Med->name[0] || Console->letter_filter == '\0'))
-    %%%%%:   51-block  0
+    #####:   44:				(Console->letter_filter == Med->name[0] || Console->letter_filter == '\0'))
+    %%%%%:   44-block  0
 branch  0 never executed (fallthrough)
 branch  1 never executed
-    %%%%%:   51-block  1
+    %%%%%:   44-block  1
 branch  2 never executed (fallthrough)
 branch  3 never executed
-    #####:   52:			printf("ID %d: %s - %d%%, stock %d\n", Med->id, Med->name, Med->concentration, Med->quantity);
-    %%%%%:   52-block  0
+    #####:   45:				printf("ID %d: %s - %d%%, stock %d\n", Med->id, Med->name, Med->concentration, Med->quantity);
+    %%%%%:   45-block  0
 call    0 never executed
-        -:   53:	}
-    #####:   54:	printf("\n");
-    %%%%%:   54-block  0
+        -:   46:		}
+        -:   47:		// the repo needs to be sorted back because when adding an elem it's already sorted using insertion sort
+    #####:   48:		Console->Service->Repo->sort(Console->Service->Repo, ascending_repo);
+    %%%%%:   48-block  0
 call    0 never executed
-        -:   55:}
-        -:   56:
-function modify called 0 returned 0% blocks executed 0%
-    #####:   57:static void modify(this) {
-        -:   58:	char current_name[20], new_name[20], new_concentration[10];
-    #####:   59:	printf("Enter the current name: ");
-    %%%%%:   59-block  0
-call    0 never executed
-    #####:   60:	scanf("%20s", current_name); getchar();
-call    0 never executed
-call    1 never executed
-    #####:   61:	printf("Enter the new name: ");
-call    0 never executed
-    #####:   62:	scanf("%20s", new_name); getchar();
-call    0 never executed
-call    1 never executed
-    #####:   63:	printf("Enter the new concentration: ");
-call    0 never executed
-    #####:   64:	scanf("%10s", new_concentration); getchar();
-call    0 never executed
-call    1 never executed
-        -:   65:
-    #####:   66:	if (!Console->Service->modify_med(Console->Service, current_name, new_name, new_concentration))
-call    0 never executed
-branch  1 never executed (fallthrough)
-branch  2 never executed
-    #####:   67:		printf("Something went wrong when modifying the medication\n");
-    %%%%%:   67-block  0
-call    0 never executed
-    #####:   68:}
-        -:   69:
-function add_element called 0 returned 0% blocks executed 0%
-    #####:   70:static void add_element(this) {
-        -:   71:	char name[20], concentration[10], quantity[10];
-    #####:   72:	printf("Enter the name of the medicament: ");
-    %%%%%:   72-block  0
-call    0 never executed
-    #####:   73:	scanf("%20s", name); getchar();
-call    0 never executed
-call    1 never executed
-    #####:   74:	printf("Enter the concentration: ");
-call    0 never executed
-    #####:   75:	scanf("%10s", concentration); getchar();
-call    0 never executed
-call    1 never executed
-    #####:   76:	printf("Enter the quantity: ");
-call    0 never executed
-    #####:   77:	scanf("%10s", quantity); getchar();
-call    0 never executed
-call    1 never executed
-        -:   78:
-    #####:   79:	if (!Console->Service->add_meds(Console->Service, name, concentration, quantity))
-call    0 never executed
-branch  1 never executed (fallthrough)
-branch  2 never executed
-    #####:   80:		printf("Something went wrong when adding the medication\n");
-    %%%%%:   80-block  0
-call    0 never executed
-    #####:   81:}
-        -:   82:
-function run called 0 returned 0% blocks executed 0%
-    #####:   83:void run(console* restrict Console) {
-        -:   84:	// initialization
-    #####:   85:	Console->filter = filter;
-    #####:   86:	Console->stock_filter = 0;
-    #####:   87:	Console->letter_filter = '\0';
-        -:   88:
-        -:   89:	// run app
-    #####:   90:	_Bool IsRunning = 1;
-    #####:   91:	while (IsRunning) {
-    %%%%%:   91-block  0
-    %%%%%:   91-block  1
+        -:   49:	}
+        -:   50:	else { // the repo is already sorted
+    #####:   51:		for (unsigned int i = 0; i < Console->Service->Repo->number_of_meds; i++) {
+    %%%%%:   51-block  0
+    %%%%%:   51-block  1
+    %%%%%:   51-block  2
 branch  0 never executed
 branch  1 never executed (fallthrough)
-        -:   92:		char input[2];
-    #####:   93:		printf("------------------// menu \\\\------------------\n");
-    %%%%%:   93-block  0
+    #####:   52:			const meds_t* Med = Console->Service->Repo->list[i];
+    #####:   53:			if (Console->stock_filter <= Med->quantity &&
+    %%%%%:   53-block  0
+branch  0 never executed (fallthrough)
+branch  1 never executed
+    #####:   54:				(Console->letter_filter == Med->name[0] || Console->letter_filter == '\0'))
+    %%%%%:   54-block  0
+branch  0 never executed (fallthrough)
+branch  1 never executed
+    %%%%%:   54-block  1
+branch  2 never executed (fallthrough)
+branch  3 never executed
+    #####:   55:				printf("ID %d: %s - %d%%, stock %d\n", Med->id, Med->name, Med->concentration, Med->quantity);
+    %%%%%:   55-block  0
 call    0 never executed
-    #####:   94:		printf("1. Add medication\n");
+        -:   56:		}
+        -:   57:	}
+    #####:   58:	printf("\n");
+    %%%%%:   58-block  0
 call    0 never executed
-    #####:   95:		printf("2. Modify concentration and name\n");
+    #####:   59:}
+        -:   60:
+        -:   61:// static void display(this) {
+        -:   62:// 	char input[2];
+        -:   63:// 	printf("Ascending (0) or descending (1)?\n");
+        -:   64:// 	scanf("%1s", input); getchar();
+        -:   65:// 	if (input[0] == '1') {
+        -:   66:// 		printf("\n------------------// meds \\\\------------------\n");
+        -:   67:// 		for (unsigned int i = Console->Service->Repo->number_of_meds; i > 0; -- i) {
+        -:   68:// 			const meds_t* Med = Console->Service->Repo->list[i - 1];
+        -:   69:// 			if (Console->stock_filter <= Med->quantity &&
+        -:   70:// 				(Console->letter_filter == Med->name[0] || Console->letter_filter == '\0'))
+        -:   71:// 				printf("ID %d: %s - %d%%, stock %d\n", Med->id, Med->name, Med->concentration, Med->quantity);
+        -:   72:// 		}
+        -:   73:// 		return;
+        -:   74:// 	}
+        -:   75:// 	printf("\n------------------// meds \\\\------------------\n");
+        -:   76:// 	for (unsigned int i = 0; i < Console->Service->Repo->number_of_meds; i++) {
+        -:   77:// 		const meds_t* Med = Console->Service->Repo->list[i];
+        -:   78:// 		if (Console->stock_filter <= Med->quantity &&
+        -:   79:// 			(Console->letter_filter == Med->name[0] || Console->letter_filter == '\0'))
+        -:   80:// 			printf("ID %d: %s - %d%%, stock %d\n", Med->id, Med->name, Med->concentration, Med->quantity);
+        -:   81:// 	}
+        -:   82:// 	printf("\n");
+        -:   83:// }
+        -:   84:
+function modify called 0 returned 0% blocks executed 0%
+    #####:   85:static void modify(this) {
+        -:   86:	char current_name[20], new_name[20], new_concentration[10];
+    #####:   87:	printf("Enter the current name: ");
+    %%%%%:   87-block  0
 call    0 never executed
-    #####:   96:		printf("3. Delete stock from one med\n");
-call    0 never executed
-    #####:   97:		printf("4. Display all meds\n");
-call    0 never executed
-    #####:   98:		printf("5. Filter\n");
-call    0 never executed
-    #####:   99:		printf("E. Exit\n");
-call    0 never executed
-    #####:  100:		scanf("%1s", input); getchar();
+    #####:   88:	scanf("%20s", current_name); getchar();
 call    0 never executed
 call    1 never executed
-    #####:  101:		switch (input[0]) {
+    #####:   89:	printf("Enter the new name: ");
+call    0 never executed
+    #####:   90:	scanf("%20s", new_name); getchar();
+call    0 never executed
+call    1 never executed
+    #####:   91:	printf("Enter the new concentration: ");
+call    0 never executed
+    #####:   92:	scanf("%10s", new_concentration); getchar();
+call    0 never executed
+call    1 never executed
+        -:   93:
+    #####:   94:	if (!Console->Service->modify_med(Console->Service, current_name, new_name, new_concentration))
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed
+    #####:   95:		printf("Something went wrong when modifying the medication\n");
+    %%%%%:   95-block  0
+call    0 never executed
+    #####:   96:}
+        -:   97:
+function add_element called 0 returned 0% blocks executed 0%
+    #####:   98:static void add_element(this) {
+        -:   99:	char name[20], concentration[10], quantity[10];
+    #####:  100:	printf("Enter the name of the medicament: ");
+    %%%%%:  100-block  0
+call    0 never executed
+    #####:  101:	scanf("%20s", name); getchar();
+call    0 never executed
+call    1 never executed
+    #####:  102:	printf("Enter the concentration: ");
+call    0 never executed
+    #####:  103:	scanf("%10s", concentration); getchar();
+call    0 never executed
+call    1 never executed
+    #####:  104:	printf("Enter the quantity: ");
+call    0 never executed
+    #####:  105:	scanf("%10s", quantity); getchar();
+call    0 never executed
+call    1 never executed
+        -:  106:
+    #####:  107:	if (!Console->Service->add_meds(Console->Service, name, concentration, quantity))
+call    0 never executed
+branch  1 never executed (fallthrough)
+branch  2 never executed
+    #####:  108:		printf("Something went wrong when adding the medication\n");
+    %%%%%:  108-block  0
+call    0 never executed
+    #####:  109:}
+        -:  110:
+function run called 0 returned 0% blocks executed 0%
+    #####:  111:void run(console* restrict Console) {
+        -:  112:	// initialization
+    #####:  113:	Console->filter = filter;
+    #####:  114:	Console->stock_filter = 0;
+    #####:  115:	Console->letter_filter = '\0';
+        -:  116:
+        -:  117:	// run app
+    #####:  118:	_Bool IsRunning = 1;
+    #####:  119:	while (IsRunning) {
+    %%%%%:  119-block  0
+    %%%%%:  119-block  1
+branch  0 never executed
+branch  1 never executed (fallthrough)
+        -:  120:		char input[2];
+    #####:  121:		printf("------------------// menu \\\\------------------\n");
+    %%%%%:  121-block  0
+call    0 never executed
+    #####:  122:		printf("1. Add medication\n");
+call    0 never executed
+    #####:  123:		printf("2. Modify concentration and name\n");
+call    0 never executed
+    #####:  124:		printf("3. Delete stock from one med\n");
+call    0 never executed
+    #####:  125:		printf("4. Display all meds\n");
+call    0 never executed
+    #####:  126:		printf("5. Filter\n");
+call    0 never executed
+    #####:  127:		printf("E. Exit\n");
+call    0 never executed
+    #####:  128:		scanf("%1s", input); getchar();
+call    0 never executed
+call    1 never executed
+    #####:  129:		switch (input[0]) {
 branch  0 never executed
 branch  1 never executed
 branch  2 never executed
@@ -234,45 +263,45 @@ branch  3 never executed
 branch  4 never executed
 branch  5 never executed
 branch  6 never executed
-    #####:  102:			case '1':
-    #####:  103:				add_element(Console);
-    %%%%%:  103-block  0
+    #####:  130:			case '1':
+    #####:  131:				add_element(Console);
+    %%%%%:  131-block  0
 call    0 never executed
-    #####:  104:				break;
-    #####:  105:			case '2':
-    #####:  106:				modify(Console);
-    %%%%%:  106-block  0
+    #####:  132:				break;
+    #####:  133:			case '2':
+    #####:  134:				modify(Console);
+    %%%%%:  134-block  0
 call    0 never executed
-    #####:  107:				break;
-    #####:  108:			case '3':
-    #####:  109:				delete_stock(Console);
-    %%%%%:  109-block  0
+    #####:  135:				break;
+    #####:  136:			case '3':
+    #####:  137:				delete_stock(Console);
+    %%%%%:  137-block  0
 call    0 never executed
-    #####:  110:				break;
-    #####:  111:			case '4':
-    #####:  112:				display(Console);
-    %%%%%:  112-block  0
+    #####:  138:				break;
+    #####:  139:			case '4':
+    #####:  140:				display(Console);
+    %%%%%:  140-block  0
 call    0 never executed
-    #####:  113:				break;
-    #####:  114:			case '5':
-    #####:  115:				Console->filter(Console);
-    %%%%%:  115-block  0
+    #####:  141:				break;
+    #####:  142:			case '5':
+    #####:  143:				Console->filter(Console);
+    %%%%%:  143-block  0
 call    0 never executed
-    #####:  116:				break;
-    #####:  117:			case 'E':
-        -:  118:			case 'e': // exit the program case
-    #####:  119:				IsRunning = 0;
-    #####:  120:				break;
-    %%%%%:  120-block  0
-    #####:  121:			default:
-    #####:  122:				printf("Invalid input\n");
-    %%%%%:  122-block  0
+    #####:  144:				break;
+    #####:  145:			case 'E':
+        -:  146:			case 'e': // exit the program case
+    #####:  147:				IsRunning = 0;
+    #####:  148:				break;
+    %%%%%:  148-block  0
+    #####:  149:			default:
+    #####:  150:				printf("Invalid input\n");
+    %%%%%:  150-block  0
 call    0 never executed
-    #####:  123:				break;
-        -:  124:		}
-        -:  125:	}
-    #####:  126:	free(Console->Service->Validator);
-    #####:  127:	Console->Service->Clear(Console->Service);
-    %%%%%:  127-block  0
+    #####:  151:				break;
+        -:  152:		}
+        -:  153:	}
+    #####:  154:	free(Console->Service->Validator);
+    #####:  155:	Console->Service->Clear(Console->Service);
+    %%%%%:  155-block  0
 call    0 never executed
-    #####:  128:}
+    #####:  156:}

@@ -3,6 +3,8 @@ project(object_oriented_in_C C)
 
 set(CMAKE_C_STANDARD 11)
 
+set(CMAKE_C_FLAGS "-Wall -Wextra")
+
 add_executable(object_oriented_in_C main.c
         domain/meds.c
         domain/meds.h

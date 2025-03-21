@@ -7,6 +7,7 @@ void initialization(meds_t* Med) {
 	Med->change_quantity = change_quantity;
 	Med->equal = equal;
 	Med->set_name = set_name;
+	Med->name = NULL;
 }
 
 void change_quantity(meds_t* Med, const int number) {
