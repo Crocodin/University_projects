@@ -19,7 +19,7 @@ This repository houses all of the projects I've completed for university up to t
 > 📏 Geometry <br>
 > :100:Dynamic Systems <br>
 > :world_map:Graph Algorithms <br>
-> :computer:[Data Structures and Algorithms](semester%202/ASC) <br>
-> :mag_right:Object-Oriented Programming <br>
+> :computer:[Data Structures and Algorithms](semester%202/SDA) <br>
+> :mag_right:[Object-Oriented Programming](semester%202/OOP) <br>
 > 🐧 Operating Systems <br>
 > 🧠 DPPD - Pedagogy I
