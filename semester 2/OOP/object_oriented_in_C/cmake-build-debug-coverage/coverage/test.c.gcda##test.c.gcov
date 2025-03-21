@@ -270,7 +270,7 @@ call    2 never executed
         1:   78:	free(Repo);
         1:   79:}
         -:   80:
-function test_add_medicament called 1 returned 100% blocks executed 83%
+function test_add_medicament called 1 returned 100% blocks executed 81%
         1:   81:void test_add_medicament() {
         1:   82:	repo *Repo = (repo*)malloc(sizeof(repo));
         1:   83:	initialization_repo(Repo);
@@ -391,152 +391,172 @@ branch  1 taken 1
 call    2 never executed
         1:  131-block  2
         -:  132:
-        1:  133:	Repo->clear(Repo);
+        1:  133:	Repo->sort(Repo, descending_repo);
         1:  133-block  0
 call    0 returned 1
-        1:  134:}
+       1*:  134:	assert(strcmp(Repo->list[0]->name, "Paracetamol") == 0);
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  134-block  0
+call    2 never executed
+        1:  134-block  1
         -:  135:
+        1:  136:	Repo->sort(Repo, ascending_repo);
+        1:  136-block  0
+call    0 returned 1
+       1*:  137:	assert(strcmp(Repo->list[0]->name, "Aspirin") == 0);
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  137-block  0
+call    2 never executed
+        1:  137-block  1
+        -:  138:
+        1:  139:	Repo->clear(Repo);
+        1:  139-block  0
+call    0 returned 1
+        1:  140:}
+        -:  141:
 function test_initialization_service called 1 returned 100% blocks executed 71%
-        1:  136:void test_initialization_service() {
-        1:  137:	service* Service = (service*)malloc(sizeof(service));
-        1:  138:	initialization_service(Service);
-        1:  138-block  0
+        1:  142:void test_initialization_service() {
+        1:  143:	service* Service = (service*)malloc(sizeof(service));
+        1:  144:	initialization_service(Service);
+        1:  144-block  0
 call    0 returned 1
-       1*:  139:	assert(Service->add_meds != NULL);
+       1*:  145:	assert(Service->add_meds != NULL);
 branch  0 taken 0 (fallthrough)
 branch  1 taken 1
-    %%%%%:  139-block  0
+    %%%%%:  145-block  0
 call    2 never executed
-        1:  139-block  1
-       1*:  140:	assert(Service->modify_med != NULL);
-        1:  140-block  0
+        1:  145-block  1
+       1*:  146:	assert(Service->modify_med != NULL);
+        1:  146-block  0
 branch  0 taken 0 (fallthrough)
 branch  1 taken 1
-    %%%%%:  140-block  1
+    %%%%%:  146-block  1
 call    2 never executed
-        1:  140-block  2
-       1*:  141:	assert(Service->remove_stock != NULL);
-        1:  141-block  0
+        1:  146-block  2
+       1*:  147:	assert(Service->remove_stock != NULL);
+        1:  147-block  0
 branch  0 taken 0 (fallthrough)
 branch  1 taken 1
-    %%%%%:  141-block  1
+    %%%%%:  147-block  1
 call    2 never executed
-        1:  141-block  2
-       1*:  142:	assert(Service->Clear != NULL);
-        1:  142-block  0
+        1:  147-block  2
+       1*:  148:	assert(Service->Clear != NULL);
+        1:  148-block  0
 branch  0 taken 0 (fallthrough)
 branch  1 taken 1
-    %%%%%:  142-block  1
+    %%%%%:  148-block  1
 call    2 never executed
-        1:  142-block  2
-        1:  143:}
-        -:  144:
-function test_service called 1 returned 100% blocks executed 79%
-        1:  145:void test_service() {
-        1:  146:	_Bool succes = 0;
-        -:  147:
-        1:  148:	validator* Validator = (validator*)malloc(sizeof(validator));
-        1:  149:	initialization_validator(Validator);
-        1:  149-block  0
-call    0 returned 1
+        1:  148-block  2
+        1:  149:}
         -:  150:
-        1:  151:	repo* Repo = (repo*)malloc(sizeof(repo));
-        1:  152:	initialization_repo(Repo);
-call    0 returned 1
+function test_service called 1 returned 100% blocks executed 79%
+        1:  151:void test_service() {
+        1:  152:	_Bool succes = 0;
         -:  153:
-        1:  154:	service* Service = (service*)malloc(sizeof(service));
-        1:  155:	initialization_service(Service);
+        1:  154:	validator* Validator = (validator*)malloc(sizeof(validator));
+        1:  155:	initialization_validator(Validator);
+        1:  155-block  0
 call    0 returned 1
         -:  156:
-        1:  157:	Service->Repo = Repo;
-        1:  158:	Service->Validator = Validator;
+        1:  157:	repo* Repo = (repo*)malloc(sizeof(repo));
+        1:  158:	initialization_repo(Repo);
+call    0 returned 1
         -:  159:
-        1:  160:	succes = Service->add_meds(Service, "Codrinol", "90", "1");
+        1:  160:	service* Service = (service*)malloc(sizeof(service));
+        1:  161:	initialization_service(Service);
 call    0 returned 1
-       1*:  161:	assert(succes == 1);
+        -:  162:
+        1:  163:	Service->Repo = Repo;
+        1:  164:	Service->Validator = Validator;
+        -:  165:
+        1:  166:	succes = Service->add_meds(Service, "Codrinol", "90", "1");
+call    0 returned 1
+       1*:  167:	assert(succes == 1);
 branch  0 taken 0 (fallthrough)
 branch  1 taken 1
-    %%%%%:  161-block  0
+    %%%%%:  167-block  0
 call    2 never executed
-        1:  161-block  1
-       1*:  162:	assert(Service->Repo->find_with_name(Service->Repo, "Codrinol") != NULL);
-        1:  162-block  0
-call    0 returned 1
-branch  1 taken 0 (fallthrough)
-branch  2 taken 1
-    %%%%%:  162-block  1
-call    3 never executed
-        1:  162-block  2
-        -:  163:
-        1:  164:	succes = Service->remove_stock(Service, "Codrinol");
-        1:  164-block  0
-call    0 returned 1
-       1*:  165:	assert(succes == 1);
-branch  0 taken 0 (fallthrough)
-branch  1 taken 1
-    %%%%%:  165-block  0
-call    2 never executed
-        1:  165-block  1
-       1*:  166:	assert(Service->Repo->find_with_name(Service->Repo, "Codrinol")->quantity == 0);
-        1:  166-block  0
-call    0 returned 1
-branch  1 taken 0 (fallthrough)
-branch  2 taken 1
-    %%%%%:  166-block  1
-call    3 never executed
-        1:  166-block  2
-        -:  167:
-        1:  168:	succes = Service->modify_med(Service, "Codrinol", "Teodorino", "1");
+        1:  167-block  1
+       1*:  168:	assert(Service->Repo->find_with_name(Service->Repo, "Codrinol") != NULL);
         1:  168-block  0
 call    0 returned 1
-       1*:  169:	assert(succes == 1);
-branch  0 taken 0 (fallthrough)
-branch  1 taken 1
-    %%%%%:  169-block  0
-call    2 never executed
-        1:  169-block  1
-       1*:  170:	assert(Service->Repo->find_with_name(Repo, "Teodorino") != NULL);
+branch  1 taken 0 (fallthrough)
+branch  2 taken 1
+    %%%%%:  168-block  1
+call    3 never executed
+        1:  168-block  2
+        -:  169:
+        1:  170:	succes = Service->remove_stock(Service, "Codrinol");
         1:  170-block  0
 call    0 returned 1
-branch  1 taken 0 (fallthrough)
-branch  2 taken 1
-    %%%%%:  170-block  1
-call    3 never executed
-        1:  170-block  2
-       1*:  171:	assert(Service->Repo->find_with_name(Repo, "Teodorino")->concentration == 1);
-        1:  171-block  0
-call    0 returned 1
-branch  1 taken 0 (fallthrough)
-branch  2 taken 1
-    %%%%%:  171-block  1
-call    3 never executed
-        1:  171-block  2
-        -:  172:
-        1:  173:	Service->add_meds(Service, "Codrinol", "90", "1");
-        1:  173-block  0
-call    0 returned 1
-        1:  174:	Service->add_meds(Service, "Mirciulino", "90", "1");
-call    0 returned 1
-        -:  175:
-        1:  176:	succes = Service->modify_med(Service, "Mirciulino", "Aaaaa", "1");
-call    0 returned 1
-       1*:  177:	assert(succes == 1);
+       1*:  171:	assert(succes == 1);
 branch  0 taken 0 (fallthrough)
 branch  1 taken 1
-    %%%%%:  177-block  0
+    %%%%%:  171-block  0
 call    2 never executed
-        1:  177-block  1
-        1:  178:	succes = Service->modify_med(Service, "Aaaaa", "Xxxxx", "1");
-        1:  178-block  0
+        1:  171-block  1
+       1*:  172:	assert(Service->Repo->find_with_name(Service->Repo, "Codrinol")->quantity == 0);
+        1:  172-block  0
 call    0 returned 1
-       1*:  179:	assert(succes == 1);
+branch  1 taken 0 (fallthrough)
+branch  2 taken 1
+    %%%%%:  172-block  1
+call    3 never executed
+        1:  172-block  2
+        -:  173:
+        1:  174:	succes = Service->modify_med(Service, "Codrinol", "Teodorino", "1");
+        1:  174-block  0
+call    0 returned 1
+       1*:  175:	assert(succes == 1);
 branch  0 taken 0 (fallthrough)
 branch  1 taken 1
-    %%%%%:  179-block  0
+    %%%%%:  175-block  0
 call    2 never executed
-        1:  179-block  1
-        -:  180:
-        1:  181:	Service->Clear(Service);
-        1:  181-block  0
+        1:  175-block  1
+       1*:  176:	assert(Service->Repo->find_with_name(Repo, "Teodorino") != NULL);
+        1:  176-block  0
 call    0 returned 1
-        1:  182:}
+branch  1 taken 0 (fallthrough)
+branch  2 taken 1
+    %%%%%:  176-block  1
+call    3 never executed
+        1:  176-block  2
+       1*:  177:	assert(Service->Repo->find_with_name(Repo, "Teodorino")->concentration == 1);
+        1:  177-block  0
+call    0 returned 1
+branch  1 taken 0 (fallthrough)
+branch  2 taken 1
+    %%%%%:  177-block  1
+call    3 never executed
+        1:  177-block  2
+        -:  178:
+        1:  179:	Service->add_meds(Service, "Codrinol", "90", "1");
+        1:  179-block  0
+call    0 returned 1
+        1:  180:	Service->add_meds(Service, "Mirciulino", "90", "1");
+call    0 returned 1
+        -:  181:
+        1:  182:	succes = Service->modify_med(Service, "Mirciulino", "Aaaaa", "1");
+call    0 returned 1
+       1*:  183:	assert(succes == 1);
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  183-block  0
+call    2 never executed
+        1:  183-block  1
+        1:  184:	succes = Service->modify_med(Service, "Aaaaa", "Xxxxx", "1");
+        1:  184-block  0
+call    0 returned 1
+       1*:  185:	assert(succes == 1);
+branch  0 taken 0 (fallthrough)
+branch  1 taken 1
+    %%%%%:  185-block  0
+call    2 never executed
+        1:  185-block  1
+        -:  186:
+        1:  187:	Service->Clear(Service);
+        1:  187-block  0
+call    0 returned 1
+        1:  188:}

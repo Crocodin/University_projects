@@ -7,6 +7,7 @@ void initialization_validator(validator* Valid) {
 }
 
 _Bool valid_name(const char* name) {
+	(void) name;
 	return 1;
 }
 

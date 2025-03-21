@@ -26,6 +26,7 @@ _Bool add_meds(const service* Service, const char* name, const char* concentrati
 
 void Clear(service* Service) {
 	Service->Repo->clear(Service->Repo);
+	free(Service->Validator);
 	free(Service);
 }
 
@@ -55,7 +56,7 @@ _Bool modify_med(const service* Service, const char* current_name,
 		Service->Repo->list[i] = Service->Repo->list[i - 1];  // Shift left
 		i--;
 	} // Move element backward if it's too large
-	while (i < Service->Repo->number_of_meds - 1 && strcmp(Service->Repo->list[i + 1]->name, Med->name) < 0) {
+	while (i < (int) Service->Repo->number_of_meds - 1 && strcmp(Service->Repo->list[i + 1]->name, Med->name) < 0) {
 		Service->Repo->list[i] = Service->Repo->list[i + 1];  // Shift right
 		i++;
 	} // Insert the misplaced element at the correct position

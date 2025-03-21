@@ -3,6 +3,8 @@
 
 #include "../domain/meds.h"
 
+typedef _Bool (*comp_function)(const meds_t*, const meds_t*);
+
 typedef struct repo {
 	meds_t** list;
 	unsigned int number_of_meds;
@@ -17,6 +19,7 @@ typedef struct repo {
 	meds_t* (*find_with_name)(const struct repo* Repo, const char* name);
 	int (*get_index_with_name)(const struct repo* Repo, const char* name);
 	void (*remove_med_index)(struct repo* Repo, const int index);
+	void (*sort)(struct repo* Repo, comp_function function);
 } repo;
 
 /// !MOST IMPORTANT FUNCTION!
@@ -66,5 +69,23 @@ int get_index_with_name(const repo* Repo, const char* name);
 /// :param index: int
 /// :return: NULL
 //void remove_med_index(repo* Repo, const int index);
+
+/// sorts the list
+/// :param Repo: const repo*
+/// :param function: const _Bool *
+/// :return: NULL
+void sort(repo* Repo, comp_function function);
+
+/// compares two med_t elements, returns TRUE if the first one is smaller
+/// :param Med1: const meds_t*
+/// :param Med1: const meds_t*
+/// :return: _Bool
+_Bool ascending_repo(const meds_t* Med1, const meds_t* Med2);
+
+/// compares two med_t elements, returns TRUE if the first one is bigger
+/// :param Med1: const meds_t*
+/// :param Med1: const meds_t*
+/// :return: _Bool
+_Bool descending_repo(const meds_t* Med1, const meds_t* Med2);
 
 #endif //REPO_H

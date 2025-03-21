@@ -35,24 +35,53 @@ static void display(this) {
 	printf("Ascending (0) or descending (1)?\n");
 	scanf("%1s", input); getchar();
 	if (input[0] == '1') {
+		Console->Service->Repo->sort(Console->Service->Repo, descending_repo);
 		printf("\n------------------// meds \\\\------------------\n");
-		for (unsigned int i = Console->Service->Repo->number_of_meds; i > 0; -- i) {
+		for (unsigned int i = 0; i < Console->Service->Repo->number_of_meds; -- i) {
 			const meds_t* Med = Console->Service->Repo->list[i - 1];
+			// here we test for the filter
 			if (Console->stock_filter <= Med->quantity &&
 				(Console->letter_filter == Med->name[0] || Console->letter_filter == '\0'))
 				printf("ID %d: %s - %d%%, stock %d\n", Med->id, Med->name, Med->concentration, Med->quantity);
 		}
-		return;
+		// the repo needs to be sorted back because when adding an elem it's already sorted using insertion sort
+		Console->Service->Repo->sort(Console->Service->Repo, ascending_repo);
 	}
-	printf("\n------------------// meds \\\\------------------\n");
-	for (unsigned int i = 0; i < Console->Service->Repo->number_of_meds; i++) {
-		const meds_t* Med = Console->Service->Repo->list[i];
-		if (Console->stock_filter <= Med->quantity &&
-			(Console->letter_filter == Med->name[0] || Console->letter_filter == '\0'))
-			printf("ID %d: %s - %d%%, stock %d\n", Med->id, Med->name, Med->concentration, Med->quantity);
+	else { // the repo is already sorted
+		Console->Service->Repo->sort(Console->Service->Repo, ascending_repo);
+		for (unsigned int i = 0; i < Console->Service->Repo->number_of_meds; i++) {
+			const meds_t* Med = Console->Service->Repo->list[i];
+			if (Console->stock_filter <= Med->quantity &&
+				(Console->letter_filter == Med->name[0] || Console->letter_filter == '\0'))
+				printf("ID %d: %s - %d%%, stock %d\n", Med->id, Med->name, Med->concentration, Med->quantity);
+		}
 	}
 	printf("\n");
 }
+
+// static void display(this) {
+// 	char input[2];
+// 	printf("Ascending (0) or descending (1)?\n");
+// 	scanf("%1s", input); getchar();
+// 	if (input[0] == '1') {
+// 		printf("\n------------------// meds \\\\------------------\n");
+// 		for (unsigned int i = Console->Service->Repo->number_of_meds; i > 0; -- i) {
+// 			const meds_t* Med = Console->Service->Repo->list[i - 1];
+// 			if (Console->stock_filter <= Med->quantity &&
+// 				(Console->letter_filter == Med->name[0] || Console->letter_filter == '\0'))
+// 				printf("ID %d: %s - %d%%, stock %d\n", Med->id, Med->name, Med->concentration, Med->quantity);
+// 		}
+// 		return;
+// 	}
+// 	printf("\n------------------// meds \\\\------------------\n");
+// 	for (unsigned int i = 0; i < Console->Service->Repo->number_of_meds; i++) {
+// 		const meds_t* Med = Console->Service->Repo->list[i];
+// 		if (Console->stock_filter <= Med->quantity &&
+// 			(Console->letter_filter == Med->name[0] || Console->letter_filter == '\0'))
+// 			printf("ID %d: %s - %d%%, stock %d\n", Med->id, Med->name, Med->concentration, Med->quantity);
+// 	}
+// 	printf("\n");
+// }
 
 static void modify(this) {
 	char current_name[20], new_name[20], new_concentration[10];
@@ -123,6 +152,5 @@ void run(console* restrict Console) {
 				break;
 		}
 	}
-	free(Console->Service->Validator);
 	Console->Service->Clear(Console->Service);
 }
