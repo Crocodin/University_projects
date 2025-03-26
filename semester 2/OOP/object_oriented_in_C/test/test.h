@@ -1,11 +1,6 @@
 #ifndef TEST_H
 #define TEST_H
 
-#include "../domain/meds.h"
-#include "../domain/validator.h"
-#include "../service/service.h"
-#include "assert.h"
-
 typedef struct test {
 	void (*run_test)(const struct test* Test);
 }test;

@@ -74,7 +74,7 @@ int get_index_with_name(const repo* Repo, const char* name);
 /// :param Repo: const repo*
 /// :param function: const _Bool *
 /// :return: NULL
-void sort(repo* Repo, comp_function function);
+void sort(const repo* Repo, const comp_function function);
 
 /// compares two med_t elements, returns TRUE if the first one is smaller
 /// :param Med1: const meds_t*
