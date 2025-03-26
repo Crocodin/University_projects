@@ -84,7 +84,7 @@ int get_index_with_name(const repo* Repo, const char* name) {
 	return -1;
 }
 
-void sort(repo* Repo, comp_function function) {
+void sort(const repo* Repo, const comp_function function) {
 	for (int i = 0; i < (int) Repo->number_of_meds - 1; i++) {
 		for (int j = i + 1; j < (int) Repo->number_of_meds; j++) {
 			if (function(Repo->list[j], Repo->list[j])) {

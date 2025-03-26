@@ -3,7 +3,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include "assert.h"
+#include "../domain/meds.h"
+#include "../domain/validator.h"
+#include "../service/service.h"
 #include "../repository/repo.h"
 
 void initialization_test(test* Test) {
