@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/mnt/c/Users/codri/Documents/facultate/AG - lab/lee/cmake-build-debug"
+			"value" : "/mnt/c/Users/codri/Documents/GitHub/University_projects/semester 2/AG - lab/lee/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -543,7 +543,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/mnt/c/Users/codri/Documents/facultate/AG - lab/lee/cmake-build-debug/CMakeFiles/pkgRedirects"
+			"value" : "/mnt/c/Users/codri/Documents/GitHub/University_projects/semester 2/AG - lab/lee/cmake-build-debug/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -603,7 +603,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/mnt/c/Users/codri/Documents/facultate/AG - lab/lee"
+			"value" : "/mnt/c/Users/codri/Documents/GitHub/University_projects/semester 2/AG - lab/lee"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -1167,7 +1167,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/mnt/c/Users/codri/Documents/facultate/AG - lab/lee/cmake-build-debug"
+			"value" : "/mnt/c/Users/codri/Documents/GitHub/University_projects/semester 2/AG - lab/lee/cmake-build-debug"
 		},
 		{
 			"name" : "lee_IS_TOP_LEVEL",
@@ -1191,7 +1191,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/mnt/c/Users/codri/Documents/facultate/AG - lab/lee"
+			"value" : "/mnt/c/Users/codri/Documents/GitHub/University_projects/semester 2/AG - lab/lee"
 		}
 	],
 	"kind" : "cache",
