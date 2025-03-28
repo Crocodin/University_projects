@@ -2,7 +2,14 @@ cmake_minimum_required(VERSION 3.28)
 project(shop_store)
 
 set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_FLAGS "-Wall -Wextra -Werror")
 
 add_executable(shop_store main.cpp
         Domain/product.cpp
-        Domain/product.h)
+        Domain/product.h
+        Tests/tests.h
+        Tests/test_domain.cpp
+        Domain/validator.cpp
+        Domain/validator.h
+        Repository/repo.cpp
+        Repository/repo.h)
