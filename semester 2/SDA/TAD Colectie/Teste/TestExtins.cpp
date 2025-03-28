@@ -284,7 +284,7 @@ void testIterator() { // nu stim reprezentarea Colectiei, putem testa doar anumi
 	}
 }
 
-void testQuantity() {//scopul e sa adaugam multe date 
+void testQuantity() {//scopul e sa adaugam multe date
 	Colectie c;
 	for (int i = 10; i >= 1; i--) {	
 		for (int j = -30000; j < 30000; j = j + i) {
