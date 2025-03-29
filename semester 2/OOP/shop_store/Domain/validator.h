@@ -26,11 +26,14 @@ public:
 	/// :return bool: true if the price is valid, false otherwise
 	[[nodiscard]] bool valid_type(const string&) const;
 
-	/// Validates the entire producer
-	/// Ensures that all attributes of the product (name, price, quantity, etc.) are valid
-	/// :return bool: true if the entire product is valid, false otherwise
+	/// Validates the producer of the product
+	/// Ensures the price is within a valid range or meets any other specific requirements
+	/// :return bool: true if the price is valid, false otherwise
 	[[nodiscard]] bool valid_producer(const string&) const;
 
+	/// Validates the entire producer
+	/// Ensures that all attributes of the product (name, price, etc.) are valid
+	/// :return bool: true if the entire product is valid, false otherwise
 	[[nodiscard]] bool validate(const string& , const string& , const uint&, const string&) const;
 
 	~Validator() = default;
