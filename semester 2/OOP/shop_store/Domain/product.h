@@ -8,8 +8,8 @@ typedef std::string string;
 
 
 class Product {
-public: string name;
 private:
+	string name;
 	string type;
 	uint price;
 	string producer;
@@ -38,6 +38,10 @@ public:
 	/// :param string: new producer of the product
 	void setProducer(const string&);
 
+	/// Retrieves the name of the product
+	/// :return string: the type of the product
+	[[nodiscard]] string getName() const;
+
 	/// Retrieves the price of the product
 	/// :return uint: the current price of the product
 	[[nodiscard]] uint getPrice() const;
@@ -49,6 +53,8 @@ public:
 	/// Retrieves the producer of the product
 	/// :return string: the producer of the product
 	[[nodiscard]] string getProducer() const;
+
+	bool operator==(const Product&) const;
 };
 
 #endif //PRODUCT_H

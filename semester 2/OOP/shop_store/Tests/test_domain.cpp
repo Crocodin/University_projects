@@ -5,13 +5,13 @@
 
 void test_product() {
 	Product p { "name", "type", 12, "producer" };
-	assert(p.name == "name");
+	assert(p.getName() == "name");
 	assert(p.getPrice() == 12);
 	assert(p.getType() == "type");
 	assert(p.getProducer() == "producer");
 
 	p.setName("different_name");
-	assert(p.name == "different_name");
+	assert(p.getName() == "different_name");
 	assert(p.getPrice() == 12);
 	assert(p.getType() == "type");
 	assert(p.getProducer() == "producer");

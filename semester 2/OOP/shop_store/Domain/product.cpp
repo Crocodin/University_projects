@@ -20,6 +20,10 @@ void Product::setProducer(const string& newProducer) {
 	this->producer = newProducer;
 }
 
+string Product::getName() const {
+	return this->name;
+}
+
 uint Product::getPrice() const {
 	return this->price;
 }
@@ -30,4 +34,9 @@ string Product::getType() const {
 
 string Product::getProducer() const {
 	return this->producer;
+}
+
+bool Product::operator==(const Product& other) const {
+	return this->getName() == other.getName() && this->getType() == other.getType() &&
+		this->getPrice() == other.getPrice() && this->getProducer() == other.getProducer();
 }
