@@ -21,6 +21,7 @@ public:
 	/// :param uint: price of the product
 	/// :param string: producer of the product
 	Product(const string& , const string& , const uint&, const string&);
+	Product() = default;
 
 	/// Sets the name of the product
 	/// :param string: new name of the product
@@ -54,7 +55,43 @@ public:
 	/// :return string: the producer of the product
 	[[nodiscard]] string getProducer() const;
 
+	/// compares if two products are equal
+	/// :param Product: another product to compare against
+	/// :return: true if both products are the same, false otherwise
 	bool operator==(const Product&) const;
+
+	/// compares the price of two products
+	/// :param Product: another product to compare against
+	/// :return: true if the first product's price is less than or equal to the second product's price
+	static bool priceComparison(const Product&, const Product&) noexcept;
+
+	/// compares the price of a product with a pointer to a price value
+	/// :param Product: product to compare
+	/// :param void*: a pointer to the price value to compare against
+	/// :return: true if the product's price matches the value pointed to by the price pointer
+	static bool priceComparison(const Product&, void*) noexcept;
+
+	/// compares the names of two products
+	/// :param Product: another product to compare against
+	/// :return: true if the products have the same name
+	static bool nameComparison(const Product&, const Product&) noexcept;
+
+	/// compares the name of a product with a pointer to a name string
+	/// :param Product: product to compare
+	/// :param void*: a pointer to the name string to compare against
+	/// :return: true if the product's name matches the string pointed to by the pointer
+	static bool nameComparison(const Product&, void*) noexcept;
+
+	/// compares the type of two products
+	/// :param Product: another product to compare against
+	/// :return: true if both products have the same type
+	static bool typeComparison(const Product&, const Product&) noexcept;
+
+	/// compares the producer of a product with a pointer to a producer name
+	/// :param Product: product to compare
+	/// :param void*: a pointer to the producer name string to compare against
+	/// :return: true if the product's producer matches the string pointed to by the pointer
+	static bool producerComparison(const Product&, void*) noexcept;
 };
 
 #endif //PRODUCT_H

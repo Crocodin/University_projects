@@ -9,8 +9,8 @@ void test_repo() {
 	const std::vector<string> producer = {"prod1", "prod2", "prod3", "prod4", "prod5"};
 
 	for (int i = 0; i < static_cast<int>(names.size()); i++) {
-		for (int j = 0; j < static_cast<int>(producer.size()); j++) {
-			Product p(names[i], "default", 0, producer[j]);
+		for (const auto & j : producer) {
+			Product p(names[i], "default", 0, j);
 			repo.add(p);
 		}
 		assert(static_cast<int>(repo.size()) == 5 * (i + 1));

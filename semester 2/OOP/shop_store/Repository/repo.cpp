@@ -5,9 +5,9 @@ void Repository::add(const Product& p) {
 	this->products.push_back(p);
 }
 
-uint Repository::getIndex(const Product& p) {
+uint Repository::getIndex(const Product& p) const {
 	int index = 0;
-	for (auto it : this->products) {
+	for (const auto& it : this->products) {
 		if (it == p) return index;
 		index++;
 	}
@@ -19,12 +19,11 @@ void Repository::remove(const Product & p) {
 }
 
 bool Repository::isIn(const Product& p) const noexcept {
-	for (auto it : this->products) {
+	for (const auto& it : this->products) {
 		if (it == p) return true;
 	}
 	return false;
 }
-#include <iostream>
 Product& Repository::find(const string& name, const string& producer) {
 	for (auto& it : this->products) {
 		if (it.getName() == name && it.getProducer() == producer) return it;
@@ -34,4 +33,8 @@ Product& Repository::find(const string& name, const string& producer) {
 
 uint Repository::size() const noexcept {
 	return this->products.size();
+}
+
+vector Repository::getAllProducts() const noexcept {
+	return this->products;
 }

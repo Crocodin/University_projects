@@ -24,6 +24,17 @@ void test_product() {
 
 	p.setProducer("different_producer");
 	assert(p.getProducer() == "different_producer");
+
+	Product p2 { "name", "type", 13, "producer" };
+	string something = "name";
+	uint number = 13;
+	assert(Product::nameComparison(p2, p) != true);
+	assert(Product::priceComparison(p2, p) != true);
+	assert(Product::typeComparison(p2, p) != true);
+	assert(Product::nameComparison(p2, &something) == true);
+	assert(Product::priceComparison(p2, &number) == true);
+	something = "producer";
+	assert(Product::producerComparison(p2, &something) == true);
 }
 
 void test_validator() {
