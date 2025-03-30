@@ -19,7 +19,7 @@ public:
 	/// Validates the price of the product
 	/// Ensures the price is within a valid range or meets any other specific requirements
 	/// :return bool: true if the price is valid, false otherwise
-	[[nodiscard]] bool valid_price(const uint&) const;
+	[[nodiscard]] bool valid_price(const int&) const;
 
 	/// Validates the type of the product
 	/// Ensures the price is within a valid range or meets any other specific requirements

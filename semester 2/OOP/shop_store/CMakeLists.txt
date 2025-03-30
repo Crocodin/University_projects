@@ -14,4 +14,9 @@ add_executable(shop_store main.cpp
         Domain/validator.h
         Repository/repo.cpp
         Repository/repo.h
-        Tests/test_repo.cpp)
+        Tests/test_repo.cpp
+        Service/service.cpp
+        Service/service.h
+        Controller/controller.cpp
+        Controller/controller.h
+        Tests/test_service.cpp)

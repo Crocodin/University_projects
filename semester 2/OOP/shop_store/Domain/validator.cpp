@@ -5,8 +5,8 @@ bool Validator::valid_name(const string& name) const {
 	return false;
 }
 
-bool Validator::valid_price(const uint& price) const {
-	(void) price;
+bool Validator::valid_price(const int& price) const {
+	if (price < 0) return false;
 	return true;
 }
 
