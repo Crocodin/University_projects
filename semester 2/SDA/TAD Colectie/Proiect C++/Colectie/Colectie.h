@@ -46,5 +46,9 @@ public:
 	// destructorul colectiei
 	~Colectie();
 
+	// adauga nr aparitii ale elemenyului elem in colectie
+	// arunca exceptie in cazul in care este nr negativ
+	void adaugaAparitiiMultiple(int nr, TElem elem);
+
 };
 
