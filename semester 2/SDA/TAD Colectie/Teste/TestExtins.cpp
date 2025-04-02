@@ -314,6 +314,19 @@ void testQuantity() {//scopul e sa adaugam multe date
 	assert(c.dim() == 0);
 }
 
+void testAdaugaAparitiiMultiple() {
+	Colectie c;
+	c.adaugaAparitiiMultiple(10, TElem(1));
+	assert(c.dim() == 10);
+	try {
+		c.adaugaAparitiiMultiple(-2, TElem(3));
+		assert(false);
+	}
+	catch (std::out_of_range) {
+		assert(true);
+	}
+
+}
 
 void testAllExtins() {
 	testCreeaza();
@@ -321,4 +334,5 @@ void testAllExtins() {
 	testSterge();
 	testIterator();
 	testQuantity();
+	testAdaugaAparitiiMultiple();
 }

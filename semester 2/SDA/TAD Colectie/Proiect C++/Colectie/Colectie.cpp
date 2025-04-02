@@ -5,13 +5,13 @@
 
 using namespace std;
 
-
+// BC = WC = theta(1)
 Colectie::Colectie() {
 	this->distinct = new TElem[this->distinct_max_size];
 	this->position = new int[this->position_max_size];
 }
 
-
+// BC = theta(1), WC = n*2 + m*2 + n = theta (m), total = O(m)
 void Colectie::adauga(TElem elem) {
 	if (this->distinct_current_size == this->distinct_max_size) {
 		// reallocation for double size
@@ -49,6 +49,7 @@ void Colectie::adauga(TElem elem) {
 }
 
 
+// BC = theta(1) WC = n + max{m, n} + m = theta (m), total = O(m)
 bool Colectie::sterge(TElem elem) {
 	int index_TElem = -1;
 	for (int i = 0; i < this->distinct_current_size and index_TElem == -1; i++)
@@ -86,7 +87,7 @@ bool Colectie::sterge(TElem elem) {
 	return true;
 }
 
-
+// BC = theta(1), WC = theta(n), total = O(n)
 bool Colectie::cauta(TElem elem) const {
 
 	for (int i = 0; i < this->distinct_current_size; i++)
@@ -96,6 +97,7 @@ bool Colectie::cauta(TElem elem) const {
 	return false;
 }
 
+// BC = theta(m) WC = n + m = theta (m), total = O(m)
 int Colectie::nrAparitii(TElem elem) const {
 
 	int index_TElem = -1;
@@ -113,20 +115,40 @@ int Colectie::nrAparitii(TElem elem) const {
 }
 
 
+// WC = BC = theta(1)
 int Colectie::dim() const {
 	return this->position_current_size;
 }
 
-
+// WC = BC = theta(1)
 bool Colectie::vida() const {
 	return this->distinct_current_size == 0;
 }
 
+// WC = BC = theta(1)
 IteratorColectie Colectie::iterator() const {
 	return  IteratorColectie(*this);
 }
 
+/*
+ * adaugaAparitiiMultiple(c, nr, elem)
+ *  { pre: c este o colectie }
+ *	daca nr < 0 atunci
+ *		@ exceptie aruncata
+ *	sf.daca
+ *	pentru i = 0, nr, 1 executa
+ *		adauga(c, elem)
+ *	sf.pentru
+*/
+// BC = theta(1) WC = theta (max{m}) * nr = theta (m * nr)
+void Colectie::adaugaAparitiiMultiple(int nr, TElem elem) {
+	if (nr < 0) throw std::out_of_range("Negative number of arguments need ,to be added");
+	for (int i = 0; i < nr; i++) {
+		this->adauga(elem);
+	}
+}
 
+// BC = WC = theta(1)
 Colectie::~Colectie() {
 	delete[] this->distinct;
 	delete[] this->position;

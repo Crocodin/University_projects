@@ -1,6 +1,7 @@
 # Ignore all .idea files (JetBrains IDEs)
 .idea/workspace.xml
 .idea/cmake-build-debug/
+.idea/
 
 
 # Ignore CMake build directories
@@ -8,6 +9,9 @@ CMakeCache.txt
 CMakeFiles/
 cmake_install.cmake
 Makefile
+cmake-build-debug-coverage/
+cmake-build-debug/
+
 
 # Ignore compiled binary files
 *.exe
