@@ -27,7 +27,7 @@ void CP::adauga(TElem e, TPrioritate p) {
 		/// "last" xor ( "last" xor "next") = "next"
 		newNode->xor_head = XOR(this->tail, nullptr);
 		this->tail->xor_head = XOR(this->tail->xor_head, newNode);
-		/// what heppends here? as i am The 'one and only' Codirn (i eat dirt when i was younger, i'm not joking...
+		/// what heppends here? as i am The 'one and only' Codirn (i ate dirt when i was younger, i'm not joking...
 		/// i have a picture), the best (and easiest) way to explain this code and this add concept is:
 		/// tail is not null. so the xor_head is (last, next) pair. but as we work with the tail
 		/// we dont have a next. so the pair is actualy (last, NULL). now we add the "next" (i.e. newNode)
