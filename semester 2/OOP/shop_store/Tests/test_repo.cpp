@@ -1,6 +1,7 @@
 #include "tests.h"
 #include <cassert>
 #include "../Repository/repo.h"
+#include <vector>
 
 void test_repo() {
 	Repository repo;
@@ -12,6 +13,7 @@ void test_repo() {
 		for (const auto & j : producer) {
 			Product p(names[i], "default", 0, j);
 			repo.add(p);
+			assert(repo.isIn(p));
 		}
 		assert(static_cast<int>(repo.size()) == 5 * (i + 1));
 	}
@@ -25,23 +27,23 @@ void test_repo() {
 
 	repo.remove(p);
 	try {
-		Product aux = repo.find(p.getName(), p.getProducer());
+		const Product& aux = repo.find(p.getName(), p.getProducer());
+		(void) aux;
 		assert(false);
 	}
 	catch (const std::logic_error& e) { (void)e; assert(true); }
 
 	try {
-		Product aux = repo.find(p.getName(), p.getProducer());
+		const Product& aux = repo.find(p.getName(), p.getProducer());
+		(void) aux;
 		assert(false);
 	}
 	catch (const std::logic_error& e) { (void)e; assert(true); }
 
 	try {
-		uint aux = repo.getIndex(p);
+		const uint aux = repo.getIndex(p);
 		(void)aux;
 		assert(false);
 	}
 	catch (const std::logic_error& e) { (void)e; assert(true); }
-
-
 }

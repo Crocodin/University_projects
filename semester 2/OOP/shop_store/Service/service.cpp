@@ -9,11 +9,11 @@ void Service::addProduct(const string& name , const string& type, const int& pri
 }
 
 void Service::removeProduct(const string& name, const string& producer) {
-	const Product p = this->repo.find(name, producer);
+	const Product& p = this->repo.find(name, producer);
 	this->repo.remove(p);
 }
 
-vector Service::getAllProducts() const noexcept {
+vector& Service::getAllProducts() noexcept {
 	return this->repo.getAllProducts();
 }
 
@@ -27,7 +27,7 @@ void Service::changeProduct(Product& p, const string& name, const string& type, 
 
 void quickSort(vector& products, int low, int high, const auto compareFunction) {
 	if (low < high) {
-		auto pivot = products[high];
+		auto& pivot = products[high];
 		int i = low - 1;
 
 		for (int j = low; j < high; j++) {
@@ -48,6 +48,8 @@ void Service::filterProductsFunction(const cmpFunct compareFunction, vector& pro
 }
 
 void Service::removeProductsFunction(const rmFunct removeFunction, void* param_2) {
-	for (const auto& product : this->repo.getAllProducts())
-		if (removeFunction(product, param_2)) this->repo.remove(product);
+	const vector& aux_vector = this->repo.getAllProducts();
+	for (const Product *it = aux_vector.begin(); it < aux_vector.end() + 1; )
+		if (removeFunction(*it, param_2)) this->repo.remove(*it);
+		else ++it;
 }

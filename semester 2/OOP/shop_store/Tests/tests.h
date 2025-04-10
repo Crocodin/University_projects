@@ -15,7 +15,12 @@ void test_repo();
 /// :return: NULL
 void test_service();
 
+/// tests list functionality
+/// :return: NULL
+void test_list();
+
 inline void run_all_tests() {
+    test_list();
 	test_domain();
 	test_repo();
 	test_service();

@@ -21,6 +21,5 @@ bool Validator::valid_producer(const string& producer) const {
 }
 
 bool Validator::validate(const string& name, const string& type, const uint& price, const string& producer) const {
-	return this->valid_name(name) && this->valid_price(price) && this->valid_type(type) && this->valid_producer(producer);
-
+	return this->valid_name(name) && this->valid_price(static_cast<int>(price)) && this->valid_type(type) && this->valid_producer(producer);
 }
