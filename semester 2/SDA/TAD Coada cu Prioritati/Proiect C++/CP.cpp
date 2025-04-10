@@ -2,15 +2,13 @@
 #include "CP.h"
 #include <exception>
 #include <iostream>
-#include <ostream>
-#include <stdio.h>
 
 using namespace std;
 
-
+/// theta(1)
 CP::CP(const Relatie r) : relatie(r) { }
 
-
+/// theta(1)
 void CP::adauga(TElem e, TPrioritate p) {
 	Node* newNode = new Node();
 	newNode->info = { e, p };
@@ -26,7 +24,7 @@ void CP::adauga(TElem e, TPrioritate p) {
 	}
 }
 
-//arunca exceptie daca coada e vida
+/// theta(n)
 Element CP::element() const {
 	if (this->head == nullptr) throw exception();
 	Node* temp = this->head,* current = temp;
@@ -38,6 +36,7 @@ Element CP::element() const {
 	return pair <TElem, TPrioritate>  (temp->info);       // copy constructor
 }
 
+/// theta(n)
 Element CP::sterge() {
 	if (this->head == nullptr) throw exception();
 	Node* temp = this->head,* current = temp;
@@ -68,11 +67,12 @@ Element CP::sterge() {
 	return pair <TElem, TPrioritate>  (aux);
 }
 
+/// theta(1)
 bool CP::vida() const {
 	return this->head == nullptr;
 }
 
-
+/// theta(n)
 CP::~CP() {
 	while (this->head != nullptr) {
 		const Node* temp = this->head;
