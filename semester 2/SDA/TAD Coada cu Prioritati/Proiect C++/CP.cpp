@@ -10,6 +10,7 @@ CP::CP(const Relatie r) : relatie(r) { }
 /// theta(1)
 CP::Node* CP::XOR(const Node* a, const Node* b) {
 	return (Node*)((uintptr_t)a xor (uintptr_t)b);
+	/// 'C-style cast is used', just... let me be... it looks better
 }
 
 /// theta(1)
@@ -26,9 +27,10 @@ void CP::adauga(TElem e, TPrioritate p) {
 		/// "last" xor ( "last" xor "next") = "next"
 		newNode->xor_head = XOR(this->tail, nullptr);
 		this->tail->xor_head = XOR(this->tail->xor_head, newNode);
-		/// what heppends here? as i am The 'one and only' Codirn, the best (and easiest) way to explain it is:
+		/// what heppends here? as i am The 'one and only' Codirn (i eat dirt when i was younger, i'm not joking...
+		/// i have a picture), the best (and easiest) way to explain this code and this add concept is:
 		/// tail is not null. so the xor_head is (last, next) pair. but as we work with the tail
-		/// we dont have a next. so the pair is actualy (last, NULL). now we add the "nest" (i.e. newNode)
+		/// we dont have a next. so the pair is actualy (last, NULL). now we add the "next" (i.e. newNode)
 		/// so now the pair is (last, newNode). the porblem that i'm realizeing as i'm writhing this is
 		/// that the newNode dosent have a last... so i'll add it now
 		this->tail = newNode;
