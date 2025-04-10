@@ -11,7 +11,7 @@ class Product {
 private:
 	string name;
 	string type;
-	uint price;
+	uint price {};
 	string producer;
 public:
 
@@ -20,7 +20,7 @@ public:
 	/// :param string: type of the product
 	/// :param uint: price of the product
 	/// :param string: producer of the product
-	Product(const string& , const string& , const uint&, const string&);
+	Product(string, string,const uint&, string);
 	Product() = default;
 
 	/// Sets the name of the product
@@ -59,6 +59,10 @@ public:
 	/// :param Product: another product to compare against
 	/// :return: true if both products are the same, false otherwise
 	bool operator==(const Product&) const;
+
+	/// makes a copy, you idiot!
+	Product(const Product&);
+	Product& operator=(const Product&) = default;
 
 	/// compares the price of two products
 	/// :param Product: another product to compare against

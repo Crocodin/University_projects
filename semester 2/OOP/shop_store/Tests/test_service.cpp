@@ -24,7 +24,6 @@ void test_service() {
 	assert(product.getPrice() == 21);
 	assert(product.getProducer() == "NewProducer");
 
-
 	/// add product
 	Service service;
 	service.addProduct("Laptop", "Electronics", 1200, "TechCorp");
@@ -44,7 +43,7 @@ void test_service() {
 
 	/// filter products
 	service.addProduct("Laptop", "Alibaba", 1200, "TechCorp");
-	vector v = service.getAllProducts();
+	vector& v = service.getAllProducts();
 	Service::filterProductsFunction(Product::typeComparison, v);
 	assert(v[0].getPrice() == 1200);
 	assert(v[1].getPrice() == 1100);

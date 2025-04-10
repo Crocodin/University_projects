@@ -7,8 +7,8 @@ void Repository::add(const Product& p) {
 
 uint Repository::getIndex(const Product& p) const {
 	int index = 0;
-	for (const auto& it : this->products) {
-		if (it == p) return index;
+	for (const Product *it = this->products.begin(); it < this->products.end() + 1; ++it) {
+		if (*it == p) return index;
 		index++;
 	}
 	throw std::logic_error("No such product");
@@ -19,14 +19,14 @@ void Repository::remove(const Product & p) {
 }
 
 bool Repository::isIn(const Product& p) const noexcept {
-	for (const auto& it : this->products) {
-		if (it == p) return true;
+	for (const Product *it = this->products.begin(); it < this->products.end() + 1; ++it) {
+		if (*it == p) return true;
 	}
 	return false;
 }
-Product& Repository::find(const string& name, const string& producer) {
-	for (auto& it : this->products) {
-		if (it.getName() == name && it.getProducer() == producer) return it;
+Product& Repository::find(const string& name, const string& producer) const {
+	for (Product *it = this->products.begin(); it < this->products.end() + 1; ++it) {
+		if (it->getName() == name && it->getProducer() == producer) return *it;
 	}
 	throw std::logic_error("No such product");
 }
@@ -35,6 +35,6 @@ uint Repository::size() const noexcept {
 	return this->products.size();
 }
 
-vector Repository::getAllProducts() const noexcept {
+vector& Repository::getAllProducts() noexcept {
 	return this->products;
 }

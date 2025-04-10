@@ -1,12 +1,12 @@
 #ifndef REPO_H
 #define REPO_H
 
-#include <vector>
+#include "../DinamicList/list.hpp"
 #include <exception>
 #include <stdexcept>
 #include "../Domain/product.h"
 
-typedef std::vector<Product> vector;
+typedef List<Product> vector;
 
 class Repository {
 private:
@@ -42,7 +42,7 @@ public:
 	/// :param string: the producer of the product
 	/// :return Product: the product
 	/// @:exception: logic_error if there is no such product in the list
-	[[nodiscard]] Product& find(const string&, const string&);
+	[[nodiscard]] Product& find(const string&, const string&) const;
 
 	/// gets the size of the repo
 	/// :return uint:
@@ -50,7 +50,7 @@ public:
 
 	/// get all the elements from the vector
 	/// :return: vector of elems
-	[[nodiscard]] vector getAllProducts() const noexcept;
+	[[nodiscard]] vector& getAllProducts() noexcept;
 };
 
 #endif //REPO_H

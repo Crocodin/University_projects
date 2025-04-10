@@ -37,9 +37,9 @@ void Controller::addProduct() {
 
 void Controller::print_all(const vector& products) {
 	std::cout << "------------// product list \\\\------------\n";
-	for (const auto& product: products) {
-		std::cout<<product.getName() << ' ' << product.getType() << " - " << product.getPrice() << "$ - by: " <<
-			product.getProducer() << '\n';
+	for (const Product *product = products.begin(); product < products.end() + 1; ++product) {
+		std::cout<<product->getName() << ' ' << product->getType() << " - " << product->getPrice() << "$ - by: " <<
+			product->getProducer() << '\n';
 	}
 }
 
@@ -60,7 +60,7 @@ void Controller::remove() {
 	}
 }
 
-void Controller::changeProduct() {
+void Controller::changeProduct() const {
 	string name, producer;
 	std::cout << "Product name: ";
 	std::getline(std::cin, name);
@@ -69,7 +69,7 @@ void Controller::changeProduct() {
 
 	Product* p;
 	try { p = &this->service.repo.find(name, producer); }
-	catch (const std::invalid_argument& e) { std::cout << e.what() << '\n'; return; }
+	catch (const std::logic_error& e) { std::cout << e.what() << '\n'; return; }
 
 	string type, _price;
 	std::cout << "Product name: ";
@@ -104,7 +104,7 @@ void Controller::printProduct(const Product& p) noexcept {
 		"Product type: " << p.getType() << "\nProduct price: " << p.getPrice() << "\nProduct producer: " << p.getProducer() << '\n';
 }
 
-void Controller::findProduct() {
+void Controller::findProduct() const {
 	string name, producer;
 	std::cout << "Product name: ";
 	std::getline(std::cin, name);
@@ -113,18 +113,18 @@ void Controller::findProduct() {
 
 	Product p;
 	try { p = this->service.repo.find(name, producer); }
-	catch (const std::invalid_argument& e) { std::cout << e.what() << '\n'; return; }
+	catch (const std::logic_error& e) { std::cout << e.what() << '\n'; return; }
 
 	printProduct(p);
 }
 
-void Controller::sortProducts() const {
+void Controller::sortProducts() {
 	std::cout << "--------------// sorted products \\\\--------------\n"
 		"1. Price\n" << "2. Name\n" << "3. Type + name\n";
 	char choice;
 	std::cin >> choice;
 	while (std::cin.get() != '\n') {}
-	vector productsAux = this->service.getAllProducts();
+	vector& productsAux = this->service.getAllProducts();
 	switch (choice) {
 		case '1':
 			Service::filterProductsFunction(Product::priceComparison, productsAux);

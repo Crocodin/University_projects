@@ -1,7 +1,9 @@
 #include "product.h"
 
-Product::Product(const string&  name, const string&  type, const uint& price, const string&  producer)
-: name(name), type(type), price(price), producer(producer) {
+#include <utility>
+
+Product::Product(string name, string type, const uint& price, string producer)
+: name(std::move(name)), type(std::move(type)), price(price), producer(std::move(producer)) {
 }
 
 void Product::setName(const string& newName) {
@@ -37,8 +39,10 @@ string Product::getProducer() const {
 }
 
 bool Product::operator==(const Product& other) const {
-	return this->getName() == other.getName() && this->getType() == other.getType() &&
-		this->getPrice() == other.getPrice() && this->getProducer() == other.getProducer();
+	return this->name == other.name &&
+			this->type == other.type &&
+			this->price == other.price &&
+			this->producer == other.producer;
 }
 
 bool Product::priceComparison(const Product& p1, const Product& p2) noexcept {
@@ -64,4 +68,11 @@ bool Product::nameComparison(const Product& p, void* name) noexcept {
 
 bool Product::producerComparison(const Product& p, void* prod) noexcept {
 	return p.getProducer() == *(static_cast<string*>(prod));
+}
+
+Product::Product(const Product& other) {
+	this->name = other.name;
+	this->price = other.price;
+	this->producer = other.producer;
+	this->type = other.type;
 }

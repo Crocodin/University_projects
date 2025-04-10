@@ -23,7 +23,7 @@ private:
 
 	/// ui for changing items
 	/// :return: NULL
-	void changeProduct();
+	void changeProduct() const;
 
 	/// prints the product
 	/// :return: NULL
@@ -31,11 +31,11 @@ private:
 
 	/// ui for find product
 	/// :return: NULL
-	void findProduct();
+	void findProduct() const;
 
 	/// ui for sorting
 	/// :return: NULL
-	void sortProducts() const;
+	void sortProducts();
 
 	/// ui for filtering (removing based on a condition)
 	/// :return: NULL

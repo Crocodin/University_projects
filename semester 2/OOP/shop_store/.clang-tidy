@@ -1,0 +1,10 @@
+Checks: >
+  cppcoreguideline-*,
+  modernize-*,
+  performance-*,
+  -cppcoreguidelines-pro-type-union-access,
+  -modernize-use-trailing-return-type
+
+WarningsAsErrors: "true"
+HeaderFilterRegex: ''
+FormatStyle: none

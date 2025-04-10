@@ -24,7 +24,7 @@ public:
 
 	/// get all the product from the repo
 	/// :return: vector of elems
-	[[nodiscard]] vector getAllProducts() const noexcept;
+	[[nodiscard]] vector& getAllProducts() noexcept;
 
 	/// changes the attributes of product p
 	/// :param p: Product to be changed

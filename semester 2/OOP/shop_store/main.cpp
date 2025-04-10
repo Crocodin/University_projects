@@ -2,7 +2,6 @@
 #include "Controller/controller.h"
 #include <iostream>
 
-
 int main() {
 	/// run all test
 	run_all_tests();
