@@ -15,12 +15,13 @@ private:
 	/// linked list
 	struct Node {
 		Element info { 0, 0 };
-		Node* next = nullptr;
-		Node* prev = nullptr;
+		Node* xor_head;
 	};
 
 	Node* head = nullptr;
 	Node* tail = nullptr;
+
+	static Node* XOR(const Node* a, const Node* b);
 
 	const Relatie relatie;
 
