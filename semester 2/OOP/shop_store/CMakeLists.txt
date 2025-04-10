@@ -1,9 +1,11 @@
 cmake_minimum_required(VERSION 3.28)
 project(shop_store)
 
+set(CMAKE_CXX_CLANG_TIDY "/usr/bin/clang-tidy; -warnings-as-errors=*")
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_FLAGS "-Wall -Wextra -Werror")
 set(CMAKE_CXX_FLAGS "--coverage -g ${CMAKE_CXX_FLAGS}")
+
 
 add_executable(shop_store main.cpp
         Domain/product.cpp
