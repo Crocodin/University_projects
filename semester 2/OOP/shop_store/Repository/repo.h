@@ -8,7 +8,13 @@ using vector = List<Product>;
 
 class Repository {
 private:
+
 	vector products;
+protected:
+
+	/// add to the repo even if it's not valid
+	/// :return: NULL
+	void forceAdd(const Product& p) noexcept;
 public:
 	Repository() = default;
 

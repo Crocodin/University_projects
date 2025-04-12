@@ -31,40 +31,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5f138dca-698a-487e-84af-417ab922919b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Errors/errors.hpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Ui/Console/console.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Ui/Console/console.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Ui/Controller/controller.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../AG - lab/BFSvDFS/cmake-build-debug/.cmake/api/v1/reply/cache-v2-19202ea7cb01a2a786cc.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../AG - lab/BFSvDFS/cmake-build-debug/.cmake/api/v1/reply/cmakeFiles-v1-39b0b82c337511f60a22.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../AG - lab/BFSvDFS/cmake-build-debug/.cmake/api/v1/reply/codemodel-v2-b9e99d4f515d2c639f0d.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../AG - lab/BFSvDFS/cmake-build-debug/.cmake/api/v1/reply/index-2025-03-25T19-06-16-0609.json" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/Utilities/template.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../AG - lab/BFSvDFS/cmake-build-debug/BFSvDFS" beforeDir="false" afterPath="$PROJECT_DIR$/../../AG - lab/BFSvDFS/cmake-build-debug/BFSvDFS" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../AG - lab/BFSvDFS/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../AG - lab/BFSvDFS/main.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../AG - lab/dijkstra/p1.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../AG - lab/dijkstra/p1.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../AG - lab/lee/cmake-build-debug/.cmake/api/v1/reply/index-2025-03-28T11-41-00-0758.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../../AG - lab/lee/cmake-build-debug/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/../../AG - lab/lee/cmake-build-debug/.ninja_deps" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../AG - lab/lee/cmake-build-debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/../../AG - lab/lee/cmake-build-debug/.ninja_log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../AG - lab/lee/cmake-build-debug/build.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/../../AG - lab/lee/cmake-build-debug/build.ninja" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../AG - lab/lee/cmake-build-debug/lee" beforeDir="false" afterPath="$PROJECT_DIR$/../../AG - lab/lee/cmake-build-debug/lee" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controller/controller.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Ui/Controller/controller.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controller/controller.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DinamicList/list.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/DinamicList/list.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Domain/product.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Domain/product.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Domain/product.h" beforeDir="false" afterPath="$PROJECT_DIR$/Domain/product.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Domain/validator.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Domain/validator.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Domain/validator.h" beforeDir="false" afterPath="$PROJECT_DIR$/Domain/validator.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Repository/repo.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Repository/repo.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Repository/repo.h" beforeDir="false" afterPath="$PROJECT_DIR$/Repository/repo.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Service/service.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Service/service.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Service/service.h" beforeDir="false" afterPath="$PROJECT_DIR$/Service/service.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/test_domain.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/test_domain.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/test_list.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/test_list.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/test_repo.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/test_repo.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ShoppingCart/shoppingCart.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ShoppingCart/shoppingCart.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ShoppingCart/shoppingCart.h" beforeDir="false" afterPath="$PROJECT_DIR$/ShoppingCart/shoppingCart.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui/Console/console.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Ui/Console/console.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui/Console/console.h" beforeDir="false" afterPath="$PROJECT_DIR$/Ui/Console/console.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui/Controller/controller.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Ui/Controller/controller.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui/Controller/controller.h" beforeDir="false" afterPath="$PROJECT_DIR$/Ui/Controller/controller.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../SDA/TAD Coada cu Prioritati/Proiect C++/CP.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../SDA/TAD Coada cu Prioritati/Proiect C++/CP.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../SDA/TAD Coada cu Prioritati/Proiect C++/CP.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../SDA/TAD Coada cu Prioritati/Proiect C++/CP.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../SDA/TAD Coada cu Prioritati/Teste/TestExtins.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../SDA/TAD Coada cu Prioritati/Teste/TestExtins.cpp" afterDir="false" />
@@ -257,7 +241,7 @@
       <workItem from="1744279012015" duration="40000" />
       <workItem from="1744287366208" duration="8021000" />
       <workItem from="1744382963433" duration="4147000" />
-      <workItem from="1744436039756" duration="11212000" />
+      <workItem from="1744436039756" duration="19982000" />
     </task>
     <servers />
   </component>

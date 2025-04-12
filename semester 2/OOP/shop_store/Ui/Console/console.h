@@ -1,5 +1,6 @@
 #ifndef CONSOLE_H
 #define CONSOLE_H
+#include <list>
 #include <string>
 
 #include "../../DinamicList/list.hpp"
@@ -23,6 +24,7 @@
 #define BOLD_RED   "\033[1;31m"
 
 using string = std::string;
+using list = List<Product>;
 
 class Console {
 private:
@@ -58,7 +60,7 @@ public:
 
 	static void successfullyText(const string&) noexcept;
 
-	void printProducts(const List<Product>&) const;
+	void printProducts(const list&) const;
 
 	void waitForKey(const string& message = "Press ENTER to continue...") const noexcept;
 
@@ -66,9 +68,15 @@ public:
 
 	void printDetailedProduct(const Product& p) const noexcept;
 
-	void userMainMenu(const int& balance) const noexcept;
+	void userMainMenu(const uint& balance) const noexcept;
 
 	void addToShoppingCartMenu() const noexcept;
+
+	void shoppingCart(const list&, const uint&) const noexcept;
+
+	void shoppingCartOptions() const noexcept;
+
+	void exportMenu() const noexcept;
 };
 
 #endif //CONSOLE_H
