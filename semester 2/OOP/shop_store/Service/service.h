@@ -8,6 +8,7 @@ class Service {
 private:
 	Repository repo;
 	friend class Controller;
+
 public:
 
 	/// adds a product to the repo
@@ -39,13 +40,13 @@ public:
 	/// :param compareFunction: a function that takes two products and checks them
 	/// :param products: the now sorted vector
 	/// :return: NULL
-	typedef bool (*cmpFunct)(const Product&, const Product&) noexcept;
+	using cmpFunct = bool (*)(const Product &, const Product &) noexcept;
 	static void filterProductsFunction(cmpFunct, vector&);
 
 	/// removes the product based on a criteria
 	/// :param compareFunction: a function that takes a product and checks if it meets the remove criteria
 	/// :return: NULL
-	typedef bool (*rmFunct)(const Product&, void*) noexcept;
+	using rmFunct = bool (*)(const Product &, void *) noexcept;
 	void removeProductsFunction(rmFunct, void*);
 };
 

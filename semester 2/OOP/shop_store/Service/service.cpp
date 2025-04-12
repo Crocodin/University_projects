@@ -1,10 +1,10 @@
 #include "service.h"
-
 #include "../Domain/validator.h"
+#include "../Errors/errors.hpp"
 
 void Service::addProduct(const string& name , const string& type, const int& price, const string& producer) {
 	if (const Validator validator; !validator.validate(name, type, price, producer))
-		throw std::invalid_argument("Invalid product declaration");
+		throw err::InvalidArgument("Invalid product declaration");
 	this->repo.add(Product(name, type, price, producer));
 }
 
@@ -49,7 +49,7 @@ void Service::filterProductsFunction(const cmpFunct compareFunction, vector& pro
 
 void Service::removeProductsFunction(const rmFunct removeFunction, void* param_2) {
 	const vector& aux_vector = this->repo.getAllProducts();
-	for (const Product *it = aux_vector.begin(); it < aux_vector.end() + 1; )
+	for (const Product *it = aux_vector.begin(); it != aux_vector.end(); )
 		if (removeFunction(*it, param_2)) this->repo.remove(*it);
 		else ++it;
 }

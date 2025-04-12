@@ -1,16 +1,18 @@
 #include "controller.h"
 #include <iostream>
 
+#include "../../Errors/errors.hpp"
+
 void Controller::addProduct() {
 	string name, type, producer, _price;
 
-	std::cout<<"Product name: ";
+	this->console.paddedText("📝 Product name: ", LIGHT_BLUE, ' ');
 	std::getline(std::cin, name);
 
-	std::cout<<"Product type: ";
+	this->console.paddedText("🏷️Product type: ", GREEN, ' ');
 	std::getline(std::cin, type);
 
-	std::cout<<"Product price: ";
+	this->console.paddedText("💰 Product price: ", YELLOW, ' ');
 	std::getline(std::cin, _price);
 
 	int price;
@@ -19,108 +21,120 @@ void Controller::addProduct() {
 	}
 	catch (const std::exception& e) {
 		(void) e;
-		std::cout<< "Needs to be a number\n";
+		Console::errorText("Needs to be a number");
 		return;
 	}
 
-	std::cout<<"Product producer: ";
+	this->console.paddedText("🏭 Product producer: ", CYAN, ' ');
 	std::getline(std::cin, producer);
 
 	try {
 		this->service.addProduct(name, type, price, producer);
-		std::cout << "Added successfully!\n";
+		Console::successfullyText("✔️  Added successfully!");
 	}
-	catch (const std::invalid_argument& e) {
-		std::cout << e.what() << '\n';
+	catch (const err::InvalidArgument& e) {
+		Console::errorText(e.what());
 	}
+	this->console.waitForKey();
 }
 
-void Controller::print_all(const vector& products) {
-	std::cout << "------------// product list \\\\------------\n";
-	for (const Product *product = products.begin(); product < products.end() + 1; ++product) {
-		std::cout<<product->getName() << ' ' << product->getType() << " - " << product->getPrice() << "$ - by: " <<
-			product->getProducer() << '\n';
-	}
+void Controller::print_all(const vector& products) const {
+	this->console.printProducts(products);
+	this->console.waitForKey();
 }
-
 
 void Controller::remove() {
 	string name, producer;
-	std::cout << "Product name: ";
+
+	this->console.paddedText("📝 Product name: ", LIGHT_BLUE, ' ');
 	std::getline(std::cin, name);
-	std::cout << "Product producer: ";
+
+	this->console.paddedText("🏷️Product producer: ", GREEN, ' ');
 	std::getline(std::cin, producer);
 
 	try {
 		this->service.removeProduct(name, producer);
-		std::cout << "Removed successfully!\n";
+		Console::successfullyText("✔️ Removed successfully!");
 	}
 	catch (const std::exception& e) {
-		std::cout << e.what() << '\n';
+		Console::errorText(e.what());
 	}
+	this->console.waitForKey();
 }
 
 void Controller::changeProduct() const {
 	string name, producer;
-	std::cout << "Product name: ";
+
+	this->console.paddedText("📝 Product name: ", LIGHT_BLUE, ' ');
 	std::getline(std::cin, name);
-	std::cout << "Product producer: ";
+
+	this->console.paddedText("🏷️Product producer: ", GREEN, ' ');
 	std::getline(std::cin, producer);
 
 	Product* p;
 	try { p = &this->service.repo.find(name, producer); }
-	catch (const std::logic_error& e) { std::cout << e.what() << '\n'; return; }
+	catch (const err::LogicError& e) {
+		Console::errorText(e.what());
+		this->console.waitForKey(); return;
+	}
 
 	string type, _price;
-	std::cout << "Product name: ";
+
+	this->console.paddedText("📝 Product name: ", LIGHT_BLUE, ' ');
 	std::getline(std::cin, name);
 
-	std::cout << "Product type: ";
+	this->console.paddedText("🏷️Product type: ", GREEN, ' ');
 	std::getline(std::cin, type);
 
-	std::cout<<"Product price: ";
+	this->console.paddedText("💰 Product price: ", YELLOW, ' ');
 	std::getline(std::cin, _price);
 
 	int price;
 	try {
 		price = stoi(_price);
-		if (price < 0) throw std::invalid_argument("Invalid price, needs to be a positive number");
+		if (price < 0) throw err::InvalidArgument("Invalid price, needs to be a positive number");
 	}
-	catch (const std::exception& e) {
-		(void) e;
-		std::cout<< "Needs to be a positive number\n";
-		return;
+	catch (...) {
+		Console::errorText("Needs to be a positive number");
+		this->console.waitForKey(); return;
 	}
 
-	std::cout<<"Product producer: ";
+	this->console.paddedText("🏷️Product producer: ", GREEN, ' ');
 	std::getline(std::cin, producer);
 
 	Service::changeProduct(*(p), name, type, price, producer);
-
 }
 
-void Controller::printProduct(const Product& p) noexcept {
-	std::cout<< "---------------// " << p.getName() << " \\\\---------------\n" <<
-		"Product type: " << p.getType() << "\nProduct price: " << p.getPrice() << "\nProduct producer: " << p.getProducer() << '\n';
+void Controller::printProduct(const Product& p) const noexcept {
+	this->console.printDetailedProduct(p);
+}
+
+void Controller::addToShoppingCart(const Product& p) const noexcept {
+
 }
 
 void Controller::findProduct() const {
 	string name, producer;
-	std::cout << "Product name: ";
+
+	this->console.paddedText("📝 Product name: ", LIGHT_BLUE, ' ');
 	std::getline(std::cin, name);
-	std::cout << "Product producer: ";
+
+	this->console.paddedText("🏷️Product producer: ", GREEN, ' ');
 	std::getline(std::cin, producer);
 
 	Product p;
 	try { p = this->service.repo.find(name, producer); }
-	catch (const std::logic_error& e) { std::cout << e.what() << '\n'; return; }
+	catch (const err::LogicError& e) {
+		Console::errorText(e.what());
+		this->console.waitForKey(); return;
+	}
 
 	printProduct(p);
+	this->addToShoppingCart(p);
 }
 
 void Controller::sortProducts() {
-	std::cout << "--------------// sorted products \\\\--------------\n"
-		"1. Price\n" << "2. Name\n" << "3. Type + name\n";
+	this->console.sortedProductsMenu();
 	char choice;
 	std::cin >> choice;
 	while (std::cin.get() != '\n') {}
@@ -136,31 +150,33 @@ void Controller::sortProducts() {
 			Service::filterProductsFunction(Product::typeComparison, productsAux);
 			break;
 		default:
-			std::cout << "Invalid choice!\n";
+			Console::invalid_input();
 			return;
 	}
-	print_all(productsAux);
+	this->print_all(productsAux);
 }
 
 void Controller::filterProducts() {
-	std::cout << "--------------// filter products \\\\--------------\n"
-		"1. Price\n" << "2. Name\n" << "3. Producer\n";
+	Console::clearScreen();
+	this->console.filterMenu();
+
 	char choice;
 	std::cin >> choice;
 	while (std::cin.get() != '\n') {}
+
 	switch (choice) {
 		case '1' : {
 			string _price;
-			std::cout<<"Product price: ";
+			this->console.paddedText("Product price:", GREEN, ' ');
 			std::getline(std::cin, _price);
 			int price;
 			try {
 				price = stoi(_price);
-				if (price < 0) throw std::invalid_argument("Invalid price, needs to be a positive number");
+				if (price < 0) throw err::InvalidArgument("Invalid price, needs to be a positive number");
 			}
 			catch (const std::exception& e) {
 				(void) e;
-				std::cout<< "Needs to be a positive number\n";
+				Console::errorText("Needs to be a positive number");
 				return;
 			}
 			this->service.removeProductsFunction(Product::priceComparison, &price);
@@ -168,26 +184,26 @@ void Controller::filterProducts() {
 		}
 		case '2': {
 			string name;
-			std::cout << "Product name: ";
+			this->console.paddedText("Product name:", BLUE, ' ');
 			std::getline(std::cin, name);
 			this->service.removeProductsFunction(Product::nameComparison, &name);
 			break;
 		}
 		case '3': {
 			string producer;
-			std::cout << "Product producer: ";
+			this->console.paddedText("Product producer:", CYAN, ' ');
 			std::getline(std::cin, producer);
 			this->service.removeProductsFunction(Product::producerComparison, &producer);
 			break;
 		}
 		default:
-			std::cout << "Invalid choice!\n";
+			Console::invalid_input();
 			return;
 	}
-	print_all(this->service.getAllProducts());
+	this->print_all(this->service.getAllProducts());
 }
 
-void Controller::add_deafult() {
+void Controller::add_default() {
 	this->service.repo.add(Product("Laptop", "Electronics", 1200, "TechCorp"));
 	this->service.repo.add(Product("Laptop", "Electronics", 1100, "ByteTech"));
 	this->service.repo.add(Product("Phone", "Electronics", 800, "TechCorp"));
@@ -210,45 +226,101 @@ void Controller::add_deafult() {
 	this->service.repo.add(Product("VR Headset", "Gaming", 480, "HyperLens"));
 }
 
+void Controller::adminController() noexcept {
+	Console::clearScreen();
+	this->console.adminMainMenu();
+	char choice;
+	std::cin >> choice;
+	while (std::cin.get() != '\n') {}
+	switch (choice) {
+		case '1':
+			this->addProduct();
+		break;
+		case '2':
+			this->remove();
+		break;
+		case '3':
+			this->changeProduct();
+		break;
+		case '4':
+			this->filterProducts();
+		break;
+		case 'P': case 'p':
+			this->print_all(this->service.getAllProducts());
+		break;
+		case 'E': case 'e':
+			appRunning = false;
+		break;
+		case '!':
+			Controller::add_default();
+		break;
+		case 'C': case 'c':
+			viewLevel.change();
+		break;
+		default:
+			Console::invalid_input();
+	}
+}
+
+void Controller::userController() noexcept {
+	Console::clearScreen();
+	this->console.userMainMenu(viewLevel.balance);
+	char choice;
+	std::cin >> choice;
+	while (std::cin.get() != '\n') {}
+	switch (choice) {
+		case '1':
+			this->findProduct();
+		break;
+		case '2':
+			this->sortProducts();
+		break;
+		case '3':
+			/// TODO this->shoppingCart();
+		break;
+		case 'P': case 'p':
+			this->print_all(this->service.getAllProducts());
+		break;
+		case 'E': case 'e':
+			appRunning = false;
+		break;
+		case 'C': case 'c':
+			viewLevel.change();
+		break;
+		default:
+			Console::invalid_input();
+	}
+}
+
 void Controller::run() {
-	bool run = true;
-	while (run) {
-		std::cout << "---------------// nemu \\\\---------------\n"
-			"1. Add product\n2. Remove product\n3. Change product\n4. Search for product\n"
-			"5. Filter\n6. Sort\nE. EXIT                    P. Print\n\n";
+	appRunning = true;
+
+	this->console.welcomeScreen();
+	while (appRunning) {
 		char choice;
 		std::cin >> choice;
 		while (std::cin.get() != '\n') {}
 		switch (choice) {
-			case '1':
-				this->addProduct();
+			case '1': {
+				viewLevel.low();
+				appRunning = false;
 				break;
-			case '2':
-				this->remove();
+			}
+			case '2': {
+				viewLevel.high();
+				appRunning = false;
 				break;
-			case '3':
-				this->changeProduct();
-				break;
-			case '4':
-				this->findProduct();
-				break;
-			case '5':
-				this->filterProducts();
-				break;
-			case '6':
-				this->sortProducts();
-				break;
-			case 'P': case 'p':
-				Controller::print_all(this->service.getAllProducts());
-				break;
-			case 'E': case 'e':
-				run = false;
-				break;
-			case '!':
-				Controller::add_deafult();
-				break;
+			}
 			default:
-				std::cout << "Invalid choice\n";
+				Console::invalid_input();
 		}
+	}
+
+	appRunning = true;
+
+	while (appRunning) {
+		if (viewLevel)  /// admin mode
+			this->adminController();
+		else this->userController();
 	}
 }

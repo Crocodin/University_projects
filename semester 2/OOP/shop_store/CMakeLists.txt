@@ -28,9 +28,13 @@ add_executable(shop_store main.cpp
         Tests/test_repo.cpp
         Service/service.cpp
         Service/service.h
-        Controller/controller.cpp
-        Controller/controller.h
+        Ui/Controller/controller.cpp
+        Ui/Controller/controller.h
         Tests/test_service.cpp
         DinamicList/list.hpp
         Tests/test_list.cpp
-        .clang-tidy)
+        Ui/Console/console.cpp
+        Ui/Console/console.h
+        .clang-tidy
+        ShoppingCart/shoppingCart.cpp
+        ShoppingCart/shoppingCart.h)

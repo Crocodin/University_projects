@@ -3,6 +3,8 @@
 #include "../Repository/repo.h"
 #include <vector>
 
+#include "../Errors/errors.hpp"
+
 void test_repo() {
 	Repository repo;
 
@@ -31,19 +33,19 @@ void test_repo() {
 		(void) aux;
 		assert(false);
 	}
-	catch (const std::logic_error& e) { (void)e; assert(true); }
+	catch (const err::LogicError& e) { (void)e; assert(true); }
 
 	try {
 		const Product& aux = repo.find(p.getName(), p.getProducer());
 		(void) aux;
 		assert(false);
 	}
-	catch (const std::logic_error& e) { (void)e; assert(true); }
+	catch (const err::LogicError& e) { (void)e; assert(true); }
 
 	try {
 		const uint aux = repo.getIndex(p);
 		(void)aux;
 		assert(false);
 	}
-	catch (const std::logic_error& e) { (void)e; assert(true); }
+	catch (const err::LogicError& e) { (void)e; assert(true); }
 }

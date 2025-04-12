@@ -2,11 +2,9 @@
 #define REPO_H
 
 #include "../DinamicList/list.hpp"
-#include <exception>
-#include <stdexcept>
 #include "../Domain/product.h"
 
-typedef List<Product> vector;
+using vector = List<Product>;
 
 class Repository {
 private:

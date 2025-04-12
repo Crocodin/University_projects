@@ -1,7 +1,7 @@
 #pragma once
 #include <stdexcept>
 
-typedef unsigned int uint;
+using uint = unsigned int;
 template <typename T> class List {
 private:
 	T* data = nullptr;
@@ -38,7 +38,7 @@ public:
 
 	/// returns a pointer to the last element
 	/// :return: T* - pointer to the last element
-	T* end() const noexcept { return data + _size - 1; }
+	T* end() const noexcept { return data + _size; }
 
 	/// removes elements from the list starting from `fromWhere` to `toWhere`
 	/// :param fromWhere: pointer to the first element to be removed
@@ -49,7 +49,7 @@ public:
 		if (toWhere == nullptr) toWhere = fromWhere + 1;  // erase single element
 
 		int amountToErase = toWhere - fromWhere;
-		if (amountToErase <= 0 || amountToErase > static_cast<int>(this->_size - (fromWhere - this->data) + 1))
+		if (amountToErase <= 0 || amountToErase > static_cast<int>(this->_size - (fromWhere - this->data)))
 			throw std::out_of_range("FATAL call of erase");
 
 		T* moveFrom = fromWhere + amountToErase;
@@ -91,7 +91,7 @@ public:
 	/// :param list: const reference to the list to iterate over
 	/// :return: none
 	/// @:exception: none
-	explicit Iterator(const List<T>& list) noexcept : list(list), index(0) {}
+	explicit Iterator(const List<T>& list) noexcept : list(list) {}
 
 	/// constructor that initializes an iterator at a specific index of the list
 	/// :param list: const reference to the list to iterate over

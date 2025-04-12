@@ -25,7 +25,7 @@ void test_product() {
 	p.setProducer("different_producer");
 	assert(p.getProducer() == "different_producer");
 
-	Product p2 { "name", "type", 13, "producer" };
+	const Product p2 { "name", "type", 13, "producer" };
 	string something = "name";
 	uint number = 13;
 	assert(Product::nameComparison(p2, p) != true);
@@ -38,17 +38,16 @@ void test_product() {
 }
 
 void test_validator() {
-	Validator v;
+	assert(Validator::valid_name("name"));
+	assert(Validator::valid_price(12));
+	assert(Validator::valid_price(12));
+	assert(Validator::valid_type("type"));
+	assert(Validator::valid_producer("producer"));
+	assert(!Validator::valid_producer(""));
+	assert(!Validator::valid_name(""));
+	assert(!Validator::valid_type(""));
 
-	assert(v.valid_name("name"));
-	assert(v.valid_price(12));
-	assert(v.valid_price(12));
-	assert(v.valid_type("type"));
-	assert(v.valid_producer("producer"));
-	assert(!v.valid_producer(""));
-	assert(!v.valid_name(""));
-	assert(!v.valid_type(""));
-
+	const Validator v;
 	assert(v.validate("name", "type", 12, "producer"));
 }
 

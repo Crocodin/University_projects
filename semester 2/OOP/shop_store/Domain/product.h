@@ -3,8 +3,8 @@
 
 #include <string>
 
-typedef unsigned int uint;
-typedef std::string string;
+using uint = unsigned int;
+using string = std::string;
 
 
 class Product {
@@ -25,40 +25,40 @@ public:
 
 	/// Sets the name of the product
 	/// :param string: new name of the product
-	void setName(const string&);
+	void setName(const string&) noexcept;
 
 	/// Sets the price of the product
 	/// :param uint: new price of the product
-	void setPrice(const uint&);
+	void setPrice(const uint&) noexcept;
 
 	/// Sets the type of the product
 	/// :param string: new type of the product
-	void setType(const string&);
+	void setType(const string&) noexcept;
 
 	/// Sets the producer of the product
 	/// :param string: new producer of the product
-	void setProducer(const string&);
+	void setProducer(const string&) noexcept;
 
 	/// Retrieves the name of the product
 	/// :return string: the type of the product
-	[[nodiscard]] string getName() const;
+	[[nodiscard]] string getName() const noexcept;
 
 	/// Retrieves the price of the product
 	/// :return uint: the current price of the product
-	[[nodiscard]] uint getPrice() const;
+	[[nodiscard]] uint getPrice() const noexcept;
 
 	/// Retrieves the type of the product
 	/// :return string: the type of the product
-	[[nodiscard]] string getType() const;
+	[[nodiscard]] string getType() const noexcept;
 
 	/// Retrieves the producer of the product
 	/// :return string: the producer of the product
-	[[nodiscard]] string getProducer() const;
+	[[nodiscard]] string getProducer() const noexcept;
 
 	/// compares if two products are equal
 	/// :param Product: another product to compare against
 	/// :return: true if both products are the same, false otherwise
-	bool operator==(const Product&) const;
+	bool operator==(const Product&) const noexcept;
 
 	/// makes a copy, you idiot!
 	Product(const Product&);

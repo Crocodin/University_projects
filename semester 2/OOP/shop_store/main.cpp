@@ -1,5 +1,5 @@
 #include "Tests/tests.h"
-#include "Controller/controller.h"
+#include "Ui/Controller/controller.h"
 #include <iostream>
 
 int main() {
@@ -7,8 +7,9 @@ int main() {
 	run_all_tests();
 	std::cout << "Passed all tests!\n";
 
-	Controller controller;
+	Controller controller(50, "   ");
 	controller.run();
+
 
 	return 0;
 }
