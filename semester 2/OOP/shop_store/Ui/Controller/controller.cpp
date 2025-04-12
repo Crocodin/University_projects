@@ -3,6 +3,7 @@
 
 #include <fstream>
 #include <iostream>
+#include <random>
 
 
 void Controller::addProduct() {
@@ -24,6 +25,7 @@ void Controller::addProduct() {
 	catch (const std::exception& e) {
 		(void) e;
 		Console::errorText("Needs to be a number");
+		this->console.waitForKey();
 		return;
 	}
 
@@ -58,7 +60,7 @@ void Controller::remove() {
 		this->service.removeProduct(name, producer);
 		Console::successfullyText("✔️ Removed successfully!");
 	}
-	catch (const std::exception& e) {
+	catch (const err::LogicError& e) {
 		Console::errorText(e.what());
 	}
 	this->console.waitForKey();
@@ -121,6 +123,7 @@ void Controller::addToShoppingCart(const Product& p) noexcept {
 }
 
 void Controller::findProduct() {
+	std::cout << '\n'; /// i know it shouldn't be here... but...
 	string name, producer;
 
 	this->console.paddedText("📝 Product name: ", LIGHT_BLUE, ' ');
@@ -300,7 +303,10 @@ void Controller::exportToHtml(const vector& products) const noexcept {
 					<< "<td>" << product.getProducer() << "</td></tr>\n";
 			}
 		} else {
-			out << line << "\n";  // copy the line as is
+			if (line.find("<!-- PRICE GO HERE-->") != std::string::npos) {
+				out << balance_;
+			}
+			else out << line << "\n";  // copy the line as is
 		}
 	}
 	templateIn.close();
@@ -310,11 +316,54 @@ void Controller::exportToHtml(const vector& products) const noexcept {
 	this->console.waitForKey();
 }
 
+void Controller::generateCart() noexcept {
+	std::mt19937 mt{ std::random_device{}() };
+	std::uniform_int_distribution<int> distrib{ 0, static_cast<int>(this->service.getAllProducts().size() - 1) };
+
+	string number_; int number;
+	this->console.paddedText("♾️ Number of elements: ", YELLOW, ' ');
+	std::getline(std::cin, number_);
+
+	try {
+		number = stoi(number_);
+		if (number < 0) throw err::InvalidArgument("Invalid price, needs to be a positive number");
+	}
+	catch (...) {
+		Console::errorText("Needs to be a positive number");
+		this->console.waitForKey(); return;
+	}
+
+	const vector& products = this->service.getAllProducts();
+	for (int i = 0; i < number; i++) {
+		const int rndNr = distrib(mt);
+		this->shoppingCart.addToShoppingCart(products[rndNr]);
+	}
+}
+
+void Controller::removeCartProduct() noexcept {
+	string name, producer;
+
+	this->console.paddedText("📝 Product name: ", LIGHT_BLUE, ' ');
+	std::getline(std::cin, name);
+
+	this->console.paddedText("🏷️Product producer: ", GREEN, ' ');
+	std::getline(std::cin, producer);
+
+	Product p;
+	try { p = this->service.repo.find(name, producer); }
+	catch (const err::LogicError& e) {
+		Console::errorText(e.what());
+		this->console.waitForKey(); return;
+	}
+
+	this->shoppingCart.removeFromShoppingCart(p);
+}
+
 void Controller::shoppingCartOptions() noexcept {
 	bool stop = false;
 	while (!stop) {
 		Console::clearScreen();
-		this->console.shoppingCartOptions();
+		this->console.shoppingCartOptions(balance_);
 		char choice;
 		std::cin >> choice;
 		while (std::cin.get() != '\n') {}
@@ -326,6 +375,7 @@ void Controller::shoppingCartOptions() noexcept {
 				vector& auxList = this->shoppingCart.getAllProducts();
 				/// delets all form the shopping cart
 				auxList.erase(auxList.begin(), auxList.end());
+				balance_ = 0;
 			}
 			break;
 			case '2':
@@ -335,6 +385,12 @@ void Controller::shoppingCartOptions() noexcept {
 				this->console.shoppingCart(this->shoppingCart.getAllProducts(), balance_);
 				this->console.waitForKey();
 			}
+			break;
+			case '4':
+				this->removeCartProduct();
+			break;
+			case '5':
+				this->generateCart();
 			break;
 			default:
 				Console::invalid_input();

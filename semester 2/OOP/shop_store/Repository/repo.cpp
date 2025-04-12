@@ -5,7 +5,7 @@ void Repository::add(const Product& p) {
 	if (this->isIn(p)) throw err::InvalidArgument("Product already exists");
 	this->products.push_back(p);
 }
-
+#include <iostream>
 uint Repository::getIndex(const Product& p) const {
 	int index = 0;
 	for (const auto& it : this->products) {
@@ -16,7 +16,8 @@ uint Repository::getIndex(const Product& p) const {
 }
 
 void Repository::remove(const Product & p) {
-	this->products.erase(this->products.begin() + this->getIndex(p));
+	const uint index = getIndex(p);
+	this->products.erase(this->products.begin() + index);
 }
 
 bool Repository::isIn(const Product& p) const noexcept {
