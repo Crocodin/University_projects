@@ -74,7 +74,7 @@ public:
 
 	void shoppingCart(const list&, const uint&) const noexcept;
 
-	void shoppingCartOptions() const noexcept;
+	void shoppingCartOptions(const uint&) const noexcept;
 
 	void exportMenu() const noexcept;
 };

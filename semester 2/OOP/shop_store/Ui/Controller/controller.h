@@ -83,6 +83,10 @@ public:
 
 	void exportToHtml(const vector &products) const noexcept;
 
+	void generateCart() noexcept;
+
+	void removeCartProduct() noexcept;
+
 	void shoppingCartOptions() noexcept;
 
 	void userController() noexcept;

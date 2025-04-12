@@ -147,16 +147,33 @@ void Console::waitForKey(const string& message) const noexcept {
 
 void Console::sortedProductsMenu() const noexcept {
 	this->centerText("============ Sorted Products ============", LIGHT_BLUE);
-	this->paddedText("1. 📊 Sort by Price", LIGHT_BLUE);
-	this->paddedText("2. 🏷️ Sort by Name", LIGHT_BLUE);
-	this->paddedText("3. 🔠 Sort by Type + Name", LIGHT_BLUE);
+
+	const std::vector<std::pair<std::string, std::string>> filters = {
+		{"1. 📊 Sort by Price", LIGHT_BLUE},
+		{"2. 🏷️ Sort by Name", LIGHT_BLUE},
+		{"3. 🔠 Sort by Type + Name", LIGHT_BLUE}
+	};
+
+	for (const auto& [text, color] : filters) {
+		this->paddedText(text, color);
+		usleep(200000); // 0.2s pause
+	}
 }
 
 void Console::printDetailedProduct(const Product& p) const noexcept {
-	this->paddedText("============// " + p.getName() + " \\\\============", LIGHT_BLUE);
-	this->paddedText("📦 Product Type:  " + p.getType(), LIGHT_BLUE);
-	this->paddedText("💰 Product Price: " + std::to_string(p.getPrice()) + "$", LIGHT_BLUE);
-	this->paddedText("🏭 Product Producer: " + p.getProducer(), LIGHT_BLUE);
+	const std::vector<std::pair<std::string, std::string>> filters = {
+		{"============// " + p.getName() + " \\\\============", LIGHT_BLUE},
+		{"📦 Product Type:  " + p.getType(), LIGHT_BLUE},
+		{"💰 Product Price: " + std::to_string(p.getPrice()) + "$", LIGHT_BLUE},
+		{"🏭 Product Producer: " + p.getProducer(), LIGHT_BLUE}
+	};
+
+	for (const auto& [text, color] : filters) {
+		this->paddedText(text, color);
+		usleep(200000); // 0.2s pause
+	}
+
+	std::cout << '\n';
 }
 
 void Console::userMainMenu(const uint& balance) const noexcept {
@@ -210,13 +227,24 @@ void Console::shoppingCart(const list& products, const uint& full_price) const n
 	std::cout << '\n';
 }
 
-void Console::shoppingCartOptions() const noexcept {
-	this->drawLine("\033[36m=\033[0m");
+void Console::shoppingCartOptions(const uint& balance) const noexcept {
+	std::cout << CYAN << "=================================== " << balance << "$ ====\n" << CYAN;
 	std::cout << '\n';
-	this->paddedText("🗑️1. Empty shopping cart", GREEN);
-	this->paddedText("💾 2. Export shopping cart", YELLOW);
-	this->paddedText("👀 3. View shopping cart", BLUE);
-	this->paddedText("↩️ B. GO BACK", GRAY);
+
+	const std::vector<std::pair<std::string, std::string>> options = {
+		{"🗑️1. Empty shopping cart", GREEN},
+		{"💾 2. Export shopping cart", YELLOW},
+		{"👀 3. View shopping cart", BLUE},
+		{"❌  4. Remove product", MAGENTA},
+		{"🎲 5. Add random products", WHITE},
+		{"↩️ B. GO BACK", GRAY}
+	};
+
+	for (const auto& [text, color] : options) {
+		this->paddedText(text, color);
+		usleep(200000); // 0.2 seconds per line
+	}
+
 	std::cout << '\n';
 }
 
