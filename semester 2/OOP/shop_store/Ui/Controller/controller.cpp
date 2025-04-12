@@ -1,7 +1,9 @@
 #include "controller.h"
+#include "../../Errors/errors.hpp"
+
+#include <fstream>
 #include <iostream>
 
-#include "../../Errors/errors.hpp"
 
 void Controller::addProduct() {
 	string name, type, producer, _price;
@@ -109,11 +111,16 @@ void Controller::printProduct(const Product& p) const noexcept {
 	this->console.printDetailedProduct(p);
 }
 
-void Controller::addToShoppingCart(const Product& p) const noexcept {
-
+void Controller::addToShoppingCart(const Product& p) noexcept {
+	this->console.addToShoppingCartMenu();
+	char choice;
+	std::cin >> choice;
+	while (std::cin.get() != '\n') {}
+	if (choice == 'n') return;
+	this->shoppingCart.addToShoppingCart(p);
 }
 
-void Controller::findProduct() const {
+void Controller::findProduct() {
 	string name, producer;
 
 	this->console.paddedText("📝 Product name: ", LIGHT_BLUE, ' ');
@@ -262,9 +269,82 @@ void Controller::adminController() noexcept {
 	}
 }
 
+void Controller::exportToHtml(const vector& products) const noexcept {
+	Console::clearScreen();
+	this->console.exportMenu();
+	string outputFile {"../Exports/"}, fileName;
+	std::getline(std::cin, fileName);
+	outputFile += fileName + ".html";
+
+	std::ifstream templateIn("template.html"); /// GO TO THE CMAKELIST IF IT DOSEN'T WORK
+	if (!templateIn.is_open()) {
+		Console::errorText("❌ Failed to open template file.");
+		this->console.waitForKey(); return;
+	}
+
+	std::ofstream out(outputFile);
+	if (!out.is_open()) {
+		/// CHECK THE outputFile PATH, IT IS RELATIV TO THE CMAKE-BUILD-DEBUG
+		Console::errorText("❌ Failed to open output file.");
+		this->console.waitForKey(); return;
+	}
+
+	std::string line;
+	while (std::getline(templateIn, line)) {
+		// Inject product rows where marker is
+		if (line.find("<!-- PRODUCTS GO HERE -->") != std::string::npos) {
+			for (const auto& product : products) {
+				out << "<tr><td>" << product.getName() << "</td>"
+					<< "<td>" << product.getType() << "</td>"
+					<< "<td>" << product.getPrice() << "</td>"
+					<< "<td>" << product.getProducer() << "</td></tr>\n";
+			}
+		} else {
+			out << line << "\n";  // copy the line as is
+		}
+	}
+	templateIn.close();
+	out.close();
+	string successExport = {"✅ HTML exported to " + outputFile};
+	Console::successfullyText(successExport);
+	this->console.waitForKey();
+}
+
+void Controller::shoppingCartOptions() noexcept {
+	bool stop = false;
+	while (!stop) {
+		Console::clearScreen();
+		this->console.shoppingCartOptions();
+		char choice;
+		std::cin >> choice;
+		while (std::cin.get() != '\n') {}
+		switch (choice) {
+			case 'B': case 'b': case 'E': case 'e':
+				stop = true;
+			break;
+			case '1': {
+				vector& auxList = this->shoppingCart.getAllProducts();
+				/// delets all form the shopping cart
+				auxList.erase(auxList.begin(), auxList.end());
+			}
+			break;
+			case '2':
+				this->exportToHtml(this->shoppingCart.getAllProducts());
+			break;
+			case '3': {
+				this->console.shoppingCart(this->shoppingCart.getAllProducts(), balance_);
+				this->console.waitForKey();
+			}
+			break;
+			default:
+				Console::invalid_input();
+		}
+	}
+}
+
 void Controller::userController() noexcept {
 	Console::clearScreen();
-	this->console.userMainMenu(viewLevel.balance);
+	this->console.userMainMenu(balance_);
 	char choice;
 	std::cin >> choice;
 	while (std::cin.get() != '\n') {}
@@ -276,7 +356,7 @@ void Controller::userController() noexcept {
 			this->sortProducts();
 		break;
 		case '3':
-			/// TODO this->shoppingCart();
+			this->shoppingCartOptions();
 		break;
 		case 'P': case 'p':
 			this->print_all(this->service.getAllProducts());

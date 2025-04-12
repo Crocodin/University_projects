@@ -16,6 +16,9 @@ endif()
 
 message(STATUS "CXX flags: ${CMAKE_CXX_FLAGS}")
 
+configure_file(${CMAKE_SOURCE_DIR}/Utilities/template.html
+        ${CMAKE_BINARY_DIR}/template.html COPYONLY)
+
 add_executable(shop_store main.cpp
         Domain/product.cpp
         Domain/product.h

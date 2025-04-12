@@ -42,9 +42,9 @@ protected:
 	/// :return: NULL
 	void printProduct(const Product &p) const noexcept;
 
-	/// ui for find product
+	/// ui for find product, add ask to add the product to the shopping cart
 	/// :return: NULL
-	void findProduct() const;
+	void findProduct();
 
 	/// ui for sorting
 	/// :return: NULL
@@ -57,6 +57,8 @@ protected:
 	/// adding default products
 	/// :return: NULL
 	void add_default();
+
+	void addToShoppingCart(const Product& p) noexcept;
 public:
 
 	/// this class represents how much the user can see, this being a shopping app you can
@@ -65,7 +67,6 @@ public:
 	private:
 		unsigned short level = 0;
 	public:
-		int balance = 0;
 		void low() { this->level = 0; }; /// guest mode
 		void high() { this->level = 1; }; /// admin mode
 		explicit operator bool() const { return this->level != 0; };
@@ -79,6 +80,10 @@ public:
 	void run();
 
 	void adminController() noexcept;
+
+	void exportToHtml(const vector &products) const noexcept;
+
+	void shoppingCartOptions() noexcept;
 
 	void userController() noexcept;
 };

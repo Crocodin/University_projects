@@ -1,8 +1,7 @@
 #include "console.h"
+#include "unistd.h"
 
 #include <iomanip>
-
-#include "unistd.h"
 #include <iostream>
 #include <sstream>
 #include <vector>
@@ -119,10 +118,10 @@ void Console::successfullyText(const string& text) noexcept {
 	std::cout << GREEN << text << RESET << '\n';
 }
 
-void Console::printProducts(const List<Product>& products) const {
-	this->drawLine(CYAN); // Line above the title
+void Console::printProducts(const list& products) const {
+	this->drawLine("\033[36m=\033[0m"); // Line above the title
 	this->centerText("🛍️ Product List", CYAN);
-	this->drawLine(CYAN);
+	this->drawLine("\033[36m=\033[0m");
 	std::cout << '\n';
 
 	// Print header with aligned columns
@@ -160,7 +159,7 @@ void Console::printDetailedProduct(const Product& p) const noexcept {
 	this->paddedText("🏭 Product Producer: " + p.getProducer(), LIGHT_BLUE);
 }
 
-void Console::userMainMenu(const int& balance) const noexcept {
+void Console::userMainMenu(const uint& balance) const noexcept {
 	std::cout << BLUE << "=================================== " << balance << "$ ====\n" << RESET; ;
 	std::cout << '\n';
 	this->centerText("✨ User Mode ✨", BLUE);
@@ -183,5 +182,50 @@ void Console::userMainMenu(const int& balance) const noexcept {
 }
 
 void Console::addToShoppingCartMenu() const noexcept {
+	std::cout << '\n';
+	this->paddedText("Do you want to add this to the shopping car? (y/n)", GREEN);
+}
 
+void Console::shoppingCart(const list& products, const uint& full_price) const noexcept {
+	this->drawLine("\033[36m=\033[0m"); // Line above the title
+	this->centerText("🛍️ Shopping cart", CYAN);
+	this->drawLine("\033[36m=\033[0m");
+	std::cout << '\n';
+
+	this->paddedText("📦 Name           🏷️Type          💰Price      🏭 Producer", LIGHT_BLUE);
+
+	for (const auto& product : products) {
+		std::stringstream line;
+		line << "• "
+			 << std::setw(17) << std::left << product.getName() << '|'
+			 << std::setw(17) << std::left << product.getType() << '|'
+			 << std::setw(10) << std::left << product.getPrice() << '|'
+			 << std::setw(20) << std::left << product.getProducer();  // Producer aligned to left
+		this->paddedText(line.str(), LIGHT_BLUE);
+	}
+
+	std::stringstream line;
+	line << "Total sum is: " << full_price << "$";
+	this->paddedText(line.str(), LIGHT_BLUE);
+	std::cout << '\n';
+}
+
+void Console::shoppingCartOptions() const noexcept {
+	this->drawLine("\033[36m=\033[0m");
+	std::cout << '\n';
+	this->paddedText("🗑️1. Empty shopping cart", GREEN);
+	this->paddedText("💾 2. Export shopping cart", YELLOW);
+	this->paddedText("👀 3. View shopping cart", BLUE);
+	this->paddedText("↩️ B. GO BACK", GRAY);
+	std::cout << '\n';
+}
+
+void Console::exportMenu() const noexcept {
+	this->drawLine("\033[33m=\033[0m");
+	std::cout << '\n';
+	this->centerText("Export", YELLOW);
+	std::cout << '\n';
+	this->drawLine("\033[33m=\033[0m");
+	std::cout << '\n';
+	this->paddedText("File name:", GREEN, ' ');
 }

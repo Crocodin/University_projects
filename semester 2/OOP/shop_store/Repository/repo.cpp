@@ -35,3 +35,7 @@ uint Repository::size() const noexcept {
 vector& Repository::getAllProducts() noexcept {
 	return this->products;
 }
+
+void Repository::forceAdd(const Product& p) noexcept {
+	this->products.push_back(p);
+}
