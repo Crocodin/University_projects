@@ -1,5 +1,4 @@
 #include <cassert>
-#include <iostream>
 #include "tests.h"
 #include "../DinamicList/list.hpp"
 
@@ -12,7 +11,7 @@ void test_int_list() {
 
 	assert(list.size() == 20);
 	assert(*list.begin() == 0);
-	assert(*list.end() == 19);
+	assert(*(list.end() - 1) == 19);
 
 	for (int i = 0; i < 20; i++)
 		assert(list[i] == i);
@@ -26,11 +25,11 @@ void test_int_list() {
 		else assert(list[i] == i + 1);
 
 	list.erase(list.begin() + 5, list.end() - 5);
-	assert(list.size() ==11);
+	assert(list.size() == 10);
 	for (int i = 0; i < 5; i++)
 		assert(list[i] == i);
 	for (int i = 5; i < 10; i++)
-		assert(list[i] == i + 14 - 5);
+		assert(list[i] == i + (19 - 4) - 5);
 }
 
 void test_list() {

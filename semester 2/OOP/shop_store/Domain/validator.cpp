@@ -1,25 +1,21 @@
 #include "validator.h"
 
-bool Validator::valid_name(const string& name) const {
-	if (!name.empty()) return true;
-	return false;
+bool Validator::valid_name(const string& name) noexcept {
+	return !name.empty();
 }
 
-bool Validator::valid_price(const int& price) const {
-	if (price < 0) return false;
-	return true;
+bool Validator::valid_price(const int& price) noexcept {
+	return price > 0;
 }
 
-bool Validator::valid_type(const string& type) const {
-	if (!type.empty()) return true;
-	return false;
+bool Validator::valid_type(const string& type) noexcept {
+	return !type.empty();
 }
 
-bool Validator::valid_producer(const string& producer) const {
-	if (!producer.empty()) return true;
-	return false;
+bool Validator::valid_producer(const string& producer) noexcept {
+	return !producer.empty();
 }
 
-bool Validator::validate(const string& name, const string& type, const uint& price, const string& producer) const {
-	return this->valid_name(name) && this->valid_price(static_cast<int>(price)) && this->valid_type(type) && this->valid_producer(producer);
+bool Validator::validate(const string& name, const string& type, const int& price, const string& producer) const noexcept {
+	return valid_name(name) && valid_price(price) && valid_type(type) && valid_producer(producer);
 }

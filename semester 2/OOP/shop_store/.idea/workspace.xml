@@ -31,7 +31,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5f138dca-698a-487e-84af-417ab922919b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/UML_Shop_store.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Errors/errors.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Ui/Console/console.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Ui/Console/console.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Ui/Controller/controller.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../AG - lab/BFSvDFS/cmake-build-debug/.cmake/api/v1/reply/cache-v2-19202ea7cb01a2a786cc.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../../AG - lab/BFSvDFS/cmake-build-debug/.cmake/api/v1/reply/cmakeFiles-v1-39b0b82c337511f60a22.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../../AG - lab/BFSvDFS/cmake-build-debug/.cmake/api/v1/reply/codemodel-v2-b9e99d4f515d2c639f0d.json" beforeDir="false" />
@@ -44,24 +47,27 @@
       <change beforePath="$PROJECT_DIR$/../../AG - lab/lee/cmake-build-debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/../../AG - lab/lee/cmake-build-debug/.ninja_log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../AG - lab/lee/cmake-build-debug/build.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/../../AG - lab/lee/cmake-build-debug/build.ninja" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../AG - lab/lee/cmake-build-debug/lee" beforeDir="false" afterPath="$PROJECT_DIR$/../../AG - lab/lee/cmake-build-debug/lee" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.clang-tidy" beforeDir="false" afterPath="$PROJECT_DIR$/.clang-tidy" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controller/controller.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Controller/controller.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controller/controller.h" beforeDir="false" afterPath="$PROJECT_DIR$/Controller/controller.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controller/controller.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Ui/Controller/controller.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controller/controller.h" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/DinamicList/list.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/DinamicList/list.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Domain/product.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Domain/product.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Domain/product.h" beforeDir="false" afterPath="$PROJECT_DIR$/Domain/product.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Domain/validator.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Domain/validator.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Domain/validator.h" beforeDir="false" afterPath="$PROJECT_DIR$/Domain/validator.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Repository/repo.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Repository/repo.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Repository/repo.h" beforeDir="false" afterPath="$PROJECT_DIR$/Repository/repo.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Service/service.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Service/service.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Service/service.h" beforeDir="false" afterPath="$PROJECT_DIR$/Service/service.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/test_domain.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/test_domain.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Tests/test_list.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/test_list.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Tests/test_repo.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/test_repo.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/test_service.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/test_service.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/tests.h" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/tests.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SDA/TAD Coada cu Prioritati/Proiect C++/CP.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../SDA/TAD Coada cu Prioritati/Proiect C++/CP.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SDA/TAD Coada cu Prioritati/Proiect C++/CP.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../SDA/TAD Coada cu Prioritati/Proiect C++/CP.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SDA/TAD Coada cu Prioritati/Teste/TestExtins.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../SDA/TAD Coada cu Prioritati/Teste/TestExtins.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -146,8 +152,12 @@
     <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Controller/controller.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Controller/controller.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/DinamicList/list.hpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Domain/product.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Domain/product.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Domain/validator.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -157,6 +167,7 @@
     <setting file="file://$PROJECT_DIR$/Service/service.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Service/service.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Tests/test_domain.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Tests/test_list.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Tests/test_repo.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Tests/test_service.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Tests/tests.h" root0="FORCE_HIGHLIGHTING" />
@@ -196,17 +207,22 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "onboarding.tips.debug.path": "C:/Users/codri/Documents/GitHub/University_projects/semester 2/OOP/shop_store/main.cpp",
-    "settings.editor.selected.configurable": "language.cpp.clang-tidy",
+    "settings.editor.selected.configurable": "CPPToolchains",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\codri\Documents\GitHub\University_projects\semester 2\OOP\shop_store" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="CLION.EXTERNAL.BUILD" enabled="true" />
       </method>
     </configuration>
-    <configuration name="shop_store" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="true" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="shop_store" TARGET_NAME="shop_store" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="shop_store" RUN_TARGET_NAME="shop_store">
+    <configuration name="shop_store" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="shop_store" TARGET_NAME="shop_store" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="shop_store" RUN_TARGET_NAME="shop_store">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -240,6 +256,8 @@
       <workItem from="1744208065400" duration="3376000" />
       <workItem from="1744279012015" duration="40000" />
       <workItem from="1744287366208" duration="8021000" />
+      <workItem from="1744382963433" duration="4147000" />
+      <workItem from="1744436039756" duration="11212000" />
     </task>
     <servers />
   </component>
@@ -282,6 +300,11 @@
               </option>
               <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
             </State>
+          </value>
+        </entry>
+        <entry key="MAIN">
+          <value>
+            <State />
           </value>
         </entry>
       </map>

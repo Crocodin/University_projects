@@ -6,39 +6,39 @@ Product::Product(string name, string type, const uint& price, string producer)
 : name(std::move(name)), type(std::move(type)), price(price), producer(std::move(producer)) {
 }
 
-void Product::setName(const string& newName) {
+void Product::setName(const string& newName) noexcept {
 	this->name = newName;
 }
 
-void Product::setPrice(const uint& newPrice) {
+void Product::setPrice(const uint& newPrice) noexcept {
 	this->price = newPrice;
 }
 
-void Product::setType(const string& newType) {
+void Product::setType(const string& newType) noexcept {
 	this->type = newType;
 }
 
-void Product::setProducer(const string& newProducer) {
+void Product::setProducer(const string& newProducer) noexcept {
 	this->producer = newProducer;
 }
 
-string Product::getName() const {
+string Product::getName() const noexcept {
 	return this->name;
 }
 
-uint Product::getPrice() const {
+uint Product::getPrice() const noexcept {
 	return this->price;
 }
 
-string Product::getType() const {
+string Product::getType() const noexcept {
 	return this->type;
 }
 
-string Product::getProducer() const {
+string Product::getProducer() const noexcept {
 	return this->producer;
 }
 
-bool Product::operator==(const Product& other) const {
+bool Product::operator==(const Product& other) const noexcept {
 	return this->name == other.name &&
 			this->type == other.type &&
 			this->price == other.price &&
