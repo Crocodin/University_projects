@@ -1,6 +1,8 @@
 #pragma once
 #include <stdexcept>
 
+#include "../Errors/errors.hpp"
+
 using uint = unsigned int;
 template <typename T> class List {
 private:
@@ -44,13 +46,13 @@ public:
 	/// :param fromWhere: pointer to the first element to be removed
 	/// :param toWhere: pointer to the last element to be removed (defaults to `fromWhere + 1`)
 	/// :return: NULL
-	/// @:exception: might throw std::out_of_range if the range is invalid
+	/// @:exception: might throw err::OutOfRange if the range is invalid
 	void erase(T* fromWhere, const T* toWhere = nullptr) {
 		if (toWhere == nullptr) toWhere = fromWhere + 1;  // erase single element
 
 		int amountToErase = toWhere - fromWhere;
 		if (amountToErase <= 0 || amountToErase > static_cast<int>(this->_size - (fromWhere - this->data)))
-			throw std::out_of_range("FATAL call of erase");
+			throw err::OutOfRange("FATAL call of erase");
 
 		T* moveFrom = fromWhere + amountToErase;
 		T* moveTo = fromWhere;

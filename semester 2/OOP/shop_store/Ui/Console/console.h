@@ -3,7 +3,7 @@
 #include <list>
 #include <string>
 
-#include "../../DinamicList/list.hpp"
+#include "../../DynamicList/list.hpp"
 #include "../../Domain/product.h"
 
 #define RESET     "\033[0m"
