@@ -1,6 +1,6 @@
 #include <cassert>
 #include "tests.h"
-#include "../DinamicList/list.hpp"
+#include "../DynamicList/list.hpp"
 
 void test_int_list() {
 	List<int> list;

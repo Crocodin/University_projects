@@ -34,7 +34,7 @@ add_executable(shop_store main.cpp
         Ui/Controller/controller.cpp
         Ui/Controller/controller.h
         Tests/test_service.cpp
-        DinamicList/list.hpp
+        DynamicList/list.hpp
         Tests/test_list.cpp
         Ui/Console/console.cpp
         Ui/Console/console.h

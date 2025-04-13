@@ -374,7 +374,12 @@ void Controller::shoppingCartOptions() noexcept {
 			case '1': {
 				vector& auxList = this->shoppingCart.getAllProducts();
 				/// delets all form the shopping cart
-				auxList.erase(auxList.begin(), auxList.end());
+				try {
+					auxList.erase(auxList.begin(), auxList.end());
+				} catch (err::OutOfRange& e) {
+					Console::errorText("Can't delete empty cart");
+					console.waitForKey(); (void) e;
+				}
 				balance_ = 0;
 			}
 			break;
@@ -429,6 +434,7 @@ void Controller::userController() noexcept {
 }
 
 void Controller::run() {
+	balance_ = 0;
 	appRunning = true;
 
 	this->console.welcomeScreen();

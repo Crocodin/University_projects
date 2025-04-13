@@ -23,6 +23,11 @@ namespace err {
 		explicit LogicError(const char* str) : Errors(str) {}
 	};
 
+	class OutOfRange final : public Errors {
+	public:
+		explicit OutOfRange(const char* str) : Errors(str) {}
+	};
+
 }
 
 
