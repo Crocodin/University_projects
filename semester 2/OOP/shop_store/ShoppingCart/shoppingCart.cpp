@@ -9,3 +9,4 @@ void ShoppingCart::removeFromShoppingCart(const Product & p) {
 	balance_ -= p.getPrice();
 	this->remove(p);
 }
+

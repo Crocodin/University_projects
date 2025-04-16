@@ -79,16 +79,40 @@ public:
 	/// starts & runs the application
 	void run();
 
+	/// displays the admin controller interface
+	/// :return: NULL
+	/// @:exception: noexcept
 	void adminController() noexcept;
 
+	/// exports a list of products to an HTML file
+	/// :param products: a vector of products
+	/// :return: NULL
+	/// @:exception: noexcept
 	void exportToHtml(const vector &products) const noexcept;
 
+	/// generates the shopping cart with random products
+	/// :return: NULL
+	/// @:exception: noexcept
 	void generateCart() noexcept;
 
+	/// removes a product from the shopping cart
+	/// :return: NULL
+	/// @:exception: noexcept
 	void removeCartProduct() noexcept;
 
+	/// exports a list of products to a CSV file
+	/// :param unnamed: a vector of products
+	/// @:exception: noexcept
+	void exportToCSV(const vector&) noexcept;
+
+	/// displays the shopping cart options interface
+	/// :return: NULL
+	/// @:exception: noexcept
 	void shoppingCartOptions() noexcept;
 
+	/// displays the user controller interface
+	/// :return: NULL
+	/// @:exception: noexcept
 	void userController() noexcept;
 };
 
