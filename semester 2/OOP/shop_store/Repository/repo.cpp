@@ -1,4 +1,7 @@
 #include "repo.h"
+
+#include <algorithm>
+
 #include "../Errors/errors.hpp"
 
 void Repository::add(const Product& p) {
@@ -23,9 +26,14 @@ void Repository::remove(const Product & p) {
 bool Repository::isIn(const Product& p) const noexcept {
 	return std::ranges::find(this->products, p) != this->products.end();
 }
-Product& Repository::find(const string& name, const string& producer) const {
-	for (auto& it : this->products)
-		if (it.getName() == name && it.getProducer() == producer) return it;
+Product& Repository::find(const std::string& name, const std::string& producer) const {
+	auto it = std::ranges::find_if(products,
+	[&](const Product& product) {
+		return product.getName() == name && product.getProducer() == producer;
+	});
+	if (it != products.end()) {
+		return *it;
+	}
 	throw err::LogicError("No such product :: can't find product");
 }
 

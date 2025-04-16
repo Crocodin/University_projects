@@ -21,7 +21,7 @@ public:
 	/// adds a product to the vector
 	/// :param Product: a product
 	/// :return: NULL
-	/// @:exceptions: invalid_argument if the product is already added
+	/// @:exceptions: InvalidArgument if the product is already added
 	void add(const Product&);
 
 	/// removes a product
@@ -38,14 +38,14 @@ public:
 	/// find the index in the vector of a product
 	/// :param Product: a product
 	/// :return uint: the position
-	/// @:exception: logic_error if there is no product in the list
+	/// @:exception: LogicError if there is no product in the list
 	[[nodiscard]] uint getIndex(const Product&) const;
 
 	/// returns the actual product in the vector
 	/// :param string: the name of the product
 	/// :param string: the producer of the product
 	/// :return Product: the product
-	/// @:exception: logic_error if there is no such product in the list
+	/// @:exception: LogicError if there is no such product in the list
 	[[nodiscard]] Product& find(const string&, const string&) const;
 
 	/// gets the size of the repo

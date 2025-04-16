@@ -39,11 +39,13 @@
       <change beforePath="$PROJECT_DIR$/../../AG - lab/lee/cmake-build-debug/build.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/../../AG - lab/lee/cmake-build-debug/build.ninja" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../AG - lab/lee/cmake-build-debug/lee" beforeDir="false" afterPath="$PROJECT_DIR$/../../AG - lab/lee/cmake-build-debug/lee" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DinamicList/list.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/DynamicList/list.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repository/repo.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Repository/repo.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Repository/repo.h" beforeDir="false" afterPath="$PROJECT_DIR$/Repository/repo.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/test_list.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/test_list.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ShoppingCart/shoppingCart.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ShoppingCart/shoppingCart.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ShoppingCart/shoppingCart.h" beforeDir="false" afterPath="$PROJECT_DIR$/ShoppingCart/shoppingCart.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ui/Console/console.h" beforeDir="false" afterPath="$PROJECT_DIR$/Ui/Console/console.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui/Controller/controller.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Ui/Controller/controller.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui/Controller/controller.h" beforeDir="false" afterPath="$PROJECT_DIR$/Ui/Controller/controller.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../SDA/TAD Coada cu Prioritati/Proiect C++/CP.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../SDA/TAD Coada cu Prioritati/Proiect C++/CP.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../SDA/TAD Coada cu Prioritati/Proiect C++/CP.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../SDA/TAD Coada cu Prioritati/Proiect C++/CP.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../SDA/TAD Coada cu Prioritati/Teste/TestExtins.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../SDA/TAD Coada cu Prioritati/Teste/TestExtins.cpp" afterDir="false" />
@@ -625,7 +627,11 @@
       <workItem from="1744382963433" duration="4147000" />
       <workItem from="1744436039756" duration="27901000" />
       <workItem from="1744471543599" duration="871000" />
-      <workItem from="1744539097998" duration="2000" />
+      <workItem from="1744539097998" duration="666000" />
+      <workItem from="1744655372947" duration="15000" />
+      <workItem from="1744697227114" duration="113000" />
+      <workItem from="1744705119310" duration="162000" />
+      <workItem from="1744808609046" duration="3049000" />
     </task>
     <servers />
   </component>

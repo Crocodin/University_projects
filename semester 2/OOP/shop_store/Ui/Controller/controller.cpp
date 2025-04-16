@@ -359,6 +359,26 @@ void Controller::removeCartProduct() noexcept {
 	this->shoppingCart.removeFromShoppingCart(p);
 }
 
+void Controller::exportToCSV(const vector& products) noexcept {
+	this->console.exportMenu();
+	string outputFile {"../Exports/"}, fileName;
+	std::getline(std::cin, fileName);
+	outputFile += fileName + ".scv";
+
+	std::ofstream out(outputFile);
+	if (!out.is_open()) {
+		Console::errorText("Failed to open output file.");
+		this->console.waitForKey(); return;
+	}
+
+	for (const auto& product : products)
+		out << product.getName() << ',' << product.getType() << ',' << product.getPrice() << ',' << product.getProducer() << '\n';
+	out.close();
+	string successExport = {"✅ CSV exported to " + outputFile};
+	Console::successfullyText(successExport);
+	this->console.waitForKey();
+}
+
 void Controller::shoppingCartOptions() noexcept {
 	bool stop = false;
 	while (!stop) {
@@ -383,8 +403,15 @@ void Controller::shoppingCartOptions() noexcept {
 				balance_ = 0;
 			}
 			break;
-			case '2':
-				this->exportToHtml(this->shoppingCart.getAllProducts());
+			case '2': {
+				this->console.paddedText("Export to HTML? (y/n)", YELLOW);
+				char _choice;
+				std::cin >> _choice;
+				while (std::cin.get() != '\n') {}
+				if (_choice == 'y' or _choice == 'Y')
+					this->exportToHtml(this->shoppingCart.getAllProducts());
+				else this->exportToCSV(this->shoppingCart.getAllProducts());
+			}
 			break;
 			case '3': {
 				this->console.shoppingCart(this->shoppingCart.getAllProducts(), balance_);
