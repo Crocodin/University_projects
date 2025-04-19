@@ -5,16 +5,16 @@
 void Service::addProduct(const string& name , const string& type, const int& price, const string& producer) {
 	if (const Validator validator; !validator.validate(name, type, price, producer))
 		throw err::InvalidArgument("Invalid product declaration");
-	this->repo.add(Product(name, type, price, producer));
+	this->repo->add(Product(name, type, price, producer));
 }
 
 void Service::removeProduct(const string& name, const string& producer) {
-	const Product& p = this->repo.find(name, producer);
-	this->repo.remove(p);
+	const Product& p = this->repo->find(name, producer);
+	this->repo->remove(p);
 }
 
 vector& Service::getAllProducts() noexcept {
-	return this->repo.getAllProducts();
+	return this->repo->getAllProducts();
 }
 
 void Service::changeProduct(Product& p, const string& name, const string& type, const int& price, const string& producer) noexcept {
@@ -48,8 +48,8 @@ void Service::filterProductsFunction(const cmpFunct compareFunction, vector& pro
 }
 
 void Service::removeProductsFunction(const rmFunct removeFunction, void* param_2) {
-	const vector& aux_vector = this->repo.getAllProducts();
+	const vector& aux_vector = this->repo->getAllProducts();
 	for (const Product *it = aux_vector.begin(); it != aux_vector.end(); )
-		if (removeFunction(*it, param_2)) this->repo.remove(*it);
+		if (removeFunction(*it, param_2)) this->repo->remove(*it);
 		else ++it;
 }

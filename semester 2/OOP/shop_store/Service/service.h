@@ -1,15 +1,23 @@
 #ifndef SERVICE_H
 #define SERVICE_H
+#include <memory>
+
 #include "../Repository/repo.h"
 
 class Controller;
 
 class Service {
 private:
-	Repository repo;
+	Repository* repo;
 	friend class Controller;
 
 public:
+
+	explicit Service(const char* fileName) : repo(new RepositoryFile(fileName)) {}
+
+	Service() : repo(new Repository) {}
+
+	~Service() { delete repo; }
 
 	/// adds a product to the repo
 	/// :param product: const Product&

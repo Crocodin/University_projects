@@ -76,7 +76,7 @@ void Controller::changeProduct() const {
 	std::getline(std::cin, producer);
 
 	Product* p;
-	try { p = &this->service.repo.find(name, producer); }
+	try { p = &this->service.repo->find(name, producer); }
 	catch (const err::LogicError& e) {
 		Console::errorText(e.what());
 		this->console.waitForKey(); return;
@@ -133,7 +133,7 @@ void Controller::findProduct() {
 	std::getline(std::cin, producer);
 
 	Product p;
-	try { p = this->service.repo.find(name, producer); }
+	try { p = this->service.repo->find(name, producer); }
 	catch (const err::LogicError& e) {
 		Console::errorText(e.what());
 		this->console.waitForKey(); return;
@@ -214,26 +214,26 @@ void Controller::filterProducts() {
 }
 
 void Controller::add_default() {
-	this->service.repo.add(Product("Laptop", "Electronics", 1200, "TechCorp"));
-	this->service.repo.add(Product("Laptop", "Electronics", 1100, "ByteTech"));
-	this->service.repo.add(Product("Phone", "Electronics", 800, "TechCorp"));
-	this->service.repo.add(Product("Phone", "Electronics", 750, "GigaComm"));
-	this->service.repo.add(Product("Tablet", "Electronics", 600, "TechCorp"));
-	this->service.repo.add(Product("Tablet", "Electronics", 620, "ByteTech"));
-	this->service.repo.add(Product("Monitor", "Electronics", 300, "DisplayMax"));
-	this->service.repo.add(Product("Monitor", "Electronics", 280, "ScreenPro"));
-	this->service.repo.add(Product("Keyboard", "Accessories", 100, "KeyMasters"));
-	this->service.repo.add(Product("Keyboard", "Accessories", 90, "TypeFast"));
-	this->service.repo.add(Product("Mouse", "Accessories", 50, "ClickyTech"));
-	this->service.repo.add(Product("Mouse", "Accessories", 55, "FastClick"));
-	this->service.repo.add(Product("Headphones", "Audio", 150, "SoundWave"));
-	this->service.repo.add(Product("Headphones", "Audio", 140, "BeatTech"));
-	this->service.repo.add(Product("Speaker", "Audio", 200, "SoundWave"));
-	this->service.repo.add(Product("Speaker", "Audio", 210, "BoomBox"));
-	this->service.repo.add(Product("Smartwatch", "Wearables", 300, "WristTech"));
-	this->service.repo.add(Product("Smartwatch", "Wearables", 290, "TimeGears"));
-	this->service.repo.add(Product("VR Headset", "Gaming", 500, "ImmersiView"));
-	this->service.repo.add(Product("VR Headset", "Gaming", 480, "HyperLens"));
+	this->service.repo->add(Product("Laptop", "Electronics", 1200, "TechCorp"));
+	this->service.repo->add(Product("Laptop", "Electronics", 1100, "ByteTech"));
+	this->service.repo->add(Product("Phone", "Electronics", 800, "TechCorp"));
+	this->service.repo->add(Product("Phone", "Electronics", 750, "GigaComm"));
+	this->service.repo->add(Product("Tablet", "Electronics", 600, "TechCorp"));
+	this->service.repo->add(Product("Tablet", "Electronics", 620, "ByteTech"));
+	this->service.repo->add(Product("Monitor", "Electronics", 300, "DisplayMax"));
+	this->service.repo->add(Product("Monitor", "Electronics", 280, "ScreenPro"));
+	this->service.repo->add(Product("Keyboard", "Accessories", 100, "KeyMasters"));
+	this->service.repo->add(Product("Keyboard", "Accessories", 90, "TypeFast"));
+	this->service.repo->add(Product("Mouse", "Accessories", 50, "ClickyTech"));
+	this->service.repo->add(Product("Mouse", "Accessories", 55, "FastClick"));
+	this->service.repo->add(Product("Headphones", "Audio", 150, "SoundWave"));
+	this->service.repo->add(Product("Headphones", "Audio", 140, "BeatTech"));
+	this->service.repo->add(Product("Speaker", "Audio", 200, "SoundWave"));
+	this->service.repo->add(Product("Speaker", "Audio", 210, "BoomBox"));
+	this->service.repo->add(Product("Smartwatch", "Wearables", 300, "WristTech"));
+	this->service.repo->add(Product("Smartwatch", "Wearables", 290, "TimeGears"));
+	this->service.repo->add(Product("VR Headset", "Gaming", 500, "ImmersiView"));
+	this->service.repo->add(Product("VR Headset", "Gaming", 480, "HyperLens"));
 }
 
 void Controller::adminController() noexcept {
@@ -317,6 +317,11 @@ void Controller::exportToHtml(const vector& products) const noexcept {
 }
 
 void Controller::generateCart() noexcept {
+	if (static_cast<int>(this->service.getAllProducts().size() - 1) == 0) {
+		Console::errorText("No products to be added!");
+		this->console.waitForKey(); return;
+	}
+
 	std::mt19937 mt{ std::random_device{}() };
 	std::uniform_int_distribution<int> distrib{ 0, static_cast<int>(this->service.getAllProducts().size() - 1) };
 
@@ -350,7 +355,7 @@ void Controller::removeCartProduct() noexcept {
 	std::getline(std::cin, producer);
 
 	Product p;
-	try { p = this->service.repo.find(name, producer); }
+	try { p = this->service.repo->find(name, producer); }
 	catch (const err::LogicError& e) {
 		Console::errorText(e.what());
 		this->console.waitForKey(); return;
@@ -359,7 +364,7 @@ void Controller::removeCartProduct() noexcept {
 	this->shoppingCart.removeFromShoppingCart(p);
 }
 
-void Controller::exportToCSV(const vector& products) noexcept {
+void Controller::exportToCSV(const vector& products) const noexcept {
 	this->console.exportMenu();
 	string outputFile {"../Exports/"}, fileName;
 	std::getline(std::cin, fileName);

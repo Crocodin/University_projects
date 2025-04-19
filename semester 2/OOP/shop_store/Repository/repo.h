@@ -1,6 +1,9 @@
 #ifndef REPO_H
 #define REPO_H
 
+#include <iostream>
+#include <utility>
+
 #include "../DynamicList/list.hpp"
 #include "../Domain/product.h"
 
@@ -17,6 +20,8 @@ protected:
 	void forceAdd(const Product& p) noexcept;
 public:
 	Repository() = default;
+
+	virtual ~Repository() = default;
 
 	/// adds a product to the vector
 	/// :param Product: a product
@@ -55,6 +60,22 @@ public:
 	/// get all the elements from the vector
 	/// :return: vector of elems
 	[[nodiscard]] vector& getAllProducts() noexcept;
+};
+
+class RepositoryFile final : public Repository {
+private:
+	const string fileName;
+
+public:
+	explicit RepositoryFile(string  file) : fileName(std::move(file)) {
+		this->lodeFromFile();
+	}
+
+	void lodeFromFile();
+
+	void lodeToFile();
+
+	~RepositoryFile() override { this->lodeToFile(); };
 };
 
 #endif //REPO_H

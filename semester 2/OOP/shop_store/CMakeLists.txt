@@ -41,4 +41,6 @@ add_executable(shop_store main.cpp
         .clang-tidy
         ShoppingCart/shoppingCart.cpp
         ShoppingCart/shoppingCart.h
-        Tests/test_shopping_cart.cpp)
+        Tests/test_shopping_cart.cpp
+        Tests/test_reopFile.cpp
+        Tests/test_serviceFile.cpp)

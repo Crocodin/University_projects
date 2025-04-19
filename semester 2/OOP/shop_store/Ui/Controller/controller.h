@@ -73,8 +73,13 @@ public:
 		void change() { this->level = (this->level + 1) % 2; };
 	};
 
+	Controller(const uint width, const char* padding, const char* fileName)
+	: service(fileName), console(width, padding) {}
+
 	explicit Controller(const uint width, const char* padding)
 	: console(width, padding) {};
+
+	~Controller() = default;
 
 	/// starts & runs the application
 	void run();
@@ -103,7 +108,7 @@ public:
 	/// exports a list of products to a CSV file
 	/// :param unnamed: a vector of products
 	/// @:exception: noexcept
-	void exportToCSV(const vector&) noexcept;
+	void exportToCSV(const vector&) const noexcept;
 
 	/// displays the shopping cart options interface
 	/// :return: NULL
