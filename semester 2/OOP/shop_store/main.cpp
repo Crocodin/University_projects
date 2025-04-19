@@ -1,3 +1,5 @@
+#include <fstream>
+
 #include "Tests/tests.h"
 #include "Ui/Controller/controller.h"
 #include <iostream>
@@ -7,7 +9,7 @@ int main() {
 	run_all_tests();
 	std::cout << "Passed all tests!\n";
 
-	Controller controller(50, "   ");
+	Controller controller(50, "   ", "../Utilities/productData.txt");
 	controller.run();
 
 

@@ -1,0 +1,4 @@
+Phone,Electronics,800,TechCorp
+Speaker,Audio,200,SoundWave
+Laptop,Electronics,1200,TechCorp
+Tablet,Electronics,600,TechCorp
