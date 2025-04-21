@@ -36,7 +36,7 @@ protected:
 
 	/// ui for changing items
 	/// :return: NULL
-	void changeProduct() const;
+	void changeProduct();
 
 	/// prints the product
 	/// :return: NULL
@@ -53,10 +53,6 @@ protected:
 	/// ui for filtering (removing based on a condition)
 	/// :return: NULL
 	void filterProducts();
-
-	/// adding default products
-	/// :return: NULL
-	void add_default();
 
 	void addToShoppingCart(const Product& p) noexcept;
 public:

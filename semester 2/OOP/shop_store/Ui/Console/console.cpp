@@ -80,6 +80,7 @@ void Console::adminMainMenu() const noexcept {
 		{"🗑️2. Remove Product", RED},
 		{"✏️ 3. Change Product", YELLOW},
 		{"🔍 4. Filter", BLUE},
+		{"♻️ U. Undo", CYAN},
 		{"📃 P. Print", WHITE},
 		{"❌  E. Exit          🔁 C. Change view", GRAY}
 	};

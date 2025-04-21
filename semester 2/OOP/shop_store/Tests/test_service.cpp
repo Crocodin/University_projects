@@ -5,27 +5,27 @@
 
 void test_service() {
 	/// change atributes
+	Service service;
 	Product product {"Ibuprofen", "for seek people", 12, "ibuprofen.org"};
-	Service::changeProduct(product);
+	service.changeProduct(product);
 	assert(product.getName() == "Ibuprofen");
 	assert(product.getType() == "for seek people");
 	assert(product.getPrice() == 12);
 	assert(product.getProducer() == "ibuprofen.org");
 
-	Service::changeProduct(product, "NewName", "NewType");
+	service.changeProduct(product, "NewName", "NewType");
 	assert(product.getName() == "NewName");
 	assert(product.getType() == "NewType");
 	assert(product.getPrice() == 12);
 	assert(product.getProducer() == "ibuprofen.org");
 
-	Service::changeProduct(product, "", "", 21, "NewProducer");
+	service.changeProduct(product, "", "", 21, "NewProducer");
 	assert(product.getName() == "NewName");
 	assert(product.getType() == "NewType");
 	assert(product.getPrice() == 21);
 	assert(product.getProducer() == "NewProducer");
 
 	/// add product
-	Service service;
 	service.addProduct("Laptop", "Electronics", 1200, "TechCorp");
 	service.addProduct("Laptop", "Electronics", 1100, "ByteTech");
 	try { service.addProduct("", "", -1100, ""); assert(false); }

@@ -1,13 +1,16 @@
 #ifndef SERVICE_H
 #define SERVICE_H
-#include <memory>
 
 #include "../Repository/repo.h"
+#include "../Undo/undo.hpp"
 
 class Controller;
 
 class Service {
 private:
+	/// TODO add the undoAction list and implement them on the service actions
+	/// TODO <<!! DONT FORGET TO ADD IN THE DESTRUCTOR A DELETE LOOP
+	List<UndoAction*> undoActions;
 	Repository* repo;
 	friend class Controller;
 
@@ -17,7 +20,11 @@ public:
 
 	Service() : repo(new Repository) {}
 
-	~Service() { delete repo; }
+	~Service() {
+		delete repo;
+		for (const auto* undo: this->undoActions)
+			delete undo;
+	}
 
 	/// adds a product to the repo
 	/// :param product: const Product&
@@ -42,7 +49,7 @@ public:
 	/// :param price: potential new price
 	/// :param producer: potential new producer
 	/// :return: NULL
-	static void changeProduct(Product& p, const string& name = "", const string& type = "", const int& price = -1, const string& producer = "") noexcept;
+	void changeProduct(Product& p, const string& name = "", const string& type = "", const int& price = -1, const string& producer = "") noexcept;
 
 	/// sort the product using quicksort
 	/// :param compareFunction: a function that takes two products and checks them
@@ -56,6 +63,8 @@ public:
 	/// :return: NULL
 	using rmFunct = bool (*)(const Product &, void *) noexcept;
 	void removeProductsFunction(rmFunct, void*);
+
+	void undo() noexcept;
 };
 
 #endif //SERVICE_H

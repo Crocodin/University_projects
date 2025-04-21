@@ -43,4 +43,6 @@ add_executable(shop_store main.cpp
         ShoppingCart/shoppingCart.h
         Tests/test_shopping_cart.cpp
         Tests/test_reopFile.cpp
-        Tests/test_serviceFile.cpp)
+        Tests/test_serviceFile.cpp
+        Undo/undo.hpp
+        Tests/test_undo.cpp)

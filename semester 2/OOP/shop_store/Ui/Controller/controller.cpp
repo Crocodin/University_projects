@@ -66,7 +66,7 @@ void Controller::remove() {
 	this->console.waitForKey();
 }
 
-void Controller::changeProduct() const {
+void Controller::changeProduct() {
 	string name, producer;
 
 	this->console.paddedText("📝 Product name: ", LIGHT_BLUE, ' ');
@@ -106,7 +106,7 @@ void Controller::changeProduct() const {
 	this->console.paddedText("🏷️Product producer: ", GREEN, ' ');
 	std::getline(std::cin, producer);
 
-	Service::changeProduct(*(p), name, type, price, producer);
+	this->service.changeProduct(*(p), name, type, price, producer);
 }
 
 void Controller::printProduct(const Product& p) const noexcept {
@@ -213,29 +213,6 @@ void Controller::filterProducts() {
 	this->print_all(this->service.getAllProducts());
 }
 
-void Controller::add_default() {
-	this->service.repo->add(Product("Laptop", "Electronics", 1200, "TechCorp"));
-	this->service.repo->add(Product("Laptop", "Electronics", 1100, "ByteTech"));
-	this->service.repo->add(Product("Phone", "Electronics", 800, "TechCorp"));
-	this->service.repo->add(Product("Phone", "Electronics", 750, "GigaComm"));
-	this->service.repo->add(Product("Tablet", "Electronics", 600, "TechCorp"));
-	this->service.repo->add(Product("Tablet", "Electronics", 620, "ByteTech"));
-	this->service.repo->add(Product("Monitor", "Electronics", 300, "DisplayMax"));
-	this->service.repo->add(Product("Monitor", "Electronics", 280, "ScreenPro"));
-	this->service.repo->add(Product("Keyboard", "Accessories", 100, "KeyMasters"));
-	this->service.repo->add(Product("Keyboard", "Accessories", 90, "TypeFast"));
-	this->service.repo->add(Product("Mouse", "Accessories", 50, "ClickyTech"));
-	this->service.repo->add(Product("Mouse", "Accessories", 55, "FastClick"));
-	this->service.repo->add(Product("Headphones", "Audio", 150, "SoundWave"));
-	this->service.repo->add(Product("Headphones", "Audio", 140, "BeatTech"));
-	this->service.repo->add(Product("Speaker", "Audio", 200, "SoundWave"));
-	this->service.repo->add(Product("Speaker", "Audio", 210, "BoomBox"));
-	this->service.repo->add(Product("Smartwatch", "Wearables", 300, "WristTech"));
-	this->service.repo->add(Product("Smartwatch", "Wearables", 290, "TimeGears"));
-	this->service.repo->add(Product("VR Headset", "Gaming", 500, "ImmersiView"));
-	this->service.repo->add(Product("VR Headset", "Gaming", 480, "HyperLens"));
-}
-
 void Controller::adminController() noexcept {
 	Console::clearScreen();
 	this->console.adminMainMenu();
@@ -261,11 +238,11 @@ void Controller::adminController() noexcept {
 		case 'E': case 'e':
 			appRunning = false;
 		break;
-		case '!':
-			Controller::add_default();
-		break;
 		case 'C': case 'c':
 			viewLevel.change();
+		break;
+		case 'U': case 'u':
+			this->service.undo();
 		break;
 		default:
 			Console::invalid_input();

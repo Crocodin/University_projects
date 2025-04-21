@@ -1,9 +1,10 @@
 #include "product.h"
 
 #include <utility>
+uint Product::nextID = 0;
 
 Product::Product(string name, string type, const uint& price, string producer)
-: name(std::move(name)), type(std::move(type)), price(price), producer(std::move(producer)) {
+: id(nextID++), name(std::move(name)), type(std::move(type)), price(price), producer(std::move(producer)) {
 }
 
 void Product::setName(const string& newName) noexcept {
@@ -71,8 +72,13 @@ bool Product::producerComparison(const Product& p, void* prod) noexcept {
 }
 
 Product::Product(const Product& other) {
+	this->id = other.id;
 	this->name = other.name;
 	this->price = other.price;
 	this->producer = other.producer;
 	this->type = other.type;
+}
+
+uint Product::getID() const noexcept {
+	return this->id;
 }

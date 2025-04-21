@@ -1,4 +1,6 @@
 #include <cassert>
+#include <iostream>
+
 #include "tests.h"
 #include "../DynamicList/list.hpp"
 
@@ -30,6 +32,14 @@ void test_int_list() {
 		assert(list[i] == i);
 	for (int i = 5; i < 10; i++)
 		assert(list[i] == i + (19 - 4) - 5);
+
+	for (int i = 19; i >= 19 - 4; i--)
+		assert(list.pop() == i);
+	for (int i = 4; i >= 0; i--)
+		assert(list.pop() == i);
+
+	try { list.pop(); assert(false); }
+	catch (...) { assert(true); }
 }
 
 void test_list() {
