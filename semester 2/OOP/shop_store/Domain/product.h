@@ -9,6 +9,8 @@ using string = std::string;
 
 class Product {
 private:
+	static uint nextID;
+	uint id{};
 	string name;
 	string type;
 	uint price {};
@@ -96,6 +98,8 @@ public:
 	/// :param void*: a pointer to the producer name string to compare against
 	/// :return: true if the product's producer matches the string pointed to by the pointer
 	static bool producerComparison(const Product&, void*) noexcept;
+
+	[[nodiscard]] uint getID() const noexcept;
 };
 
 #endif //PRODUCT_H

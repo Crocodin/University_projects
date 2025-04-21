@@ -78,6 +78,12 @@ public:
 	/// :return: bool - true if the list is empty, false otherwise
 	[[nodiscard]] bool empty() const { return this->_size == 0; }
 
+	T pop() {
+		if (this->_size == 0) throw err::OutOfRange("FATAL call, is empty");
+		this->_size -= 1;
+		return *(this->data + this->_size);
+	}
+
 	/// destructor that frees the allocated memory for the list
 	/// :return: NULL
 	/// @:exception: none

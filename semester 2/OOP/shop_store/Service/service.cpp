@@ -5,11 +5,14 @@
 void Service::addProduct(const string& name , const string& type, const int& price, const string& producer) {
 	if (const Validator validator; !validator.validate(name, type, price, producer))
 		throw err::InvalidArgument("Invalid product declaration");
-	this->repo->add(Product(name, type, price, producer));
+	Product p(name, type, price, producer);
+	this->repo->add(p);
+	this->undoActions.push_back(new UndoAdd(repo, p));
 }
 
 void Service::removeProduct(const string& name, const string& producer) {
 	const Product& p = this->repo->find(name, producer);
+	this->undoActions.push_back(new UndoRemove(repo, p));
 	this->repo->remove(p);
 }
 
@@ -18,12 +21,12 @@ vector& Service::getAllProducts() noexcept {
 }
 
 void Service::changeProduct(Product& p, const string& name, const string& type, const int& price, const string& producer) noexcept {
+	this->undoActions.push_back(new UndoChange(this->repo, p));
 	if (!name.empty()) p.setName(name);
 	if (!type.empty()) p.setType(type);
 	if (price >= 0) p.setPrice(price);
 	if (!producer.empty()) p.setProducer(producer);
 }
-
 
 void quickSort(vector& products, int low, int high, const auto compareFunction) {
 	if (low < high) {
@@ -52,4 +55,9 @@ void Service::removeProductsFunction(const rmFunct removeFunction, void* param_2
 	for (const Product *it = aux_vector.begin(); it != aux_vector.end(); )
 		if (removeFunction(*it, param_2)) this->repo->remove(*it);
 		else ++it;
+}
+
+void Service::undo() noexcept {
+	UndoAction* undoItem = this->undoActions.pop();
+	undoItem->doUndo();
 }

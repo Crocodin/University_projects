@@ -14,7 +14,7 @@ Headphones,Audio,150,SoundWave
 Headphones,Audio,140,BeatTech
 Speaker,Audio,200,SoundWave
 Speaker,Audio,210,BoomBox
-Smartwatch,Wearables,300,WristTech
 Smartwatch,Wearables,290,TimeGears
 VR Headset,Gaming,500,ImmersiView
 VR Headset,Gaming,480,HyperLens
+Smartwatch,Wearables,300,WristTech

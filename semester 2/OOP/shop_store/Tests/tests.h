@@ -25,6 +25,8 @@ void test_repoFile();
 
 void test_serviceFile();
 
+void test_undo();
+
 inline void run_all_tests() {
     test_list();
 	test_domain();
@@ -33,6 +35,7 @@ inline void run_all_tests() {
 	test_serviceFile();
 	test_service();
 	test_shopping_cart();
+	test_undo();
 }
 
 #endif //TESTS_H
