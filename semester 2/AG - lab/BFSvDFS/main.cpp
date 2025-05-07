@@ -3,6 +3,8 @@
 #include <queue>
 #include <vector>
 
+typedef unsigned int uint;
+
 void BFS(const std::vector<std::vector<uint>> &graph, const uint start) {
 	std::vector<uint> distance(graph.size(), -1);
 	std::queue<uint> Q;

@@ -8,7 +8,7 @@ Monitor,Electronics,300,DisplayMax
 Monitor,Electronics,280,ScreenPro
 Keyboard,Accessories,100,KeyMasters
 Keyboard,Accessories,90,TypeFast
-Mouse,Accessories,50,ClickyTech
+Mouse,Accessories,50,ClickyTech 
 Mouse,Accessories,55,FastClick
 Headphones,Audio,150,SoundWave
 Headphones,Audio,140,BeatTech
