@@ -46,4 +46,6 @@ public:
 	// destructorul cozii
 	~CP();
 
+	TPrioritate changePriority(TElem elem, TPrioritate newP) const;
+
 };

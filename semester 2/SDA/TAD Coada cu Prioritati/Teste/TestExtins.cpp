@@ -111,9 +111,22 @@ void testQuantity() {//scopul e sa adaugam multe date
 	}
 }
 
+void testSchimbare() {
+	CP c(rel2);
+	c.adauga(5, 5);
+	c.adauga(10, 10);
+	assert(c.element().first == 5);
+	TPrioritate old = c.changePriority(10, 1);
+	assert(old == 10);
+	assert(c.element().first == 10);
+	old = c.changePriority(20, 1);
+	assert(old == -1);
+}
+
 void testAllExtins() {
 	testCreeaza();
 	testAdauga();
 	testSterge();
 	testQuantity();
+	testSchimbare();
 }

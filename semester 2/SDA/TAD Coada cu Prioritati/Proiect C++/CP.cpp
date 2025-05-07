@@ -122,3 +122,19 @@ CP::~CP() {
 	delete last;
 };
 
+
+/// O(n)
+TPrioritate CP::changePriority(TElem elem, TPrioritate newP) const {
+	Node* current = this->head,* last = nullptr;
+	while (current != nullptr) {
+		if (current->info.first == elem) {
+			TPrioritate aux = current->info.second;
+			current->info.second = newP;
+			return aux;
+		}
+		Node* aux = current;
+		current = XOR(last, current->xor_head);
+		last = aux;
+	}
+	return -1;
+}
