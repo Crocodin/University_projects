@@ -6,6 +6,7 @@
 
 #include <iostream>
 
+/// theta (2n + 2n + n) = theta(n) { n - capacity, m - size }
 void Lista::resize() {
 	this->position.resize();
 	this->elements.resize();
@@ -17,6 +18,7 @@ void Lista::resize() {
 	this->position[this->firstFreePosition] = this->position.capacity / 2;
 }
 
+/// theta (n) { n - capacity, m - size }
 Lista::Lista() {
 	for (int i = 0; i < this->position.capacity; i++)
 		this->position[i] = i + 1; /// set the free spaces
@@ -25,6 +27,7 @@ Lista::Lista() {
 	this->firstElement = -1;
 }
 
+/// theta (m) { n - capacity, m - size }
 int Lista::dim() const {
 	int count = 0;
 	int temp = this->firstElement;
@@ -35,21 +38,25 @@ int Lista::dim() const {
 	return count;
 }
 
+/// theta (1)
 bool Lista::vida() const {
 	return this->firstElement == -1;
 }
 
+/// theta (1)
 IteratorLP Lista::prim() const {
 	IteratorLP it(*this);
 	it.position = this-> firstElement;
     return it;
 }
 
+/// theta (1)
 TElem Lista::element(IteratorLP poz) const {
 	if (!poz.valid()) throw std::invalid_argument("poz is invalid");
 	return this->elements[poz.position];
 }
 
+/// O(n) { n - capacity, m - size }
 TElem Lista::sterge(IteratorLP& poz) {
 	if (!poz.valid()) throw std::invalid_argument("Lista::sterge, invalid iterator");
 
@@ -81,6 +88,7 @@ TElem Lista::sterge(IteratorLP& poz) {
 	return this->elements[poz.position];
 }
 
+/// O(m) { n - capacity, m - size }
 IteratorLP Lista::cauta(TElem e) const{
 	int temp = this->firstElement;
 
@@ -93,6 +101,7 @@ IteratorLP Lista::cauta(TElem e) const{
 	return it;
 }
 
+/// theta (1)
 TElem Lista::modifica(IteratorLP poz, TElem e) {
 	if (!poz.valid()) throw std::invalid_argument("Lista::modifica, invalid iterator");
 	TElem aux = this->elements[poz.position];
@@ -100,6 +109,7 @@ TElem Lista::modifica(IteratorLP poz, TElem e) {
 	return aux;
 }
 
+/// theta (1)
 void Lista::adauga(IteratorLP& poz, TElem e) {
 	if (!poz.valid()) throw std::invalid_argument("invalid iterator");
 
@@ -112,6 +122,7 @@ void Lista::adauga(IteratorLP& poz, TElem e) {
 	this->firstFreePosition = aux;
 }
 
+/// theta (1)
 void Lista::adaugaInceput(TElem e) {
 	if (this->position[this->firstFreePosition] == -1) this->resize();
 
@@ -132,6 +143,7 @@ void Lista::adaugaInceput(TElem e) {
 	this->firstFreePosition = aux;
 }
 
+/// O(m) { n - capacity, m - size }
 void Lista::adaugaSfarsit(TElem e) {
 	if (this->position[this->firstFreePosition] == -1) this->resize();
 
@@ -157,3 +169,16 @@ void Lista::adaugaSfarsit(TElem e) {
 }
 
 Lista::~Lista() = default;
+
+/// theta (m)
+IteratorLP Lista::ultimulIndex(TElem elem) const {
+	int temp = this->firstElement, aux = -1;
+	while (temp != -1) {
+		if (this->elements[temp] == elem) aux = temp;
+		temp = this->position[temp];
+	}
+	IteratorLP it(*this);
+	it.position = aux;
+	return it;
+}
+
