@@ -8,8 +8,6 @@ class Controller;
 
 class Service {
 private:
-	/// TODO add the undoAction list and implement them on the service actions
-	/// TODO <<!! DONT FORGET TO ADD IN THE DESTRUCTOR A DELETE LOOP
 	List<UndoAction*> undoActions;
 	Repository* repo;
 	friend class Controller;
@@ -64,7 +62,7 @@ public:
 	using rmFunct = bool (*)(const Product &, void *) noexcept;
 	void removeProductsFunction(rmFunct, void*);
 
-	void undo() noexcept;
+	void undo();
 };
 
 #endif //SERVICE_H

@@ -2,6 +2,7 @@
 #include <iostream>
 #include <queue>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
 int n, m, start;
@@ -38,7 +39,21 @@ void dijkstra() {
 				}
 			}
 		}
-		// verif(Q);
+	}
+	/// path
+	int finish = 4; /// for testing
+	if (D[finish] < 0) {
+		cout << "No path from " << start << " to " << finish << "\n";
+		return;
+	}
+	vector<int> path;
+	for (int cur = finish; cur != -1; cur = T[cur]) {
+		path.push_back(cur);
+	}
+	reverse(path.begin(), path.end());
+	cout << '\n';
+	for (const auto& x : path) {
+		cout << x << ' ';
 	}
 }
 

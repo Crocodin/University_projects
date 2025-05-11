@@ -75,6 +75,7 @@ public:
 		IteratorLP cauta(TElem e) const;
 
 		//destructor
-
 		~Lista();
+
+		IteratorLP ultimulIndex(TElem elem) const;
 };

@@ -98,6 +98,25 @@ void testAllExtins() {
     } catch (exception&) {
         assert(true);
     }
+
+
+    /// test ultimul index
+    Lista lista2 = Lista();
+    lista2.adaugaSfarsit(1);
+    lista2.adaugaSfarsit(2);
+    lista2.adaugaSfarsit(3);
+    lista2.adaugaSfarsit(1);
+    lista2.adaugaSfarsit(5);
+
+    IteratorLP it6 = lista2.ultimulIndex(1);
+    assert(it6.valid());
+    assert(it6.element() == 1);
+    it6.urmator();
+    assert(it6.valid());
+    assert(it6.element() == 5);
+
+    IteratorLP it7 = lista2.ultimulIndex(8);
+    assert(!it7.valid());
 }
 
 

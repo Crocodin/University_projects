@@ -1,5 +1,4 @@
 #pragma once
-#include <stdexcept>
 
 #include "../Errors/errors.hpp"
 
@@ -22,6 +21,8 @@ private:
 		this->data = newData;
 	}
 public:
+	using value_type = T;
+
 	List() noexcept { data = new T[capacity]; }
 
 	/// adds at the end of the vector an element
@@ -88,6 +89,32 @@ public:
 	/// :return: NULL
 	/// @:exception: none
 	~List() noexcept { delete[] data; }
+
+	List(const List& other) {
+		this->_size = other._size;
+		this->capacity = other.capacity;
+		this->data = new T[capacity];
+		for (uint i = 0; i < this->_size; ++i) {
+			this->data[i] = other.data[i]; // calls T's copy assignment
+		}
+	}
+
+	List& operator=(const List& other) {
+		if (this == &other) {
+			return *this;  // protect against self-assignment
+		}
+
+		delete[] data;
+
+		this->_size = other._size;
+		this->capacity = other.capacity;
+		this->data = new T[capacity];
+		for (uint i = 0; i < other._size; ++i) {
+			this->data[i] = other.data[i];
+		}
+
+		return *this;
+	}
 };
 
 template <typename T> class Iterator {

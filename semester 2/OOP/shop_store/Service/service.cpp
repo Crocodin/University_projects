@@ -52,12 +52,18 @@ void Service::filterProductsFunction(const cmpFunct compareFunction, vector& pro
 
 void Service::removeProductsFunction(const rmFunct removeFunction, void* param_2) {
 	const vector& aux_vector = this->repo->getAllProducts();
+
+	for (const auto* undo: this->undoActions)
+		delete undo;
+	this->undoActions.erase(this->undoActions.begin(), this->undoActions.end());
+
 	for (const Product *it = aux_vector.begin(); it != aux_vector.end(); )
 		if (removeFunction(*it, param_2)) this->repo->remove(*it);
 		else ++it;
 }
 
-void Service::undo() noexcept {
+void Service::undo() {
 	UndoAction* undoItem = this->undoActions.pop();
 	undoItem->doUndo();
+	delete undoItem;
 }
