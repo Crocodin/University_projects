@@ -1,7 +1,7 @@
 #ifndef GUI_CONTROLLER_H
 #define GUI_CONTROLLER_H
 
-#define MIN_WIDTH 700  ///< Minimum width for the window
+#define MIN_WIDTH 1000  ///< Minimum width for the window
 #define MIN_HEIGHT 500 ///< Minimum height for the window
 
 #include <QWidget>
@@ -33,7 +33,6 @@ signals:
 	/// :param filter: the filter criteria for the producer name
 	void producerFilterAction(QString filter);
 };
-
 
 /// Dialog for changing product information
 /// This dialog allows the user to change the details of a product.
@@ -76,8 +75,8 @@ signals:
 class adminScreen final : public QWidget {
 	Q_OBJECT
 private:
-	Service* service; ///< Pointer to the Service object for managing the product data
-	QTableWidget* table; ///< Pointer to the table widget displaying the products
+	Service* service;					 ///< Pointer to the Service object for managing the product data
+	QTableWidget* table;				 ///< Pointer to the table widget displaying the products
 	Product* selected_product = nullptr; ///< Pointer to the selected product for editing
 
 private slots:
@@ -129,8 +128,6 @@ private slots:
 	void onProducerFilterAction(const QString& filter);
 
 protected:
-	/// Type definition for comparison function used for sorting products
-	typedef bool(*compFunction)(const Product&);
 
 	/// Populates the table with product data
 	/// :param products: list of products to be displayed in the table
@@ -183,31 +180,60 @@ public:
 	~welcomeScreen() override = default;
 };
 
+/// Screen for user interactions in the application
+/// This screen allows users to browse products, manage a shopping cart, and perform related actions.
 class userScreen final : public QWidget {
 	Q_OBJECT
 private slots:
+	/// Adds a product to the shopping cart table
+	/// :param row: the row index of the selected product in the display table
 	void addToShoppingCartTable(int row);
+
+	/// Removes a product from the shopping cart table
+	/// :param row: the row index of the product in the shopping cart table to be removed
 	void removeFromShoppingCartTable(int row);
+
+	/// Triggered when the search text is changed by the user
+	/// :param text: the current input text used for filtering products
 	void onSearchTextChanged(const QString& text);
+
+	/// Exports the contents of the shopping cart
+	/// This might save the cart to a file or another format depending on implementation
 	void exportShoppingCart();
+
+	/// Generates a shopping cart with random products
+	/// Typically used for demonstration or testing purposes
 	void generateShoppingCart();
 
-private:
-	QTableWidget* displayTable;
-	List<Product> displayItems;
-	Service* service;
-	ShoppingCart shoppingCart;
-	QTableWidget* shoppingCartTable;
+public:
+	QTableWidget* displayTable;			///< Table displaying all available products
+	List<Product> displayItems;			///< List of currently displayed products (after filtering)
+	Service* service;					///< Pointer to the service managing product logic and data
+	ShoppingCart shoppingCart;			///< Object representing the user's current shopping cart
+	QTableWidget* shoppingCartTable;	///< Table displaying the contents of the shopping cart
 
-protected:
+	/// Loads the layout of the user screen, including tables and buttons
 	void loadLayout();
+
+	/// Populates a given table widget with a list of products
+	/// :param products: list of products to be displayed
+	/// :param table: pointer to the QTableWidget to populate
 	static void populateTable(const List<Product>& products, QTableWidget* table);
+
+	/// Displays an error message to the user
+	/// :param message: the error message string to be shown
 	void showError(const QString& message);
+
+	/// Displays a success message to the user
+	/// :param message: the success message string to be shown
 	void showSuccess(const QString& message);
 
-public:
+	/// Constructor for userScreen
+	/// :param parent_widget: optional parent widget, default is nullptr
+	/// :param service: pointer to the service object for product and cart operations
 	explicit userScreen(QWidget* parent_widget, Service* service);
 };
+
 
 /// Main controller for the GUI application
 /// This is the main widget that initializes the application and controls the navigation.
@@ -216,9 +242,10 @@ class guiController final : public QMainWindow {
 private:
 	Service service; ///< Service object for managing the product data
 	QStackedWidget* stackedWidget;
+	userScreen* myUser;
 
 private slots:
-	/// Slot for handling the admin button press
+	/// Slot for handling the admin & user button press
 	void adminButtonPressed();
 	void userButtonPressed();
 

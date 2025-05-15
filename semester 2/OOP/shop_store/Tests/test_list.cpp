@@ -1,5 +1,4 @@
 #include <cassert>
-#include <iostream>
 
 #include "tests.h"
 #include "../DynamicList/list.hpp"

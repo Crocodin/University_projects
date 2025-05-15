@@ -7,6 +7,9 @@
 #include <QLineEdit>
 #include <fstream>
 #include <random>
+#include <QFile>
+#include <QFontDatabase>
+#include <QHeaderView>
 
 FilterProductDialog::FilterProductDialog(QWidget *parent) : QWidget(parent) {
 	this->setWindowTitle("Filter Product");
@@ -109,6 +112,7 @@ void welcomeScreen::loadLayout() {
 
 	auto topLayout = new QHBoxLayout();
 	auto welcomeTitle = new QLabel("Welcome to ShopStore");
+	welcomeTitle->setObjectName("welcomeTitle");
 	welcomeTitle->setAlignment(Qt::AlignCenter);
 	topLayout->addWidget(welcomeTitle);
 
@@ -133,6 +137,11 @@ welcomeScreen::welcomeScreen(QWidget *parent_widget) : QWidget(parent_widget) {
 adminScreen::adminScreen(QWidget *parent_widget, Service* service)
 : QWidget(parent_widget), service(service){
 	this->setGeometry(0, 0, parent_widget->width(), parent_widget->height());
+	QFile adminScreenFile("../GUI/adminScreen.qss");
+	if (adminScreenFile.open(QFile::ReadOnly)) {
+		QString style = QLatin1String(adminScreenFile.readAll());
+		this->setStyleSheet(style);
+	} else { qDebug() << "Failed to load stylesheet:" << adminScreenFile.errorString(); }
 	this->loadLayout();
 }
 
@@ -290,6 +299,7 @@ QTableWidget *adminScreen::loadTabel() {
 	QTableWidget *tabel = new QTableWidget(products.size(), 4);
 	tabel->setHorizontalHeaderLabels({"Product", "Producer", "Price", "Tipe"});
 	this->table = tabel;
+	table->setMaximumWidth(450);
 	this->populateTable(this->service->getAllProducts());
 	// allow selecting entire rows only
 	tabel->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -339,22 +349,55 @@ void guiController::adminButtonPressed() {
 }
 
 void guiController::userButtonPressed() {
+	this->myUser->populateTable(this->myUser->service->getAllProducts(), this->myUser->displayTable);
 	this->stackedWidget->setCurrentIndex(2);
 }
 
 guiController::guiController(const char* fileName) : service(fileName) {
+	this->setObjectName("mainWindow");
+	int fontId = QFontDatabase::addApplicationFont(":/Utilities/Agbalumo/Agbalumo-Regular.ttf");
+	if (fontId == -1) { qDebug() << "Failed to load font"; } else {
+		QStringList families = QFontDatabase::applicationFontFamilies(fontId);
+		qDebug() << "Loaded font family:" << families;
+	}
+
+	fontId = QFontDatabase::addApplicationFont(":/Utilities/BebasNeue/BebasNeue-Regular.ttf");
+	if (fontId == -1) { qDebug() << "Failed to load font"; } else {
+		QStringList families = QFontDatabase::applicationFontFamilies(fontId);
+		qDebug() << "Loaded font family:" << families;
+	}
+
+	fontId = QFontDatabase::addApplicationFont(":/Utilities/JetBrains_Mono/JetBrainsMono-VariableFont_wght.ttf");
+	if (fontId == -1) { qDebug() << "Failed to load font"; } else {
+		QStringList families = QFontDatabase::applicationFontFamilies(fontId);
+		qDebug() << "Loaded font family:" << families;
+	}
+
+	QFile controllerFile("../GUI/controller.qss");
+	if (controllerFile.open(QFile::ReadOnly)) {
+		QString style = QLatin1String(controllerFile.readAll());
+		this->setStyleSheet(style);
+	} else { qDebug() << "Failed to load stylesheet:" << controllerFile.errorString(); }
+
 	this->setMinimumSize(QSize(MIN_WIDTH, MIN_HEIGHT));
 	this->setWindowTitle("Shop Store");
 	this->stackedWidget =  new QStackedWidget(this);
 	auto admin = new adminScreen(this, &this->service);
-	auto user = new userScreen(this, &this->service);
+	this->myUser = new userScreen(this, &this->service);
+
 	auto welcome = new welcomeScreen(this);
+	QFile welcomeScreenFile("../GUI/welcomeScreen.qss");
+	if (welcomeScreenFile.open(QFile::ReadOnly)) {
+		QString style = QLatin1String(welcomeScreenFile.readAll());
+		welcome->setStyleSheet(style);
+	} else { qDebug() << "Failed to load stylesheet:" << welcomeScreenFile.errorString(); }
+
 	connect(welcome, &welcomeScreen::adminClicked, this, &guiController::adminButtonPressed);
 	connect(welcome, &welcomeScreen::userClicked, this, &guiController::userButtonPressed);
 
 	this->stackedWidget->addWidget(welcome);		/// index 0
 	this->stackedWidget->addWidget(admin);			/// index 1
-	this->stackedWidget->addWidget(user);			/// index 2
+	this->stackedWidget->addWidget(this->myUser);	/// index 2
 	this->setCentralWidget(this->stackedWidget);
 }
 
@@ -446,7 +489,7 @@ void userScreen::generateShoppingCart() {
 			const int rndNr = distrib(mt);
 			this->shoppingCart.addToShoppingCart(products[rndNr]);
 		}
-		this->populateTable(this->displayItems, this->shoppingCartTable);
+		this->populateTable(this->shoppingCart.getAllProducts(), this->shoppingCartTable);
 		generateSC->close();
 		generateSC->deleteLater();
 	});
@@ -526,6 +569,7 @@ void userScreen::loadLayout() {
 	this->displayTable = new QTableWidget(this);
 	this->displayTable->setColumnCount(4);
 	this->displayTable->setHorizontalHeaderLabels({"Product", "Producer", "Price", "Tipe"});
+	this->displayTable->setMaximumWidth(450);
 	this->displayTable->setSelectionBehavior(QAbstractItemView::SelectRows);
 	this->displayTable->setSelectionMode(QAbstractItemView::SingleSelection);
 	connect(this->displayTable, &QTableWidget::cellDoubleClicked, this, &userScreen::addToShoppingCartTable);
@@ -537,6 +581,7 @@ void userScreen::loadLayout() {
 	this->shoppingCartTable = new QTableWidget(this);
 	this->shoppingCartTable->setColumnCount(4);
 	this->shoppingCartTable->setHorizontalHeaderLabels({"Product", "Producer", "Price", "Tipe"});
+	this->shoppingCartTable->setMaximumWidth(450);
 	this->shoppingCartTable->setSelectionBehavior(QAbstractItemView::SelectRows);
 	this->shoppingCartTable->setSelectionMode(QAbstractItemView::SingleSelection);
 	connect(this->shoppingCartTable, &QTableWidget::cellDoubleClicked, this, &userScreen::removeFromShoppingCartTable);
@@ -580,6 +625,12 @@ void userScreen::loadLayout() {
 
 userScreen::userScreen(QWidget *parent_widget, Service* service)
 : QWidget(parent_widget), service(service) {
+	QFile userScreenFile("../GUI/userScreen.qss");
+	if (userScreenFile.open(QFile::ReadOnly)) {
+		QString style = QLatin1String(userScreenFile.readAll());
+		this->setStyleSheet(style);
+	} else { qDebug() << "Failed to load stylesheet:" << userScreenFile.errorString(); }
+
 	this->displayItems = this->service->getAllProducts();
 	this->setGeometry(0, 0, parent_widget->width(), parent_widget->height());
 	this->loadLayout();

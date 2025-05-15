@@ -4,7 +4,7 @@
 
 inline uint balance_ = 0;
 
-class ShoppingCart : public Repository {
+class ShoppingCart final : public Repository {
 public:
 	/// adds a product to the shopping cart
 	/// :param Product: the product to add

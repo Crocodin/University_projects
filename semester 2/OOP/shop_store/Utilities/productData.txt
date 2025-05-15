@@ -1,14 +1,13 @@
-Monitor,Electronics,280,ScreenPro
 Headphones,Audio,150,SoundWave
 Headphones,Audio,140,BeatTech
-Speaker,Audio,210,BoomBox
 Smartwatch,Wearables,300,WristTech
 Mouse,Accessories,55,FastClick
 Tablet,Electronics,620,ByteTech
 c,Electronics,600,TechCorp
 Tablet,Audio,200,SoundWave
 VR Headset,Gaming,480,HyperLens
-codrin,parmac.org,12,informaticean
 name_c,type_c,1,prod_c
 Keyboard,Accessories,100,KeyMasters
-c,c,2,c
+codrin,info,9,parmac.org
+c,c,1,c
+Monitor,Electronics,280,ScreenPro
