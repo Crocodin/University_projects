@@ -2,7 +2,6 @@
 #include "../ShoppingCart/shoppingCart.h"
 #include <vector>
 #include <cassert>
-#include <iostream>
 
 #include "../Errors/errors.hpp"
 
@@ -36,13 +35,13 @@ void test_shopping_cart() {
 		(void) aux;
 		assert(false);
 	} catch (const err::LogicError& e) {
-		assert(true);
+		(void) e; assert(true);
 	}
 
 	try {
 		cart.removeFromShoppingCart(p);
 		assert(false);
 	} catch (const err::LogicError& e) {
-		assert(true);
+		(void) e; assert(true);
 	}
 }

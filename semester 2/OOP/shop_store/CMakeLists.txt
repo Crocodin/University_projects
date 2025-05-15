@@ -97,4 +97,8 @@ if (WIN32 AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
                 "$<TARGET_FILE_DIR:${PROJECT_NAME}>")
     endforeach (QT_LIB)
 endif ()
+# Add the resources.qrc file to the project
+qt_add_resources(PROJECT_RESOURCES resources.qrc)
 
+# Add the generated resource file to your target
+target_sources(shop_store PRIVATE ${PROJECT_RESOURCES})

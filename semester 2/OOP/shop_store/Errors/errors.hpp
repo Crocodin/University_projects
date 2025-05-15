@@ -1,9 +1,10 @@
 #ifndef ERRORS_H
 #define ERRORS_H
+#include <exception>
 
 namespace err {
 
-	class Errors : std::exception {
+	class Errors : public std::exception {
 	protected:
 		const char* error{};
 		Errors() = default;

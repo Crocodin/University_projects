@@ -1,0 +1,17 @@
+
+QPushButton {
+    background-color: #626F47;
+    border-radius: 10px;
+    min-height: 50px;
+    font-family: Bebas Neue;
+    font-weight: 500;
+    font-size: 20px;
+    color: #F5ECD5;
+}
+
+#welcomeTitle {
+    font-family: Bebas Neue;
+    font-weight: 500;
+    font-size: 50px;
+    color: #F5ECD5;
+}

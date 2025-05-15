@@ -32,28 +32,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5f138dca-698a-487e-84af-417ab922919b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../../AG - lab/bellman-ford/CMakeLists.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../AG - lab/bellman-ford/main.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../AG - lab/kosaraju/CMakeLists.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../AG - lab/kosaraju/main.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/guiController.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GUI/guiController.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../AG - lab/BFSvDFS/.idea/editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../AG - lab/BFSvDFS/.idea/editor.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../AG - lab/dijkstra/p1.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../AG - lab/dijkstra/p1.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../AG - lab/johnsons alg/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../AG - lab/johnsons alg/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../AG - lab/johnsons alg/p2.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../AG - lab/johnsons alg/p2.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GUI/adminScreen.qss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GUI/controller.qss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GUI/userScreen.qss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GUI/welcomeScreen.qss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources.qrc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../object_oriented_in_C/.idea/editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../object_oriented_in_C/.idea/editor.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DynamicList/list.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/DynamicList/list.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Service/service.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Service/service.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Service/service.h" beforeDir="false" afterPath="$PROJECT_DIR$/Service/service.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Errors/errors.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/Errors/errors.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/guiController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/guiController.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/guiController.h" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/guiController.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ShoppingCart/shoppingCart.h" beforeDir="false" afterPath="$PROJECT_DIR$/ShoppingCart/shoppingCart.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/test_list.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/test_list.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/test_shopping_cart.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/test_shopping_cart.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Utilities/productData.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Utilities/productData.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../SDA/TAD Lista cu pozitie iterator/Proiect C++/IteratorLP.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../SDA/TAD Lista cu pozitie iterator/Proiect C++/IteratorLP.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../SDA/TAD Lista cu pozitie iterator/Proiect C++/IteratorLP.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../SDA/TAD Lista cu pozitie iterator/Proiect C++/IteratorLP.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../SDA/TAD Lista cu pozitie iterator/Proiect C++/Lista.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../SDA/TAD Lista cu pozitie iterator/Proiect C++/Lista.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../SDA/TAD Lista cu pozitie iterator/Proiect C++/Lista.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../SDA/TAD Lista cu pozitie iterator/Proiect C++/Lista.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../SDA/TAD Lista cu pozitie iterator/Teste/TestExtins.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../SDA/TAD Lista cu pozitie iterator/Teste/TestExtins.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,45 +57,18 @@
     <option name="formatViaClangd" value="false" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="QssFile" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file:////wsl$/Ubuntu/usr/include/x86_64-linux-gnu/qt6/QtWidgets/qtablewidget.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Domain/product.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Domain/product.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Domain/validator.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -166,7 +132,8 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "onboarding.tips.debug.path": "C:/Users/codri/Documents/GitHub/University_projects/semester 2/OOP/shop_store/main.cpp",
-    "settings.editor.selected.configurable": "language.cpp.clang-tidy",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "CMakeSettings",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -248,6 +215,12 @@
       <workItem from="1746777765467" duration="8000" />
       <workItem from="1746807273350" duration="9967000" />
       <workItem from="1746864931450" duration="23199000" />
+      <workItem from="1746968140691" duration="2000" />
+      <workItem from="1746975660105" duration="1559000" />
+      <workItem from="1746977757364" duration="3830000" />
+      <workItem from="1747142223782" duration="9807000" />
+      <workItem from="1747240843366" duration="7000" />
+      <workItem from="1747309754680" duration="777000" />
     </task>
     <servers />
   </component>

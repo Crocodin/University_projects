@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Utilities/Agbalumo/Agbalumo-Regular.ttf</file>
+        <file>Utilities/BebasNeue/BebasNeue-Regular.ttf</file>
+        <file>Utilities/JetBrains_Mono/JetBrainsMono-VariableFont_wght.ttf</file>
+    </qresource>
+</RCC>
