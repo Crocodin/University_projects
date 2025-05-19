@@ -225,6 +225,29 @@ void testQuantity() {//scopul e sa adaugam multe date
 	assert(m.dim() == 0);
 }
 
+void testAnterior() {
+	Multime m;
+	m.adauga(1);
+	m.adauga(2);
+	m.adauga(3);
+	m.adauga(4);
+	m.adauga(5);
+	auto it = m.iterator();
+	it.prim();					/// elem 1
+	it.urmator();				/// elem 2
+	TElem e = it.element();
+	it.urmator();				/// elem 3
+	assert(it.element() != e);
+	it.anterior();				/// elem 2
+	assert(it.element() == e);
+	it.anterior();				/// elem 1
+	assert(it.element() != e);
+	it.anterior();				/// elem 0
+	assert(!it.valid());
+	try { it.anterior(); assert(false); }
+	catch (...) { assert(true); }
+}
+
 
 // nu stim reprezentarea multimii, putem testa doar anumite lucruri generale, nu stim in ce ordine vor fi afisate elementele.
 void testAllExtins() {
@@ -233,5 +256,5 @@ void testAllExtins() {
 	testSterge();
 	testIterator();
 	testQuantity();
-
+	testAnterior();
 }

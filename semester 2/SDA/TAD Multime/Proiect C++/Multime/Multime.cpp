@@ -4,17 +4,19 @@
 
 #include "IteratorMultime.h"
 
+/// theta(1)
 int Multime::hashFunc(const TElem& elem) const {
 	return abs(elem) % this->elements.capacity;
 }
 
+/// O(m) { m - capacity }
 void Multime::nextFreePosition() {
 	this->freePosition++;
 	while (this->elements[this->freePosition] != NULL_TELEM)
 		this->freePosition++;
 }
 
-
+/// theta(m) { m - capacity }
 Multime::Multime() {
 	/// in the beginning they are equal
 	for (int i = 0; i < this->elements.capacity; i++)
@@ -23,7 +25,7 @@ Multime::Multime() {
 	this->numberOfElements = 0;
 }
 
-
+/// O(m)  { m - capacity }
 bool Multime::adauga(TElem elem) {
 	if (this->cauta(elem)) return false;
 	int hash = hashFunc(elem);
@@ -49,7 +51,7 @@ bool Multime::adauga(TElem elem) {
 	return true;
 }
 
-
+/// O(m) { m - capacity }
 bool Multime::sterge(TElem elem) {
 	int hash = hashFunc(elem), previousTElem = NULL_TELEM;
 	while (hash != NULL_TELEM && this->elements[hash] != elem) {
@@ -86,6 +88,7 @@ bool Multime::sterge(TElem elem) {
 	return true;
 }
 
+/// O(n) { n - nr de elem }
 bool Multime::cauta(TElem elem) const {
 	int hash = hashFunc(elem);
 	do {
@@ -96,19 +99,17 @@ bool Multime::cauta(TElem elem) const {
 	return false;
 }
 
-
+/// theta(1)
 int Multime::dim() const {
 	return this->numberOfElements;
 }
 
+/// theta(1)
 bool Multime::vida() const {
 	return this->numberOfElements == 0;
 }
 
-
 Multime::~Multime() = default;
-
-
 
 IteratorMultime Multime::iterator() const {
 	return IteratorMultime(*this);
