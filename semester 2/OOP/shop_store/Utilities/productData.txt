@@ -8,4 +8,3 @@ Mouse,Accessories,55,FastClick
 Keyboard,Accessories,100,KeyMasters
 Smartwatch,Wearables,300,WristTech
 codrin,info,9,parmac.org
-w,e,2,w
