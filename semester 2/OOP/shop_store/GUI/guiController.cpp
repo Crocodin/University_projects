@@ -10,6 +10,7 @@
 #include <QFile>
 #include <QFontDatabase>
 #include <QHeaderView>
+#include <QListWidget>
 
 FilterProductDialog::FilterProductDialog(QWidget *parent) : QWidget(parent) {
 	this->setWindowTitle("Filter Product");
@@ -145,13 +146,13 @@ adminScreen::adminScreen(QWidget *parent_widget, Service* service)
 	this->loadLayout();
 }
 
-void adminScreen::onTabelCellClicked(int row, int column) {
-	// Now `table` refers to the same QTableWidget you created above
-	QTableWidgetItem* item = table->item(row, column);
+void adminScreen::onListCellClicked(QListWidgetItem* item) {
+	int row = list->row(item);  // Get the index of the clicked item
 	this->selected_product = &service->getAllProducts()[row];
 
-	qDebug() << "Row" << row << "col" << column << "text" << item->text();
+	qDebug() << "Row" << row << "text" << item->text();
 }
+
 
 void adminScreen::onUndoButtonClicked() {
 	qDebug() << "Undo";
@@ -258,31 +259,17 @@ void adminScreen::onRemoveButtonClicked() {
 }
 
 void adminScreen::populateTable(const List<Product>& products) {
-	// Clear all rows and content
-	table->clearContents();     // Clears the cell items but keeps headers
-	table->setRowCount(0);      // Resets the row count
+	this->list->clear();  // assuming this is your QListWidget*
 
-	int actualRow = 0;
+	for (const auto& p : products) {
+		QString displayText = QString("%1 | %2 | %3 | %4")
+								.arg(QString::fromStdString(p.getName()))
+								.arg(QString::fromStdString(p.getProducer()))
+								.arg(p.getPrice())
+								.arg(QString::fromStdString(p.getType()));
 
-	for (int i = 0; i < (int) products.size(); ++i) {
-		table->insertRow(actualRow); // Insert a new row
-
-		auto nameItem = new QTableWidgetItem(QString::fromStdString(products[i].getName()));
-		auto producerItem = new QTableWidgetItem(QString::fromStdString(products[i].getProducer()));
-		auto priceItem = new QTableWidgetItem(QString::number(products[i].getPrice()));
-		auto typeItem = new QTableWidgetItem(QString::fromStdString(products[i].getType()));
-
-		nameItem->setFlags(nameItem->flags() & ~Qt::ItemIsEditable);
-		producerItem->setFlags(producerItem->flags() & ~Qt::ItemIsEditable);
-		priceItem->setFlags(priceItem->flags() & ~Qt::ItemIsEditable);
-		typeItem->setFlags(typeItem->flags() & ~Qt::ItemIsEditable);
-
-		table->setItem(i, 0, nameItem);
-		table->setItem(i, 1, producerItem);
-		table->setItem(i, 2, priceItem);
-		table->setItem(i, 3, typeItem);
-
-		++actualRow;
+		auto* item = new QListWidgetItem(displayText);
+		this->list->addItem(item);
 	}
 }
 
@@ -294,26 +281,21 @@ void adminScreen::showSuccess(const QString &message) {
 	QMessageBox::information(this, "Success", message);
 }
 
-QTableWidget *adminScreen::loadTabel() {
-	const List<Product>& products = this->service->getAllProducts();
-	QTableWidget *tabel = new QTableWidget(products.size(), 4);
-	tabel->setHorizontalHeaderLabels({"Product", "Producer", "Price", "Tipe"});
-	this->table = tabel;
-	table->setMaximumWidth(450);
+QListWidget *adminScreen::loadTabel() {
+	auto *list = new QListWidget();
+	this->list = list;
+	list->setMaximumWidth(450);
 	this->populateTable(this->service->getAllProducts());
-	// allow selecting entire rows only
-	tabel->setSelectionBehavior(QAbstractItemView::SelectRows);
-	// allow only one row at a time (optional)
-	tabel->setSelectionMode(QAbstractItemView::SingleSelection);
-	connect(tabel, &QTableWidget::cellClicked,this,  &adminScreen::onTabelCellClicked);
-	return tabel;
+
+	connect(list, &QListWidget::itemClicked, this,  &adminScreen::onListCellClicked);
+	return list;
 }
 
 void adminScreen::loadLayout() {
 	auto mainLayout = new QHBoxLayout();
 
-	auto tabel = this->loadTabel();
-	mainLayout->addWidget(tabel);
+	auto list = this->loadTabel();
+	mainLayout->addWidget(list);
 
 	auto secondLayout = new QVBoxLayout();
 

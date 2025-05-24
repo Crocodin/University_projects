@@ -1,13 +1,11 @@
-Headphones,Audio,150,SoundWave
 Headphones,Audio,140,BeatTech
-Smartwatch,Wearables,300,WristTech
-Mouse,Accessories,55,FastClick
 Tablet,Electronics,620,ByteTech
-c,Electronics,600,TechCorp
 Tablet,Audio,200,SoundWave
-VR Headset,Gaming,480,HyperLens
 name_c,type_c,1,prod_c
-Keyboard,Accessories,100,KeyMasters
-codrin,info,9,parmac.org
-c,c,1,c
 Monitor,Electronics,280,ScreenPro
+VR Headset,Gaming,480,HyperLens
+Mouse,Accessories,55,FastClick
+Keyboard,Accessories,100,KeyMasters
+Smartwatch,Wearables,300,WristTech
+codrin,info,9,parmac.org
+w,e,2,w
