@@ -10,6 +10,7 @@
 #include "../ShoppingCart/shoppingCart.h"
 #include <QStackedWidget>
 #include <QMainWindow>
+#include <QListWidget>
 
 /// Dialog for filtering products based on various criteria
 /// This dialog allows the user to filter products by price, name, or producer.
@@ -76,14 +77,14 @@ class adminScreen final : public QWidget {
 	Q_OBJECT
 private:
 	Service* service;					 ///< Pointer to the Service object for managing the product data
-	QTableWidget* table;				 ///< Pointer to the table widget displaying the products
+	QListWidget* list;				 ///< Pointer to the table widget displaying the products
 	Product* selected_product = nullptr; ///< Pointer to the selected product for editing
 
 private slots:
 	/// Slot for handling cell click events in the table
 	/// :param row: the row of the clicked cell
 	/// :param column: the column of the clicked cell
-	void onTabelCellClicked(int row, int column);
+	void onListCellClicked(QListWidgetItem* item);
 
 	/// Slot for handling Add button click event
 	void onAddButtonClicked();
@@ -138,7 +139,7 @@ protected:
 
 	/// Loads and returns a table widget
 	/// :return: a pointer to the QTableWidget used for displaying products
-	QTableWidget* loadTabel();
+	QListWidget* loadTabel();
 
 	/// Displays an error message
 	/// :param message: the error message to be displayed

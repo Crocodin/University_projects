@@ -14,43 +14,21 @@ QPushButton {
     background-color: #626F47;
 }
 
-QTableWidget {
+QListWidget {
     background-color: #2E3A1F;
     color: #F5ECD5;
     font-family: JetBrains Mono;
     font-size: 16px;
-    gridline-color: #444;
-    selection-background-color: #626F47;
-    selection-color: #FFFFFF;
     border: 1px solid #444;
+    outline: none;
 }
 
-/* Horizontal header (column labels) */
-QHeaderView::section {
-    background-color: #2E3A1F;  /* same as table background */
-    color: #F5ECD5;
-    font-family: JetBrains Mono;
-    font-size: 16px;
-    padding: 5px;
-    border: 1px solid #444;
+QListWidget::item {
+    padding: 8px;
+    border-bottom: 1px solid #444;
 }
 
-/* Vertical header (row numbers) */
-QTableCornerButton::section,
-QHeaderView::section:vertical {
-    background-color: #2E3A1F;  /* same as table background */
-    color: #F5ECD5;
-    font-family: JetBrains Mono;
-    font-size: 16px;
-    padding: 5px;
-    border: 1px solid #444;
-}
-
-QTableWidget::item {
-    padding: 5px;
-}
-
-QTableWidget::item:selected {
+QListWidget::item:selected {
     background-color: #626F47;
     color: #FFFFFF;
 }
