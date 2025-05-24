@@ -11,6 +11,8 @@
 #include <QFontDatabase>
 #include <QHeaderView>
 #include <QListWidget>
+#include "Cos/cos_curd_gui.hpp"
+#include "Cos/cos_read_only_gui.hpp"
 
 FilterProductDialog::FilterProductDialog(QWidget *parent) : QWidget(parent) {
 	this->setWindowTitle("Filter Product");
@@ -426,12 +428,14 @@ void userScreen::showSuccess(const QString &message) {
 
 void userScreen::addToShoppingCartTable(int row) {
 	this->shoppingCart.addToShoppingCart(this->displayItems[row]);
-	this->populateTable(this->shoppingCart.getAllProducts(), this->shoppingCartTable);
+	userScreen::populateTable(this->shoppingCart.getAllProducts(), this->shoppingCartTable);
+	this->shoppingCart.notifyObservers();
 }
 
 void userScreen::removeFromShoppingCartTable(int row) {
 	this->shoppingCart.removeFromShoppingCart(this->shoppingCart.getAllProducts()[row]);
-	this->populateTable(this->shoppingCart.getAllProducts(), this->shoppingCartTable);
+	userScreen::populateTable(this->shoppingCart.getAllProducts(), this->shoppingCartTable);
+	this->shoppingCart.notifyObservers();
 }
 
 void userScreen::onSearchTextChanged(const QString& text) {
@@ -471,7 +475,8 @@ void userScreen::generateShoppingCart() {
 			const int rndNr = distrib(mt);
 			this->shoppingCart.addToShoppingCart(products[rndNr]);
 		}
-		this->populateTable(this->shoppingCart.getAllProducts(), this->shoppingCartTable);
+		userScreen::populateTable(this->shoppingCart.getAllProducts(), this->shoppingCartTable);
+		this->shoppingCart.notifyObservers();
 		generateSC->close();
 		generateSC->deleteLater();
 	});
@@ -577,6 +582,7 @@ void userScreen::loadLayout() {
 		catch (err::OutOfRange& e) { this->showError("Can't delete empty cart"); }
 		this->populateTable(auxList, this->shoppingCartTable);
 		balance_ = 0;
+		this->shoppingCart.notifyObservers();
 	});
 
 	auto exportButton = new QPushButton("Export");
@@ -587,6 +593,19 @@ void userScreen::loadLayout() {
 	auto generateButton = new QPushButton("Generate");
 	connect(generateButton, &QPushButton::clicked, this, &userScreen::generateShoppingCart);
 
+	auto shoppWindowButton = new QPushButton("Shopping Window");
+	auto shopShapesButton = new QPushButton("Shopping Shapes");
+
+	connect(shoppWindowButton, &QPushButton::clicked, this, [this]() {
+		auto window = new CosCurd_GUI(this->shoppingCart, this);
+		window->show();
+	});
+
+	connect(shopShapesButton, &QPushButton::clicked, this, [this]() {
+		auto window = new CosReadOnly_GUI(this->shoppingCart);
+		window->show();
+	});
+
 	auto rightFLayout = new QHBoxLayout();
 	rightFLayout->addWidget(clearButton);
 	rightFLayout->addWidget(exportButton);
@@ -594,6 +613,8 @@ void userScreen::loadLayout() {
 	auto rightSLayout = new QHBoxLayout();
 	rightSLayout->addWidget(generateButton);
 	rightSLayout->addWidget(changeModeButton);
+	rightSLayout->addWidget(shoppWindowButton);
+	rightSLayout->addWidget(shopShapesButton);
 
 	auto rightLayout = new QVBoxLayout();
 	rightLayout->addWidget(this->shoppingCartTable);

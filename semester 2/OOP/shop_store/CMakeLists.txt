@@ -61,7 +61,10 @@ add_executable(shop_store main.cpp
         Undo/undo.hpp
         Tests/test_undo.cpp
         GUI/guiController.cpp
-        GUI/guiController.h)
+        GUI/guiController.h
+        GUI/Cos/cos_curd_gui.hpp
+        GUI/Cos/observer.hpp
+        GUI/Cos/cos_read_only_gui.hpp)
 
 target_link_libraries(shop_store
         Qt::Core

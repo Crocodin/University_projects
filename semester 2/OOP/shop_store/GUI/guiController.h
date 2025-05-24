@@ -11,6 +11,7 @@
 #include <QStackedWidget>
 #include <QMainWindow>
 #include <QListWidget>
+#include "Cos/observer.hpp"
 
 /// Dialog for filtering products based on various criteria
 /// This dialog allows the user to filter products by price, name, or producer.
@@ -202,6 +203,7 @@ private slots:
 	/// This might save the cart to a file or another format depending on implementation
 	void exportShoppingCart();
 
+public slots:
 	/// Generates a shopping cart with random products
 	/// Typically used for demonstration or testing purposes
 	void generateShoppingCart();
