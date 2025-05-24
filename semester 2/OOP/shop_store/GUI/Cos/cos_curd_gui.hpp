@@ -10,12 +10,17 @@
 #include "observer.hpp"
 #include "../guiController.h"
 
+/// GUI for displaying and observing changes to the shopping cart
+/// This widget observes a ShoppingCart and updates its view accordingly.
 class CosCurd_GUI final : public QWidget, private Observer {
 	Q_OBJECT
 private:
-	ShoppingCart& shoppingCart;
-	QListWidget* listWidget;
+	ShoppingCart& shoppingCart;			///< Reference to the shopping cart being observed
+	QListWidget* listWidget;			///< Widget used to display the list of products in the cart
 public:
+	/// Constructor for CosCurd_GUI
+	/// :param cart: reference to the shopping cart to be displayed and observed
+	/// :param parent: optional parent widget, default is nullptr
 	explicit CosCurd_GUI(ShoppingCart& cart, QWidget* parent)
 		: QWidget(nullptr), shoppingCart(cart) {
 		auto layout = new QVBoxLayout(this);
@@ -53,6 +58,7 @@ public:
 		this->setAttribute(Qt::WA_DeleteOnClose);
 	}
 
+	/// Populates the list widget with items from the shopping cart
 	void populateList() {
 		listWidget->clear();
 		for (const auto& prod : shoppingCart.getAllProducts()) {
@@ -61,10 +67,14 @@ public:
 		}
 	}
 
+	/// Called when the shopping cart is updated (Observer pattern)
+	/// This will refresh the list to reflect current contents of the cart
 	void update() override {
 		this->populateList();
 	}
 
+	/// Destructor for CosCurd_GUI
+	/// Automatically removes this observer from the shopping cart
 	~CosCurd_GUI() override {
 		shoppingCart.removeObserver(this);
 	}

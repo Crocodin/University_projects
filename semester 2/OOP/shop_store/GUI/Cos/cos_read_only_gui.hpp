@@ -7,12 +7,19 @@
 #include "../../ShoppingCart/shoppingCart.h"
 #include <random>
 
+/// Read-only GUI view for the shopping cart
+/// This widget observes the ShoppingCart and graphically displays random shapes
+/// representing each product, updating the view on changes. It does not allow user interaction.
 class CosReadOnly_GUI final : public QWidget, private Observer {
 	Q_OBJECT
 private:
-	ShoppingCart& shoppingCart;
+	ShoppingCart& shoppingCart;			 ///< Reference to the shopping cart being observed
 
 public:
+	/// Constructor for CosReadOnly_GUI
+	/// Initializes the widget, registers as observer, and configures basic settings
+	/// :param cart: reference to the shopping cart to observe
+	/// :param parent: optional parent widget, default is nullptr
 	explicit CosReadOnly_GUI(ShoppingCart& cart, QWidget* parent = nullptr)
 		: QWidget(parent), shoppingCart(cart) {
 		shoppingCart.addObserver(this);
@@ -21,15 +28,22 @@ public:
 		this->setAttribute(Qt::WA_DeleteOnClose);
 	}
 
+	/// Called when the shopping cart is updated (Observer pattern)
+	/// This triggers a repaint of the window to reflect the new cart state
 	void update() override {
 		repaint();
 	}
 
+	/// Destructor for CosReadOnly_GUI
+	/// Automatically removes this widget from the shopping cart's observer list
 	~CosReadOnly_GUI() override {
 		shoppingCart.removeObserver(this);
 	}
 
 protected:
+	/// Custom paint event handler that draws random shapes for each product in the cart
+	/// Each shape is rendered in a random position with a random color and form
+	/// :param ev: paint event (unused)
 	void paintEvent(QPaintEvent* ev) override {
 		(void) ev;
 		QPainter painter(this);
@@ -65,7 +79,6 @@ protected:
 			}
 		}
 	}
-
 };
 
 #endif //COS_READ_ONLY_GUI_HPP
