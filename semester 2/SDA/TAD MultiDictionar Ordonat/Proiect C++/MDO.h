@@ -32,6 +32,7 @@ class MDO {
 		}
 	};
 
+	void deleteRec(Node* node);
 	Node *root;
 	int numberOfElements = 0;
 
@@ -63,4 +64,7 @@ public:
 	// destructorul 	
 	~MDO();
 
+	typedef TValoare(*searchF)(TValoare a, TValoare b);
+	TValoare searchCMP(Node* current, searchF cmp) const;
+	int maxMinDiff() const;
 };

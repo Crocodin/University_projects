@@ -24,7 +24,7 @@ void IteratorMDO::prim(){
 	}
 }
 
-void IteratorMDO::urmator(){
+void IteratorMDO::urmator(){ /// preordine
 	if (!this->valid()) throw std::invalid_argument("IteratorMDO is invalid");
 	/// first case, we didnt finish the values in the nodeVector
 	if (this->nodeVectorIndex < this->currentNode->valori.size() - 1) {
