@@ -5,6 +5,6 @@ name_c,type_c,1,prod_c
 Monitor,Electronics,280,ScreenPro
 VR Headset,Gaming,480,HyperLens
 Mouse,Accessories,55,FastClick
-Keyboard,Accessories,100,KeyMasters
 Smartwatch,Wearables,300,WristTech
 codrin,info,9,parmac.org
+Keyboard,Accessories,100,KeyMasters

@@ -148,13 +148,11 @@ adminScreen::adminScreen(QWidget *parent_widget, Service* service)
 	this->loadLayout();
 }
 
-void adminScreen::onListCellClicked(QListWidgetItem* item) {
-	int row = list->row(item);  // Get the index of the clicked item
+void adminScreen::onListCellClicked(const QModelIndex &index) {
+	int row = index.row();
 	this->selected_product = &service->getAllProducts()[row];
-
-	qDebug() << "Row" << row << "text" << item->text();
+	qDebug() << "Row" << row;
 }
-
 
 void adminScreen::onUndoButtonClicked() {
 	qDebug() << "Undo";
@@ -261,17 +259,10 @@ void adminScreen::onRemoveButtonClicked() {
 }
 
 void adminScreen::populateTable(const List<Product>& products) {
-	this->list->clear();  // assuming this is your QListWidget*
-
-	for (const auto& p : products) {
-		QString displayText = QString("%1 | %2 | %3 | %4")
-								.arg(QString::fromStdString(p.getName()))
-								.arg(QString::fromStdString(p.getProducer()))
-								.arg(p.getPrice())
-								.arg(QString::fromStdString(p.getType()));
-
-		auto* item = new QListWidgetItem(displayText);
-		this->list->addItem(item);
+	(void) products;
+	auto* model = dynamic_cast<ProductListModel*>(list->model());
+	if (model) {
+		model->refresh();
 	}
 }
 
@@ -283,14 +274,17 @@ void adminScreen::showSuccess(const QString &message) {
 	QMessageBox::information(this, "Success", message);
 }
 
-QListWidget *adminScreen::loadTabel() {
-	auto *list = new QListWidget();
-	this->list = list;
-	list->setMaximumWidth(450);
+QListView *adminScreen::loadTabel() {
+	auto *list = new ProductListModel(*this->service, this);
+
+	auto* view = new QListView(this);
+	view->setModel(list);
+	this->list = view;
+
 	this->populateTable(this->service->getAllProducts());
 
-	connect(list, &QListWidget::itemClicked, this,  &adminScreen::onListCellClicked);
-	return list;
+	connect(view, &QListView::clicked, this, &adminScreen::onListCellClicked);
+	return view;
 }
 
 void adminScreen::loadLayout() {

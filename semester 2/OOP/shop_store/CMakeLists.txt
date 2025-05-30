@@ -64,7 +64,8 @@ add_executable(shop_store main.cpp
         GUI/guiController.h
         GUI/Cos/cos_curd_gui.hpp
         GUI/Cos/observer.hpp
-        GUI/Cos/cos_read_only_gui.hpp)
+        GUI/Cos/cos_read_only_gui.hpp
+        GUI/listView.hpp)
 
 target_link_libraries(shop_store
         Qt::Core
