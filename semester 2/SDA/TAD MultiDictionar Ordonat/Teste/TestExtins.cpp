@@ -1,5 +1,5 @@
 #include <exception>
-#include <assert.h>
+#include <cassert>
 #include <algorithm>
 #include <vector>
 #include "IteratorMDO.h"
@@ -156,6 +156,22 @@ void testIterator(Relatie r) {
 	}
 }
 
+void testMinMax() {
+	MDO d = MDO(cresc);
+	assert(d.maxMinDiff() == -1);
+	d.adauga(4, 10);
+	assert(d.maxMinDiff() == 10 - 10);
+	d.adauga(5, 20);
+	d.adauga(3, 30);
+	d.adauga(2, 10);
+	d.adauga(2, 5);
+	assert(d.maxMinDiff() == 30 - 5);
+	d.adauga(3, 0);
+	assert(d.maxMinDiff() == 30 - 0);
+	d.adauga(5, 100);
+	assert(d.maxMinDiff() == 100 - 0);
+}
+
 void testIterator() {
 	testIterator(cresc);
 	testIterator(desc);
@@ -166,4 +182,5 @@ void testAllExtins() {
 	testCauta();
 	testSterge();
 	testIterator();
+	testMinMax();
 }
