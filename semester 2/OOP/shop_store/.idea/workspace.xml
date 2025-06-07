@@ -32,12 +32,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5f138dca-698a-487e-84af-417ab922919b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/GUI/listView.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/guiController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/guiController.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/guiController.h" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/guiController.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utilities/productData.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Utilities/productData.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -228,6 +223,7 @@
       <workItem from="1748423333851" duration="1711000" />
       <workItem from="1748524654353" duration="3944000" />
       <workItem from="1748582934469" duration="4000" />
+      <workItem from="1748609248814" duration="12000" />
     </task>
     <servers />
   </component>
