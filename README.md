@@ -17,7 +17,7 @@ This repository houses all of the projects I've completed for university up to t
 
 ### :file_folder: Semester 2: <br>
 > 📏 Geometry <br>
-> :100:Dynamic Systems <br>
+> :100:[Dynamic Systems](semester%202/SD) <br>
 > :world_map:[Graph Algorithms](semester%202/AG%20-%20lab) <br>
 > :computer:[Data Structures and Algorithms](semester%202/SDA) <br>
 > :mag_right:[Object-Oriented Programming](semester%202/OOP) <br>
