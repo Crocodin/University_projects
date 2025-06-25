@@ -11,7 +11,8 @@ void preorder(Node* root) {	/// (root, left, right)
 		if (temp->left != nullptr) s.push(temp->left);
 	}
 }
-
+```
+```c++
 void inorder(Node* root) { /// (left, root, right)
 	std::stack<Node*> s;
 	Node* temp = root;
@@ -26,7 +27,8 @@ void inorder(Node* root) { /// (left, root, right)
 		temp = temp->right;
 	}
 }
-
+```
+```c++
 void postorder(Node* root) { /// (left, right, root)
 	std::stack<Node*> s;
 	s.push(root);
