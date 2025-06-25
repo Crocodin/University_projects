@@ -16,16 +16,17 @@ void preorder(Node* root) {	/// (root, left, right)
 void inorder(Node* root) { /// (left, root, right)
 	std::stack<Node*> s;
 	Node* temp = root;
-	while (!s.empty() || root != nullptr) {
+	do {
 		while (temp != nullptr) { /// we go to the left'est part of the graph
 			s.push(temp);
 			temp = temp->left;
 		}
+		if (s.empty()) break;
 		temp = s.top();
 		s.pop();
 		std::cout << temp->data << " ";
 		temp = temp->right;
-	}
+	} 	while (!s.empty() || temp != nullptr);
 }
 ```
 ```c++
