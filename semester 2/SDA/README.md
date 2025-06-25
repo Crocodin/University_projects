@@ -39,7 +39,7 @@ void postorder(Node* root) { /// (left, right, root)
 		if (curr != nullptr) {
 			/// First push the node itself again, with a marker after children
 			s.push(curr);		/// push the node again
-			s.push(nullptr);  /// this null acts as a marker
+			s.push(nullptr);        /// this null acts as a marker
 
 			if (curr->right) s.push(curr->right);
 			if (curr->left) s.push(curr->left);
