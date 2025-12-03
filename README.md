@@ -28,6 +28,6 @@ This repository houses all of the projects I've completed for university up to t
 > :crystal_ball:Advanced programing methods <br>
 > :bar_chart:Probabilities and Statistics <br>
 > :satellite:Network Programming <br>
-> :minidisc:Databases <br>
+> :minidisc:[Databases](semester%203/DB) <br>
 > :bulb:Logic Programming and Functional Programming <br>
 > :bow:DPPD - Theory and methodology of training. Theory and methodology of evaluation
