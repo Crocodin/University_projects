@@ -25,7 +25,7 @@ This repository houses all of the projects I've completed for university up to t
 > 🧠 DPPD - Pedagogy I
 
 ### :file_folder: Semester 3: <br>
-> :crystal_ball:Advanced programing methods <br>
+> :crystal_ball:[Advanced programing methods](semester%203/MAP/social-network) <br>
 > :bar_chart:Probabilities and Statistics <br>
 > :satellite:Network Programming <br>
 > :minidisc:[Databases](semester%203/DB) <br>
