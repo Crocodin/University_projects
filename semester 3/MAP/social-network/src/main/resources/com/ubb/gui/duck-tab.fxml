@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.TextField?>
+<HBox prefHeight="371.0" prefWidth="756.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+    <VBox prefHeight="371.0" prefWidth="453.0">
+        <TableView prefHeight="263.0" prefWidth="674.0" fx:id="duckTableView">
+            <columns>
+            </columns>
+        </TableView>
+        <HBox alignment="CENTER" prefHeight="90.0" prefWidth="525.0">
+            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="Previous" fx:id="prevDuckButton">
+                <HBox.margin>
+                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                </HBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="Next"
+                    textAlignment="CENTER" fx:id="nextDuckButton">
+                <HBox.margin>
+                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                </HBox.margin>
+            </Button>
+            <ComboBox prefWidth="150.0" fx:id="duckComboBox"/>
+        </HBox>
+    </VBox>
+    <VBox alignment="CENTER" prefHeight="371.0" prefWidth="286.0" spacing="10.0">
+        <HBox.margin>
+            <Insets/>
+        </HBox.margin>
+        <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+        </padding>
+        <!-- Input fields -->
+        <TextField fx:id="duckIdField" text="ID" editable="false"/>
+        <TextField fx:id="duckUsernameField" promptText="Username"/>
+        <TextField fx:id="duckEmailField" promptText="Email"/>
+        <TextField fx:id="duckPasswordField" promptText="Password" />
+        <ComboBox fx:id="duckTypeComboBox" prefWidth="150.0"/>
+        <TextField fx:id="duckSpeedField" promptText="Speed"/>
+        <TextField fx:id="duckEnduranceField" promptText="Endurance"/>
+
+        <!-- Action buttons -->
+        <Button fx:id="duckAddButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="Add"/>
+        <Button fx:id="duckRemoveButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="Remove" disable="false"/>
+
+    </VBox>
+</HBox>

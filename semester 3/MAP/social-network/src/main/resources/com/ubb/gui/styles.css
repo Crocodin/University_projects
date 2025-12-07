@@ -1,0 +1,40 @@
+
+.console-area {
+    -fx-background-color: #1e1e1e;
+    -fx-padding: 10;
+    -fx-background-radius: 6;
+    -fx-control-inner-background: #1e1e1e;
+}
+
+.console-text {
+    -fx-fill: #d4d4d4;
+    -fx-font-family: Consolas, "Fira Code", monospace;
+    -fx-font-size: 14px;
+}
+
+.console-text-key {
+    -fx-fill: #569cd6;
+    -fx-font-weight: bold;
+}
+
+.console-text-username {
+    -fx-fill: #ce9178;
+    -fx-font-weight: bold;
+}
+
+/* Sender (your messages) */
+.message_bubble_sender {
+    -fx-background-color: #DCF8C6;  /* light green */
+    -fx-background-radius: 12;
+}
+
+/* Receiver (other people's messages) */
+.message_bubble_receiver {
+    -fx-background-color: #788CE3;  /* blue-ish */
+    -fx-background-radius: 12;
+}
+
+/* Optional: add spacing/margin for chat bubbles */
+.list-cell {
+    -fx-padding: 4 0 4 0; /* vertical spacing between bubbles */
+}

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.TextFlow?>
+<?import javafx.geometry.Insets?>
+
+<VBox prefHeight="200.0" prefWidth="100.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+    <TextFlow prefHeight="297.0" prefWidth="751.0" fx:id="graphTabTextFlow">
+        <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+        </VBox.margin>
+    </TextFlow>
+    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+        <Button mnemonicParsing="false" prefWidth="200.0" text="Number of communities"
+                fx:id="numberOfCommunitiesButton">
+            <HBox.margin>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+            </HBox.margin>
+        </Button>
+        <Button mnemonicParsing="false" prefWidth="200.0" text="Longest connection chain"
+                fx:id="longestChainButton">
+            <HBox.margin>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+            </HBox.margin>
+        </Button>
+    </HBox>
+</VBox>

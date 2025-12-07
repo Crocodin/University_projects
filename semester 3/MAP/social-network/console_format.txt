@@ -1,0 +1,98 @@
+================================================================================
+ ____  _   _  ____ _  ______     ___     _   _ _   _ __  __    _    _   _ ____
+|  _ \| | | |/ ___| |/ / ___|   ( _ )   | | | | | | |  \/  |  / \  | \ | / ___|
+| | | | | | | |   | ' /\___ \   / _ \/\ | |_| | | | | |\/| | / _ \ |  \| \___ \
+| |_| | |_| | |___| . \ ___) | | (_>  < |  _  | |_| | |  | |/ ___ \| |\  |___) |
+|____/ \___/ \____|_|\_\____/   \___/\/ |_| |_|\___/|_|  |_/_/   \_\_| \_|____/
+
+================================================================================
+
+                                <<   OPTIONS   >>
+
+	1) User options
+	2) Friendship options
+	3) Graph options
+	4) Event options
+	5) Exit
+
+		Your option: -> Invalid option
+
+================================================================================
+
+                              <<   USER OPTIONS   >>
+
+	1) Add user
+	2) Remove user
+	3) Show all users
+	4) Go back
+
+		Your option:
+
+--------------------------------------------------------------------------------
+// remove
+	The ID of the user you want to remove: -> No user with this id
+	-> Removed user username successfully
+
+--------------------------------------------------------------------------------
+// add
+	Type (PERSON/DUCK): -> Invalid type of user
+	Username
+	...
+	-> Added user username successfully
+
+--------------------------------------------------------------------------------
+// show
+	└─ \u2514\u2500
+	└─ UserType: Username
+
+
+================================================================================
+
+                           <<   FRIENDSHIP OPTIONS   >>
+
+	1) Show all friendships
+	2) Add a friendship
+	3) Go back
+
+--------------------------------------------------------------------------------
+// show
+	└─ UserType: Username
+		└─ (\u2514\u2500)
+		└─ (\u2514\u2500)
+
+--------------------------------------------------------------------------------
+
+	The id of the first user: -> No user with this ID
+	The id of the second user:
+	-> Added friendship successfully
+
+================================================================================
+
+                             <<   GRAPH OPTIONS   >>
+
+	1) Number of communities
+	2) The community with the longest connection chain
+	3) Go back
+
+	-> answer to the option
+	// if it's two just print via the friend print
+
+================================================================================
+
+                              <<   EVENT OPTIONS   >>
+
+	1) Add event
+	2) Remove event
+	3) Subscribe person to event
+	4) Show all events
+	4) Go back
+
+================================================================================
+
+                              <<   FLOCK OPTIONS   >>
+
+    1) Add flock
+    2) Remove flock
+    3) Go back
+
+        Your option:
