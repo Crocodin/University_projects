@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<HBox prefHeight="200.0" prefWidth="100.0"
+      xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml">
+
+    <VBox prefWidth="400.0">
+        <TableView fx:id="laneTableView" prefHeight="250.0">
+            <columns>
+                <TableColumn fx:id="laneIdColumn" text="ID" prefWidth="150"/>
+                <TableColumn fx:id="laneDistanceColumn" text="Distance" prefWidth="250"/>
+            </columns>
+        </TableView>
+
+        <HBox alignment="CENTER" prefHeight="90.0" prefWidth="525.0">
+            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="Previous" fx:id="prevLaneButton">
+                <HBox.margin>
+                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                </HBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="Next"
+                    textAlignment="CENTER" fx:id="nextLaneButton">
+                <HBox.margin>
+                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                </HBox.margin>
+            </Button>
+        </HBox>
+    </VBox>
+
+    <VBox spacing="10" alignment="CENTER">
+        <padding>
+            <Insets top="10" right="10" bottom="10" left="10"/>
+        </padding>
+
+        <TextField fx:id="laneIdField" text="ID" editable="false"/>
+        <TextField fx:id="laneDistanceField" promptText="Distance"/>
+
+        <Button fx:id="laneAddButton" text="Add" prefWidth="150"/>
+        <Button fx:id="laneRemoveButton" text="Remove" prefWidth="150" disable="true"/>
+    </VBox>
+
+</HBox>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.TextFlow?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<HBox prefHeight="100.0" prefWidth="200.0" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml">
+    <TableView prefHeight="371.0" prefWidth="150.0" fx:id="userFriendTableView">
+        <columns>
+        </columns>
+    </TableView>
+    <VBox prefHeight="371.0" prefWidth="500.0">
+        <Label prefHeight="30.0" prefWidth="114.0" fx:id="selectedMessageLabel"/>
+        <ListView prefHeight="290.0" prefWidth="562.0" fx:id="chatListView"/>
+        <HBox prefHeight="57.0" prefWidth="500.0">
+            <TextField prefHeight="54.0" prefWidth="455.0" fx:id="messageTextField" promptText="Send a message..."/>
+            <Button fx:id="sendMessageButton" mnemonicParsing="false" prefHeight="49.0" prefWidth="55.0">
+                <graphic>
+                    <ImageView fitHeight="45.0" fitWidth="45.0">
+                        <Image url="@paper-plane.png"/>
+                    </ImageView>
+                </graphic>
+            </Button>
+        </HBox>
+    </VBox>
+</HBox>
