@@ -29,20 +29,34 @@ public class MessageDBRepo implements DBRepoInt<Long, Message> {
         try (Connection connection = DriverManager.getConnection(url, username, password)) {
 
             var stmt = connection.prepareStatement(
-                    "INSERT INTO message(user_from, user_to, message, timestamp) " +
-                            "VALUES (?, ?, ?, ?) RETURNING id"
+                    "INSERT INTO message(user_from, message, timestamp) " +
+                            "VALUES (?, ?, ?) RETURNING id"
             );
 
             stmt.setLong(1, obj.getFrom().getId());
-            stmt.setLong(2, obj.getTo().getId());
-            stmt.setString(3, obj.getMessage());
-            stmt.setTimestamp(4, Timestamp.valueOf(obj.getTimestamp()));
+            stmt.setString(2, obj.getMessage());
+            stmt.setTimestamp(3, Timestamp.valueOf(obj.getTimestamp()));
 
             var rs = stmt.executeQuery();
             if (!rs.next()) return Optional.empty();
 
             long id = rs.getLong("id");
             obj.setId(id);
+
+            if (obj.getTo() != null) {
+                var toStmt = connection.prepareStatement(
+                        "INSERT INTO message_user(message_id, user_from, user_to) VALUES (?, ?, ?)"
+                );
+
+                for (User recipient : obj.getTo()) {
+                    toStmt.setLong(1, id);
+                    toStmt.setLong(2, obj.getFrom().getId());
+                    toStmt.setLong(3, recipient.getId());
+                    toStmt.addBatch();
+                }
+
+                toStmt.executeBatch();
+            }
 
             if (obj.getReplyTo() != null) {
                 var replyStmt = connection.prepareStatement(
@@ -70,13 +84,24 @@ public class MessageDBRepo implements DBRepoInt<Long, Message> {
     private Message getMessage(ResultSet rs, Connection connection) throws SQLException {
         long id = rs.getLong("id");
         long fromId = rs.getLong("user_from");
-        long toId = rs.getLong("user_to");
         String text = rs.getString("message");
 
         LocalDateTime timestamp = rs.getTimestamp("timestamp").toLocalDateTime();
 
         User from = userFacade.getUser(fromId);
-        User to = userFacade.getUser(toId);
+
+        // -- getting the users 'to' list
+        List<User> recipients = new ArrayList<>();
+        PreparedStatement toStmt = connection.prepareStatement(
+                "SELECT user_to FROM message_user WHERE message_id = ?"
+        );
+        toStmt.setLong(1, id);
+        ResultSet toRs = toStmt.executeQuery();
+
+        while (toRs.next()) {
+            long userId = toRs.getLong("user_to");
+            recipients.add(userFacade.getUser(userId));
+        }
 
         // Check if it is a reply
         var replyStmt = connection.prepareStatement(
@@ -91,7 +116,7 @@ public class MessageDBRepo implements DBRepoInt<Long, Message> {
             replyTo = findId(replyToId).orElse(null);
         }
 
-        return new Message(id, from, to, text, timestamp, replyTo);
+        return new Message(id, from, recipients, text, timestamp, replyTo);
     }
 
     public List<Message> getObjects() throws SQLException {
@@ -123,22 +148,33 @@ public class MessageDBRepo implements DBRepoInt<Long, Message> {
     }
 
     public List<Message> getMessagesBetweenUsers(Long userId1, Long userId2) {
-        String sql = "SELECT * FROM message WHERE (user_from = ? AND user_to = ?) OR (user_from = ? AND user_to = ?) ORDER BY timestamp";
+        String sql = """
+            SELECT m.* FROM message m \
+            JOIN message_user mu ON m.id = mu.message_id \
+            WHERE (m.user_from = ? AND mu.user_to = ?) \
+               OR (m.user_from = ? AND mu.user_to = ?) \
+            ORDER BY m.timestamp""";
+
         List<Message> messages = new ArrayList<>();
+
         try (Connection connection = DriverManager.getConnection(url, username, password)) {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setLong(1, userId1);
             stmt.setLong(2, userId2);
             stmt.setLong(3, userId2);
             stmt.setLong(4, userId1);
+
             ResultSet rs = stmt.executeQuery();
+
             while (rs.next()) {
                 Message message = getMessage(rs, connection);
                 messages.add(message);
             }
+
         } catch (SQLException e) {
             throw new RuntimeException("Error retrieving messages: " + e.getMessage(), e);
         }
+
         return messages;
     }
 }

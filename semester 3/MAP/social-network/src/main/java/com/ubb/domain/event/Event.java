@@ -2,6 +2,7 @@ package com.ubb.domain.event;
 
 import com.ubb.domain.Entity;
 import com.ubb.domain.user.User;
+import com.ubb.service.NotificationService;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -53,10 +54,12 @@ public class Event extends Entity<Long> {
 
     /**
      * Notifies all subscribed users of an event update
-     * by invoking their {@link User#update()} method.
+     * by invoking their method.
      */
-    public void notifySubscribers() {
-        subscribers.forEach(User::update);
+    public void notifySubscribers(NotificationService notificationService) {
+        for  (User user : subscribers) {
+            notificationService.addEventNotification(this, user);
+        }
     }
 
     @Override

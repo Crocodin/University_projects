@@ -11,7 +11,7 @@ import java.util.Map;
  * This class stores references to both users involved in the friendship.
  */
 @Getter
-public class FriendShip extends Entity<Long> {
+public class Friendship extends Entity<Long> {
     /** The first user in the friendship. */
     private final User userOne;
     /** The second user in the friendship. */
@@ -23,7 +23,7 @@ public class FriendShip extends Entity<Long> {
      * @param userOne the first user
      * @param userTwo the second user
      */
-    public FriendShip(Long id, User userOne, User userTwo) {
+    public Friendship(Long id, User userOne, User userTwo) {
         super(id);
         this.userOne = userOne;
         this.userTwo = userTwo;
@@ -34,11 +34,11 @@ public class FriendShip extends Entity<Long> {
         return super.getId() + "," + userOne.getId() + "," + userTwo.getId();
     }
 
-    public static FriendShip fromString(String str, Map<Long, User> allUsers) {
+    public static Friendship fromString(String str, Map<Long, User> allUsers) {
         String[] parts = str.split(",");
         Long id = Long.parseLong(parts[0]);
         User u1 = allUsers.get(Long.parseLong(parts[1]));
         User u2 = allUsers.get(Long.parseLong(parts[2]));
-        return new FriendShip(id, u1, u2);
+        return new Friendship(id, u1, u2);
     }
 }

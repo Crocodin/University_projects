@@ -1,5 +1,6 @@
 package com.ubb.facade;
 
+import com.ubb.config.Config;
 import com.ubb.domain.duck.Duck;
 import com.ubb.domain.person.Person;
 import com.ubb.domain.user.User;
@@ -11,6 +12,9 @@ import lombok.Getter;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Stream;
@@ -111,4 +115,29 @@ public class UserFacade {
         }
         throw new UserDoseNotExistException(username + " doesn't exist or incorrect password");
     }
+
+    public void updateProfilePicture(long userId, byte[] profilePicture)
+            throws UserDoseNotExistException, SQLException {
+
+        User user = this.getUser(userId);
+
+        try (Connection connection = DriverManager.getConnection(
+                Config.getProperties().getProperty("DB_URL"),
+                Config.getProperties().getProperty("DB_USER"),
+                Config.getProperties().getProperty("DB_PASSWORD"))) {
+            String sql = "UPDATE users SET profile_picture = ? WHERE id = ?";
+            PreparedStatement stmt = connection.prepareStatement(sql);
+
+            stmt.setBytes(1, profilePicture);
+            stmt.setLong(2, userId);
+
+            int updated = stmt.executeUpdate();
+            if (updated == 0) {
+                throw new SQLException("Profile picture update failed for user " + userId);
+            }
+        }
+
+        user.setProfilePicture(profilePicture);
+    }
+
 }

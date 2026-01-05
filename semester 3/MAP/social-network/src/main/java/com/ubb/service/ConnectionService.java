@@ -1,6 +1,5 @@
 package com.ubb.service;
 
-import com.ubb.domain.connection.FriendShip;
 import com.ubb.domain.user.User;
 
 import java.util.*;

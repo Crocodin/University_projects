@@ -1,6 +1,5 @@
 package com.ubb.repo.database;
 
-import com.ubb.domain.connection.FriendShip;
 import com.ubb.domain.lane.Lane;
 import com.ubb.dto.ObjectFilterDTO;
 import com.ubb.utils.paging.Pageable;

@@ -1,6 +1,6 @@
 package com.ubb.repo.database;
 
-import com.ubb.domain.connection.FriendShip;
+import com.ubb.domain.connection.Friendship;
 import com.ubb.domain.user.User;
 import com.ubb.dto.ObjectFilterDTO;
 import com.ubb.facade.UserFacade;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class FriendShipDBRepo extends DBRepo<FriendShip> {
+public class FriendShipDBRepo extends DBRepo<Friendship> {
     UserFacade userFacade;
 
     public FriendShipDBRepo(String url, String username, String password, UserFacade userFacade) {
@@ -21,7 +21,7 @@ public class FriendShipDBRepo extends DBRepo<FriendShip> {
     }
 
     @Override
-    public Optional<FriendShip> findId(Long id) throws SQLException {
+    public Optional<Friendship> findId(Long id) throws SQLException {
         try (Connection connection = DriverManager.getConnection(url, username, password)) {
             var statement = connection.prepareStatement("SELECT * FROM friendship WHERE id = ?");
             statement.setLong(1, id);
@@ -34,20 +34,20 @@ public class FriendShipDBRepo extends DBRepo<FriendShip> {
         }
     }
 
-    private FriendShip getFriendShip(ResultSet resultSet) throws SQLException {
+    private Friendship getFriendShip(ResultSet resultSet) throws SQLException {
         User user_one, user_two;
         user_one = userFacade.getUser(resultSet.getLong("user_one"));
         user_two = userFacade.getUser(resultSet.getLong("user_two"));
         var id = resultSet.getLong("id");
-        return new FriendShip(id, user_one, user_two);
+        return new Friendship(id, user_one, user_two);
     }
 
     @Override
-    public List<FriendShip> getObjects() throws SQLException {
+    public List<Friendship> getObjects() throws SQLException {
         try (Connection connection = DriverManager.getConnection(url, username, password)) {
             var query = connection.prepareStatement("SELECT * FROM friendship");
             var resultSet = query.executeQuery();
-            List<FriendShip> fr = new ArrayList<>();
+            List<Friendship> fr = new ArrayList<>();
             while (resultSet.next()) {
                 var obj = getFriendShip(resultSet);
                 fr.add(obj);
@@ -57,7 +57,7 @@ public class FriendShipDBRepo extends DBRepo<FriendShip> {
     }
 
     @Override
-    public Optional<FriendShip> add(FriendShip obj) throws SQLException {
+    public Optional<Friendship> add(Friendship obj) throws SQLException {
         try (Connection connection = DriverManager.getConnection(url, username, password)) {
             var statement = connection.prepareStatement(
                     "INSERT INTO friendship(user_one, user_two) VALUES (?, ?) RETURNING id"
@@ -73,7 +73,7 @@ public class FriendShipDBRepo extends DBRepo<FriendShip> {
         }
     }
 
-    public Optional<FriendShip> getObjectViaKeys(long id1, long id2) throws SQLException {
+    public Optional<Friendship> getObjectViaKeys(long id1, long id2) throws SQLException {
         try (Connection connection = DriverManager.getConnection(url, username, password)) {
             var statement = connection.prepareStatement(
                     "SELECT * FROM friendship WHERE user_one = ? AND user_two = ?"
@@ -90,8 +90,8 @@ public class FriendShipDBRepo extends DBRepo<FriendShip> {
     }
 
     @Override
-    protected List<FriendShip> findAllOnPage(Connection connection, Pageable pageable, ObjectFilterDTO filter) throws SQLException {
-        List<FriendShip> friendShipsOnPage = new ArrayList<>();
+    protected List<Friendship> findAllOnPage(Connection connection, Pageable pageable, ObjectFilterDTO filter) throws SQLException {
+        List<Friendship> friendShipsOnPage = new ArrayList<>();
         // Using StringBuilder rather than "+" operator for concatenating Strings is more performant
         // since Strings are immutable, so every operation applied on a String will create a new String
         String sql = "select * from " + tableName;
@@ -115,7 +115,7 @@ public class FriendShipDBRepo extends DBRepo<FriendShip> {
             statement.setInt(++paramIndex, pageable.getPageSize() * pageable.getPageNumber());
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    FriendShip friendShip = getFriendShip(resultSet);
+                    Friendship friendShip = getFriendShip(resultSet);
                     friendShipsOnPage.add(friendShip);
                 }
             }

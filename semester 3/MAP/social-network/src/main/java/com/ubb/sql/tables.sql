@@ -77,3 +77,22 @@ create table reply_message (
     CONSTRAINT fk_message_reply FOREIGN KEY (id)
         REFERENCES message(id) ON DELETE CASCADE
 );
+
+
+create table notification (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY
+);
+
+create table event_notification (
+    id BIGINT PRIMARY KEY REFERENCES notification(id) ON DELETE CASCADE,
+    event_id BIGINT REFERENCES events(id) ON DELETE CASCADE,
+    user_id  BIGINT REFERENCES users(id)  ON DELETE CASCADE,
+    status VARCHAR(200)
+);
+
+create table friend_request (
+    id BIGINT PRIMARY KEY REFERENCES notification(id) ON DELETE CASCADE,
+    user_to_id  BIGINT REFERENCES users(id)  ON DELETE CASCADE,
+    user_from_id  BIGINT REFERENCES users(id)  ON DELETE CASCADE,
+    status varchar(200)
+)

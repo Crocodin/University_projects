@@ -1,11 +1,10 @@
 package com.ubb.domain.user;
 
 import com.ubb.domain.Entity;
-import com.ubb.domain.connection.FriendShip;
+import com.ubb.domain.event.Event;
 import lombok.Getter;
+import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -28,6 +27,10 @@ public abstract class User extends Entity<Long> {
     /** The user's password. */
     protected final String password;
 
+    /** The user's profile picture */
+    @Setter
+    protected byte[] profilePicture;
+
     /**
      * Constructs a new {@code User} with the specified information.
      *
@@ -42,20 +45,6 @@ public abstract class User extends Entity<Long> {
         this.email = email;
         this.password = password;
     }
-
-//    public abstract void login();
-//    public abstract void logout();
-//    public abstract String sendMessage();
-//    public abstract void receiveMessage();
-
-    /**
-     * Defines behavior for updating the user's state, used on the Even {@code Observer Pattern).
-     * <p>
-     * This method must be implemented by subclasses to define
-     * user-specific update logic.
-     * </p>
-     */
-    public abstract void update();
 
     /**
      * Returns a string representation of the user, based on csv matrics.

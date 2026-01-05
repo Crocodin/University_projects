@@ -48,18 +48,6 @@ public class Person extends User {
     }
 
     /**
-     * Updates the {@link com.ubb.domain.event.Event} of the user
-     * <p>
-     * This method currently has no implementation, but can be overridden
-     * or expanded to include logic for updating user information.
-     * </p>
-     */
-    @Override
-    public void update() {
-        System.out.println("Person with this id " + getId() + " " + username + " has been notified");
-    }
-
-    /**
      * Returns a csv representation of the person,
      * including inherited {@code User} information and all person-specific fields.
      *

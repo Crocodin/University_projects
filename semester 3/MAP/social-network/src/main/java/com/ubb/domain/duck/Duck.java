@@ -3,6 +3,7 @@ package com.ubb.domain.duck;
 import com.ubb.domain.flock.Flock;
 import com.ubb.domain.user.User;
 import com.ubb.repo.file.FileRepo;
+import com.ubb.service.NotificationService;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -53,17 +54,6 @@ public abstract class Duck extends User {
         this.type = type;
         this.speed = speed;
         this.endurance = endurance;
-    }
-
-    /**
-     * Updates the state of the {@link com.ubb.domain.event.Event} the duck is participating.
-     * <dr>
-     * Currently, this method has no implementation but can be
-     * extended for behavior updates.
-     */
-    @Override
-    public void update() {
-        System.out.println("Duck with this id: " + getId() + " " + username + " has been notified");
     }
 
     /**

@@ -17,7 +17,7 @@
     </HBox>
     <HBox alignment="CENTER" prefHeight="163.0" prefWidth="751.0">
         <VBox alignment="CENTER" prefHeight="162.0" prefWidth="498.0">
-            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Notify subscribers" disable="true"
+            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Notify subscribers"
                 fx:id="notifySubsButton">
                 <VBox.margin>
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>

@@ -13,6 +13,9 @@ import com.ubb.service.DuckService;
 import com.ubb.service.PersonService;
 import com.ubb.domain.validator.*;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -91,8 +94,20 @@ public class Controller {
             line +=  sc.nextLine() + ",";
             System.out.print("Enter email: ");
             line +=  sc.nextLine() + ",";
+
+            // getting and hashing the password
             System.out.print("Enter password: ");
-            line +=  sc.nextLine() + ",";
+            String password = sc.nextLine();
+            try {
+                MessageDigest md = MessageDigest.getInstance("MD5");
+                byte[] hashBytes = md.digest(password.getBytes());
+                String hashedPassword = String.format("%032x", new BigInteger(1, hashBytes));
+                line +=  hashedPassword + ",";
+            }
+            catch (NoSuchAlgorithmException e) {
+                throw new RuntimeException(e.getMessage());
+            }
+
             // firstName + "," + lastName + "," + occupation + "," + empathyScore
             System.out.print("Enter first name: ");
             line +=  sc.nextLine() + ",";
@@ -286,7 +301,7 @@ public class Controller {
             id = sc.nextLong();
             try {
                 Event e = eventService.findId(id);
-                e.notifySubscribers();
+                //e.notifySubscribers();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
