@@ -18,5 +18,7 @@
     <Tab text="Lanes" fx:id="lanesTab"/>
     <Tab text="Flocks" fx:id="flocksTab"/>
     <Tab text="Message" fx:id="messageTab"/>
+    <Tab text="Notifications" fx:id="notificationTab"/>
+    <Tab text="Profile" fx:id="profileTab"/>
 </TabPane>
 

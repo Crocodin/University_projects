@@ -27,12 +27,12 @@ public class MessageService {
     }
 
     public void sendMessage(User sender, User receiver, String message) throws SQLException {
-        var msg = new Message((long) 0, sender, receiver, message, LocalDateTime.now());
+        var msg = new Message((long) 0, sender, List.of(receiver), message, LocalDateTime.now());
         messageDBRepo.add(msg);
     }
 
     public void sendMessage(User sender, User receiver, String message, Message replyTo) throws SQLException {
-        var msg = new Message((long) 0, sender, receiver, message, LocalDateTime.now(),  replyTo);
+        var msg = new Message((long) 0, sender, List.of(receiver), message, LocalDateTime.now(),  replyTo);
         messageDBRepo.add(msg);
     }
 

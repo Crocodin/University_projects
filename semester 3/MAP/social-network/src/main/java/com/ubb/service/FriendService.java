@@ -1,7 +1,7 @@
 package com.ubb.service;
 
 import com.ubb.config.Config;
-import com.ubb.domain.connection.FriendShip;
+import com.ubb.domain.connection.Friendship;
 import com.ubb.domain.user.User;
 import com.ubb.facade.UserFacade;
 import com.ubb.repo.database.FriendShipDBRepo;
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class FriendService extends DBService<FriendShip> {
+public class FriendService extends DBService<Friendship> {
     public FriendService(UserFacade userFacade) {
         super(
                 new FriendShipDBRepo(
@@ -22,12 +22,12 @@ public class FriendService extends DBService<FriendShip> {
                 ),
                 data -> {
                     Map<Long, User> users = userFacade.getUsers().stream().collect(Collectors.toMap(User::getId, user -> user));
-                    return FriendShip.fromString(data, users);
+                    return Friendship.fromString(data, users);
                 }
         );
     }
 
-    public FriendShip findFriendShip(long id1, long id2) throws SQLException {
+    public Friendship findFriendShip(long id1, long id2) throws SQLException {
         var answer = ((FriendShipDBRepo) dbRepo).getObjectViaKeys(id1, id2);
         return answer.orElse(null);
     }

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox prefWidth="600" spacing="10"
+      xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.ubb.gui.NotificationController">
+
+    <Label fx:id="notificationLabel"
+           text="No notifications"
+           style="-fx-text-fill: #2A4EB8; -fx-font-weight: bold; -fx-font-size: 14px"/>
+
+    <ScrollPane fitToWidth="true">
+        <VBox fx:id="notificationContainer">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+        </VBox>
+
+    </ScrollPane>
+
+</VBox>

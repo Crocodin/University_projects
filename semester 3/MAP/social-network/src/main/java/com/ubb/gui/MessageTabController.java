@@ -1,8 +1,6 @@
 package com.ubb.gui;
 
-import com.ubb.domain.connection.FriendShip;
 import com.ubb.domain.connection.Message;
-import com.ubb.domain.event.Event;
 import com.ubb.domain.user.User;
 import com.ubb.service.FriendService;
 import com.ubb.service.MessageService;
@@ -11,14 +9,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
-import javafx.scene.text.TextFlow;
-import javafx.geometry.Pos;
 
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 public class MessageTabController {
     @FXML
@@ -41,6 +35,7 @@ public class MessageTabController {
     private final User loggedUser;
     private User messageTo = null;
     private Message selectedMessage = null;
+    private ObservableList<Message> messages = FXCollections.observableArrayList();
 
     public MessageTabController(FriendService friendService, MessageService messageService, User loggedUser) {
         this.friendService = friendService;
@@ -95,7 +90,7 @@ public class MessageTabController {
         chatListView.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
                 selectedMessage = chatListView.getSelectionModel().getSelectedItem();
-                selectedMessageLabel.setText(selectedMessage.toString());
+                selectedMessageLabel.setText(selectedMessage.getMessage());
             }
         });
 
@@ -104,13 +99,18 @@ public class MessageTabController {
                 sendMessageButton.fire();
             }
         });
+
+        chatListView.setItems(
+                messages
+        );
     }
 
     private void loadMessages() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
-        chatListView.setItems(
-                messageService.getMessagesBetweenUsers(loggedUser.getId(), messageTo.getId())
-        );
+
+        messages.clear();
+        messages.setAll(messageService.getMessagesBetweenUsers(loggedUser.getId(), messageTo.getId()));
+
         chatListView.setCellFactory(lv -> new ListCell<>() {
             @Override
             protected void updateItem(Message msg, boolean empty) {

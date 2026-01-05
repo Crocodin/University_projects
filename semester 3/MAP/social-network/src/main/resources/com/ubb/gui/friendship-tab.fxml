@@ -22,12 +22,12 @@
         </TextField>
     </HBox>
     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-        <Button mnemonicParsing="false" prefWidth="200.0" text="Remove Friendship" fx:id="removeFriendButton">
+        <Button mnemonicParsing="false" prefWidth="200.0" text="Friend Request" fx:id="addFriendButton">
             <HBox.margin>
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
             </HBox.margin>
         </Button>
-        <Button mnemonicParsing="false" prefWidth="200.0" text="Add FriendShip" fx:id="addFriendButton">
+        <Button mnemonicParsing="false" prefWidth="200.0" text="Remove Friendship" fx:id="removeFriendButton">
             <HBox.margin>
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
             </HBox.margin>

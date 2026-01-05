@@ -26,6 +26,10 @@ public class DBService<E extends Entity<Long>> {
         dbRepo.add(object);
     }
 
+    public void addObject(E object) throws SQLException {
+        dbRepo.add(object);
+    }
+
     public void removeObject(E data) throws SQLException {
         dbRepo.remove(data);
     }

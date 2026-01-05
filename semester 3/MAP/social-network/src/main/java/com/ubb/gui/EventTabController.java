@@ -4,7 +4,10 @@ import com.ubb.domain.event.Event;
 import com.ubb.domain.user.User;
 import com.ubb.exception.EntityException;
 import com.ubb.facade.UserFacade;
+import com.ubb.observer.Observable;
+import com.ubb.observer.Observer;
 import com.ubb.service.EventService;
+import com.ubb.service.NotificationService;
 import com.ubb.utils.paging.Pageable;
 import com.ubb.domain.validator.ValidatorContext;
 import com.ubb.domain.validator.ValidatorEvent;
@@ -15,9 +18,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
-public class EventTabController {
+public class EventTabController implements Observable {
     @FXML
     private TableView<Event> eventTableView;
 
@@ -43,11 +47,13 @@ public class EventTabController {
     private EventService eventService;
     private UserFacade userFacade;
     Event clickedEvent;
+    private NotificationService notificationService;
     private final Pageable pageable = new Pageable(0, 4);
 
-    public EventTabController(EventService eventService, UserFacade userFacade) {
+    public EventTabController(EventService eventService, UserFacade userFacade, NotificationService notificationService) {
         this.eventService = eventService;
         this.userFacade = userFacade;
+        this.notificationService = notificationService;
     }
 
     @FXML
@@ -108,12 +114,14 @@ public class EventTabController {
                         }
 
                         removeEventButton.setDisable(false);
+                        notifySubsButton.setDisable(false);
                         addEventButton.setDisable(true);
                         removeSubButton.setDisable(true);
                     } else if (event.getClickCount() == 1) {
                         // Single-click on a different row -> clear form
                         eventDataSub.clear();
                         removeSubButton.setDisable(false);
+                        notifySubsButton.setDisable(false);
                         eventTableView.getSelectionModel().clearSelection();
                         clearEventFields();
                     }
@@ -142,12 +150,14 @@ public class EventTabController {
 
                         eventNameTextField.setEditable(false);
                         removeEventButton.setDisable(true);
+                        notifySubsButton.setDisable(true);
                         removeSubButton.setDisable(false);
                         addEventButton.setDisable(true);
                         addSubButton.setDisable(true);
                     } else if (event.getClickCount() == 1) {
                         // Single-click on a different row -> clear form
                         removeEventButton.setDisable(false);
+                        notifySubsButton.setDisable(false);
                         clearEventFields();
                     }
                 } else {
@@ -190,6 +200,11 @@ public class EventTabController {
                 alert.setContentText("Error adding the event, please check your input!");
                 alert.showAndWait();
             }
+        });
+
+        notifySubsButton.setOnAction(e -> {
+            clickedEvent.notifySubscribers(notificationService);
+            notifyObservers();
         });
 
         addSubButton.setOnAction(e -> {
@@ -318,5 +333,22 @@ public class EventTabController {
         TableColumn<S, T> c = new TableColumn<>(title);
         c.setCellValueFactory(new PropertyValueFactory<>(property));
         return c;
+    }
+
+    List<Observer> observers = new ArrayList<>();
+
+    @Override
+    public void addObserver(Observer obs) {
+        observers.add(obs);
+    }
+
+    @Override
+    public void removeObserver(Observer obs) {
+        observers.remove(obs);
+    }
+
+    @Override
+    public void notifyObservers() {
+        observers.forEach(Observer::update);
     }
 }

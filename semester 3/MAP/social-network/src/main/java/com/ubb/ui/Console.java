@@ -1,6 +1,6 @@
 package com.ubb.ui;
 
-import com.ubb.domain.connection.FriendShip;
+import com.ubb.domain.connection.Friendship;
 import com.ubb.domain.duck.Duck;
 import com.ubb.domain.event.Event;
 import com.ubb.domain.event.RaceEvent;
@@ -93,9 +93,9 @@ public class Console {
         }
     }
 
-    public static void printFriends(List<FriendShip> friendShips) {
+    public static void printFriends(List<Friendship> friendShips) {
         singleLine();
-        for (FriendShip f : friendShips) {
+        for (Friendship f : friendShips) {
             System.out.println(f.getId() + " -> " + f.getUserOne().getId() + ": " + f.getUserOne().getUsername() + " - " + f.getUserTwo().getId() + ": " + f.getUserTwo().getUsername());
         }
     }

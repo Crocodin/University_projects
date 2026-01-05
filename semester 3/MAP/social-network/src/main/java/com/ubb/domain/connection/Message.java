@@ -9,6 +9,7 @@ import lombok.Setter;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.Base64;
+import java.util.List;
 
 /**
  * Represents a message sent from one user to another.
@@ -22,7 +23,7 @@ public class Message extends Entity<Long> {
     private User from;
 
     /** The username of the message receiver. */
-    private User to;
+    private List<User> to;
 
     /** The content of the message. */
     private String message;
@@ -43,7 +44,7 @@ public class Message extends Entity<Long> {
      * @param message   the content of the message
      * @param timestamp the time the message was sent
      */
-    public Message(Long id, User from, User to, String message, LocalDateTime timestamp) {
+    public Message(Long id, User from, List<User> to, String message, LocalDateTime timestamp) {
         super(id);
         this.from = from;
         this.to = to;
@@ -61,12 +62,16 @@ public class Message extends Entity<Long> {
      * @param timestamp the time the message was sent
      * @param replyTo   to what it's replying
      */
-    public Message(Long id, User from, User to, String message, LocalDateTime timestamp, Message replyTo) {
+    public Message(Long id, User from, List<User> to, String message, LocalDateTime timestamp, Message replyTo) {
         super(id);
         this.from = from;
         this.to = to;
         this.message = message;
         this.timestamp = timestamp;
         this.replyTo = replyTo;
+    }
+
+    public User toGetFirst() {
+        return to.getFirst();
     }
 }
