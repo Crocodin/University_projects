@@ -120,6 +120,6 @@ public class MainController {
         FXMLLoader loader_profile = new FXMLLoader(getClass().getResource("/com/ubb/gui/profile-tab.fxml"));
         profileTab.setContent(loader_profile.load());
         ProfileController profileController = loader_profile.getController();
-        profileController.setService(loginUser, userFacade);
+        profileController.setService(loginUser, userFacade, messageService, eventService, friendService);
     }
 }

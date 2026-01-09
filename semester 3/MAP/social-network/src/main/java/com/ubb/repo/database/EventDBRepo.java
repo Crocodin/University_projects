@@ -15,6 +15,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class EventDBRepo extends DBRepo<Event> {
 
@@ -61,7 +64,6 @@ public class EventDBRepo extends DBRepo<Event> {
                     id,
                     name,
                     subscribers,
-                    duckService.getObjects(),
                     laneService.getObjects()
             );
         }
@@ -169,8 +171,7 @@ public class EventDBRepo extends DBRepo<Event> {
         Pair<String, List<Object>> sqlFilter;
         if (filter != null) {
             sqlFilter = filter.toSql();
-        }
-        else sqlFilter = new Pair<>("", List.of());
+        } else sqlFilter = new Pair<>("", List.of());
 
         if (!sqlFilter.getKey().isEmpty()) {
             sql += " where " + sqlFilter.getKey();
@@ -191,6 +192,21 @@ public class EventDBRepo extends DBRepo<Event> {
             }
         }
         return eventOnPage;
+    }
+
+    public long findByUser(long userId) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM event_subscribers WHERE user_id = ?";
+
+        try (Connection con = DriverManager.getConnection(url, username, password);
+             PreparedStatement stmt = con.prepareStatement(sql)) {
+
+            stmt.setLong(1, userId);
+
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+
+            return rs.getLong(1);
+        }
     }
 }
 

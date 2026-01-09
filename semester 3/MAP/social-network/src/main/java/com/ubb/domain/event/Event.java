@@ -1,6 +1,7 @@
 package com.ubb.domain.event;
 
 import com.ubb.domain.Entity;
+import com.ubb.domain.duck.Duck;
 import com.ubb.domain.user.User;
 import com.ubb.service.NotificationService;
 import lombok.Getter;
@@ -35,7 +36,7 @@ public class Event extends Entity<Long> {
 
     /**
      * Subscribes a user to this event.
-     * The user will be notified when {@link #notifySubscribers()} is called.
+     * The user will be notified when {@link} is called.
      *
      * @param user the user to subscribe
      */
@@ -59,6 +60,12 @@ public class Event extends Entity<Long> {
     public void notifySubscribers(NotificationService notificationService) {
         for  (User user : subscribers) {
             notificationService.addEventNotification(this, user);
+        }
+    }
+
+    public void notifySubscribers(NotificationService notificationService, String message) {
+        for  (User user : subscribers) {
+            notificationService.addEventNotification(this, user, message);
         }
     }
 

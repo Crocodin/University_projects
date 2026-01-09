@@ -89,6 +89,18 @@ public class NotificationService implements Observable {
         }
     }
 
+    public void addEventNotification(Event event, User user, String message) {
+        EventNotification ev =
+                new EventNotification(0L, event, user, message);
+
+        try {
+            eventNotificationService.repository.add(ev);
+            if (user.equals(this.loggedUser)) notifications.add(ev);
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to add event notification");
+        }
+    }
+
     public void addFriendRequest(FriendRequest friendRequest) throws SQLException {
         friendRequestService.sendRequest(friendRequest);
         if (friendRequest.getTo().equals(this.loggedUser)) notifications.add(friendRequest);

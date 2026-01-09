@@ -4,6 +4,7 @@ import com.ubb.config.Config;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 
 public class PasswordHasher {
@@ -42,6 +43,12 @@ public class PasswordHasher {
         conn.close();
 
         System.out.println("Passwords converted to MD5!");
+    }
+
+    public static  String hashPassword(String password) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        byte[] hashBytes = md.digest(password.getBytes());
+        return String.format("%032x", new BigInteger(1, hashBytes));
     }
 }
 

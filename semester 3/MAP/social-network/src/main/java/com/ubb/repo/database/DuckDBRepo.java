@@ -17,6 +17,16 @@ public class DuckDBRepo extends DBRepo<Duck> {
     }
 
     @Override
+    public Optional<Duck> remove(Duck obj) throws SQLException {
+        try (Connection connection = DriverManager.getConnection(url, username, password)) {
+            var sql = "DELETE FROM users WHERE id = ?";
+            var statement = connection.prepareStatement(sql);
+            statement.setLong(1, obj.getId());
+            return statement.executeUpdate() > 0 ? Optional.of(obj) : Optional.empty();
+        }
+    }
+
+    @Override
     public Optional<Duck> findId(Long id) throws SQLException {
         try (Connection connection = DriverManager.getConnection(url, username, password)) {
             var statement = connection.prepareStatement(
@@ -54,6 +64,7 @@ public class DuckDBRepo extends DBRepo<Duck> {
         var username = resultSet.getString("username");
         var email = resultSet.getString("email");
         var password = resultSet.getString("password");
+        var profilePicture = resultSet.getBytes("profile_picture");
 
         // from duck table
         var type = RaceType.valueOf(resultSet.getString("type"));
@@ -61,9 +72,9 @@ public class DuckDBRepo extends DBRepo<Duck> {
         var endurance = resultSet.getInt("endurance");
 
         return switch (type) {
-            case FLYING -> new FlyingDuck(id, username, email, password, type, speed, endurance);
-            case SWIMMING -> new SwimingDuck(id, username, email, password, type, speed, endurance);
-            case FLYING_AND_SWIMMING -> new FlyingAndSwimmingDuck(id, username, email, password, type, speed, endurance);
+            case FLYING -> new FlyingDuck(id, username, email, password, profilePicture, type, speed, endurance);
+            case SWIMMING -> new SwimingDuck(id, username, email, password, profilePicture, type, speed, endurance);
+            case FLYING_AND_SWIMMING -> new FlyingAndSwimmingDuck(id, username, email, password, profilePicture, type, speed, endurance);
         };
     }
 

@@ -1,6 +1,7 @@
 package com.ubb.gui;
 
 import com.ubb.domain.event.Event;
+import com.ubb.domain.event.RaceEvent;
 import com.ubb.domain.user.User;
 import com.ubb.exception.EntityException;
 import com.ubb.facade.UserFacade;
@@ -18,6 +19,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +32,7 @@ public class EventTabController implements Observable {
     private TableView<User> subscribersTableView;
 
     @FXML
-    private Button notifySubsButton;
+    private Button notifySubsButton, startEventButton;
 
     @FXML
     private Button addEventButton, removeEventButton;
@@ -205,6 +208,15 @@ public class EventTabController implements Observable {
         notifySubsButton.setOnAction(e -> {
             clickedEvent.notifySubscribers(notificationService);
             notifyObservers();
+        });
+
+        startEventButton.setOnAction(e -> {
+            if (clickedEvent instanceof RaceEvent) {
+                eventService.startEvent(userFacade.getDuckService().getObjects(), (RaceEvent) clickedEvent);
+                clickedEvent.notifySubscribers(notificationService, "Event with id: " + clickedEvent.getId() + " started at " +
+                        LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")));
+                notifyObservers();
+            }
         });
 
         addSubButton.setOnAction(e -> {

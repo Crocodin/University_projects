@@ -5,33 +5,87 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<VBox spacing="20" alignment="CENTER"
-      xmlns="http://javafx.com/javafx/21"
+<VBox xmlns="http://javafx.com/javafx/21"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.ubb.gui.ProfileController">
+      fx:controller="com.ubb.gui.ProfileController"
+      alignment="TOP_CENTER"
+      spacing="25"
+      styleClass="profile-root">
 
+    <padding>
+        <Insets top="30" right="30" bottom="30" left="30"/>
+    </padding>
+
+    <!-- Title -->
     <Label text="Profile"
-           style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+           styleClass="profile-title"/>
 
-    <HBox spacing="30" alignment="CENTER">
-        <!-- Profile image -->
-        <VBox alignment="CENTER" spacing="10">
-            <ImageView fx:id="profileImageView"
-                       fitWidth="150"
-                       fitHeight="150"
-                       preserveRatio="true"
-                       style="-fx-border-color: gray; -fx-border-radius: 75; -fx-background-radius: 75;" />
+    <!-- Top section -->
+    <HBox spacing="40" alignment="CENTER">
 
-            <Button text="Change picture" fx:id="changePictureButton"/>
+        <!-- Profile picture -->
+        <VBox spacing="10" alignment="CENTER">
+            <StackPane>
+                <ImageView fx:id="profileImageView"
+                           fitWidth="140"
+                           fitHeight="140"
+                           preserveRatio="true"
+                           styleClass="profile-image"/>
+            </StackPane>
+
+            <Button fx:id="changePictureButton"
+                    text="Change picture"
+                    styleClass="secondary-button"/>
         </VBox>
 
         <!-- User info -->
-        <GridPane hgap="10" vgap="10">
-            <Label text="Username:"/>
-            <Label fx:id="usernameLabel"/>
+        <GridPane hgap="10" vgap="12">
 
-            <Label text="Email:" GridPane.rowIndex="1"/>
-            <Label fx:id="emailLabel" GridPane.rowIndex="1"/>
+            <columnConstraints>
+                <ColumnConstraints halignment="RIGHT"/>
+                <ColumnConstraints halignment="LEFT"/>
+            </columnConstraints>
+
+            <!-- Row 0 -->
+            <Label text="Username:"
+                   GridPane.rowIndex="0"
+                   GridPane.columnIndex="0"
+                   styleClass="field-label"/>
+
+            <Label fx:id="usernameLabel"
+                   GridPane.rowIndex="0"
+                   GridPane.columnIndex="1"
+                   styleClass="field-value"/>
+
+            <!-- Row 1 -->
+            <Label text="Email:"
+                   GridPane.rowIndex="1"
+                   GridPane.columnIndex="0"
+                   styleClass="field-label"/>
+
+            <Label fx:id="emailLabel"
+                   GridPane.rowIndex="1"
+                   GridPane.columnIndex="1"
+                   styleClass="field-value"/>
+
         </GridPane>
+    </HBox>
+
+    <!-- Stats -->
+    <HBox spacing="50" alignment="CENTER">
+        <VBox alignment="CENTER">
+            <Label fx:id="friendsCountLabel" styleClass="stat-number"/>
+            <Label text="Friends" styleClass="stat-label"/>
+        </VBox>
+
+        <VBox alignment="CENTER">
+            <Label fx:id="messagesCountLabel" styleClass="stat-number"/>
+            <Label text="Messages" styleClass="stat-label"/>
+        </VBox>
+
+        <VBox alignment="CENTER">
+            <Label fx:id="eventsCountLabel" styleClass="stat-number"/>
+            <Label text="Events" styleClass="stat-label"/>
+        </VBox>
     </HBox>
 </VBox>

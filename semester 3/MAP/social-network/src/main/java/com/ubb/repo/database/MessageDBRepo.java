@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.OptionalLong;
 
 public class MessageDBRepo implements DBRepoInt<Long, Message> {
     protected final String url;
@@ -177,4 +178,20 @@ public class MessageDBRepo implements DBRepoInt<Long, Message> {
 
         return messages;
     }
+
+    public long getNumberOfMessages(long userId) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM message WHERE user_from = ?";
+
+        try (Connection con = DriverManager.getConnection(url, username, password);
+             PreparedStatement stmt = con.prepareStatement(sql)) {
+
+            stmt.setLong(1, userId);
+
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+
+            return rs.getLong(1);
+        }
+    }
+
 }

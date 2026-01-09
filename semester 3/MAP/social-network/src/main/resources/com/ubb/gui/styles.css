@@ -38,3 +38,55 @@
 .list-cell {
     -fx-padding: 4 0 4 0; /* vertical spacing between bubbles */
 }
+
+.profile-root {
+    -fx-background-color: #f9f9f9;
+}
+
+.profile-title {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+}
+
+.profile-image {
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 70;
+    -fx-background-radius: 70;
+}
+
+.online-indicator {
+    -fx-fill: #3ccf4e;
+}
+
+.field-label {
+    -fx-font-weight: bold;
+}
+
+.field-value {
+    -fx-font-size: 14px;
+}
+
+.status-text {
+    -fx-text-fill: #555555;
+    -fx-font-style: italic;
+}
+
+.field-muted {
+    -fx-text-fill: gray;
+    -fx-font-size: 11px;
+}
+
+.stat-number {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.stat-label {
+    -fx-text-fill: gray;
+}
+
+.secondary-button {
+    -fx-background-color: transparent;
+    -fx-border-color: #2A4EB8;
+    -fx-text-fill: #2A4EB8;
+}
