@@ -3,6 +3,7 @@ package com.ubb.gui;
 import com.ubb.domain.person.Person;
 import com.ubb.exception.EntityException;
 import com.ubb.service.PersonService;
+import com.ubb.utils.algorithms.PasswordHasher;
 import com.ubb.utils.paging.Pageable;
 import com.ubb.domain.validator.ValidatorContext;
 import com.ubb.domain.validator.ValidatorPerson;
@@ -12,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -101,7 +103,11 @@ public class PersonTabController {
             String line = "0,";
             line += personUsernameField.getText() + ",";
             line += personEmailField.getText() + ",";
-            line += personPasswordField.getText() + ",";
+            try {
+                line += PasswordHasher.hashPassword(personPasswordField.getText()) + ",";
+            } catch (NoSuchAlgorithmException exception) {
+                throw  new RuntimeException(exception.getMessage());
+            }
             line += personFirstName.getText() + ",";
             line += personLastName.getText() + ",";
             line += personOccupationField.getText() + ",";

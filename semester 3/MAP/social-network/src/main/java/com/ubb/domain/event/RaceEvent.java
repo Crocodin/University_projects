@@ -25,21 +25,19 @@ public class RaceEvent extends Event {
     TimeAlgorithm timeAlgorithm = new BinarySearch();
 
     /** The list of ducks participating in this race. */
-    private final List<Duck> ducks;
+    private List<Duck> ducks;
     private final List<Lane> lanes;
-    private final double time;
+    private double time;
+
+    public RaceEvent(Long id, String name, List<User> subscribers, List<Lane> lanes) {
+        super(id, name, subscribers);
+        this.lanes = lanes;
+    }
 
     public RaceEvent(Long id, String name, List<User> subscribers, List<Duck> ducks, List<Lane> lanes) {
         super(id, name, subscribers);
         this.lanes = lanes;
-        this.time = timeAlgorithm.findBestTime(
-                ducks.stream().filter(
-                        duck -> duck.getType().equals(RaceType.FLYING_AND_SWIMMING) ||
-                                duck.getType().equals(RaceType.SWIMMING)
-                ).toList(),
-                lanes
-        );
-        this.ducks = timeAlgorithm.getDucks();
+        this.ducks = ducks;
     }
 
     @Override
@@ -47,7 +45,7 @@ public class RaceEvent extends Event {
         return super.toString().replaceFirst("^E,", "RE,");
     }
 
-    public static RaceEvent fromString(String line, Map<Long, User> allUsers, List<Duck> ducks, List<Lane> lanes) {
+    public static RaceEvent fromString(String line, Map<Long, User> allUsers, List<Lane> lanes) {
         if (!line.startsWith("RE,")) return null;
 
         String[] parts = line.split(",");
@@ -62,11 +60,18 @@ public class RaceEvent extends Event {
             if (u != null) subs.add(u);
         }
 
-        return new RaceEvent(id, name, subs, ducks, lanes);
+        return new RaceEvent(id, name, subs, lanes);
     }
 
-    public double bestTime() {
-        return time;
+    public void startEvent(List<Duck> ducks) {
+        this.time = timeAlgorithm.findBestTime(
+                ducks.stream().filter(
+                        duck -> duck.getType().equals(RaceType.FLYING_AND_SWIMMING) ||
+                                duck.getType().equals(RaceType.SWIMMING)
+                ).toList(),
+                lanes
+        );
+        this.ducks = timeAlgorithm.getDucks();
     }
 }
 

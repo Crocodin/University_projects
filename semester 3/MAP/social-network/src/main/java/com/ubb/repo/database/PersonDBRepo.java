@@ -17,6 +17,16 @@ public class PersonDBRepo extends DBRepo<Person> {
     }
 
     @Override
+    public Optional<Person> remove(Person obj) throws SQLException {
+        try (Connection connection = DriverManager.getConnection(url, username, password)) {
+            var sql = "DELETE FROM users WHERE id = ?";
+            var statement = connection.prepareStatement(sql);
+            statement.setLong(1, obj.getId());
+            return statement.executeUpdate() > 0 ? Optional.of(obj) : Optional.empty();
+        }
+    }
+
+    @Override
     public Optional<Person> findId(Long id) throws SQLException {
         try (Connection connection = DriverManager.getConnection(url, username, password)) {
             var statement = connection.prepareStatement(
@@ -54,6 +64,7 @@ public class PersonDBRepo extends DBRepo<Person> {
         var username = resultSet.getString("username");
         var email = resultSet.getString("email");
         var password = resultSet.getString("password");
+        var profilePicture = resultSet.getBytes("profile_picture");
 
         // from person table
         var firstname = resultSet.getString("first_name");
@@ -61,7 +72,7 @@ public class PersonDBRepo extends DBRepo<Person> {
         var occupation = resultSet.getString("occupation");
         var empathyScore = resultSet.getInt("empathy_score");
 
-        return new Person(id, username,  email, password, firstname, lastname, occupation, empathyScore);
+        return new Person(id, username,  email, password, profilePicture, firstname, lastname, occupation, empathyScore);
     }
 
     @Override

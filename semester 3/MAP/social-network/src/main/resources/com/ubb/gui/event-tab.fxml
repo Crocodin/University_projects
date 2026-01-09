@@ -23,6 +23,12 @@
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                 </VBox.margin>
             </Button>
+            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Start Event"
+                    fx:id="startEventButton">
+                <VBox.margin>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                </VBox.margin>
+            </Button>
             <HBox alignment="CENTER" prefHeight="50.0" prefWidth="498.0">
                 <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Add Event" fx:id="addEventButton">
                     <HBox.margin>

@@ -9,6 +9,11 @@ public class FlyingAndSwimmingDuck extends Duck implements Flying, Swimming {
         super(id, username, email, password, type, speed, endurance);
     }
 
+    public FlyingAndSwimmingDuck(Long id, String username, String email, String password, byte[] profilePicture,
+                                 RaceType type, int speed, int endurance) {
+        super(id, username, email, password, profilePicture, type, speed, endurance);
+    }
+
     @Override
     public void swim() {
 

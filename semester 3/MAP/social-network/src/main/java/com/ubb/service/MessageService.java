@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public class MessageService {
     private final MessageDBRepo messageDBRepo;
@@ -40,5 +41,13 @@ public class MessageService {
         List<Message> messageList = messageDBRepo.getMessagesBetweenUsers(userId1, userId2);
         messages.setAll(messageList);
         return messages;
+    }
+
+    public long getNumberOfMessages(long userId) {
+        try {
+            return messageDBRepo.getNumberOfMessages(userId);
+        } catch (SQLException e) {
+            return 0;
+        }
     }
 }

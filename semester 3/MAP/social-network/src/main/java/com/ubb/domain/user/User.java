@@ -46,6 +46,14 @@ public abstract class User extends Entity<Long> {
         this.password = password;
     }
 
+    public User(Long id, String username, String email, String password,  byte[] profilePicture) {
+        super(id);
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.profilePicture = profilePicture;
+    }
+
     /**
      * Returns a string representation of the user, based on csv matrics.
      * <p>

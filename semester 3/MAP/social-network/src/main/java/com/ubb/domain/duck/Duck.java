@@ -56,6 +56,14 @@ public abstract class Duck extends User {
         this.endurance = endurance;
     }
 
+    public Duck(Long id, String username, String email, String password, byte[] profilePicture,
+                RaceType type, int speed, int endurance) {
+        super(id, username, email, password, profilePicture);
+        this.type = type;
+        this.speed = speed;
+        this.endurance = endurance;
+    }
+
     /**
      * Returns a string representation of the duck, including all relevant attributes.
      * @return a comma-separated string of the duck's information

@@ -47,6 +47,15 @@ public class Person extends User {
         this.empathyScore = empathyScore;
     }
 
+    public Person(Long id, String username, String email, String password, byte[] profilePicture,
+                  String firstName, String lastName, String occupation, int empathyScore) {
+        super(id, username, email, password, profilePicture);
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.occupation = occupation;
+        this.empathyScore = empathyScore;
+    }
+
     /**
      * Returns a csv representation of the person,
      * including inherited {@code User} information and all person-specific fields.
