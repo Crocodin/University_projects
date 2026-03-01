@@ -28,6 +28,7 @@ cmake-build-debug/
 
 # Ignore VSCode settings
 .vscode/
+.vs
 
 # Ignore system files (macOS, Windows, Linux)
 .DS_Store
