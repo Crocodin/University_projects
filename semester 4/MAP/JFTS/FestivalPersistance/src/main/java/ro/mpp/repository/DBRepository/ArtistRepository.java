@@ -1,8 +1,9 @@
-package ro.mpp.repository;
+package ro.mpp.repository.DBRepository;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ro.mpp.domain.Artist;
+import ro.mpp.repository.Repository;
 import ro.mpp.utils.DataBase;
 
 import java.sql.Connection;
