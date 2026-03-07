@@ -40,6 +40,11 @@ Thumbs.db
 *.swp
 *.swo
 
+build
+.gradle
+bin
+obj
+
 #Python files
 __pycache__/
 *.pyc

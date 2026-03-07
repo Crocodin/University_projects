@@ -29,7 +29,7 @@ public class Show extends Entity<Integer> {
         super(rs.getInt("id"));
         this.date = rs.getTimestamp("date");
         this.title = rs.getString("title");
-        this.soldSeats = rs.getInt("soldSeats");
+        this.soldSeats = rs.getInt("sold_seats");
         this.performers = performers;
         this.venue = venue;
     }
