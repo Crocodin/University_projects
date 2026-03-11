@@ -43,5 +43,5 @@ int main(int argc, char *argv[]) {
 ## 📝 Export of the shoping cart
 
 <p align="center">
-  <img src=".readme/html_expot_cartpng.png" alt="Shopt store user Screenshot" width="350" style="border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,0.15);">
+  <img src=".readme/html_expot_cartpng.png" alt="Shopt store user Screenshot" width="700" style="border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,0.15);">
 </p>
