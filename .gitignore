@@ -44,6 +44,10 @@ build
 .gradle
 bin
 obj
+semester 4\AI\Lab2\images
+semester 4\AI\Lab2\data
+semester 4\AI\Lab2\nltk_data
+
 
 #Python files
 __pycache__/
