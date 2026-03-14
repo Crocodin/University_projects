@@ -3,8 +3,8 @@ package ro.mpp.repository.DBRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ro.mpp.domain.Venue;
-import ro.mpp.repository.Repository;
-import ro.mpp.utils.DataBase;
+import ro.mpp.repository.IVenueRepository;
+import ro.mpp.utils.Database;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,9 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class VenueRepository implements Repository<Integer, Venue> {
-
-    private final DataBase db = new DataBase();
+public class VenueRepository implements IVenueRepository {
+    private final Database db = Database.getInstance();
     private static final Logger logger = LogManager.getLogger(VenueRepository.class);
 
     @Override

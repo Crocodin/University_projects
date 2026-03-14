@@ -3,8 +3,8 @@ package ro.mpp.repository.DBRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ro.mpp.domain.Artist;
-import ro.mpp.repository.Repository;
-import ro.mpp.utils.DataBase;
+import ro.mpp.repository.IArtistRepository;
+import ro.mpp.utils.Database;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,8 +15,8 @@ import java.util.List;
 import java.util.Optional;
 
 
-public class ArtistRepository implements Repository<Integer, Artist> {
-    private final DataBase db = new DataBase();
+public class ArtistRepository implements IArtistRepository {
+    private final Database db = Database.getInstance();
     private static final Logger logger = LogManager.getLogger(ArtistRepository.class);
 
     @Override

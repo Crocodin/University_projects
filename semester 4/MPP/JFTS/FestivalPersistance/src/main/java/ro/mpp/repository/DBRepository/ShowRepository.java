@@ -5,16 +5,17 @@ import org.apache.logging.log4j.Logger;
 import ro.mpp.domain.Artist;
 import ro.mpp.domain.Show;
 import ro.mpp.domain.Venue;
-import ro.mpp.repository.Repository;
-import ro.mpp.utils.DataBase;
+import ro.mpp.repository.IShowRepository;
+import ro.mpp.utils.Database;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class ShowRepository implements Repository<Integer, Show> {
-    private final DataBase db = new DataBase();
+public class ShowRepository implements IShowRepository {
+    private final Database db = Database.getInstance();
     private final ArtistRepository artistRepository = new ArtistRepository();
     private final VenueRepository venueRepository = new VenueRepository();
 
@@ -148,14 +149,7 @@ public class ShowRepository implements Repository<Integer, Show> {
         try (Connection conn = db.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Integer showId = rs.getInt("id");
-                Venue venue = venueRepository.find(rs.getInt("venue_id")).orElse(null);
-                List<Artist> performers = getPerformers(conn, showId);
-
-                shows.add(new Show(rs, performers, venue));
-            }
+            showsListExtractionFromRS(shows, conn, ps);
 
             return shows;
         } catch (SQLException e) {
@@ -179,5 +173,35 @@ public class ShowRepository implements Repository<Integer, Show> {
         }
 
         return artists;
+    }
+
+    @Override
+    public List<Show> findByPerformerAndDate(Artist performer, LocalDateTime date) {
+        String sql = "SELECT S.* FROM show_artist SA JOIN show S ON SA.show_id = S.id WHERE SA.performer = ? AND S.date = ?";
+        List<Show> shows = new ArrayList<>();
+
+        try (Connection conn = db.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, performer.getId());
+            ps.setTimestamp(2, Timestamp.valueOf(date));
+            showsListExtractionFromRS(shows, conn, ps);
+
+            return shows;
+        } catch (SQLException e) {
+            logger.error("Error while finding shows by performer and date", e);
+            throw new RuntimeException("Error while finding shows by performer and date: " + e.getMessage());
+        }
+    }
+
+    private void showsListExtractionFromRS(List<Show> shows, Connection conn, PreparedStatement ps) throws SQLException {
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            Integer showId = rs.getInt("id");
+            Venue venue = venueRepository.find(rs.getInt("venue_id")).orElse(null);
+            List<Artist> performers = getPerformers(conn, showId);
+
+            shows.add(new Show(rs, performers, venue));
+        }
     }
 }

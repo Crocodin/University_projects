@@ -6,6 +6,6 @@ namespace C_FTS.Domain
 {
     public class Entity<TId>(TId id)
     {
-        public TId Id { get; protected set; } = id;
+        public TId Id { get; set; } = id;
     }
 }

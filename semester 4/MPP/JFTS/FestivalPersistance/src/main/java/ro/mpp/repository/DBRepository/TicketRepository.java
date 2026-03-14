@@ -4,16 +4,29 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ro.mpp.domain.Show;
 import ro.mpp.domain.Ticket;
-import ro.mpp.repository.Repository;
-import ro.mpp.utils.DataBase;
+import ro.mpp.exceptions.TicketModifier;
+import ro.mpp.repository.ITicketRepository;
+import ro.mpp.utils.Database;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class TicketRepository implements Repository<Integer, Ticket> {
-    private final DataBase db = new DataBase();
+public class TicketRepository implements ITicketRepository {
+
+    @Override
+    public Optional<Ticket> incrementSeats(Ticket ticket, int seats) throws TicketModifier {
+        Show show = ticket.getShow();
+        if (show == null) return Optional.empty();
+        if (show.remainingSeats() >= seats) {
+            ticket.setNumberOfSeats(ticket.getNumberOfSeats() + seats);
+            return Optional.of(ticket);
+        }
+        throw new TicketModifier("Not enough seats to modify ticket" + ticket.getId());
+    }
+
+    private final Database db = Database.getInstance();
     private final ShowRepository showRepository = new ShowRepository();
 
     private static final Logger logger = LogManager.getLogger(TicketRepository.class);
