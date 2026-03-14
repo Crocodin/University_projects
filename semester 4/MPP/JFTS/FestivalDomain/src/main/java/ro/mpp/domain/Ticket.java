@@ -18,7 +18,7 @@ public class Ticket extends Entity<Integer> {
     private final Show show;
 
     public Ticket(ResultSet rs, Show show) throws SQLException {
-        super(show.getId());
+        super(rs.getInt("id"));
         this.numberOfSeats = rs.getInt("number_of_seats");
         this.buyerName = rs.getString("buyer_same");
         this.purchaseDate = rs.getTimestamp("purchase_date");

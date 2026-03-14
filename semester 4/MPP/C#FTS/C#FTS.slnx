@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="C#FTS/C#FTS.csproj" />
+  <Project Path="FTS.Persistence/FTS.Persistence.csproj" Id="f13cd11d-15c3-4f98-ac1c-805e24b6ec92" />
 </Solution>
