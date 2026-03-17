@@ -1,6 +1,6 @@
 <h1>
   <img src=".readme/store.png" width="80" style="vertical-align: middle; margin-right: 10px;" alt="store">
-  TankingTanks DBSM
+  ShopStore
 </h1>
 
 ###  About the app
