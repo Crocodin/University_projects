@@ -1,0 +1,7 @@
+.venv
+.idea
+.gitignore
+Lab3/*.jpeg
+Lab3/*.png
+Lab2/images
+Lab2/data
