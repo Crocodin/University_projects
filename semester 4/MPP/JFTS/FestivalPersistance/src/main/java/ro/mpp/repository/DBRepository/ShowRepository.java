@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class ShowRepository implements IShowRepository {
-    private final Database db = Database.getInstance();
+    private final Database db = new Database();
     private final ArtistRepository artistRepository = new ArtistRepository();
     private final VenueRepository venueRepository = new VenueRepository();
 
@@ -24,37 +24,39 @@ public class ShowRepository implements IShowRepository {
     @Override
     public Optional<Show> save(Show entity) {
         logger.traceEntry("ShowRepository save {}", entity);
-
         String sql = "INSERT INTO show (date, title, soldSeats, venue_id) VALUES (?, ?, ?, ?)";
 
-        try (Connection conn = db.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+        try {
+            Connection conn = db.getConnection();
+            try (PreparedStatement ps = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
 
-            ps.setTimestamp(1, entity.getDate());
-            ps.setString(2, entity.getTitle());
-            ps.setInt(3, entity.getSoldSeats());
-            ps.setInt(4, entity.getVenue().getId());
+                ps.setTimestamp(1, entity.getDate());
+                ps.setString(2, entity.getTitle());
+                ps.setInt(3, entity.getSoldSeats());
+                ps.setInt(4, entity.getVenue().getId());
 
-            ps.executeUpdate();
+                ps.executeUpdate();
 
-            ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()) {
-                entity.setId(rs.getInt(1));
-            }
-
-            logger.traceExit("ShowRepository saved show, now show_artist relation");
-            String joinSql = "INSERT INTO show_artist (show_id, artist_id) VALUES (?, ?)";
-            try (PreparedStatement joinPs = conn.prepareStatement(joinSql)) {
-                for (Artist artist : entity.getPerformers()) {
-                    joinPs.setInt(1, entity.getId());
-                    joinPs.setInt(2, artist.getId());
-                    joinPs.addBatch();
+                try (ResultSet rs = ps.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        entity.setId(rs.getInt(1));
+                    }
                 }
-                joinPs.executeBatch();
+
+                logger.traceExit("ShowRepository saved show, now show_artist relation");
+                String joinSql = "INSERT INTO show_artist (show_id, artist_id) VALUES (?, ?)";
+                try (PreparedStatement joinPs = conn.prepareStatement(joinSql)) {
+                    for (Artist artist : entity.getPerformers()) {
+                        joinPs.setInt(1, entity.getId());
+                        joinPs.setInt(2, artist.getId());
+                        joinPs.addBatch();
+                    }
+                    joinPs.executeBatch();
+                }
+
+                return Optional.of(entity);
+
             }
-
-            return Optional.of(entity);
-
         } catch (SQLException e) {
             logger.error("Error while saving show", e);
             throw new RuntimeException("Error while saving show: " + e.getMessage());
@@ -64,22 +66,23 @@ public class ShowRepository implements IShowRepository {
     @Override
     public Optional<Show> update(Show entity) {
         logger.traceEntry("ShowRepository update {}", entity);
-
         String sql = "UPDATE show SET date = ?, title = ?, sold_seats = ?, venue_id = ? WHERE id = ?";
 
-        try (Connection conn = db.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+        try {
+            Connection conn = db.getConnection();
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ps.setTimestamp(1, entity.getDate());
-            ps.setString(2, entity.getTitle());
-            ps.setInt(3, entity.getSoldSeats());
-            ps.setInt(4, entity.getVenue().getId());
-            ps.setInt(5, entity.getId());
+                ps.setTimestamp(1, entity.getDate());
+                ps.setString(2, entity.getTitle());
+                ps.setInt(3, entity.getSoldSeats());
+                ps.setInt(4, entity.getVenue().getId());
+                ps.setInt(5, entity.getId());
 
-            ps.executeUpdate();
+                ps.executeUpdate();
 
-            return Optional.of(entity);
+                return Optional.of(entity);
 
+            }
         } catch (SQLException e) {
             logger.error("Error while updating show", e);
             throw new RuntimeException("Error while updating show: " + e.getMessage());
@@ -93,8 +96,8 @@ public class ShowRepository implements IShowRepository {
         String deleteJoin = "DELETE FROM show_artist WHERE show_id = ?";
         String deleteShow = "DELETE FROM show WHERE id = ?";
 
-        try (Connection conn = db.getConnection()) {
-
+        try {
+            Connection conn = db.getConnection();
             logger.info("ShowRepository deleting from join table for {}", entity);
             try (PreparedStatement ps = conn.prepareStatement(deleteJoin)) {
                 ps.setInt(1, entity.getId());
@@ -116,22 +119,23 @@ public class ShowRepository implements IShowRepository {
     @Override
     public Optional<Show> find(Integer id) {
         logger.traceEntry("ShowRepository find show with id {}", id);
-
         String sql = "SELECT * FROM show WHERE id = ?";
 
-        try (Connection conn = db.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+        try {
+            Connection conn = db.getConnection();
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setInt(1, id);
 
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        Venue venue = venueRepository.find(rs.getInt("venue_id")).orElse(null);
+                        List<Artist> performers = getPerformers(conn, id);
 
-            if (rs.next()) {
-                Venue venue = venueRepository.find(rs.getInt("venue_id")).orElse(null);
-                List<Artist> performers = getPerformers(conn, id);
+                        return Optional.of(new Show(rs, performers, venue));
+                    }
+                }
 
-                return Optional.of(new Show(rs, performers, venue));
             }
-
         } catch (SQLException e) {
             logger.error("Error while finding show with id {}", id, e);
             throw new RuntimeException("Error while finding show: " + e.getMessage());
@@ -146,12 +150,13 @@ public class ShowRepository implements IShowRepository {
         String sql = "SELECT * FROM show";
         List<Show> shows = new ArrayList<>();
 
-        try (Connection conn = db.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+        try {
+            Connection conn = db.getConnection();
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            showsListExtractionFromRS(shows, conn, ps);
-
-            return shows;
+                showsListExtractionFromRS(shows, conn, ps);
+                return shows;
+            }
         } catch (SQLException e) {
             logger.error("Error while finding all shows", e);
             throw new RuntimeException("Error while finding all shows: " + e.getMessage());
@@ -164,14 +169,14 @@ public class ShowRepository implements IShowRepository {
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, showId);
-            ResultSet rs = ps.executeQuery();
 
-            while (rs.next()) {
-                Integer artistId = rs.getInt("artist_id");
-                artistRepository.find(artistId).ifPresent(artists::add);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Integer artistId = rs.getInt("artist_id");
+                    artistRepository.find(artistId).ifPresent(artists::add);
+                }
             }
         }
-
         return artists;
     }
 
@@ -180,14 +185,15 @@ public class ShowRepository implements IShowRepository {
         String sql = "SELECT S.* FROM show_artist SA JOIN show S ON SA.show_id = S.id WHERE SA.performer = ? AND S.date = ?";
         List<Show> shows = new ArrayList<>();
 
-        try (Connection conn = db.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+        try {
+            Connection conn = db.getConnection();
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setInt(1, performer.getId());
+                ps.setTimestamp(2, Timestamp.valueOf(date));
+                showsListExtractionFromRS(shows, conn, ps);
 
-            ps.setInt(1, performer.getId());
-            ps.setTimestamp(2, Timestamp.valueOf(date));
-            showsListExtractionFromRS(shows, conn, ps);
-
-            return shows;
+                return shows;
+            }
         } catch (SQLException e) {
             logger.error("Error while finding shows by performer and date", e);
             throw new RuntimeException("Error while finding shows by performer and date: " + e.getMessage());
@@ -195,13 +201,14 @@ public class ShowRepository implements IShowRepository {
     }
 
     private void showsListExtractionFromRS(List<Show> shows, Connection conn, PreparedStatement ps) throws SQLException {
-        ResultSet rs = ps.executeQuery();
-        while (rs.next()) {
-            Integer showId = rs.getInt("id");
-            Venue venue = venueRepository.find(rs.getInt("venue_id")).orElse(null);
-            List<Artist> performers = getPerformers(conn, showId);
+        try (ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                Integer showId = rs.getInt("id");
+                Venue venue = venueRepository.find(rs.getInt("venue_id")).orElse(null);
+                List<Artist> performers = getPerformers(conn, showId);
 
-            shows.add(new Show(rs, performers, venue));
+                shows.add(new Show(rs, performers, venue));
+            }
         }
     }
 }
