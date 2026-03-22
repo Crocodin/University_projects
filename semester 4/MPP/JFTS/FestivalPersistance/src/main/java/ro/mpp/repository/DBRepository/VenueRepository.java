@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class VenueRepository implements IVenueRepository {
-    private final Database db = Database.getInstance();
+    private final Database db = new Database();
     private static final Logger logger = LogManager.getLogger(VenueRepository.class);
 
     @Override
@@ -23,23 +23,23 @@ public class VenueRepository implements IVenueRepository {
         logger.traceEntry("VenueRepository save {}", entity);
         String sql = "INSERT INTO venue (name, address, capacity) VALUES (?, ?, ?)";
 
-        try (Connection conn = db.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+        try {
+            Connection conn = db.getConnection();
+            try (PreparedStatement ps = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+                ps.setString(1, entity.getName());
+                ps.setString(2, entity.getAddress());
+                ps.setInt(3, entity.getCapacity());
 
-            ps.setString(1, entity.getName());
-            ps.setString(2, entity.getAddress());
-            ps.setInt(3, entity.getCapacity());
+                ps.executeUpdate();
 
-            ps.executeUpdate();
-
-            ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()) {
-                entity.setId(rs.getInt(1));
+                try (ResultSet rs = ps.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        entity.setId(rs.getInt(1));
+                    }
+                }
+                return Optional.of(entity);
             }
-
-            return Optional.of(entity);
-
-        } catch (SQLException e) {
+        }catch (SQLException e) {
             logger.error("Error while saving venue", e);
             throw new RuntimeException("Error while saving venue: " + e.getMessage());
         }
@@ -50,18 +50,17 @@ public class VenueRepository implements IVenueRepository {
         logger.traceEntry("VenueRepository update {}", entity);
         String sql = "UPDATE venue SET name = ?, address = ?, capacity = ? WHERE id = ?";
 
-        try (Connection conn = db.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+        try {
+            Connection conn = db.getConnection();
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setString(1, entity.getName());
+                ps.setString(2, entity.getAddress());
+                ps.setInt(3, entity.getCapacity());
+                ps.setInt(4, entity.getId());
 
-            ps.setString(1, entity.getName());
-            ps.setString(2, entity.getAddress());
-            ps.setInt(3, entity.getCapacity());
-            ps.setInt(4, entity.getId());
-
-            ps.executeUpdate();
-
-            return Optional.of(entity);
-
+                ps.executeUpdate();
+                return Optional.of(entity);
+            }
         } catch (SQLException e) {
             logger.error("Error while updating venue", e);
             throw new RuntimeException("Error while updating venue: " + e.getMessage());
@@ -73,12 +72,13 @@ public class VenueRepository implements IVenueRepository {
         logger.traceEntry("VenueRepository delete {}", entity);
         String sql = "DELETE FROM venue WHERE id = ?";
 
-        try (Connection conn = db.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+        try {
+            Connection conn = db.getConnection();
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ps.setInt(1, entity.getId());
-            ps.executeUpdate();
-
+                ps.setInt(1, entity.getId());
+                ps.executeUpdate();
+            }
         } catch (SQLException e) {
             logger.error("Error while deleting venue", e);
             throw new RuntimeException("Error while deleting venue: " + e.getMessage());
@@ -90,21 +90,21 @@ public class VenueRepository implements IVenueRepository {
         logger.traceEntry("VenueRepository find venue with id {}", id);
         String sql = "SELECT * FROM venue WHERE id = ?";
 
-        try (Connection conn = db.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+        try {
+            Connection conn = db.getConnection();
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-
-            if (rs.next()) {
-                return Optional.of(new Venue(rs));
+                ps.setInt(1, id);
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        return Optional.of(new Venue(rs));
+                    }
+                }
             }
-
         } catch (SQLException e) {
             logger.error("Error while finding venue with id {}", id, e);
             throw new RuntimeException("Error while finding venue: " + e.getMessage());
         }
-
         return Optional.empty();
     }
 
@@ -114,17 +114,17 @@ public class VenueRepository implements IVenueRepository {
         String sql = "SELECT * FROM venue";
         List<Venue> venues = new ArrayList<>();
 
-        try (Connection conn = db.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+        try {
+            Connection conn = db.getConnection();
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                venues.add(new Venue(rs));
+                try (ResultSet rs = ps.executeQuery()) {
+                    while (rs.next()) {
+                        venues.add(new Venue(rs));
+                    }
+                }
+                return venues;
             }
-
-            return venues;
-
         } catch (SQLException e) {
             logger.error("Error while finding all venues", e);
             throw new RuntimeException("Error while finding all venues: " + e.getMessage());
