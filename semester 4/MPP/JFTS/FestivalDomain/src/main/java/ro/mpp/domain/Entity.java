@@ -7,8 +7,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 public class Entity<ID> {
     private ID id;
+
+    public Entity(ID id) {
+        this.id = id;
+    }
 }

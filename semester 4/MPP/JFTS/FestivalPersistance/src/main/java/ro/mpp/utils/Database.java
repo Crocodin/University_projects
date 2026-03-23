@@ -25,7 +25,7 @@ public class Database {
         return DriverManager.getConnection(URL, USERNAME, PASSWORD);
     }
 
-    public Connection getConnection() throws SQLException {
+    public Connection  getConnection() throws SQLException {
         if (connection == null || connection.isClosed()) {
             logger.info("Connection absent or closed — opening a new one");
             connection = openConnection();

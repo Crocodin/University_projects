@@ -15,11 +15,17 @@ import java.util.List;
 import java.util.Optional;
 
 public class ShowRepository implements IShowRepository {
-    private final Database db = new Database();
-    private final ArtistRepository artistRepository = new ArtistRepository();
-    private final VenueRepository venueRepository = new VenueRepository();
+    private final Database db;
+    private final ArtistRepository artistRepository;
+    private final VenueRepository venueRepository;
 
     private static final Logger logger = LogManager.getLogger(ShowRepository.class);
+
+    public ShowRepository(Database database, ArtistRepository artistRepository, VenueRepository venueRepository) {
+        this.db = database;
+        this.artistRepository = artistRepository;
+        this.venueRepository = venueRepository;
+    }
 
     @Override
     public Optional<Show> save(Show entity) {

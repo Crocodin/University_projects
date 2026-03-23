@@ -1,6 +1,5 @@
 plugins {
     id 'java'
-    id 'application'
     id "org.openjfx.javafxplugin" version "0.1.0"
 }
 
@@ -19,18 +18,10 @@ dependencies {
     implementation project(":FestivalDomain")
     implementation project(":FestivalPersistance")
     implementation project(":FestivalService")
-    implementation project(":FestivalController")
 
-    // Source: https://mvnrepository.com/artifact/org.springframework/spring-context
-    implementation group: 'org.springframework', name: 'spring-context', version: '6.2.15'
-}
-
-application {
-    mainClass = 'ro.mpp.Main'
-    applicationDefaultJvmArgs = [
-            "-Dfts.logdir=../logs",
-            '--enable-native-access=javafx.graphics,javafx.base,javafx.controls'
-    ]
+    // Source: https://mvnrepository.com/artifact/org.projectlombok/lombok
+    implementation("org.projectlombok:lombok:1.18.42")
+    annotationProcessor 'org.projectlombok:lombok:1.18.42'
 }
 
 javafx {
