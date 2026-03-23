@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 
 @Getter
-@AllArgsConstructor
 public class Ticket extends Entity<Integer> {
     private final String buyerName;
     @Setter
@@ -22,6 +21,22 @@ public class Ticket extends Entity<Integer> {
         this.numberOfSeats = rs.getInt("number_of_seats");
         this.buyerName = rs.getString("buyer_same");
         this.purchaseDate = rs.getTimestamp("purchase_date");
+        this.show = show;
+    }
+
+    public Ticket(int id, String buyerName, int numberOfSeats, Timestamp purchaseDate, Show show) {
+        super(id);
+        this.buyerName = buyerName;
+        this.numberOfSeats = numberOfSeats;
+        this.purchaseDate = purchaseDate;
+        this.show = show;
+    }
+
+    public Ticket(String buyerName, int numberOfSeats, Timestamp purchaseDate, Show show) {
+        super(-1);
+        this.buyerName = buyerName;
+        this.numberOfSeats = numberOfSeats;
+        this.purchaseDate = purchaseDate;
         this.show = show;
     }
 }

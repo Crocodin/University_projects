@@ -16,8 +16,12 @@ import java.util.Optional;
 
 
 public class ArtistRepository implements IArtistRepository {
-    private final Database db = new Database();
+    private final Database db;
     private static final Logger logger = LogManager.getLogger(ArtistRepository.class);
+
+    public ArtistRepository(Database database) {
+        this.db = database;
+    }
 
     @Override
     public Optional<Artist> save(Artist entity) {

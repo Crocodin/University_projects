@@ -8,7 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @Getter
-@AllArgsConstructor
 @ToString
 public class Artist extends Entity<Integer> {
     private final String name;
@@ -16,6 +15,11 @@ public class Artist extends Entity<Integer> {
     public Artist(ResultSet rs) throws SQLException {
         super(rs.getInt("id"));
         this.name = rs.getString("name");
+    }
+
+    public Artist(int id, String name) {
+        super(id);
+        this.name = name;
     }
 }
 

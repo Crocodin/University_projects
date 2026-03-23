@@ -15,8 +15,12 @@ import java.util.List;
 import java.util.Optional;
 
 public class VenueRepository implements IVenueRepository {
-    private final Database db = new Database();
+    private final Database db;
     private static final Logger logger = LogManager.getLogger(VenueRepository.class);
+
+    public VenueRepository(Database database) {
+        this.db = database;
+    }
 
     @Override
     public Optional<Venue> save(Venue entity) {

@@ -14,9 +14,14 @@ import java.util.List;
 import java.util.Optional;
 
 public class TicketRepository implements ITicketRepository {
-    private final Database db = new Database();
-    private final ShowRepository showRepository = new ShowRepository();
+    private final Database db;
+    private final ShowRepository showRepository;
     private static final Logger logger = LogManager.getLogger(TicketRepository.class);
+
+    public TicketRepository(Database db, ShowRepository showRepository) {
+        this.db = db;
+        this.showRepository = showRepository;
+    }
 
     @Override
     public Optional<Ticket> incrementSeats(Ticket ticket, int seats) throws TicketModifier {

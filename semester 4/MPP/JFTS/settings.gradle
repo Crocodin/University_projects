@@ -1,3 +1,5 @@
 rootProject.name = 'JFTS'
 include 'FestivalDomain'
 include 'FestivalPersistance'
+include 'FestivalService'
+include 'FestivalController'
