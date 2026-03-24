@@ -49,3 +49,12 @@ create table ticket
     buyer_name      TEXT,
     purchase_date   TimeStamp
 );
+
+create table user
+(
+    username TEXT    not null,
+    password TEXT    not null,
+    id       integer not null
+        constraint user_pk
+            primary key autoincrement
+);

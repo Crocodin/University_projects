@@ -90,7 +90,8 @@ public class ArtistRepository implements IArtistRepository {
         String sql = "SELECT * FROM artist WHERE id = ?";
 
         try {
-            try (Connection conn = db.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            Connection conn = db.getConnection();
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
                 ps.setInt(1, integer);
 
                 try (ResultSet rs = ps.executeQuery()) {

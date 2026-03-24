@@ -10,27 +10,24 @@ import java.util.List;
 
 @Getter
 public class Show extends Entity<Integer> {
-    private final Timestamp date;
+    private final String date;
     private final String title;
-    private final Integer soldSeats;
-    private final List<Artist> performers;
+    private Integer soldSeats;
     private final Venue venue;
 
-    public Show(Integer id, Timestamp date, String title, Integer soldSeats, List<Artist> performers, Venue venue) {
+    public Show(Integer id, String date, String title, Integer soldSeats, Venue venue) {
         super(id);
         this.date = date;
         this.title = title;
         this.soldSeats = soldSeats;
-        this.performers = performers;
         this.venue = venue;
     }
 
-    public Show(ResultSet rs, List<Artist> performers, Venue venue) throws SQLException {
+    public Show(ResultSet rs, Venue venue) throws SQLException {
         super(rs.getInt("id"));
-        this.date = rs.getTimestamp("date");
+        this.date = rs.getString("date");
         this.title = rs.getString("title");
         this.soldSeats = rs.getInt("sold_seats");
-        this.performers = performers;
         this.venue = venue;
     }
 
@@ -42,7 +39,6 @@ public class Show extends Entity<Integer> {
         return this.venue.getCapacity() - this.soldSeats;
     }
 
-    // this function will always buy the ticket, it won't verify if there are seats
     public Ticket sellTicket(String buyerName, Integer numberOfSeats) {
         return new Ticket(
                 buyerName,
@@ -50,5 +46,9 @@ public class Show extends Entity<Integer> {
                 Timestamp.valueOf(LocalDateTime.now()),
                 this
         );
+    }
+
+    public void addToSoldSeats(int numberOfSeats) {
+        this.soldSeats += numberOfSeats;
     }
 }
