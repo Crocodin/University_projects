@@ -5,8 +5,10 @@ import org.apache.logging.log4j.Logger;
 import ro.mpp.domain.Show;
 import ro.mpp.domain.Ticket;
 import ro.mpp.exceptions.TicketModifier;
+import ro.mpp.exceptions.ValidatorException;
 import ro.mpp.repository.ITicketRepository;
 import ro.mpp.utils.Database;
+import ro.mpp.validator.ValidatorStrategy;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -16,26 +18,39 @@ import java.util.Optional;
 public class TicketRepository implements ITicketRepository {
     private final Database db;
     private final ShowRepository showRepository;
+    private final ValidatorStrategy<Ticket> ticketValidator;
     private static final Logger logger = LogManager.getLogger(TicketRepository.class);
 
-    public TicketRepository(Database db, ShowRepository showRepository) {
+    public TicketRepository(Database db, ShowRepository showRepository, ValidatorStrategy<Ticket> ticketValidator) {
         this.db = db;
         this.showRepository = showRepository;
+        this.ticketValidator = ticketValidator;
     }
 
     @Override
     public Optional<Ticket> incrementSeats(Ticket ticket, int seats) throws TicketModifier {
-        Show show = ticket.getShow();
-        if (show == null) return Optional.empty();
-        if (show.remainingSeats() >= seats) {
-            ticket.setNumberOfSeats(ticket.getNumberOfSeats() + seats);
+        logger.info("Increment seats for ticket {} from {} to {}", ticket.getId(), ticket.getNumberOfSeats(), seats);
+
+        String sql = "UPDATE ticket SET number_of_seats = ? WHERE id = ?";
+        try {
+            Connection conn = db.getConnection();
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setInt(1, seats);
+                ps.setInt(2, ticket.getId());
+                ps.executeUpdate();
+            }
+
             return Optional.of(ticket);
+        } catch (SQLException e) {
+            logger.error(e.getMessage());
+            throw new RuntimeException(e);
         }
-        throw new TicketModifier("Not enough seats to modify ticket" + ticket.getId());
     }
 
     @Override
-    public Optional<Ticket> save(Ticket entity) {
+    public Optional<Ticket> save(Ticket entity) throws ValidatorException {
+        logger.info("Validating ticket {}", entity);
+        ticketValidator.validate(entity);
         logger.traceEntry("TicketRepository save {}", entity);
         String sql = "INSERT INTO ticket (buyer_name, number_of_seats, purchase_date, show_id) VALUES (?, ?, ?, ?)";
 
@@ -66,7 +81,7 @@ public class TicketRepository implements ITicketRepository {
     @Override
     public Optional<Ticket> update(Ticket entity) {
         logger.traceEntry("TicketRepository update {}", entity);
-        String sql = "UPDATE ticket SET buyer_name = ?, number_of_seats = ?, purchase_date = ?, show_id = ? WHERE id = ?";
+        String sql = "UPDATE ticket SET buyer_name = ?, number_of_seats = ?, purchase_date = ? WHERE id = ?";
 
         try {
             Connection conn = db.getConnection();

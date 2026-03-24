@@ -20,13 +20,21 @@
 
     <bean id="showDBRepository" class="ro.mpp.repository.DBRepository.ShowRepository">
         <constructor-arg ref="database" index="0"/>
-        <constructor-arg ref="artistDBRepository" index="1"/>
-        <constructor-arg ref="venueDBRepository" index="2"/>
+        <constructor-arg ref="venueDBRepository" index="1"/>
     </bean>
+
+    <bean id="ticketValidator" class="ro.mpp.validator.TicketValidator"/>
 
     <bean id="ticketDBRepository" class="ro.mpp.repository.DBRepository.TicketRepository">
         <constructor-arg ref="database" index="0"/>
         <constructor-arg ref="showDBRepository" index="1"/>
+        <constructor-arg ref="ticketValidator" index="2"/>
+    </bean>
+
+    <bean id="showArtistDBRepository" class="ro.mpp.repository.DBRepository.ShowArtistRepository">
+        <constructor-arg ref="database" index="0"/>
+        <constructor-arg ref="artistDBRepository" index="1"/>
+        <constructor-arg ref="showDBRepository" index="2"/>
     </bean>
 
     <!-- SERVICE -->
@@ -39,14 +47,12 @@
         <constructor-arg ref="venueDBRepository"/>
         <constructor-arg ref="showDBRepository"/>
         <constructor-arg ref="ticketDBRepository"/>
+        <constructor-arg ref="showArtistDBRepository"/>
     </bean>
 
     <!-- CONTROLLER -->
     <bean id="loginController" class="ro.mpp.controller.LoginController">
         <property name="authenticator" ref="authenticator"/>
-    </bean>
-
-    <bean id="mainController" class="ro.mpp.controller.MainController">
         <property name="festivalService" ref="festivalService"/>
     </bean>
 </beans>

@@ -3,6 +3,7 @@ package ro.mpp.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -14,6 +15,9 @@ import javafx.stage.Stage;
 import lombok.Setter;
 import ro.mpp.authenticator.IAuthenticator;
 import ro.mpp.domain.User;
+import ro.mpp.service.IFestivalService;
+
+import java.io.IOException;
 
 public class LoginController {
     @FXML private TextField username;
@@ -21,6 +25,7 @@ public class LoginController {
     @FXML private Button loginButton;
 
     @Setter private IAuthenticator authenticator;
+    @Setter private IFestivalService festivalService;
 
     @FXML public void ifIsEnterUsername(KeyEvent keyEvent) {
         if (keyEvent.getCode() == KeyCode.ENTER) {
@@ -42,14 +47,22 @@ public class LoginController {
     }
 
     private void openMainWindow(User user) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/main.fxml"));
-        ((MainController) loader.getController()).setUser(user);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main.fxml"));
+            Parent root = loader.load();
 
-        Stage stage = new Stage();
-        stage.setTitle("Login as " + user.getUsername());
-        stage.setScene(new Scene(loader.getRoot()));
-        stage.show();
-        ((Stage) loginButton.getScene().getWindow()).close();
+            MainController mainController = loader.getController();
+            mainController.setFestivalService(festivalService);
+            mainController.setUser(user);
+
+            Stage stage = new Stage();
+            stage.setTitle("Login as " + user.getUsername());
+            stage.setScene(new Scene(root));
+            stage.show();
+            ((Stage) loginButton.getScene().getWindow()).close();
+        } catch (IOException e) {
+            throw new RuntimeException("Error opening the main WINDOW", e);
+        }
     }
 
     private void showError() {

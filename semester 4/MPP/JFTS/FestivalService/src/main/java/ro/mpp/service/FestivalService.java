@@ -1,13 +1,13 @@
 package ro.mpp.service;
 
-import ro.mpp.domain.Artist;
 import ro.mpp.domain.Show;
+import ro.mpp.domain.ShowArtist;
 import ro.mpp.domain.Ticket;
-import ro.mpp.repository.DBRepository.ArtistRepository;
-import ro.mpp.repository.DBRepository.ShowRepository;
-import ro.mpp.repository.DBRepository.TicketRepository;
-import ro.mpp.repository.DBRepository.VenueRepository;
+import ro.mpp.exceptions.TicketModifier;
+import ro.mpp.repository.DBRepository.*;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -17,30 +17,61 @@ public class FestivalService implements IFestivalService {
     private final VenueRepository venueRepository;
     private final ShowRepository showRepository;
     private final TicketRepository ticketRepository;
+    private final ShowArtistRepository showArtistRepository;
 
-    public FestivalService(ArtistRepository artistRepository, VenueRepository venueRepository, ShowRepository showRepository, TicketRepository ticketRepository) {
+    public FestivalService(ArtistRepository artistRepository, VenueRepository venueRepository, ShowRepository showRepository, TicketRepository ticketRepository, ShowArtistRepository showArtistRepository) {
         this.artistRepository = artistRepository;
         this.venueRepository = venueRepository;
         this.showRepository = showRepository;
         this.ticketRepository = ticketRepository;
+        this.showArtistRepository = showArtistRepository;
     }
 
-    public List<Show> findAllShows() {
-        return showRepository.findAll();
-    }
-
-    @Override
-    public List<Show> findByPerformerAndDate(Artist performer, LocalDateTime date) {
-        return showRepository.findByPerformerAndDate(performer, date);
+    public List<ShowArtist> findAllShows() {
+        return showArtistRepository.findAll();
     }
 
     @Override
-    public Optional<Ticket> sellTicket(Show show, int seats) {
-        return Optional.empty();
+    public List<ShowArtist> findByDate(LocalDate date) {
+        return showArtistRepository.filterByDate(date);
     }
 
     @Override
-    public boolean modifyTicket(Show show, int seats) {
-        return false;
+    public List<ShowArtist> findAll() {
+        return showArtistRepository.findAll();
+    }
+
+    @Override
+    public Optional<Ticket> sellTicket(Show show, String buyerName, int seats) {
+        Ticket ticket = show.sellTicket(buyerName, seats);
+        if (show.remainingSeats() >= seats) {
+            var t = ticketRepository.save(ticket);
+            if (t.isPresent()) {
+                show.addToSoldSeats(seats);
+                showRepository.update(show);
+            }
+            return t;
+        }
+        throw new TicketModifier("Not enough seats for the ticket");
+    }
+
+    @Override
+    public boolean modifyTicket(int ticketId, int seats) {
+        var opT = ticketRepository.find(ticketId);
+        if (opT.isEmpty()) return false;
+        opT.ifPresent(ticket -> {
+            if (seats < 0) throw new TicketModifier("Seats can't be negative");
+            int newSeats = seats - ticket.getNumberOfSeats();
+
+            Show show = ticket.getShow();
+            if (show.remainingSeats() - newSeats >= 0) {
+                ticket.setNumberOfSeats(seats);
+                ticketRepository.incrementSeats(ticket, seats).ifPresent(t -> {
+                    t.getShow().addToSoldSeats(newSeats); // this number can be +/-
+                    showRepository.update(t.getShow());
+                });
+            }
+        });
+        return true;
     }
 }
