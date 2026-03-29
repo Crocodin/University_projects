@@ -15,6 +15,7 @@ namespace C_FTS.Repository.DBRepository
         private Database db = new Database();
         private IArtistRepository artistRepository = new ArtistRepository();
         private IVenueRepository venueRepository = new VenueRepository();
+
         public void Delete(Show entity)
         {
             throw new NotImplementedException();
@@ -23,119 +24,73 @@ namespace C_FTS.Repository.DBRepository
         public Show? Find(int id)
         {
             logger.InfoFormat("Entering Find with id {0}", id);
-            IDbConnection conn = db.GetConnection();
-
-            using (IDbCommand cmd = conn.CreateCommand())
+            try
             {
-                cmd.CommandText = "SELECT * FROM show WHERE id = @id";
-                IDbDataParameter dp = cmd.CreateParameter();
-                dp.ParameterName = "@id";
-                dp.Value = id;
-                cmd.Parameters.Add(dp);
+                IDbConnection conn = db.GetConnection();
 
-                using (var dataR = cmd.ExecuteReader())
+                using (IDbCommand cmd = conn.CreateCommand())
                 {
-                    if (dataR.Read())
+                    cmd.CommandText = "SELECT * FROM show WHERE id = @id";
+                    IDbDataParameter dp = cmd.CreateParameter();
+                    dp.ParameterName = "@id";
+                    dp.Value = id;
+                    cmd.Parameters.Add(dp);
+
+                    using (var dataR = cmd.ExecuteReader())
                     {
-                        Venue venue = venueRepository.Find(dataR.GetInt32(dataR.GetOrdinal("venue_id")));
-                        List<Artist> performers = GetPerformers(conn, id);
-                        Show show = new Show(dataR, performers, venue);
-                        logger.InfoFormat("Exiting Find with {0}", show);
-                        return show;
-                    }
-                    logger.Error("Exiting Find with {0}", null);
-                    return null;
-                }
-            }
-        }
-
-        private List<Artist> GetPerformers(IDbConnection conn, int id)
-        {
-            logger.InfoFormat("Entering GetPerformers with show_id {0}", id);
-            List<Artist> performers = new List<Artist>();
-
-            using (IDbCommand cmd = conn.CreateCommand())
-            {
-                cmd.CommandText = "SELECT artist_id FROM show_artist WHERE show_id = @show_id";
-                IDbDataParameter dp = cmd.CreateParameter();
-                dp.ParameterName = "@show_id";
-                dp.Value = id;
-                cmd.Parameters.Add(dp);
-
-                using (var dataR = cmd.ExecuteReader())
-                {
-                    while (dataR.Read())
-                    {
-                        Artist artist = artistRepository.Find(dataR.GetInt32(dataR.GetOrdinal("artist_id")));
-                        if (artist != null)
+                        if (dataR.Read())
                         {
-                            performers.Add(artist);
+                            Venue venue = venueRepository.Find(dataR.GetInt32(dataR.GetOrdinal("venue_id")));
+                            Show show = new Show(dataR, venue);
+                            logger.InfoFormat("Exiting Find with {0}", show);
+                            return show;
                         }
+
+                        logger.WarnFormat("Find: no Show found with id {0}", id);
+                        return null;
                     }
                 }
             }
-            return performers;
+            catch (Exception ex)
+            {
+                logger.ErrorFormat("Find: exception while finding Show with id {0}: {1}", id, ex.Message);
+                throw;
+            }
         }
 
         public List<Show> FindAll()
         {
-            logger.InfoFormat("Entering FinadAll");
+            logger.Info("Entering FindAll");
             List<Show> shows = new List<Show>();
 
-            IDbConnection conn = db.GetConnection();
-            using (IDbCommand cmd = conn.CreateCommand())
+            try
             {
-                cmd.CommandText = "SELECT * FROM show";
-                using (var dataR = cmd.ExecuteReader())
+                IDbConnection conn = db.GetConnection();
+
+                using (IDbCommand cmd = conn.CreateCommand())
                 {
-                    while(dataR.Read())
+                    cmd.CommandText = "SELECT * FROM show";
+
+                    using (var dataR = cmd.ExecuteReader())
                     {
-                        Venue venue = venueRepository.Find(dataR.GetInt32(dataR.GetOrdinal("venue_id")));
-                        List<Artist> performers = GetPerformers(conn, dataR.GetInt32(dataR.GetOrdinal("venue_id")));
-                        Show show = new Show(dataR, performers, venue);
-                        shows.Add(show);
+                        while (dataR.Read())
+                        {
+                            Venue venue = venueRepository.Find(dataR.GetInt32(dataR.GetOrdinal("venue_id")));
+                            Show show = new Show(dataR, venue);
+                            shows.Add(show);
+                        }
                     }
                 }
-            }
-            return shows;
-        }
 
-        public List<Show> FindByPerformerAndDate(Artist artist, DateTime dateTime)
-        {
-            logger.InfoFormat("Entering FindByPAD with A {0} and D {0}", artist.Id, dateTime.ToString());
-            IDbConnection conn = db.GetConnection();
-
-            using (IDbCommand cmd = conn.CreateCommand())
-            {
-                cmd.CommandText = "SELECT S.* FROM show_artist SA JOIN show S ON SA.show_id = S.id WHERE SA.performer = @performer_id AND S.date = @date";
-                List<Show> shows = new List<Show>();
-
-                var dpPerformer = cmd.CreateParameter();
-                dpPerformer.ParameterName = "@performer_id";
-                dpPerformer.Value = artist.Id;
-                cmd.Parameters.Add(dpPerformer);
-
-                var dpDate = cmd.CreateParameter();
-                dpDate.ParameterName = "@date";
-                dpDate.Value = dateTime.ToString();
-                cmd.Parameters.Add(dpDate);
-
-                logger.Info("Executing query");
-                using (var dataR = cmd.ExecuteReader())
-                {
-                    while (dataR.Read())
-                    {
-                        Venue venue = venueRepository.Find(dataR.GetInt32(dataR.GetOrdinal("venue_id")));
-                        List<Artist> performers = GetPerformers(conn, dataR.GetInt32(dataR.GetOrdinal("venue_id")));
-                        Show show = new Show(dataR, performers, venue);
-                        shows.Add(show);
-                    }
-                }
-                logger.InfoFormat("Exiting FindByPAD with len {0}", shows.Count);
+                logger.InfoFormat("FindAll: returning {0} show(s)", shows.Count);
                 return shows;
             }
+            catch (Exception ex)
+            {
+                logger.ErrorFormat("FindAll: exception while retrieving all shows: {0}", ex.Message);
+                throw;
+            }
         }
-
 
         public Show? Save(Show entity)
         {
@@ -144,43 +99,61 @@ namespace C_FTS.Repository.DBRepository
 
         public Show? Update(Show entity)
         {
-            IDbConnection conn = db.GetConnection();
-            using(IDbCommand cmd = conn.CreateCommand())
+            logger.InfoFormat("Entering Update for Show id {0}", entity.Id);
+            try
             {
-                cmd.CommandText = "UPDATE show SET date = @date, title = @title, sold_seats = @sold_seats, venue_id = @venue_is WHERE id = @id";
-                var dpDate = cmd.CreateParameter();
-                dpDate.ParameterName = "@date";
-                dpDate.Value = entity.Date;
+                IDbConnection conn = db.GetConnection();
 
-                var dpTitle = cmd.CreateParameter();
-                dpTitle.ParameterName = "@title";
-                dpTitle.Value = entity.Title;
-
-                var dpSoldSeats = cmd.CreateParameter();
-                dpSoldSeats.ParameterName = "@sold_seats";
-                dpSoldSeats.Value = entity.SoldSeats;
-
-                var dpVenue = cmd.CreateParameter();
-                dpVenue.ParameterName = "@venue_id";
-                dpVenue.Value = entity.Venue.Id;
-
-                var dpId = cmd.CreateParameter();
-                dpId.ParameterName = "@Id";
-                dpId.Value = entity.Id;
-
-                cmd.Parameters.Add(dpDate);
-                cmd.Parameters.Add(dpTitle);
-                cmd.Parameters.Add(dpSoldSeats);
-                cmd.Parameters.Add(dpVenue);
-                cmd.Parameters.Add(dpId);
-
-                var result = cmd.ExecuteNonQuery();
-                if (result != 0)
+                using (IDbCommand cmd = conn.CreateCommand())
                 {
-                    logger.InfoFormat("Updatesed Show {0}, {0}", entity.Id, entity);
-                    return entity;
+                    cmd.CommandText = "UPDATE show SET date = @date, title = @title, sold_seats = @sold_seats, venue_id = @venue_id WHERE id = @id";
+
+                    var dpDate = cmd.CreateParameter();
+                    dpDate.ParameterName = "@date";
+                    dpDate.Value = entity.Date;
+
+                    var dpTitle = cmd.CreateParameter();
+                    dpTitle.ParameterName = "@title";
+                    dpTitle.Value = entity.Title;
+
+                    var dpSoldSeats = cmd.CreateParameter();
+                    dpSoldSeats.ParameterName = "@sold_seats";
+                    dpSoldSeats.Value = entity.SoldSeats;
+
+                    var dpVenue = cmd.CreateParameter();
+                    dpVenue.ParameterName = "@venue_id";
+                    dpVenue.Value = entity.Venue.Id;
+
+                    var dpId = cmd.CreateParameter();
+                    dpId.ParameterName = "@id";
+                    dpId.Value = entity.Id;
+
+                    cmd.Parameters.Add(dpDate);
+                    cmd.Parameters.Add(dpTitle);
+                    cmd.Parameters.Add(dpSoldSeats);
+                    cmd.Parameters.Add(dpVenue);
+                    cmd.Parameters.Add(dpId);
+
+                    var result = cmd.ExecuteNonQuery();
+
+                    if (result != 0)
+                    {
+                        logger.InfoFormat("Update: successfully updated Show with id {0}", entity.Id);
+                        return entity;
+                    }
+
+                    logger.WarnFormat("Update: no rows affected for Show with id {0}", entity.Id);
+                    throw new RepositoryException("Error updating show");
                 }
-                throw new RepositoryException("Error updateing tank");
+            }
+            catch (RepositoryException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                logger.ErrorFormat("Update: exception while updating Show with id {0}: {1}", entity.Id, ex.Message);
+                throw;
             }
         }
     }

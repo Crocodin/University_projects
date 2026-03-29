@@ -21,27 +21,35 @@ namespace C_FTS.Repository.DBRepository
         public Artist? Find(int id)
         {
             logger.InfoFormat("Entering Find with id {0}", id);
-            IDbConnection conn = db.GetConnection();
-
-            using(IDbCommand cmd = conn.CreateCommand())
+            try
             {
-                cmd.CommandText = "SELECT * FROM artist WHERE id = @id";
-                IDbDataParameter dp = cmd.CreateParameter();
-                dp.ParameterName = "@id";
-                dp.Value = id;
-                cmd.Parameters.Add(dp);
+                IDbConnection conn = db.GetConnection();
 
-                using(var dataR = cmd.ExecuteReader())
+                using (IDbCommand cmd = conn.CreateCommand())
                 {
-                    if (dataR.Read())
+                    cmd.CommandText = "SELECT * FROM artist WHERE id = @id";
+                    IDbDataParameter dp = cmd.CreateParameter();
+                    dp.ParameterName = "@id";
+                    dp.Value = id;
+                    cmd.Parameters.Add(dp);
+
+                    using (var dataR = cmd.ExecuteReader())
                     {
-                        Artist artist = new Artist(dataR);
-                        logger.InfoFormat("Exiting Find with {0}", artist);
-                        return artist;
+                        if (dataR.Read())
+                        {
+                            Artist artist = new Artist(dataR);
+                            logger.InfoFormat("Exiting Find with {0}", artist);
+                            return artist;
+                        }
+                        logger.Error("Exiting Find with {0}", null);
+                        return null;
                     }
-                    logger.Error("Exiting Find with {0}", null);
-                    return null;
                 }
+            }
+            catch (Exception ex)
+            {
+                logger.ErrorFormat("Find: exception while finding Show with id {0}: {1}", id, ex.Message);
+                throw;
             }
         }
 

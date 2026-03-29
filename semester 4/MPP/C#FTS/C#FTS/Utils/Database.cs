@@ -1,6 +1,7 @@
 ﻿using FTS.Persistence;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Text;
 
@@ -10,6 +11,15 @@ namespace C_FTS.Utils
     {
         private IDbConnection Connection;
         private IDictionary<string, string> Prop;
+
+        public Database()
+        {
+            Prop = new Dictionary<string, string>
+            {
+                { "DB_URL", ConfigurationManager.AppSettings["DB_URL"] }
+            };
+        }
+
         public IDbConnection GetConnection()
         {
             if (Connection == null || Connection.State == ConnectionState.Closed)
