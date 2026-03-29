@@ -7,6 +7,5 @@ namespace C_FTS.Repository
 {
     internal interface IShowRepository : IRepository<int, Show>
     {
-        List<Show> FindByPerformerAndDate(Artist artist, DateTime dateTime);
     }
 }

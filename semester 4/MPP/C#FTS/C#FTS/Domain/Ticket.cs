@@ -20,6 +20,14 @@ namespace C_FTS.Domain
             Show = show;
         }
 
+        public Ticket(string buyerName, int numberOfSeats, DateTime purchaseDate, Show show) : base(-1)
+        {
+            BuyerName = buyerName;
+            NumberOfSeats = numberOfSeats;
+            PurchaseDate = purchaseDate;
+            Show = show;
+        }
+
         public Ticket(IDataReader reader, Show show)
             : base(reader.GetInt32(reader.GetOrdinal("id")))
         {

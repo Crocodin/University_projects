@@ -1,7 +1,5 @@
-﻿using System;
-using System.Data;
+﻿using System.Data;
 using System.Reflection;
-using System.Collections.Generic;
 
 namespace FTS.Persistence
 {

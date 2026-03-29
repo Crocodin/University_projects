@@ -1,0 +1,103 @@
+﻿<Window x:Class="C_FTS.Controller.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:C_FTS.Controller"
+        mc:Ignorable="d"
+        Title="Festival Ticketing System" Height="501" Width="758">
+    <Grid Margin="14">
+        <DockPanel>
+
+            <!-- Top bar: title + filter -->
+            <DockPanel DockPanel.Dock="Top" Margin="0 0 0 8">
+                <TextBlock Text="Festival Ticketing System"
+                           FontSize="20" FontWeight="Bold"
+                           VerticalAlignment="Center"
+                           Margin="15 5 80 5"/>
+                <DatePicker x:Name="datePicker"
+                            Margin="5 5 15 5"
+                            HorizontalAlignment="Right"/>
+                <Button Content="Filter"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Right"
+                        Click="SetFilterDate"/>
+            </DockPanel>
+
+            <!-- Bottom action bar: sell + modify -->
+            <DockPanel DockPanel.Dock="Bottom" Margin="0 8 0 0">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
+                    <!-- Sell section -->
+                    <Button x:Name="sellTicketButton"
+                            Content="Sell"
+                            Width="100"
+                            Margin="10 0"
+                            VerticalAlignment="Center"
+                            Click="SellTicketAction"/>
+                    <StackPanel Margin="10 20 10 10" VerticalAlignment="Center">
+                        <TextBox x:Name="buyerName"
+                                 Width="150"
+                                 Margin="10"/>
+                        <TextBox x:Name="numberOfSeats"
+                                 Margin="10"/>
+                    </StackPanel>
+
+                    <!-- Modify section -->
+                    <Button x:Name="modifyTicketButton"
+                            Content="Modify"
+                            Width="100"
+                            Margin="10 0"
+                            VerticalAlignment="Center"
+                            Click="ModifyTicketAction"/>
+                    <StackPanel Margin="10 20 10 10" VerticalAlignment="Center">
+                        <TextBox x:Name="ticketId"
+                                 Margin="10"/>
+                        <TextBox x:Name="newNumberOfSeats"
+                                 Width="150"
+                                 Margin="10"/>
+                    </StackPanel>
+
+                </StackPanel>
+            </DockPanel>
+
+            <!-- Middle: two tables side by side -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Full shows table -->
+                <DataGrid x:Name="fullTableView"
+                          Grid.Column="0"
+                          Margin="0 0 4 0"
+                          AutoGenerateColumns="False"
+                          IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn x:Name="fullArtistColumn"      Header="Performer"        Width="75"/>
+                        <DataGridTextColumn x:Name="fullDateColumn"        Header="Date"             Width="75"/>
+                        <DataGridTextColumn x:Name="fullVenueColumn"       Header="Venue"            Width="75"/>
+                        <DataGridTextColumn x:Name="fullAvailableSeatsColumn" Header="Available seats" Width="92"/>
+                        <DataGridTextColumn x:Name="fullSoldSeatsColumn"   Header="Sold seats"       Width="70"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <!-- Filtered shows table -->
+                <DataGrid x:Name="filteredTableView"
+                          Grid.Column="1"
+                          Margin="4 0 0 0"
+                          AutoGenerateColumns="False"
+                          IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn x:Name="filteredArtistColumn"         Header="Performer"       Width="75"/>
+                        <DataGridTextColumn x:Name="filteredVenueColumn"          Header="Venue"           Width="75"/>
+                        <DataGridTextColumn x:Name="filteredFromColumn"           Header="From"            Width="75"/>
+                        <DataGridTextColumn x:Name="filteredAvailableSeatsColumn" Header="Available seats" Width="94"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+            </Grid>
+        </DockPanel>
+    </Grid>
+</Window>

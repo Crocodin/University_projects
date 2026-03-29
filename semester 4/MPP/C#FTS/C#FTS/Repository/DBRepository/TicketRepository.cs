@@ -64,7 +64,7 @@ namespace C_FTS.Repository.DBRepository
         {
             Show show = ticket.Show;
             if (show == null) { return null; }
-            if (show.RemainingSeats() > seats)
+            if (show.RemainingSeats > seats)
             {
                 ticket.NumberOfSeats = ticket.NumberOfSeats + seats;
                 return ticket;
