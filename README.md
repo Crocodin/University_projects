@@ -31,3 +31,11 @@ This repository houses all of the projects I've completed for university up to t
 > :minidisc:[Databases](semester%203/DB) <br>
 > :bulb:Logic Programming and Functional Programming <br>
 > :bow:DPPD - Theory and methodology of training. Theory and methodology of evaluation
+
+### :file_folder: Semester 4: <br>
+> :bar_chart:Software Design <br>
+> :computer:[Database management systems](https://github.com/Crocodin/TankingTanks) <br>
+> :key:[Artificial Intelligence](semester%204/AI) <br>
+> :satellite:Web Programming <br>
+> :wrench:[Design and Programming Environments](semester%204/MPP) <br>
+> :mortar_board:DPPD - Didactics of the specialty <br>
