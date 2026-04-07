@@ -15,9 +15,14 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
-    implementation project(":FestivalDomain")
-    implementation project(":FestivalPersistance")
-    implementation project(":FestivalService")
+    // Source: https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
+    implementation("org.apache.logging.log4j:log4j-core:2.25.3")
+
+    implementation project(':FestivalDomain')
+    implementation(project(":FestivalPersistance"))
+    implementation(project(":FestivalNetworking"))
+    implementation(project(":FestivalService"))
+    implementation(project(":FestivalController"))
 
     // Source: https://mvnrepository.com/artifact/org.projectlombok/lombok
     implementation("org.projectlombok:lombok:1.18.42")
