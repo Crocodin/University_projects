@@ -6,9 +6,7 @@ import ro.mpp.domain.Ticket;
 import ro.mpp.exceptions.TicketModifier;
 import ro.mpp.repository.DBRepository.*;
 
-import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 

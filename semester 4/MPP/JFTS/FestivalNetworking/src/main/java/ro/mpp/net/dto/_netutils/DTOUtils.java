@@ -3,16 +3,13 @@ package ro.mpp.net.dto._netutils;
 import ro.mpp.domain.*;
 import ro.mpp.net.dto.*;
 
-import java.sql.Timestamp;
-import java.time.LocalDate;
-
 public class DTOUtils {
     // ----------------- // USER //
     public static UserDTO getDTO(User user){
         return new UserDTO(
                 user.getId(),
                 user.getUsername(),
-                user.getUsername()
+                user.getPassword()
         );
     }
 
@@ -38,8 +35,8 @@ public class DTOUtils {
     public static Show getFromDTO(ShowDTO showDTO) {
         return new Show(
                 showDTO.getId(),
-                showDTO.getTitle(),
                 showDTO.getDate(),
+                showDTO.getTitle(),
                 showDTO.getSoldSeats(),
                 getFromDTO(showDTO.getVenueDTO())
         );
@@ -81,7 +78,7 @@ public class DTOUtils {
                 ticket.getId(),
                 ticket.getBuyerName(),
                 ticket.getNumberOfSeats(),
-                ticket.getPurchaseDate().toString(),
+                ticket.getPurchaseDate(),
                 getDTO(ticket.getShow())
         );
     }
@@ -91,7 +88,7 @@ public class DTOUtils {
                 ticketDTO.getId(),
                 ticketDTO.getBuyerName(),
                 ticketDTO.getSeats(),
-                Timestamp.valueOf(ticketDTO.getDate()),
+                ticketDTO.getDate(),
                 getFromDTO(ticketDTO.getShow())
         );
     }

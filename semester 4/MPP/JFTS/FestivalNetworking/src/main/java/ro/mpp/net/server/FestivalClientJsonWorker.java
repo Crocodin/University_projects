@@ -37,6 +37,7 @@ public class FestivalClientJsonWorker implements Runnable {
     private static final Logger logger = LogManager.getLogger(FestivalClientJsonWorker.class);
 
     public FestivalClientJsonWorker(IFestivalService festivalService, IAuthenticator authenticator, Socket connection) {
+        logger.debug("Creating FestivalClientJsonWorker");
         this.festivalService = festivalService;
         this.authenticator = authenticator;
         this.connection = connection;

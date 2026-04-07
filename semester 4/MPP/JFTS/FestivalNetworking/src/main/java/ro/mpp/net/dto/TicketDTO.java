@@ -6,8 +6,6 @@ import lombok.Getter;
 import lombok.ToString;
 import ro.mpp.net.dto._netutils.FestivalDTO;
 
-import java.sql.Timestamp;
-
 @Getter
 @AllArgsConstructor
 @ToString

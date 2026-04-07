@@ -2,7 +2,6 @@ package ro.mpp.repository.DBRepository;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import ro.mpp.domain.Artist;
 import ro.mpp.domain.Show;
 import ro.mpp.domain.Venue;
 import ro.mpp.repository.IShowRepository;

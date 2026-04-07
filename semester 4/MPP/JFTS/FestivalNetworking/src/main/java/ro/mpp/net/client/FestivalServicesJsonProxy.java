@@ -228,7 +228,7 @@ public class FestivalServicesJsonProxy implements IFestivalService {
         String json = gson.toJson(request);
         logger.debug("Sending request: {}", json);
         try {
-            output.write(json);
+            output.println(json);
             output.flush();
         } catch (Exception e) {
             logger.error("In JsonProxy error sending request", e);

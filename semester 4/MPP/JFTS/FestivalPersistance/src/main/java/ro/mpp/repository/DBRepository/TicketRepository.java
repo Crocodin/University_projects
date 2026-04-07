@@ -60,7 +60,7 @@ public class TicketRepository implements ITicketRepository {
 
                 ps.setString(1, entity.getBuyerName());
                 ps.setInt(2, entity.getNumberOfSeats());
-                ps.setTimestamp(3, entity.getPurchaseDate());
+                ps.setString(3, entity.getPurchaseDate());
                 ps.setInt(4, entity.getShow().getId());
 
                 ps.executeUpdate();
@@ -89,7 +89,7 @@ public class TicketRepository implements ITicketRepository {
 
                 ps.setString(1, entity.getBuyerName());
                 ps.setInt(2, entity.getNumberOfSeats());
-                ps.setTimestamp(3, entity.getPurchaseDate());
+                ps.setString(3, entity.getPurchaseDate());
                 ps.setInt(4, entity.getShow().getId());
                 ps.setInt(5, entity.getId());
 

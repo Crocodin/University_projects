@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import ro.mpp.net.server.AbstractConcurrentServer;
 import ro.mpp.net.server.AbstractServer;
 import ro.mpp.net.errors.ServerErrorStatus;
 
@@ -15,7 +16,7 @@ public class StartJsonServer {
 
         ApplicationContext context = new ClassPathXmlApplicationContext("/spring-server.xml");
 
-        AbstractServer server = context.getBean("festivalServer", AbstractServer.class);
+        AbstractConcurrentServer server = context.getBean("festivalServer", AbstractConcurrentServer.class);
         try {
             server.start();
         } catch (ServerErrorStatus e) {

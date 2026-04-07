@@ -47,7 +47,7 @@ public class LoginController implements IFestivalObserver {
 
     private void openMainWindow(User user) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/main.fxml"));
             Parent root = loader.load();
 
             MainController mainController = loader.getController();
