@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id "org.openjfx.javafxplugin" version "0.1.0"
+    id 'application'
 }
 
 group = 'ro.mpp'
@@ -22,7 +23,6 @@ dependencies {
     implementation(project(":FestivalPersistance"))
     implementation(project(":FestivalNetworking"))
     implementation(project(":FestivalService"))
-    implementation(project(":FestivalController"))
 
     // Source: https://mvnrepository.com/artifact/org.projectlombok/lombok
     implementation("org.projectlombok:lombok:1.18.42")
@@ -32,6 +32,14 @@ dependencies {
 javafx {
     version = "26"
     modules = ["javafx.controls", "javafx.fxml"]
+}
+
+application {
+    mainClass = 'ro.mpp.FestivalClient'
+    applicationDefaultJvmArgs = [
+            "-Dfts.logdir=../logs",
+            '--enable-native-access=javafx.graphics,javafx.base,javafx.controls'
+    ]
 }
 
 test {

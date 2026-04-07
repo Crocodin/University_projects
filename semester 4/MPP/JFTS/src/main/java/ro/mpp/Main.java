@@ -18,7 +18,7 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         context = new ClassPathXmlApplicationContext(" festivalConfigurations.xml");
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/login.fxml"));
         loader.setControllerFactory(c -> context.getBean(c));
         Scene scene = new Scene(loader.load());
         stage.setTitle("FTS - Login");

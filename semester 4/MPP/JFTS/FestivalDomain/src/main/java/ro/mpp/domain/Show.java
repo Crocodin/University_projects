@@ -4,9 +4,7 @@ import lombok.Getter;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 public class Show extends Entity<Integer> {
@@ -43,7 +41,7 @@ public class Show extends Entity<Integer> {
         return new Ticket(
                 buyerName,
                 numberOfSeats,
-                Timestamp.valueOf(LocalDateTime.now()),
+                LocalDateTime.now().toString(),
                 this
         );
     }

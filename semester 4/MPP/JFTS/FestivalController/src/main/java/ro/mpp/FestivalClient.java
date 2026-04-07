@@ -27,7 +27,7 @@ public class FestivalClient extends Application {
         logger.debug("Port: {}", port);
 
         this.server = new FestivalServicesJsonProxy(host, port);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/login.fxml"));
         Scene scene = new Scene(loader.load());
 
         LoginController controller = loader.getController();
