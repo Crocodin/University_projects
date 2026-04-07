@@ -1,7 +1,6 @@
 plugins {
     id 'java'
     id 'application'
-    id "org.openjfx.javafxplugin" version "0.1.0"
 }
 
 group = 'ro.mpp'
@@ -16,6 +15,9 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
+    // Source: https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
+    implementation("org.apache.logging.log4j:log4j-core:2.25.3")
+
     implementation project(":FestivalDomain")
     implementation project(":FestivalPersistance")
     implementation project(":FestivalService")
@@ -27,16 +29,7 @@ dependencies {
 }
 
 application {
-    mainClass = 'ro.mpp.Main'
-    applicationDefaultJvmArgs = [
-            "-Dfts.logdir=../logs",
-            '--enable-native-access=javafx.graphics,javafx.base,javafx.controls'
-    ]
-}
-
-javafx {
-    version = "26"
-    modules = ["javafx.controls", "javafx.fxml"]
+    mainClass = 'ro.mpp.StartJsonServer'
 }
 
 test {

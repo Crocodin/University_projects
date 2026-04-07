@@ -1,6 +1,5 @@
 package ro.mpp.controller;
 
-import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,17 +9,14 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import lombok.Setter;
 import ro.mpp.domain.*;
-import ro.mpp.exceptions.ValidatorException;
-import ro.mpp.service.IFestivalService;
+import ro.mpp.observer.IFestivalService;
 
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class MainController {
-    private IFestivalService festivalService;
+    private IFestivalService server;
     @Setter private User user;
 
     @FXML private DatePicker datePicker;
@@ -164,19 +160,19 @@ public class MainController {
         });
     }
 
-    public void setFestivalService(IFestivalService festivalService) {
-        this.festivalService = festivalService;
+    public void setService(IFestivalService festivalService) {
+        this.server = festivalService;
 
         this.refresh();
     }
 
     private void refresh() {
         this.fullshowArtistObservableList.clear();
-        fullshowArtistObservableList.addAll(this.festivalService.findAll());
+        fullshowArtistObservableList.addAll(this.server.findAll());
 
         if (this.selectedDate != null) {
             this.filteredShowArtistObservableList.clear();
-            filteredShowArtistObservableList.addAll(this.festivalService.findByDate(this.selectedDate));
+            filteredShowArtistObservableList.addAll(this.server.findByDate(this.selectedDate));
         }
     }
 
@@ -189,7 +185,7 @@ public class MainController {
             int numberOfSeats = Integer.parseInt(this.numberOfSeats.getText());
             String buyerName = this.buyerName.getText();
 
-            this.festivalService.sellTicket(selectedShowArtist.getShow(), buyerName, numberOfSeats);
+            this.server.sellTicket(selectedShowArtist.getShow(), buyerName, numberOfSeats);
             this.refresh();
             this.showInfo("Ticket has been successfully sold!");
         } catch (NumberFormatException e) {
@@ -205,7 +201,7 @@ public class MainController {
         try {
             int ticketId = Integer.parseInt(this.ticketId.getText());
             int numberOfSeats = Integer.parseInt(this.newNumberOfSeats.getText());
-            festivalService.modifyTicket(ticketId, numberOfSeats);
+            server.modifyTicket(ticketId, numberOfSeats);
             this.refresh();
             this.showInfo("Ticket has been successfully modified!");
 

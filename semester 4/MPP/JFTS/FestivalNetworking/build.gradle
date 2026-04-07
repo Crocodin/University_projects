@@ -1,0 +1,34 @@
+plugins {
+    id 'java'
+}
+
+group = 'ro.mpp.net'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    // Source: https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
+    implementation("org.apache.logging.log4j:log4j-core:2.25.3")
+
+    // Source: https://mvnrepository.com/artifact/org.projectlombok/lombok
+    implementation("org.projectlombok:lombok:1.18.42")
+    annotationProcessor 'org.projectlombok:lombok:1.18.42'
+
+    // Source: https://mvnrepository.com/artifact/com.google.code.gson/gson
+    implementation 'com.google.code.gson:gson:2.10.1'
+
+    implementation(project(":FestivalDomain"))
+    implementation(project(":FestivalService"))
+}
+
+
+test {
+    useJUnitPlatform()
+}

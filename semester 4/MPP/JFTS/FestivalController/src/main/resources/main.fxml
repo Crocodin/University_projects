@@ -91,6 +91,6 @@
     </VBox>
    <stylesheets>
       <URL value="@main.css" />
-      <URL value="@login.css" />
+      <URL value="@../../../../FestivalClient/src/main/resources/login.css" />
    </stylesheets>
 </AnchorPane>
