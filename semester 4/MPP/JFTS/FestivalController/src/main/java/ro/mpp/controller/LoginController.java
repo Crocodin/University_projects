@@ -13,19 +13,18 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import lombok.Setter;
-import ro.mpp.authenticator.IAuthenticator;
 import ro.mpp.domain.User;
-import ro.mpp.service.IFestivalService;
+import ro.mpp.observer.IFestivalObserver;
+import ro.mpp.observer.IFestivalService;
 
 import java.io.IOException;
 
-public class LoginController {
+public class LoginController implements IFestivalObserver {
     @FXML private TextField username;
     @FXML private PasswordField password;
     @FXML private Button loginButton;
 
-    @Setter private IAuthenticator authenticator;
-    @Setter private IFestivalService festivalService;
+    @Setter private IFestivalService server;
 
     @FXML public void ifIsEnterUsername(KeyEvent keyEvent) {
         if (keyEvent.getCode() == KeyCode.ENTER) {
@@ -40,7 +39,7 @@ public class LoginController {
     }
 
     @FXML public void login(ActionEvent actionEvent) {
-        authenticator.authenticate(username.getText(), password.getText()).ifPresentOrElse(
+        server.authenticate(username.getText(), password.getText()).ifPresentOrElse(
                 this::openMainWindow,
                 this::showError
         );
@@ -52,7 +51,7 @@ public class LoginController {
             Parent root = loader.load();
 
             MainController mainController = loader.getController();
-            mainController.setFestivalService(festivalService);
+            mainController.setService(server);
             mainController.setUser(user);
 
             Stage stage = new Stage();
