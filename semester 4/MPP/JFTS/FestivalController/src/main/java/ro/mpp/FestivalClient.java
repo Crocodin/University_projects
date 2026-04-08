@@ -32,7 +32,6 @@ public class FestivalClient extends Application {
 
         LoginController controller = loader.getController();
         controller.setServer(server);
-        server.setClient(controller);
         server.start();
 
         stage.setTitle("FTS - Login");

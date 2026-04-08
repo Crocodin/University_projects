@@ -1,5 +1,6 @@
 package ro.mpp.controller;
 
+import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -8,14 +9,17 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import lombok.Setter;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import ro.mpp.domain.*;
+import ro.mpp.observer.IFestivalObserver;
 import ro.mpp.observer.IFestivalService;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class MainController {
+public class MainController implements IFestivalObserver {
     private IFestivalService server;
     @Setter private User user;
 
@@ -44,6 +48,8 @@ public class MainController {
 
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
+
+    private static final Logger logger = LogManager.getLogger(MainController.class);
 
     @FXML private void initialize() {
         fullTableView.setItems(fullshowArtistObservableList);
@@ -234,5 +240,17 @@ public class MainController {
     public void setFilterDate(ActionEvent actionEvent) {
         this.selectedDate = datePicker.getValue();
         this.refresh();
+    }
+
+    @Override
+    public void ticketSold(Ticket ticket) {
+        logger.info("Ticket sold, refresh triggered");
+        Platform.runLater(this::refresh);
+    }
+
+    @Override
+    public void ticketModified(Ticket ticket) {
+        logger.info("Ticket modified, refresh triggered");
+        Platform.runLater(this::refresh);
     }
 }

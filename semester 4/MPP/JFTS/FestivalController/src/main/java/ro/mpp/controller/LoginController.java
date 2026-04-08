@@ -14,12 +14,11 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import lombok.Setter;
 import ro.mpp.domain.User;
-import ro.mpp.observer.IFestivalObserver;
 import ro.mpp.observer.IFestivalService;
 
 import java.io.IOException;
 
-public class LoginController implements IFestivalObserver {
+public class LoginController {
     @FXML private TextField username;
     @FXML private PasswordField password;
     @FXML private Button loginButton;
@@ -53,6 +52,7 @@ public class LoginController implements IFestivalObserver {
             MainController mainController = loader.getController();
             mainController.setService(server);
             mainController.setUser(user);
+            server.setObserver(mainController);
 
             Stage stage = new Stage();
             stage.setTitle("Login as " + user.getUsername());

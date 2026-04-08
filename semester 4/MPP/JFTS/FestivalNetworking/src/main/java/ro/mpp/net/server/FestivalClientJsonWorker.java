@@ -12,7 +12,8 @@ import ro.mpp.net.dto.TicketDTO;
 import ro.mpp.net.dto.UserDTO;
 import ro.mpp.net.dto._netutils.DTOUtils;
 import ro.mpp.net.protocol.*;
-import ro.mpp.service.IFestivalService;
+import ro.mpp.observer.IFestivalObserver;
+import ro.mpp.observer.IFestivalService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,10 +24,9 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-public class FestivalClientJsonWorker implements Runnable {
+public class FestivalClientJsonWorker implements Runnable, IFestivalObserver {
 
     private final IFestivalService festivalService;
-    private final IAuthenticator authenticator;
     private final Socket connection;
 
     private BufferedReader input;
@@ -36,10 +36,9 @@ public class FestivalClientJsonWorker implements Runnable {
 
     private static final Logger logger = LogManager.getLogger(FestivalClientJsonWorker.class);
 
-    public FestivalClientJsonWorker(IFestivalService festivalService, IAuthenticator authenticator, Socket connection) {
+    public FestivalClientJsonWorker(IFestivalService festivalService, Socket connection) {
         logger.debug("Creating FestivalClientJsonWorker");
         this.festivalService = festivalService;
-        this.authenticator = authenticator;
         this.connection = connection;
 
         try {
@@ -50,7 +49,6 @@ public class FestivalClientJsonWorker implements Runnable {
             logger.error("Error initializing Json Worker: {}", e.getMessage());
         }
     }
-
 
     @Override
     public void run() {
@@ -83,13 +81,14 @@ public class FestivalClientJsonWorker implements Runnable {
                 UserDTO userDTO = request.getUser();
                 logger.debug("Login request from: {}", userDTO.getUsername());
 
-                var user = authenticator.authenticate(userDTO.getUsername(),  userDTO.getPassword());
+                var user = festivalService.authenticate(userDTO.getUsername(),  userDTO.getPassword());
                 if (user.isEmpty()) {
                     return Response.builder()
                             .responseType(ResponseType.ERROR)
                             .errorMessage("User not found!")
                             .build();
                 }
+                festivalService.login(userDTO.getUsername(), userDTO.getPassword(), this);
                 return Response.builder()
                         .responseType(ResponseType.OK)
                         .user(DTOUtils.getDTO(user.get()))
@@ -99,6 +98,7 @@ public class FestivalClientJsonWorker implements Runnable {
 
             case LOGOUT: {
                 logger.debug("Logout request");
+                festivalService.logout(request.getUser().getUsername());
                 running = false;
                 return Response.builder()
                         .responseType(ResponseType.OK)
@@ -187,5 +187,23 @@ public class FestivalClientJsonWorker implements Runnable {
         } catch (IOException e) {
             logger.error("Error closing connection", e);
         }
+    }
+
+    @Override
+    public void ticketSold(Ticket ticket) {
+        Response response = Response.builder()
+                .responseType(ResponseType.TICKET_SOLD)
+                .ticket(DTOUtils.getDTO(ticket))
+                .build();
+        sendResponse(response);
+    }
+
+    @Override
+    public void ticketModified(Ticket ticket) {
+        Response response = Response.builder()
+                .responseType(ResponseType.TICKET_MODIFIED)
+                .ticket(DTOUtils.getDTO(ticket))
+                .build();
+        sendResponse(response);
     }
 }

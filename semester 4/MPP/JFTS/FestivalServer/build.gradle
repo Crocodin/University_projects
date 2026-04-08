@@ -30,6 +30,10 @@ dependencies {
 
 application {
     mainClass = 'ro.mpp.StartJsonServer'
+    applicationDefaultJvmArgs = [
+            "-Dfts.logdir=../logs",
+            '--enable-native-access=javafx.graphics,javafx.base,javafx.controls'
+    ]
 }
 
 test {
