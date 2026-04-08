@@ -4,6 +4,7 @@ import ro.mpp.domain.Show;
 import ro.mpp.domain.ShowArtist;
 import ro.mpp.domain.Ticket;
 import ro.mpp.exceptions.TicketModifier;
+import ro.mpp.observer.IFestivalObserver;
 import ro.mpp.repository.DBRepository.*;
 
 import java.time.LocalDate;

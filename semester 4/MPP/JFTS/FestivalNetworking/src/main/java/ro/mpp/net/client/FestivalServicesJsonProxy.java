@@ -1,7 +1,6 @@
 package ro.mpp.net.client;
 
 import com.google.gson.Gson;
-import lombok.Setter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ro.mpp.domain.*;
@@ -29,7 +28,7 @@ public class FestivalServicesJsonProxy implements IFestivalService {
     private final String host;
     private final int port;
 
-    @Setter private IFestivalObserver client = null;
+    private IFestivalObserver client;
 
     private BufferedReader input;
     private PrintWriter output;
@@ -119,12 +118,31 @@ public class FestivalServicesJsonProxy implements IFestivalService {
     }
 
     private void handleUpdate(Response response) {
+        if (client == null) return;
+
         switch (response.getResponseType()) {
             case TICKET_SOLD: {
                 Ticket ticket = DTOUtils.getFromDTO(response.getTicket());
-                logger.debug("Received ticket: {}", ticket);
-                // TODO, implement update logic somehow
+                logger.debug("Received ticket sold update: {}", ticket);
+                try {
+                    client.ticketSold(ticket);
+                } catch (Exception e) {
+                    logger.error("Error notifying observer for ticket sold: {}", e.getMessage());
+                }
+                break;
             }
+            case TICKET_MODIFIED: {
+                Ticket ticket = DTOUtils.getFromDTO(response.getTicket());
+                logger.debug("Received ticket modified update: {}", ticket);
+                try {
+                    client.ticketModified(ticket);
+                } catch (Exception e) {
+                    logger.error("Error notifying observer for ticket modified: {}", e.getMessage());
+                }
+                break;
+            }
+            default:
+                logger.warn("Received unexpected update type: {}", response.getResponseType());
         }
     }
 
@@ -188,14 +206,30 @@ public class FestivalServicesJsonProxy implements IFestivalService {
         throw new ProxyErrorStatus(response.getErrorMessage());
     }
 
+    @Override
+    public void login(String username, String password, IFestivalObserver observer) {
+        logger.info("I should never print");
+    }
+
+    @Override
+    public void logout(String username) {
+        this.logout();
+    }
+
+    @Override
+    public void setObserver(IFestivalObserver observer) {
+        this.client = observer;
+    }
+
     private class ReaderThread implements Runnable {
         @Override
         public void run() {
             while (running) {
                 try {
                     String responseLine = input.readLine();
-                    logger.debug("Received response: {}", responseLine);
                     Response response = gson.fromJson(responseLine, Response.class);
+                    logger.debug("Received response: {}", response);
+                    logger.info("Received response: {}", response.getResponseType());
                     if (isUpdate(response.getResponseType())) {
                         handleUpdate(response);
                     } else {
