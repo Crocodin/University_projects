@@ -18,7 +18,7 @@ for example in raw_dataset["train"]:
 
     img = example["image"]  # PIL Image
 
-    # img = img.resize((64, 64)) # i didn't do this, YOU SHOULD! it will halpe you later when you train the model
+    # img = img.resize((64, 64)) # i didn't do this, YOU SHOULD! it will help you later when you train the model
 
     # Convert PIL -> numpy for cv2
     img_np = np.array(img.convert("RGB"))
