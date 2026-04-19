@@ -45,7 +45,6 @@ namespace C_FTS.Controller
 
         private void OpenMainWindow(User user)
         {
-            _server.Login(user.Username, password.Password, /* observer */ null);
             var mainWindow = new MainWindow(_server, user);
             _server.SetObserver(mainWindow);
             mainWindow.Title = "Login as " + user.Username;

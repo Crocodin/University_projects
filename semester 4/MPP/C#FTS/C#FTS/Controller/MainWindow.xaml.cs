@@ -18,7 +18,7 @@ namespace C_FTS.Controller
 {
     public partial class MainWindow : Window, IFestivalObserver
     {
-        private readonly IFestivalService _festivalService;
+        private readonly IFestivalSubject _festivalService;
         private readonly User User;
 
         private ShowArtist? _selectedShowArtist;
@@ -29,7 +29,7 @@ namespace C_FTS.Controller
 
         private const string DATE_FORMAT = "dd/MM/yyyy";
         private const string TIME_FORMAT = "HH:mm";
-        public MainWindow(IFestivalService festivalService, User user)
+        public MainWindow(IFestivalSubject festivalService, User user)
         {
             InitializeComponent();
             this._festivalService = festivalService;
@@ -184,7 +184,7 @@ namespace C_FTS.Controller
 
         public void TicketSold(Ticket ticket)
         {
-            Application.Current.Dispatcher.Invoke(() =>
+            Application.Current.Dispatcher.BeginInvoke(() =>
             {
                 Refresh();
             });
@@ -192,7 +192,7 @@ namespace C_FTS.Controller
 
         public void TicketModified(Ticket ticket)
         {
-            Application.Current.Dispatcher.Invoke(() =>
+            Application.Current.Dispatcher.BeginInvoke(() =>
             {
                 Refresh();
             });
