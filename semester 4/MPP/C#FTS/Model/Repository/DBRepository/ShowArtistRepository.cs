@@ -7,7 +7,7 @@ using System.Data;
 
 namespace C_FTS.Repository.DBRepository
 {
-    internal class ShowArtistRepository : IShowArtistRepository
+    public class ShowArtistRepository : IShowArtistRepository
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(ShowArtistRepository));
         private readonly Database db = new Database();
@@ -16,7 +16,7 @@ namespace C_FTS.Repository.DBRepository
 
         public List<ShowArtist> FilterByDate(DateTime date)
         {
-            logger.InfoFormat("FilterByDate {0}", date);
+            logger.DebugFormat("FilterByDate {0}", date);
             string sql = "SELECT SA.* FROM show_artist SA JOIN show S ON SA.show_id = S.id WHERE DATE(S.date) = @date";
             List<ShowArtist> showArtists = new List<ShowArtist>();
 
@@ -47,7 +47,7 @@ namespace C_FTS.Repository.DBRepository
 
         public ShowArtist? Save(ShowArtist entity)
         {
-            logger.InfoFormat("Save {0}", entity);
+            logger.DebugFormat("Save {0}", entity);
             string sql = "INSERT INTO show_artist (show_id, artist_id) VALUES (@show_id, @artist_id)";
 
             try
@@ -133,7 +133,7 @@ namespace C_FTS.Repository.DBRepository
 
                 if (show == null || artist == null)
                 {
-                    logger.InfoFormat("Show or artist is null for show_id {0} and artist_id {1}", showId, artistId);
+                    logger.DebugFormat("Show or artist is null for show_id {0} and artist_id {1}", showId, artistId);
                 }
                 else
                 {

@@ -1,15 +1,11 @@
 ﻿using C_FTS.Domain;
 using C_FTS.Utils;
 using log4net;
-using log4net.Repository.Hierarchy;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Text;
 
 namespace C_FTS.Repository.DBRepository
 {
-    internal class ShowRepository : IShowRepository
+    public class ShowRepository : IShowRepository
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(ShowRepository));
         private Database db = new Database();
@@ -23,7 +19,7 @@ namespace C_FTS.Repository.DBRepository
 
         public Show? Find(int id)
         {
-            logger.InfoFormat("Entering Find with id {0}", id);
+            logger.DebugFormat("Entering Find with id {0}", id);
             try
             {
                 IDbConnection conn = db.GetConnection();
@@ -82,7 +78,7 @@ namespace C_FTS.Repository.DBRepository
                     }
                 }
 
-                logger.InfoFormat("FindAll: returning {0} show(s)", shows.Count);
+                logger.DebugFormat("FindAll: returning {0} show(s)", shows.Count);
                 return shows;
             }
             catch (Exception ex)
@@ -99,7 +95,7 @@ namespace C_FTS.Repository.DBRepository
 
         public Show? Update(Show entity)
         {
-            logger.InfoFormat("Entering Update for Show id {0}", entity.Id);
+            logger.DebugFormat("Entering Update for Show id {0}", entity.Id);
             try
             {
                 IDbConnection conn = db.GetConnection();
@@ -138,7 +134,7 @@ namespace C_FTS.Repository.DBRepository
 
                     if (result != 0)
                     {
-                        logger.InfoFormat("Update: successfully updated Show with id {0}", entity.Id);
+                        logger.DebugFormat("Update: successfully updated Show with id {0}", entity.Id);
                         return entity;
                     }
 

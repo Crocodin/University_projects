@@ -1,37 +1,42 @@
 ﻿using C_FTS.Controller;
-using C_FTS.Repository.DBRepository;
-using C_FTS.Service;
-using C_FTS.Service.Authenticator;
-using C_FTS.Utils;
+using FTS.Networking.Networking.Service;
 using log4net;
-using log4net.Config;
-using System;
-using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
-using System.Reflection;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace C_FTS
 {
     public partial class App : Application
     {
+        private FestivalServicesJsonProxy? _server;
+        private static readonly ILog logger = LogManager.GetLogger(typeof(App));
+
         protected override void OnStartup(StartupEventArgs e)
         {
-            var logRepo = LogManager.GetRepository(Assembly.GetEntryAssembly());
-            XmlConfigurator.Configure(logRepo, new FileInfo("log4net.config"));
-
+            log4net.Config.XmlConfigurator.Configure(new FileInfo("log4net.xml"));
             base.OnStartup(e);
-            var loginWindow = new Login();
-            loginWindow.Title = "FTS - Login";
+            logger.Info("Starting FestivalClient");
+
+            string host = ConfigurationManager.AppSettings["Server.Host"]!;
+            int port = int.Parse(ConfigurationManager.AppSettings["Server.Port"]!);
+
+            logger.DebugFormat("Host: {0}", host);
+            logger.DebugFormat("Port: {0}", port);
+
+            _server = new FestivalServicesJsonProxy(host, port);
+            _server.Start();
+
+            Login loginWindow = new Login(_server);
             loginWindow.Show();
+        }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            logger.Info("Application shutting down, closing resources");
+            _server?.Logout("");
+            logger.Info("Resources closed successfully");
+            base.OnExit(e);
         }
     }
 }

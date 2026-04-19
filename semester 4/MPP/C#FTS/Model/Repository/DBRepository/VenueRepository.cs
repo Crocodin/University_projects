@@ -19,7 +19,7 @@ namespace C_FTS.Repository.DBRepository
 
         public Venue? Find(int id)
         {
-            logger.InfoFormat("Entering Find with id {0}", id);
+            logger.DebugFormat("Entering Find with id {0}", id);
             IDbConnection conn = db.GetConnection();
 
             using (IDbCommand cmd = conn.CreateCommand())
@@ -35,7 +35,7 @@ namespace C_FTS.Repository.DBRepository
                     if (dataR.Read())
                     {
                         Venue venue = new Venue(dataR);
-                        logger.InfoFormat("Exiting Find with {0}", venue);
+                        logger.DebugFormat("Exiting Find with {0}", venue);
                         return venue;
                     }
                     logger.Error("Exiting Find with {0}", null);

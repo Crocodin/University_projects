@@ -20,7 +20,7 @@ namespace C_FTS.Repository.DBRepository
 
         public Artist? Find(int id)
         {
-            logger.InfoFormat("Entering Find with id {0}", id);
+            logger.DebugFormat("Entering Find with id {0}", id);
             try
             {
                 IDbConnection conn = db.GetConnection();

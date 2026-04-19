@@ -1,5 +1,6 @@
 ﻿using C_FTS.Domain;
 using C_FTS.Service;
+using FTS.Networking.Networking.Service;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,7 +16,7 @@ using System.Windows.Shapes;
 
 namespace C_FTS.Controller
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, IFestivalObserver
     {
         private readonly IFestivalService _festivalService;
         private readonly User User;
@@ -181,5 +182,20 @@ namespace C_FTS.Controller
         private void ShowInfo(string message) =>
             MessageBox.Show(message, "Info", MessageBoxButton.OK, MessageBoxImage.Information);
 
+        public void TicketSold(Ticket ticket)
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                Refresh();
+            });
+        }
+
+        public void TicketModified(Ticket ticket)
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                Refresh();
+            });
+        }
     }
 }
