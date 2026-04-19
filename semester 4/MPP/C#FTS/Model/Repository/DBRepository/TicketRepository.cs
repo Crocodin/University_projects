@@ -1,14 +1,17 @@
 ﻿using C_FTS.Domain;
 using C_FTS.Utils;
 using log4net;
-using log4net.Repository.Hierarchy;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Text;
 
 namespace C_FTS.Repository.DBRepository
 {
+
+    public class TicketModifierException : Exception
+    {
+        public TicketModifierException(string message) : base(message)
+        {
+        }
+    }
     public class TicketRepository : ITicketRepository
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(ArtistRepository));
@@ -22,7 +25,7 @@ namespace C_FTS.Repository.DBRepository
 
         public Ticket? Find(int id)
         {
-            logger.InfoFormat("Entering Find ticket with id {0}", id);
+            logger.DebugFormat("Entering Find ticket with id {0}", id);
 
             IDbConnection conn = db.GetConnection();
 
@@ -62,19 +65,46 @@ namespace C_FTS.Repository.DBRepository
 
         public Ticket? IncrementSeats(Ticket ticket, int seats)
         {
-            Show show = ticket.Show;
-            if (show == null) { return null; }
-            if (show.RemainingSeats > seats)
+            logger.DebugFormat("Increment seats for ticket {0} from {1} to {2}", ticket.Id, ticket.NumberOfSeats, seats);
+
+            IDbConnection conn = db.GetConnection();
+
+            using(IDbCommand cmd = conn.CreateCommand())
             {
-                ticket.NumberOfSeats = ticket.NumberOfSeats + seats;
-                return ticket;
+                cmd.CommandText = "UPDATE ticket SET number_of_seats = @seats WHERE id = @id";
+                IDbDataParameter p1 = cmd.CreateParameter();
+                p1.ParameterName = "@seats";
+                p1.Value = seats;
+                cmd.Parameters.Add(p1);
+
+                IDbDataParameter p2 = cmd.CreateParameter();
+                p2.ParameterName = "@id";
+                p2.Value = ticket.Id;
+                cmd.Parameters.Add(p2);
+
+                try
+                {
+                    int result = cmd.ExecuteNonQuery();
+
+                    if (result > 0)
+                    {
+                        return ticket;
+                    }
+
+                    logger.Error("Exiting IncrementSeats with null");
+                    return null;
+                }
+                catch (Exception e)
+                {
+                    logger.Error("Error while IncrementSeats ticket", e);
+                    throw new Exception("Error while IncrementSeats ticket: " + e.Message);
+                }
             }
-            throw new RepositoryException("Not enough seats to modify ticket" + ticket.Id);
         }
 
         public Ticket? Save(Ticket entity)
         {
-            logger.InfoFormat("Entering Save with entity {0}", entity);
+            logger.DebugFormat("Entering Save with entity {0}", entity);
 
             IDbConnection conn = db.GetConnection();
 
@@ -112,7 +142,7 @@ namespace C_FTS.Repository.DBRepository
                         entity.Id = Convert.ToInt32(result);
                     }
 
-                    logger.InfoFormat("Exiting Save with {0}", entity);
+                    logger.DebugFormat("Exiting Save with {0}", entity);
                     return entity;
                 }
                 catch (Exception e)
@@ -125,7 +155,7 @@ namespace C_FTS.Repository.DBRepository
 
         public Ticket? Update(Ticket entity)
         {
-            logger.InfoFormat("Entering Update with entity {0}", entity);
+            logger.DebugFormat("Entering Update with entity {0}", entity);
 
             IDbConnection conn = db.GetConnection();
 
@@ -167,7 +197,7 @@ namespace C_FTS.Repository.DBRepository
 
                     if (result > 0)
                     {
-                        logger.InfoFormat("Exiting Update with {0}", entity);
+                        logger.DebugFormat("Exiting Update with {0}", entity);
                         return entity;
                     }
 

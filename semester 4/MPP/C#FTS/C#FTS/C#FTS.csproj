@@ -15,7 +15,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\FTS.Persistence\FTS.Persistence.csproj" />
+	  <ProjectReference Include="..\FTS.Networking\FTS.Networking.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="log4net.xml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 	</ItemGroup>
 
 </Project>

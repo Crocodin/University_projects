@@ -9,10 +9,10 @@ namespace C_FTS.Domain
     {
         public string BuyerName { get; }
         public int NumberOfSeats { get; set; }
-        public DateTime PurchaseDate { get; }
+        public string PurchaseDate { get; }
         public Show Show { get; }
 
-        public Ticket(int id, string buyerName, int numberOfSeats, DateTime purchaseDate, Show show) : base(id)
+        public Ticket(int id, string buyerName, int numberOfSeats, string purchaseDate, Show show) : base(id)
         {
             BuyerName = buyerName;
             NumberOfSeats = numberOfSeats;
@@ -20,7 +20,7 @@ namespace C_FTS.Domain
             Show = show;
         }
 
-        public Ticket(string buyerName, int numberOfSeats, DateTime purchaseDate, Show show) : base(-1)
+        public Ticket(string buyerName, int numberOfSeats, string purchaseDate, Show show) : base(-1)
         {
             BuyerName = buyerName;
             NumberOfSeats = numberOfSeats;
@@ -31,9 +31,9 @@ namespace C_FTS.Domain
         public Ticket(IDataReader reader, Show show)
             : base(reader.GetInt32(reader.GetOrdinal("id")))
         {
-            BuyerName = reader.GetString(reader.GetOrdinal("name"));
+            BuyerName = reader.GetString(reader.GetOrdinal("buyer_name"));
             NumberOfSeats = reader.GetInt32(reader.GetOrdinal("number_of_seats"));
-            PurchaseDate = reader.GetDateTime(reader.GetOrdinal("purchase_date"));
+            PurchaseDate = reader.GetString(reader.GetOrdinal("purchase_date"));
             Show = show;
         }
 

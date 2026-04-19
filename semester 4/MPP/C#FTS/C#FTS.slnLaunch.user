@@ -1,0 +1,20 @@
+[
+  {
+    "Name": "Server",
+    "Projects": [
+      {
+        "Path": "FTS.Server\\FTS.Server.csproj",
+        "Action": "StartWithoutDebugging"
+      }
+    ]
+  },
+  {
+    "Name": "Client",
+    "Projects": [
+      {
+        "Path": "C#FTS\\C#FTS.csproj",
+        "Action": "StartWithoutDebugging"
+      }
+    ]
+  }
+]

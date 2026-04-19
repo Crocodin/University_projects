@@ -29,7 +29,7 @@ namespace C_FTS.Repository.DBRepository
 
         public User? FindByUsernameAndPassword(string username, string password)
         {
-            logger.InfoFormat("Finding user {0} with password {0}", username, password);
+            logger.DebugFormat("Finding user {0} with password {1}", username, password);
             IDbConnection conn = db.GetConnection();
 
             using (IDbCommand cmd = conn.CreateCommand())
@@ -50,7 +50,7 @@ namespace C_FTS.Repository.DBRepository
                     if (dataR.Read())
                     {
                         User user = new User(dataR);
-                        logger.InfoFormat("Exiting Find with {0}", user);
+                        logger.DebugFormat("Exiting Find with {0}", user);
                         return user;
                     }
                     logger.Error("Exiting Find with null");

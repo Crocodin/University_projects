@@ -5,12 +5,12 @@ namespace C_FTS.Domain
 {
     public class Show : Entity<int>
     {
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
         public string Title { get; }
         public int SoldSeats { get; private set; }
         public Venue Venue { get; }
 
-        public Show(int id, DateTime date, string title, int soldSeats, Venue venue)
+        public Show(int id, string date, string title, int soldSeats, Venue venue)
             : base(id)
         {
             Date = date;
@@ -22,7 +22,7 @@ namespace C_FTS.Domain
         public Show(IDataReader reader, Venue venue)
             : base(reader.GetInt32(reader.GetOrdinal("id")))
         {
-            Date = reader.GetDateTime(reader.GetOrdinal("date"));
+            Date = reader.GetString(reader.GetOrdinal("date"));
             Title = reader.GetString(reader.GetOrdinal("title"));
             SoldSeats = reader.GetInt32(reader.GetOrdinal("sold_seats"));
             Venue = venue ?? throw new ArgumentNullException(nameof(venue));
@@ -39,7 +39,7 @@ namespace C_FTS.Domain
             return new Ticket(
                 buyerName,
                 numberOfSeats,
-                DateTime.Now,
+                DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss"),
                 this
             );
         }
@@ -49,8 +49,8 @@ namespace C_FTS.Domain
             this.SoldSeats += numberOfSoldSeats;
         }
 
-        public string FormattedDate => Date.ToString("dd/MM/yyyy");
-        public string FormattedTime => Date.ToString("HH:mm");
+        public string FormattedDate => Date.Substring(0, 10);
+        public string FormattedTime => Date.Substring(11, 5);
         public int RemainingSeats => Venue.Capacity - SoldSeats;
     }
 }

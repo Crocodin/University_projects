@@ -1,4 +1,7 @@
 <Solution>
   <Project Path="C#FTS/C#FTS.csproj" />
+  <Project Path="FTS.Networking/FTS.Networking.csproj" Id="4a775222-84d3-49fa-aee4-d4d305abba35" />
   <Project Path="FTS.Persistence/FTS.Persistence.csproj" Id="f13cd11d-15c3-4f98-ac1c-805e24b6ec92" />
+  <Project Path="FTS.Server/FTS.Server.csproj" Id="b39e5681-87e0-49ae-b96c-42feb1f12693" />
+  <Project Path="Model/Model.csproj" Id="0b5f1eb9-548d-4a17-9e44-5a42e49733f2" />
 </Solution>
