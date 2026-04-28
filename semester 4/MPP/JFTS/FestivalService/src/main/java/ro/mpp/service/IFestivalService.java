@@ -14,6 +14,7 @@ public interface IFestivalService {
     // ---------- SHOW-ARTIST
     public List<ShowArtist> findByDate(LocalDate date);
     public List<ShowArtist> findAll();
+    public Optional<Show> findById(int id);
 
     // ---------- TICKET
     public Optional<Ticket> sellTicket(Show show, String buyerName, int seats);

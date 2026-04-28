@@ -20,6 +20,13 @@ namespace C_FTS.Domain
             Show = show;
         }
 
+        public Ticket(int id, string buyerName, int numberOfSeats, Show show) : base(id)
+        {
+            BuyerName = buyerName;
+            NumberOfSeats = numberOfSeats;
+            Show = show;
+        }
+
         public Ticket(string buyerName, int numberOfSeats, string purchaseDate, Show show) : base(-1)
         {
             BuyerName = buyerName;

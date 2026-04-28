@@ -1,0 +1,116 @@
+syntax = "proto3";
+
+option java_package = "ro.mpp.grpc";
+option java_outer_classname = "FestivalProto";
+option csharp_namespace = "FestivalGrpc";
+
+package festival;
+import "google/protobuf/empty.proto";
+
+service FestivalService {
+  rpc Login (LoginRequest) returns (LoginResponse);
+  rpc Logout (LogoutRequest) returns (BoolResponse);
+
+  rpc FindAll (google.protobuf.Empty) returns (ShowArtistList);
+  rpc FindByDate (DateRequest) returns (ShowArtistList);
+  rpc SellTicket (SellTicketRequest) returns (TicketResponse);
+  rpc ModifyTicket (ModifyTicketRequest) returns (BoolResponse);
+
+  rpc Subscribe (SubscribeRequest) returns (stream EventMessage);
+}
+
+// a list if artists, returned at findAll and ByDate
+message ShowArtistList {
+  repeated ShowArtistMessage showArtists = 1;
+}
+
+// this is just the Artist class
+message ArtistMessage {
+  int32 id = 1;
+  string name = 2;
+}
+
+// Venue class
+message VenueMessage {
+  int32 id = 1;
+  string name = 2;
+  string address = 3;
+  int32 capacity = 4;
+}
+
+// Show Class
+message ShowMessage {
+  int32 showId = 1;
+  string title = 2;
+  string date = 3;
+  int32 soldSeats = 4;
+  VenueMessage venue = 5;
+}
+
+message ShowArtistMessage {
+  ArtistMessage artist = 1;
+  ShowMessage show = 2;
+}
+
+message DateRequest {
+  string date = 1;
+}
+
+message SellTicketRequest {
+  int32 showId = 1;
+  string buyerName = 2;
+  int32 seats = 3;
+}
+
+message TicketResponse {
+  bool success = 1;
+  string errorMessage = 2;
+  int32 ticketId = 3;
+}
+
+message ModifyTicketRequest {
+  int32 ticketId = 1;
+  int32 seats = 2;
+}
+
+message BoolResponse {
+  bool success = 1;
+  string errorMessage = 2;
+}
+
+// for adding observer to subject
+message LoginRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  bool success = 1;
+  string errorMessage = 2;
+  int32 userId = 3;
+  string username = 4;
+}
+
+// for removing observer from subject
+message LogoutRequest {
+  string username = 1;
+}
+
+message SubscribeRequest {
+  string username = 1;
+}
+
+enum EventType {
+  TICKET_SOLD = 0;
+  TICKET_MODIFIED = 1;
+}
+
+// synchronization between clients
+message EventMessage {
+  EventType eventType = 1;
+  int32 ticketId = 2;
+  ShowMessage show = 3;
+  // seat number is the only thing that gets modified in the client
+  // it can be a positive or a negative number
+  int32 seats = 4;
+}

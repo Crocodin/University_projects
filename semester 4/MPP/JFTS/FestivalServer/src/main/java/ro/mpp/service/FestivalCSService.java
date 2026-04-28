@@ -14,6 +14,7 @@ import ro.mpp.repository.DBRepository.*;
 import ro.mpp.repository.IArtistRepository;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -44,6 +45,11 @@ public class FestivalCSService implements IFestivalService {
     @Override
     public synchronized List<ShowArtist> findAll() {
         return showArtistRepository.findAll();
+    }
+
+    @Override
+    public synchronized Optional<Show> findById(int id) {
+        return showRepository.find(id);
     }
 
     @Override
@@ -104,9 +110,12 @@ public class FestivalCSService implements IFestivalService {
 
     private void notifyAll(Ticket ticket, boolean isSold) {
         logger.info("notifying all {} clients about the ticket {}", clients.size(), ticket);
-        clients.values().forEach(observer -> {
-            if (isSold) observer.ticketSold(ticket);
-            else observer.ticketModified(ticket);
-        });
+        List<IFestivalObserver> snapshot = new ArrayList<>(clients.values());
+        new Thread(() -> {
+            snapshot.forEach(observer -> {
+                if (isSold) observer.ticketSold(ticket);
+                else observer.ticketModified(ticket);
+            });
+        }).start();
     }
 }
