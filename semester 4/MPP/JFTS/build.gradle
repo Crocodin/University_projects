@@ -1,7 +1,7 @@
 plugins {
     id 'java'
     id 'application'
-    id "org.openjfx.javafxplugin" version "0.1.0"
+    id 'com.google.protobuf' version '0.9.4' apply false
 }
 
 group = 'ro.mpp'
@@ -23,7 +23,7 @@ dependencies {
     implementation project(":FestivalNetworking")
 
     // Source: https://mvnrepository.com/artifact/org.springframework/spring-context
-    implementation group: 'org.springframework', name: 'spring-context', version: '6.2.15'
+    implementation "org.springframework:spring-context:6.2.15"
 }
 
 application {
@@ -32,11 +32,6 @@ application {
             "-Dfts.logdir=../logs",
             '--enable-native-access=javafx.graphics,javafx.base,javafx.controls'
     ]
-}
-
-javafx {
-    version = "26"
-    modules = ["javafx.controls", "javafx.fxml"]
 }
 
 test {

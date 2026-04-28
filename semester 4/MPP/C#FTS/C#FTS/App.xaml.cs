@@ -3,18 +3,20 @@ using FTS.Networking.Networking.Service;
 using log4net;
 using System.Configuration;
 using System.IO;
+using System.Reflection;
 using System.Windows;
 
 namespace C_FTS
 {
     public partial class App : Application
     {
-        private FestivalServicesJsonProxy? _server;
+        private FestivalServicesGrpcProxy? _server;
         private static readonly ILog logger = LogManager.GetLogger(typeof(App));
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            log4net.Config.XmlConfigurator.Configure(new FileInfo("log4net.xml"));
+            var logRepo = LogManager.GetRepository(Assembly.GetEntryAssembly());
+            log4net.Config.XmlConfigurator.Configure(logRepo, new FileInfo("log4net.xml"));
             base.OnStartup(e);
             logger.Info("Starting FestivalClient");
 
@@ -24,7 +26,7 @@ namespace C_FTS
             logger.DebugFormat("Host: {0}", host);
             logger.DebugFormat("Port: {0}", port);
 
-            _server = new FestivalServicesJsonProxy(host, port);
+            _server = new FestivalServicesGrpcProxy(host, port);
             _server.Start();
 
             Login loginWindow = new Login(_server);

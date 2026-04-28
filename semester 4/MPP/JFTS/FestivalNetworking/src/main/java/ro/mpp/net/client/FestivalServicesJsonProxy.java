@@ -174,6 +174,11 @@ public class FestivalServicesJsonProxy implements IFestivalService {
     }
 
     @Override
+    public Optional<Show> findById(int id) {
+        return Optional.empty();
+    }
+
+    @Override
     public Optional<Ticket> sellTicket(Show show, String buyerName, int seats) {
         var request = Request.builder()
                 .requestType(RequestType.BUY_TICKET)

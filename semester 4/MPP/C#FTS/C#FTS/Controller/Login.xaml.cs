@@ -8,10 +8,10 @@ namespace C_FTS.Controller
 {
     public partial class Login : Window
     {
-        private readonly FestivalServicesJsonProxy _server;
+        private readonly FestivalServicesGrpcProxy _server;
         private static readonly ILog logger = LogManager.GetLogger(typeof(Login));
 
-        public Login(FestivalServicesJsonProxy server)
+        public Login(FestivalServicesGrpcProxy server)
         {
             InitializeComponent();
             _server = server;
@@ -45,6 +45,7 @@ namespace C_FTS.Controller
 
         private void OpenMainWindow(User user)
         {
+            System.Diagnostics.Debug.WriteLine("=== SetObserver called ===");
             var mainWindow = new MainWindow(_server, user);
             _server.SetObserver(mainWindow);
             mainWindow.Title = "Login as " + user.Username;

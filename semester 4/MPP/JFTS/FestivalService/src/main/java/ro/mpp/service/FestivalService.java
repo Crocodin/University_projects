@@ -12,15 +12,11 @@ import java.util.List;
 import java.util.Optional;
 
 public class FestivalService implements IFestivalService {
-    private final ArtistRepository artistRepository;
-    private final VenueRepository venueRepository;
     private final ShowRepository showRepository;
     private final TicketRepository ticketRepository;
     private final ShowArtistRepository showArtistRepository;
 
-    public FestivalService(ArtistRepository artistRepository, VenueRepository venueRepository, ShowRepository showRepository, TicketRepository ticketRepository, ShowArtistRepository showArtistRepository) {
-        this.artistRepository = artistRepository;
-        this.venueRepository = venueRepository;
+    public FestivalService(ShowRepository showRepository, TicketRepository ticketRepository, ShowArtistRepository showArtistRepository) {
         this.showRepository = showRepository;
         this.ticketRepository = ticketRepository;
         this.showArtistRepository = showArtistRepository;
@@ -38,6 +34,11 @@ public class FestivalService implements IFestivalService {
     @Override
     public List<ShowArtist> findAll() {
         return showArtistRepository.findAll();
+    }
+
+    @Override
+    public Optional<Show> findById(int id) {
+        return this.showRepository.find(id);
     }
 
     @Override
