@@ -1,17 +1,31 @@
 package ro.mpp.domain;
 
+import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 @Getter
-public class Show extends Entity<Integer> {
-    private final String date;
-    private final String title;
+@Entity
+@Table(name = "show")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class Show extends HasId<Integer> {
+    @Column(name = "date")
+    private String date;
+
+    @Column(name = "title")
+    private String title;
+
+    @Column(name = "sold_seats")
     private Integer soldSeats;
-    private final Venue venue;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "venue_id")
+    private Venue venue;
 
     public Show(Integer id, String date, String title, Integer soldSeats, Venue venue) {
         super(id);

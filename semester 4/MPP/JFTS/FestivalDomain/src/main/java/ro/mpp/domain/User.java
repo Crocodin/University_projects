@@ -1,6 +1,10 @@
 package ro.mpp.domain;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.sql.ResultSet;
@@ -8,9 +12,15 @@ import java.sql.SQLException;
 
 @Getter
 @ToString
-public class User extends Entity<Integer> {
-    private final String username;
-    private final String password;
+@Entity
+@NoArgsConstructor
+@Table(name = "user")
+public class User extends HasId<Integer> {
+    @Column(name = "username")
+    private String username;
+
+    @Column(name = "password")
+    private String password;
 
     public User(ResultSet rs) throws SQLException {
         super(rs.getInt("id"));

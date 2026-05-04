@@ -1,18 +1,31 @@
 package ro.mpp.domain;
 
+import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @Getter
-public class Ticket extends Entity<Integer> {
-    private final String buyerName;
+@Entity
+@NoArgsConstructor
+@Table(name = "ticket")
+public class Ticket extends HasId<Integer> {
+    @Column(name = "buyer_name")
+    private String buyerName;
+
     @Setter
+    @Column(name = "number_of_seats")
     private Integer numberOfSeats;
-    private final String purchaseDate;
-    private final Show show;
+
+    @Column(name = "purchase_date")
+    private String purchaseDate;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "show_id")
+    private Show show;
 
     public Ticket(ResultSet rs, Show show) throws SQLException {
         super(rs.getInt("id"));
