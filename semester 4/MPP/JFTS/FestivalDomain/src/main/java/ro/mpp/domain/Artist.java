@@ -1,16 +1,21 @@
 package ro.mpp.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.ToString;
+import jakarta.persistence.Column;
+import jakarta.persistence.Table;
+import lombok.*;
+import jakarta.persistence.Entity;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @Getter
 @ToString
-public class Artist extends Entity<Integer> {
-    private final String name;
+@Entity
+@Table(name = "artist")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class Artist extends HasId<Integer> {
+    @Column(name = "name")
+    private String name;
 
     public Artist(ResultSet rs) throws SQLException {
         super(rs.getInt("id"));

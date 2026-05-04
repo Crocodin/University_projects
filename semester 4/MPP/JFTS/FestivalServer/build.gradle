@@ -34,6 +34,9 @@ dependencies {
     implementation 'io.grpc:grpc-stub:1.63.0'
     compileOnly 'org.apache.tomcat:annotations-api:6.0.53' // needed for @Generated
 
+    // Source: https://mvnrepository.com/artifact/org.projectlombok/lombok
+    implementation("org.projectlombok:lombok:1.18.42")
+    annotationProcessor 'org.projectlombok:lombok:1.18.42'
 }
 
 protobuf {
@@ -51,7 +54,7 @@ protobuf {
 }
 
 application {
-    mainClass = 'ro.mpp.StartGrpcServer'
+    mainClass = 'ro.mpp.StartJsonServer'
     applicationDefaultJvmArgs = [
             "-Dfts.logdir=../logs",
             '--enable-native-access=javafx.graphics,javafx.base,javafx.controls'

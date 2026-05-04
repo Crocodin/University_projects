@@ -1,7 +1,9 @@
 package ro.mpp.service;
 
+import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Qualifier;
 import ro.mpp.authenticator.IAuthenticator;
 import ro.mpp.domain.Show;
 import ro.mpp.domain.ShowArtist;
@@ -11,7 +13,9 @@ import ro.mpp.exceptions.TicketModifier;
 import ro.mpp.observer.IFestivalObserver;
 import ro.mpp.observer.IFestivalService;
 import ro.mpp.repository.DBRepository.*;
-import ro.mpp.repository.IArtistRepository;
+import ro.mpp.repository.IShowArtistRepository;
+import ro.mpp.repository.IShowRepository;
+import ro.mpp.repository.ITicketRepository;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -20,22 +24,16 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
+@RequiredArgsConstructor
 public class FestivalCSService implements IFestivalService {
     private final Map<String, IFestivalObserver> clients = new ConcurrentHashMap<>();
 
-    private final ShowRepository showRepository;
-    private final TicketRepository ticketRepository;
-    private final ShowArtistRepository showArtistRepository;
+    private final IShowRepository showRepository;
+    private final ITicketRepository ticketRepository;
+    private final IShowArtistRepository showArtistRepository;
     private final IAuthenticator authenticator;
 
     private static final Logger logger = LogManager.getLogger(FestivalCSService.class);
-
-    public FestivalCSService(ShowRepository showRepository, TicketRepository ticketRepository, ShowArtistRepository showArtistRepository, IAuthenticator authenticator) {
-        this.showRepository = showRepository;
-        this.ticketRepository = ticketRepository;
-        this.showArtistRepository = showArtistRepository;
-        this.authenticator = authenticator;
-    }
 
     @Override
     public synchronized List<ShowArtist> findByDate(LocalDate date) {

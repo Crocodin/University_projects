@@ -8,7 +8,6 @@ import ro.mpp.service.FestivalServiceGrpcImpl;
 
 public class StartGrpcServer {
     public static void main(String[] args) throws Exception {
-        // Same Spring XML wires up festivalService just like StartJsonServer
         ApplicationContext context = new ClassPathXmlApplicationContext("spring-server.xml");
         ro.mpp.observer.IFestivalService festivalService = context.getBean("festivalCSService", ro.mpp.observer.IFestivalService.class);
 

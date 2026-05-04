@@ -4,55 +4,86 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!-- PERSISTENCE -->
-    <bean id="database" class="ro.mpp.utils.Database" scope="prototype"/>
+<!--    <bean id="database" class="ro.mpp.utils.Database" scope="prototype"/>-->
 
-    <bean id="userDBRepository" class="ro.mpp.repository.DBRepository.UserRepository">
-        <constructor-arg ref="database"/>
-    </bean>
+<!--    <bean id="userDBRepository" class="ro.mpp.repository.DBRepository.UserRepository">-->
+<!--        <constructor-arg ref="database"/>-->
+<!--    </bean>-->
 
-    <bean id="venueDBRepository" class="ro.mpp.repository.DBRepository.VenueRepository">
-        <constructor-arg ref="database"/>
-    </bean>
+<!--    <bean id="venueDBRepository" class="ro.mpp.repository.DBRepository.VenueRepository">-->
+<!--        <constructor-arg ref="database"/>-->
+<!--    </bean>-->
 
-    <bean id="artistDBRepository" class="ro.mpp.repository.DBRepository.ArtistRepository">
-        <constructor-arg ref="database"/>
-    </bean>
+<!--    <bean id="artistDBRepository" class="ro.mpp.repository.DBRepository.ArtistRepository">-->
+<!--        <constructor-arg ref="database"/>-->
+<!--    </bean>-->
 
-    <bean id="showDBRepository" class="ro.mpp.repository.DBRepository.ShowRepository">
-        <constructor-arg ref="database" index="0"/>
-        <constructor-arg ref="venueDBRepository" index="1"/>
-    </bean>
+<!--    <bean id="showDBRepository" class="ro.mpp.repository.DBRepository.ShowRepository">-->
+<!--        <constructor-arg ref="database" index="0"/>-->
+<!--        <constructor-arg ref="venueDBRepository" index="1"/>-->
+<!--    </bean>-->
 
     <bean id="ticketValidator" class="ro.mpp.validator.TicketValidator"/>
 
-    <bean id="ticketDBRepository" class="ro.mpp.repository.DBRepository.TicketRepository">
-        <constructor-arg ref="database" index="0"/>
-        <constructor-arg ref="showDBRepository" index="1"/>
-        <constructor-arg ref="ticketValidator" index="2"/>
+<!--    <bean id="ticketDBRepository" class="ro.mpp.repository.DBRepository.TicketRepository">-->
+<!--        <constructor-arg ref="database" index="0"/>-->
+<!--        <constructor-arg ref="showDBRepository" index="1"/>-->
+<!--        <constructor-arg ref="ticketValidator" index="2"/>-->
+<!--    </bean>-->
+
+<!--    <bean id="showArtistDBRepository" class="ro.mpp.repository.DBRepository.ShowArtistRepository">-->
+<!--        <constructor-arg ref="database" index="0"/>-->
+<!--        <constructor-arg ref="artistDBRepository" index="1"/>-->
+<!--        <constructor-arg ref="showDBRepository" index="2"/>-->
+<!--    </bean>-->
+
+    <bean class="ro.mpp.repository.ORMRepository.UserRepoORM" id="userRepoORM"/>
+
+    <bean class="ro.mpp.repository.ORMRepository.VenueRepoORM" id="venueRepoORM"/>
+
+    <bean class="ro.mpp.repository.ORMRepository.ArtistRepoORM" id="artistRepoORM"/>
+
+    <bean class="ro.mpp.repository.ORMRepository.ShowRepoORM" id="showRepoORM"/>
+
+    <bean class="ro.mpp.repository.ORMRepository.TicketRepoORM" id="ticketRepoORM">
+        <constructor-arg ref="ticketValidator" index="0"/>
     </bean>
 
-    <bean id="showArtistDBRepository" class="ro.mpp.repository.DBRepository.ShowArtistRepository">
-        <constructor-arg ref="database" index="0"/>
-        <constructor-arg ref="artistDBRepository" index="1"/>
-        <constructor-arg ref="showDBRepository" index="2"/>
-    </bean>
+    <bean class="ro.mpp.repository.ORMRepository.ShowArtistRepoORM" id="showArtistRepoORM"/>
 
     <!-- SERVICE -->
-    <bean id="authenticator" class="ro.mpp.authenticator.Authenticator">
-        <constructor-arg ref="userDBRepository"/>
+<!--    <bean id="authenticator" class="ro.mpp.authenticator.Authenticator">-->
+<!--        <constructor-arg ref="userDBRepository"/>-->
+<!--    </bean>-->
+
+<!--    <bean class="ro.mpp.service.FestivalCSService" id="festivalCSService">-->
+<!--        <constructor-arg ref="showDBRepository" index="0"/>-->
+<!--        <constructor-arg ref="ticketDBRepository" index="1"/>-->
+<!--        <constructor-arg ref="showArtistDBRepository" index="2"/>-->
+<!--        <constructor-arg ref="authenticator" index="3"/>-->
+<!--    </bean>-->
+
+    <!-- ORM -->
+    <bean id="authenticatorORM" class="ro.mpp.authenticator.Authenticator">
+        <constructor-arg ref="userRepoORM"/>
     </bean>
 
-    <bean class="ro.mpp.service.FestivalCSService" id="festivalCSService">
-        <constructor-arg ref="showDBRepository" index="0"/>
-        <constructor-arg ref="ticketDBRepository" index="1"/>
-        <constructor-arg ref="showArtistDBRepository" index="2"/>
-        <constructor-arg ref="authenticator" index="3"/>
+    <bean class="ro.mpp.service.FestivalCSService" id="festivalCSServiceORM">
+        <constructor-arg ref="showRepoORM" index="0"/>
+        <constructor-arg ref="ticketRepoORM" index="1"/>
+        <constructor-arg ref="showArtistRepoORM" index="2"/>
+        <constructor-arg ref="authenticatorORM" index="3"/>
     </bean>
 
     <!-- SERVER -->
     <bean id="festivalServer" class="ro.mpp.net.server.FestivalJsonCS">
         <constructor-arg value="5555" index="0"/>
-        <constructor-arg ref="festivalCSService" index="1"/>
+        <constructor-arg ref="festivalCSServiceORM" index="1"/>
     </bean>
+
+<!--    <bean id="festivalServer" class="ro.mpp.net.server.FestivalJsonCS">-->
+<!--        <constructor-arg value="5555" index="0"/>-->
+<!--        <constructor-arg ref="festivalCSService" index="1"/>-->
+<!--    </bean>-->
 
 </beans>

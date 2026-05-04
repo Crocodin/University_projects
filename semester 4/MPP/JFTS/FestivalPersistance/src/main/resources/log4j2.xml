@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="info">
+<Configuration status="debug">
     <Properties>
         <!-- Falls back to '.' if the property isn't set, but you should always set it -->
         <!-- ${sys:PROPERTY_NAME:-fallback_value} -->
