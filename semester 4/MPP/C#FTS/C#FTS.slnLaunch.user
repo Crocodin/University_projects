@@ -16,5 +16,14 @@
         "Action": "StartWithoutDebugging"
       }
     ]
+  },
+  {
+    "Name": "RestClient",
+    "Projects": [
+      {
+        "Path": "FTS.RestClient\\FTS.RestClient.csproj",
+        "Action": "Start"
+      }
+    ]
   }
 ]
