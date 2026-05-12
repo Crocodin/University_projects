@@ -2,6 +2,8 @@ plugins {
     id 'java'
     id 'application'
     id 'com.google.protobuf'
+    id 'org.springframework.boot'
+    id 'io.spring.dependency-management'
 }
 
 group = 'ro.mpp'
@@ -26,7 +28,9 @@ dependencies {
     implementation project(":FestivalNetworking")
 
     // Source: https://mvnrepository.com/artifact/org.springframework/spring-context
-    implementation group: 'org.springframework', name: 'spring-context', version: '6.2.15'
+    implementation "org.springframework:spring-context:6.2.15"
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
     // qRPC
     implementation 'io.grpc:grpc-netty-shaded:1.63.0'
@@ -54,7 +58,7 @@ protobuf {
 }
 
 application {
-    mainClass = 'ro.mpp.StartJsonServer'
+    mainClass = 'ro.mpp.StartGrpcServer' // or StartJsonServer
     applicationDefaultJvmArgs = [
             "-Dfts.logdir=../logs",
             '--enable-native-access=javafx.graphics,javafx.base,javafx.controls'

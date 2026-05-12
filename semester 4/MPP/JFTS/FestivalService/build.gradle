@@ -9,13 +9,18 @@ repositories {
     mavenCentral()
 }
 
-dependencies {
-    testImplementation(platform("org.junit:junit-bom:5.10.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
 
+dependencies {
     implementation(project(":FestivalPersistance"))
     implementation(project(":FestivalDomain"))
+    implementation("org.projectlombok:lombok:1.18.42")
+    annotationProcessor 'org.projectlombok:lombok:1.18.42'
+
+    implementation 'org.springframework:spring-context:6.2.0'
 }
 
 tasks.test {

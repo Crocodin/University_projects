@@ -5,6 +5,8 @@ import jakarta.persistence.EntityManagerFactory;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Repository;
+import ro.mpp.domain.Show;
 import ro.mpp.domain.Ticket;
 import ro.mpp.exceptions.TicketModifier;
 import ro.mpp.repository.IShowRepository;
@@ -15,6 +17,7 @@ import ro.mpp.validator.ValidatorStrategy;
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 @RequiredArgsConstructor
 public class TicketRepoORM implements ITicketRepository {
     private static final Logger logger = LogManager.getLogger(TicketRepoORM.class);
@@ -42,20 +45,25 @@ public class TicketRepoORM implements ITicketRepository {
 
     @Override
     public Optional<Ticket> save(Ticket entity) {
-        logger.debug("Entering save method, validating entity");
-        ticketValidator.validate(entity);
-        logger.debug("Saving entity {}", entity);
-
         try (EntityManager em = emf.createEntityManager()) {
+            em.getTransaction().begin();
             try {
-                em.getTransaction().begin();
-                Ticket merged = em.merge(entity);
+                Show managedShow = em.find(Show.class, entity.getShow().getId());
+                Ticket newTicket = new Ticket(
+                        entity.getBuyerName(),
+                        entity.getNumberOfSeats(),
+                        entity.getPurchaseDate(),
+                        managedShow
+                );
+                em.persist(newTicket);
+                em.flush();
+                em.refresh(newTicket);
                 em.getTransaction().commit();
-                return Optional.of(merged);
-            } catch (Exception ex) {
+                return Optional.of(newTicket);
+            } catch (Exception e) {
+                logger.error("Error saving ticket", e);
                 em.getTransaction().rollback();
-                logger.error(ex.getMessage(), ex);
-                return Optional.empty();
+                throw e;
             }
         }
     }

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 import ro.mpp.authenticator.IAuthenticator;
 import ro.mpp.domain.Show;
 import ro.mpp.domain.ShowArtist;
@@ -24,6 +25,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
+@Service
 @RequiredArgsConstructor
 public class FestivalCSService implements IFestivalService {
     private final Map<String, IFestivalObserver> clients = new ConcurrentHashMap<>();

@@ -44,7 +44,7 @@ public class Ticket extends HasId<Integer> {
     }
 
     public Ticket(String buyerName, int numberOfSeats, String purchaseDate, Show show) {
-        super(-1);
+        super(null);
         this.buyerName = buyerName;
         this.numberOfSeats = numberOfSeats;
         this.purchaseDate = purchaseDate;

@@ -19,4 +19,10 @@ public interface IFestivalService {
     // ---------- TICKET
     public Optional<Ticket> sellTicket(Show show, String buyerName, int seats);
     public boolean modifyTicket(int ticketId, int seats);
+
+    // ---------- SHOW
+    Optional<Show> findShowById(int id);
+    Optional<Show> saveShow(Show show);
+    Optional<Show> updateShow(int id, Show show);
+    boolean deleteShow(int id);
 }

@@ -1,26 +1,26 @@
 package ro.mpp.service;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import ro.mpp.domain.Show;
 import ro.mpp.domain.ShowArtist;
 import ro.mpp.domain.Ticket;
 import ro.mpp.exceptions.TicketModifier;
-import ro.mpp.observer.IFestivalObserver;
 import ro.mpp.repository.DBRepository.*;
+import ro.mpp.repository.IShowArtistRepository;
+import ro.mpp.repository.IShowRepository;
+import ro.mpp.repository.ITicketRepository;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+@Service
+@RequiredArgsConstructor
 public class FestivalService implements IFestivalService {
-    private final ShowRepository showRepository;
-    private final TicketRepository ticketRepository;
-    private final ShowArtistRepository showArtistRepository;
-
-    public FestivalService(ShowRepository showRepository, TicketRepository ticketRepository, ShowArtistRepository showArtistRepository) {
-        this.showRepository = showRepository;
-        this.ticketRepository = ticketRepository;
-        this.showArtistRepository = showArtistRepository;
-    }
+    private final IShowRepository showRepository;
+    private final ITicketRepository ticketRepository;
+    private final IShowArtistRepository showArtistRepository;
 
     public List<ShowArtist> findAllShows() {
         return showArtistRepository.findAll();
@@ -73,5 +73,31 @@ public class FestivalService implements IFestivalService {
             }
         });
         return true;
+    }
+
+    @Override
+    public Optional<Show> findShowById(int id) {
+        return showRepository.find(id);
+    }
+
+    @Override
+    public Optional<Show> saveShow(Show show) {
+        return showRepository.save(show);
+    }
+
+    @Override
+    public Optional<Show> updateShow(int id, Show show) {
+        return showRepository.find(id)
+                .flatMap(existing -> showRepository.update(show));
+    }
+
+    @Override
+    public boolean deleteShow(int id) {
+        return showRepository.find(id)
+                .map(show -> {
+                    showRepository.delete(show);
+                    return true;
+                })
+                .orElse(false);
     }
 }

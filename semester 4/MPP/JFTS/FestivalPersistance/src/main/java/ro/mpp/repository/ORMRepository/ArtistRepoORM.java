@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Repository;
 import ro.mpp.domain.Artist;
 import ro.mpp.repository.IArtistRepository;
 import ro.mpp.utils.JPAUtils;
@@ -11,6 +12,7 @@ import ro.mpp.utils.JPAUtils;
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public class ArtistRepoORM implements IArtistRepository {
     private static final Logger logger = LogManager.getLogger(ArtistRepoORM.class);
     private final EntityManagerFactory emf = JPAUtils.getEntityManagerFactory();

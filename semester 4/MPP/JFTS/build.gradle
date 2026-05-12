@@ -1,7 +1,8 @@
 plugins {
     id 'java'
-    id 'application'
     id 'com.google.protobuf' version '0.9.4' apply false
+    id 'org.springframework.boot' version '3.4.0' apply false
+    id 'io.spring.dependency-management' version '1.1.7' apply false
 }
 
 group = 'ro.mpp'
@@ -9,31 +10,4 @@ version = '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
-}
-
-dependencies {
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-
-    implementation project(":FestivalDomain")
-    implementation project(":FestivalPersistance")
-    implementation project(":FestivalService")
-    implementation project(":FestivalController")
-    implementation project(":FestivalNetworking")
-
-    // Source: https://mvnrepository.com/artifact/org.springframework/spring-context
-    implementation "org.springframework:spring-context:6.2.15"
-}
-
-application {
-    mainClass = 'ro.mpp.Main'
-    applicationDefaultJvmArgs = [
-            "-Dfts.logdir=../logs",
-            '--enable-native-access=javafx.graphics,javafx.base,javafx.controls'
-    ]
-}
-
-test {
-    useJUnitPlatform()
 }

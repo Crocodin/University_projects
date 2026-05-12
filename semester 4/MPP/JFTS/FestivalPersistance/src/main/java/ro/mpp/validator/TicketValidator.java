@@ -1,8 +1,10 @@
 package ro.mpp.validator;
 
+import org.springframework.stereotype.Component;
 import ro.mpp.domain.Ticket;
 import ro.mpp.exceptions.ValidatorException;
 
+@Component
 public class TicketValidator implements ValidatorStrategy<Ticket> {
     @Override
     public void validate(Ticket object) throws ValidatorException {

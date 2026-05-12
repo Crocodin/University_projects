@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Repository;
 import ro.mpp.domain.Venue;
 import ro.mpp.repository.IVenueRepository;
 import ro.mpp.utils.JPAUtils;
@@ -11,6 +12,7 @@ import ro.mpp.utils.JPAUtils;
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public class VenueRepoORM implements IVenueRepository {
     private static final Logger logger = LogManager.getLogger(VenueRepoORM.class);
     private final EntityManagerFactory emf = JPAUtils.getEntityManagerFactory();
