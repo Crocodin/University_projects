@@ -44,7 +44,7 @@ public class ShowRestController {
                     .map(s -> ResponseEntity.status(HttpStatus.CREATED).body((Object) s))
                     .orElse(ResponseEntity.badRequest().build());
         } catch (Exception e) {
-            e.printStackTrace(); // ← add this temporarily
+            e.printStackTrace();
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
