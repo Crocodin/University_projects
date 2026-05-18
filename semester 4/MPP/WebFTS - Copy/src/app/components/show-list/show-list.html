@@ -1,0 +1,83 @@
+<h1>Festival Shows</h1>
+
+@if (error) {
+  <p>Error: {{ error }}</p>
+}
+
+<div>
+  <input type="date" [(ngModel)]="filterDate" />
+  <button (click)="applyDateFilter()">Filter</button>
+  <button (click)="clearFilter()">Clear</button>
+</div>
+
+@if (filteredShowArtists.length > 0) {
+  <h2>Filtered results</h2>
+  <table>
+    <tr>
+      <th>Artist</th><th>Title</th><th>Date</th><th>Venue</th><th>Available</th><th>Status</th><th></th>
+    </tr>
+    @for (sa of filteredShowArtists; track sa.id) {
+      <tr>
+        <td>{{ sa.artist.name }}</td>
+        <td>{{ sa.show.title }}</td>
+        <td>{{ sa.show.date }}</td>
+        <td>{{ sa.show.venue.name }}</td>
+        <td>{{ sa.show.venue.capacity - sa.show.soldSeats }}</td>
+        <td>{{ sa.show.soldOut ? 'SOLD OUT' : 'Available' }}</td>
+        <td>
+          <button (click)="selectShow(sa.show)">Select</button>
+          <a [routerLink]="['/show', sa.show.id]">Details</a>
+        </td>
+      </tr>
+    }
+  </table>
+}
+
+<h2>All Shows</h2>
+@if (showArtists$ | async; as showArtists) {
+  <table>
+    <tr>
+      <th>Artist</th><th>Title</th><th>Date</th><th>Venue</th><th>Sold</th><th>Available</th><th>Status</th><th></th>
+    </tr>
+    @for (sa of showArtists; track sa.id) {
+      <tr>
+        <td>{{ sa.artist.name }}</td>
+        <td>{{ sa.show.title }}</td>
+        <td>{{ sa.show.date }}</td>
+        <td>{{ sa.show.venue.name }}</td>
+        <td>{{ sa.show.soldSeats }}</td>
+        <td>{{ sa.show.venue.capacity - sa.show.soldSeats }}</td>
+        <td [class.sold-out]="sa.show.soldOut">
+          {{ sa.show.soldOut ? 'SOLD OUT' : 'Available' }}
+        </td>
+        <td>
+          <button (click)="selectShow(sa.show)">Select</button>
+          <a [routerLink]="['/show', sa.show.id]">Details</a>
+        </td>
+      </tr>
+    }
+  </table>
+} @else {
+  <p>Loading...</p>
+}
+
+<h2>Sell Ticket</h2>
+@if (selectedShow) {
+  <p>Selected: {{ selectedShow.title }}</p>
+}
+<div>
+  <input type="text" placeholder="Buyer name" [(ngModel)]="buyerName" />
+  <input type="number" placeholder="Seats" [(ngModel)]="seats" />
+  <button (click)="sellTicket()">Sell</button>
+</div>
+@if (sellSuccess) { <p>{{ sellSuccess }}</p> }
+@if (sellError) { <p>Error: {{ sellError }}</p> }
+
+<h2>Modify Ticket</h2>
+<div>
+  <input type="number" placeholder="Ticket ID" [(ngModel)]="modifyTicketId" />
+  <input type="number" placeholder="New seats" [(ngModel)]="modifySeats" />
+  <button (click)="modifyTicket()">Modify</button>
+</div>
+@if (modifySuccess) { <p>{{ modifySuccess }}</p> }
+@if (modifyError) { <p>Error: {{ modifyError }}</p> }

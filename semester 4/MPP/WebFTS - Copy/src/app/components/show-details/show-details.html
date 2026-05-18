@@ -1,0 +1,18 @@
+<!-- show-detail.component.html -->
+@if (error) {
+  <p>Error: {{ error }}</p>
+}
+
+@if (show$ | async; as show) {
+  <h2>{{ show.title }}</h2>
+  <p>Date: {{ show.date }}</p>
+  <p>Venue: {{ show.venue.name }}</p>
+  <p>Address: {{ show.venue.address }}</p>
+  <p>Capacity: {{ show.venue.capacity }}</p>
+  <p>Sold seats: {{ show.soldSeats }}</p>
+  <p>Available seats: {{ show.venue.capacity - show.soldSeats }}</p>
+  <p>Status: {{ show.soldOut ? 'SOLD OUT' : 'Available' }}</p>
+  <a routerLink="/">Back to all shows</a>
+} @else {
+  <p>Loading...</p>
+}

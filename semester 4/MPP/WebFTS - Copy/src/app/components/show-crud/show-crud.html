@@ -1,0 +1,43 @@
+<!-- show-crud.component.html -->
+<h2>Show Management</h2>
+
+@if (success) { <p>{{ success }}</p> }
+@if (error) { <p style="color:red">{{ error }}</p> }
+
+<!-- FIND -->
+<h3>Find by ID</h3>
+<div>
+  <input type="number" placeholder="Show ID" [(ngModel)]="findId" />
+  <button (click)="find()">Find</button>
+</div>
+@if (foundShow$ | async; as show) {
+  <p>{{ show.id }} - {{ show.title }}; {{ show.date }}; {{ show.venue.name }}</p>
+}
+
+<!-- CREATE -->
+<h3>Create Show</h3>
+<div>
+  <input type="text" placeholder="Title" [(ngModel)]="newShow.title" />
+  <input type="datetime-local" [(ngModel)]="newShow.date" />
+  <input type="number" placeholder="Sold seats" [(ngModel)]="newShow.soldSeats" />
+  <input type="number" placeholder="Venue ID" [(ngModel)]="newShow.venue.id" />
+  <button (click)="create()">Create</button>
+</div>
+
+<!-- UPDATE -->
+<h3>Update Show</h3>
+<div>
+  <input type="number" placeholder="Show ID" [(ngModel)]="updateId" />
+  <input type="text" placeholder="Title" [(ngModel)]="updateShow.title" />
+  <input type="datetime-local" [(ngModel)]="updateShow.date" />
+  <input type="number" placeholder="Sold seats" [(ngModel)]="updateShow.soldSeats" />
+  <input type="number" placeholder="Venue ID" [(ngModel)]="updateShow.venue.id" />
+  <button (click)="update()">Update</button>
+</div>
+
+<!-- DELETE -->
+<h3>Delete Show</h3>
+<div>
+  <input type="number" placeholder="Show ID" [(ngModel)]="deleteId" />
+  <button (click)="delete()">Delete</button>
+</div>
