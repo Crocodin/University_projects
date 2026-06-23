@@ -2,14 +2,18 @@ package ro.mpp.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ro.mpp.authenticator.IAuthenticator;
 import ro.mpp.domain.Show;
 import ro.mpp.domain.ShowArtist;
 import ro.mpp.domain.Ticket;
+import ro.mpp.domain.User;
 import ro.mpp.exceptions.TicketModifier;
 import ro.mpp.repository.DBRepository.*;
 import ro.mpp.repository.IShowArtistRepository;
 import ro.mpp.repository.IShowRepository;
 import ro.mpp.repository.ITicketRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -18,9 +22,12 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class FestivalService implements IFestivalService {
+    private static final Logger logger = LogManager.getLogger(FestivalService.class);
+
     private final IShowRepository showRepository;
     private final ITicketRepository ticketRepository;
     private final IShowArtistRepository showArtistRepository;
+    private final IAuthenticator authenticator;
 
     public List<ShowArtist> findAllShows() {
         return showArtistRepository.findAll();
@@ -99,5 +106,11 @@ public class FestivalService implements IFestivalService {
                     return true;
                 })
                 .orElse(false);
+    }
+
+    @Override
+    public synchronized Optional<User> authenticate(String username, String password) {
+        logger.info("Authenticating user with username {} and password {}", username, password);
+        return authenticator.authenticate(username, password);
     }
 }

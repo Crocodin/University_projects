@@ -1,9 +1,6 @@
 package ro.mpp.service;
 
-import ro.mpp.domain.Artist;
-import ro.mpp.domain.Show;
-import ro.mpp.domain.ShowArtist;
-import ro.mpp.domain.Ticket;
+import ro.mpp.domain.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -25,4 +22,6 @@ public interface IFestivalService {
     Optional<Show> saveShow(Show show);
     Optional<Show> updateShow(int id, Show show);
     boolean deleteShow(int id);
+
+    public Optional<User> authenticate(String username, String password);
 }

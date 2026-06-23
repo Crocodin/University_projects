@@ -15,6 +15,7 @@ public class Authenticator implements IAuthenticator {
     }
 
     public Optional<User> authenticate(String username, String password) {
+        System.out.println("Authenticating user with username " + username);
         return userRepo.findByUsernameAndPassword(username, password);
     }
 }

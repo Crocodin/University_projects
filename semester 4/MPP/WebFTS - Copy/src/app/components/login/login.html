@@ -1,0 +1,37 @@
+<div>
+  <h2>Login</h2>
+
+  <form (ngSubmit)="onSubmit()">
+    <div>
+      <label for="username">Username</label>
+      <input
+        id="username"
+        type="text"
+        [(ngModel)]="username"
+        name="username"
+        autocomplete="username"
+        placeholder="Username"
+      />
+    </div>
+
+    <div>
+      <label for="password">Password</label>
+      <input
+        id="password"
+        type="password"
+        [(ngModel)]="password"
+        name="password"
+        autocomplete="current-password"
+        placeholder="Password"
+      />
+    </div>
+
+    @if (errorMessage) {
+      <div>{{errorMessage}}</div>
+    }
+
+    <button type="submit" [disabled]="loading">
+      {{ loading ? 'Logging in...' : 'Login' }}
+    </button>
+  </form>
+</div>

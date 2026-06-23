@@ -60,6 +60,7 @@ public class ShowRepoORM implements IShowRepository {
             em.getTransaction().begin();
             try {
                 Show managed = em.contains(entity) ? entity : em.merge(entity);
+                em.createQuery("delete from ShowArtist where show.id = :id").setParameter("id", entity.getId()).executeUpdate();
                 em.remove(managed);
                 em.getTransaction().commit();
             } catch (Exception e) {
