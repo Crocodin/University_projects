@@ -9,7 +9,7 @@ This repository houses all of the projects I've completed for university up to t
 
 ### :file_folder: Semester 1: <br>
 > :snake:[Programming fundamentals](semester%201/FP) <br>
-> :electric_plug:[Computr system architecture](semester%201/ASC) <br>
+> :electric_plug:[Computer system architecture](semester%201/ASC) <br>
 > :chart_with_upwards_trend:Calculus <br>
 > 📐Algebra <br>
 > 🔍[Computational Logic](semester%201/LC) <br>
@@ -25,7 +25,7 @@ This repository houses all of the projects I've completed for university up to t
 > 🧠 DPPD - Pedagogy I
 
 ### :file_folder: Semester 3: <br>
-> :crystal_ball:[Advanced programing methods](semester%203/MAP) <br>
+> :crystal_ball:[Advanced programming methods](semester%203/MAP) <br>
 > :bar_chart:Probabilities and Statistics <br>
 > :satellite:[Network Programming](semester%203/Retele) <br>
 > :minidisc:[Databases](semester%203/DB) <br>
@@ -43,7 +43,7 @@ This repository houses all of the projects I've completed for university up to t
 ### :file_folder: Semester 5: <br>
 > :computer:[Formal Languages ​​and Compilation Techniques](semester%205/LFTC) <br>
 > :bicyclist:[Parallel and Distributed Programming](semester%205/PPD) <br>
-> :iphone:Mobile Programmingperforming_arts <br>
+> :iphone:Mobile Programming <br>
 > :mortar_board:Intelligent Methods for Solving Real-World Problems <br>
 > :smirk:Cloud Architecture <br>
 > :kimono:DPPD - Computer-assisted instruction <br>
