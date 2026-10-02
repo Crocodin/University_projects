@@ -32,11 +32,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5f138dca-698a-487e-84af-417ab922919b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../../../semester 4/AI/Lab2/prob1.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../../semester 4/MPP/JFTS/FestivalPersistance/src/main/resources/log4j2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/test.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/test.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utilities/productData.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Utilities/productData.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../semester 4/AI/Lab2/data_manipulating.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/../../../semester 4/AI/Lab2/prob2.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -141,6 +137,11 @@
     </key>
   </component>
   <component name="RunManager">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="shop_store" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="shop_store" TARGET_NAME="shop_store" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="shop_store" RUN_TARGET_NAME="shop_store">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -231,6 +232,7 @@
       <workItem from="1748609248814" duration="12000" />
       <workItem from="1773233834353" duration="763000" />
       <workItem from="1774162773754" duration="3000" />
+      <workItem from="1789205103257" duration="401000" />
     </task>
     <servers />
   </component>

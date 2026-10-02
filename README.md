@@ -4,7 +4,7 @@
 
 ---
 
-This repository houses all of the projects I've completed for university up to this point. You won't find all courses, seminars, or small assignments; mostly more significant projects.
+This repository houses all of the projects I've completed for university up to this point. You won't find all courses, seminars, or all assignments
 
 
 ### :file_folder: Semester 1: <br>
@@ -36,6 +36,21 @@ This repository houses all of the projects I've completed for university up to t
 > :bar_chart:[Software Design](https://github.com/Crocodin/ShareYourTaste) <br>
 > :computer:[Database management systems](https://github.com/Crocodin/TankingTanks) <br>
 > :key:[Artificial Intelligence](semester%204/AI) <br>
-> :satellite:Web Programming <br>
+> :satellite:[Web Programming](semester%204/WEB) <br>
 > :wrench:[Design and Programming Environments](semester%204/MPP) <br>
 > :mortar_board:DPPD - Didactics of the specialty <br>
+
+### :file_folder: Semester 5: <br>
+> :computer:[Formal Languages ​​and Compilation Techniques](semester%205/LFTC)
+> :bicyclist:[Parallel and Distributed Programming](semester%205/PPD)
+> :iphone:Mobile Programmingperforming_arts
+> :mortar_board:Intelligent Methods for Solving Real-World Problems
+> :smirk:Cloud Architecture
+> :kimono:DPPD - Computer-assisted instruction
+> :alien:DPPD - Observational teaching practicum
+
+### :file_folder: Semester 6: <br>
+> :scream:Numerical Analysis
+> :performing_arts:Verification and Validation of Software Systems
+> :eyes:Android Things
+> :triangular_flag_on_post:Design Patterns
