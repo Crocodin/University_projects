@@ -41,16 +41,16 @@ This repository houses all of the projects I've completed for university up to t
 > :mortar_board:DPPD - Didactics of the specialty <br>
 
 ### :file_folder: Semester 5: <br>
-> :computer:[Formal Languages ​​and Compilation Techniques](semester%205/LFTC)
-> :bicyclist:[Parallel and Distributed Programming](semester%205/PPD)
-> :iphone:Mobile Programmingperforming_arts
-> :mortar_board:Intelligent Methods for Solving Real-World Problems
-> :smirk:Cloud Architecture
-> :kimono:DPPD - Computer-assisted instruction
-> :alien:DPPD - Observational teaching practicum
+> :computer:[Formal Languages ​​and Compilation Techniques](semester%205/LFTC) <br>
+> :bicyclist:[Parallel and Distributed Programming](semester%205/PPD) <br>
+> :iphone:Mobile Programmingperforming_arts <br>
+> :mortar_board:Intelligent Methods for Solving Real-World Problems <br>
+> :smirk:Cloud Architecture <br>
+> :kimono:DPPD - Computer-assisted instruction <br>
+> :alien:DPPD - Observational teaching practicum <br>
 
 ### :file_folder: Semester 6: <br>
-> :scream:Numerical Analysis
-> :performing_arts:Verification and Validation of Software Systems
-> :eyes:Android Things
-> :triangular_flag_on_post:Design Patterns
+> :scream:Numerical Analysis <br>
+> :performing_arts:Verification and Validation of Software Systems <br>
+> :eyes:Android Things <br>
+> :triangular_flag_on_post:Design Patterns <br>
