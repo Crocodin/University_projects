@@ -39,7 +39,7 @@ This MLP is one for all the problems. In each file there is an MLP that can be a
 <compare> ::= == | != | <= | < | > | >=
 
 ID ::= ^[a-zA-Z][a-zA-Z0-9]*$      (must not be a keyword: int, float, struct, if, else, while, return, main)
-CONST ::= ^-?[0-9]+(\.[0-9]+)?$
+CONST ::= ^[0-9]+(\.[0-9]+)?$
 CHAR ::= '\n'
 ```
 
@@ -48,12 +48,17 @@ CHAR ::= '\n'
 ```c++
 #include <iostream>
 
+struct Circle {
+	float radius;
+};
+
 int main() {
-	float r, p, a, pi;
+	float p, a, pi;
+	Circle c;
 	pi = 3.14;
-	std::cin >> r;
-	p = 2 * pi * r;
-	a = pi * r * r;
+	std::cin >> c.radius;
+	p = 2 * pi * c.radius;
+	a = pi * c.radius * c.radius;
 	std::cout << p << '\n';
 	std::cout << a << '\n';
 	return 0;
@@ -63,12 +68,17 @@ This code contains error that are error in the c++ language and for whom we spec
 ```c++
 #include <iostream>
 
+struct Circle {
+	float radius;
+};
+
 int main() {
-	int r, p, a, pi;
+	float p, a, pi;
+	Circle c;
 	3.14 = pi;
-	std::cin << r;
-	p = 2 * pi * r;
-	a = pi * r * r;
+	std::cin << c.radius;
+	p = 2 * pi * c.radius;
+	a = pi * c.radius * c.radius;
 	std::cout << p << '\n';
 	std::cout << a << '\n';
 	return 0;

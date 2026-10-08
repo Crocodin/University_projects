@@ -2,7 +2,8 @@
 
 int main() {
 	int a, b, cmmdc;
-	std::cin >> a >> b;
+	std::cin >> a;
+	std::cin >> b;
 	if (a == 0 && b == 0) { cmmdc = -1; }
 	else {
 		while (b) {
