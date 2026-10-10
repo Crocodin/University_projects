@@ -70,7 +70,7 @@ public:
       }
 
       source.amount -= amount;
-      source.amount += amount;
+      destination.amount += amount;
 
       consistent_unlock(source, destination);
       return true;
