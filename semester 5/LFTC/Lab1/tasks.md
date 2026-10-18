@@ -27,7 +27,7 @@ This MLP is one for all the problems. In each file there is an MLP that can be a
 <operand> ::= CONST | <var>
 <operation_type> ::= + | - | * | / | %
 
-<read> ::= std::cin >> ID
+<read> ::= std::cin >> <var>
 <print> ::= std::cout << <print_item>
 <print_item> ::= <expr> | CHAR
 

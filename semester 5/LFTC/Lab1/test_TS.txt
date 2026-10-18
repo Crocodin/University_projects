@@ -1,0 +1,13 @@
+CODE       ATOM  INDEX
+'\n'       CONST 10   
+0          CONST 11   
+2          CONST 9    
+3.14       CONST 7    
+Circle     ID    1    
+a          ID    4    
+c          ID    6    
+c.radius   ID    8    
+iostream   ID    0    
+p          ID    3    
+pi         ID    5    
+radius     ID    2    
