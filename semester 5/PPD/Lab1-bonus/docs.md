@@ -24,4 +24,4 @@ class Node<T> {
 ### Insert After
 Now this is the tricky part. We need an order: first lock the node that you will change and after lock urself. NO! This will not work!
 
-The easy solution would be just to use `std::scoped_lock`.
+The easy solution would be just to use `std::lock_guard`.
