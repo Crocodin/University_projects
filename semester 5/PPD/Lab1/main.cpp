@@ -16,9 +16,9 @@ constexpr int THREADS = 10;
 constexpr int OPS = 10000;
 constexpr int MAX_MOVE = 20;
 
-class Product {
+class ProductStock {
 public:
-   Product(const int id, const int type, const int amount)
+   ProductStock(const int id, const int type, const int amount)
    : id(id), type(type), amount(amount) {}
 
    int id;
@@ -30,14 +30,13 @@ public:
 class Warehouse {
 private:
    int id;
-   std::vector<Product*> products;
-   // products are of the same type if they are on the same index
+   std::vector<ProductStock*> products;
 
 public:
-   Warehouse(const int id, const std::vector<Product*>& products)
+   Warehouse(const int id, const std::vector<ProductStock*>& products)
       : id(id), products(products) {}
 
-   static void consistent_lock(Product& source, Product& destination) {
+   static void consistent_lock(ProductStock& source, ProductStock& destination) {
       if (source.id < destination.id) {
          source.mutex.lock();
          destination.mutex.lock();
@@ -47,7 +46,7 @@ public:
       }
    }
 
-   static void consistent_unlock(Product& source, Product& destination) {
+   static void consistent_unlock(ProductStock& source, ProductStock& destination) {
       if (source.id < destination.id) {
          destination.mutex.unlock();
          source.mutex.unlock();
@@ -59,8 +58,8 @@ public:
 
    static bool moveProduct(const Warehouse& from, const Warehouse& to, const int amount, const int type) {
       if (from.id == to.id) return false;
-      Product& source = *from.products[type];
-      Product& destination = *to.products[type];
+      ProductStock& source = *from.products[type];
+      ProductStock& destination = *to.products[type];
 
       consistent_lock(source, destination);
 
@@ -86,7 +85,7 @@ public:
 
 class InventoryCheck {
 private:
-   std::vector<Product*> products;
+   std::vector<ProductStock*> products;
    const std::vector<long> initialTotals;
 
    [[nodiscard]] std::vector<long> totalsPerType() const {
@@ -100,7 +99,7 @@ private:
    }
 
 public:
-   explicit InventoryCheck(const std::vector<Product*>& products)
+   explicit InventoryCheck(const std::vector<ProductStock*>& products)
       : products(products), initialTotals(totalsPerType()) {}
 
    [[nodiscard]] bool checkInventory() const {
@@ -112,16 +111,16 @@ int main() {
     std::mt19937 rng(random());
 
     // product id = warehouse * PRODUCT_TYPES + type
-    std::vector<Product*> products;
+    std::vector<ProductStock*> products;
     for (int w = 0; w < WAREHOUSES; ++w) {
        for (int t = 0; t < PRODUCT_TYPES; ++t) {
-          products.push_back(new Product(w * PRODUCT_TYPES + t, t, rng() % 100));
+          products.push_back(new ProductStock(w * PRODUCT_TYPES + t, t, rng() % 100));
        }
     }
 
     std::vector<Warehouse*> warehouses;
     for (int w = 0; w < WAREHOUSES; ++w) {
-       std::vector<Product*> perWarehouse(products.begin() + w * PRODUCT_TYPES, products.begin() + (w + 1) * PRODUCT_TYPES);
+       std::vector<ProductStock*> perWarehouse(products.begin() + w * PRODUCT_TYPES, products.begin() + (w + 1) * PRODUCT_TYPES);
        warehouses.push_back(new Warehouse(w, perWarehouse));
     }
     const InventoryCheck inventoryCheck(products);
@@ -136,7 +135,6 @@ int main() {
        });
     }
 
-    // periodic inventory checks while the workers run
     bool ok = true;
     while (running > 0) {
        if (!inventoryCheck.checkInventory()) { ok = false; break; }
@@ -144,7 +142,6 @@ int main() {
     }
     for (auto& t : threads) t.join();
 
-    // final check once everything has ended
     if (!ok || !inventoryCheck.checkInventory()) {
        std::cout << RED << "INVENTORY DOESN'T MATCH" << RESET << std::endl;
        return EXIT_FAILURE;
