@@ -1,6 +1,8 @@
-### Finite State Machines
+## Part One
 
-For this laboratory I made this FSM for integer literals in C++. According to this [website](https://en.cppreference.com/cpp/language/integer_literal) there are 4 types of such literals:
+### Finite Automata
+
+For this laboratory I made this DFA for integer literals in C++. According to this [website](https://en.cppreference.com/cpp/language/integer_literal) there are 4 types of such literals:
 |||
 |-|-|
 |decimal|`(0\|[1-9][0-9]*)`|
@@ -10,7 +12,7 @@ For this laboratory I made this FSM for integer literals in C++. According to th
 
 If you are a nerd you may have noticed that I didn't add integer-suffix. That is intentional. 
 
-<img src='./machine_one.jpeg'>
+<img src='./images/machine_one.jpeg'>
 
 ### BNF of the input file
 
@@ -23,3 +25,14 @@ If you are a nerd you may have noticed that I didn't add integer-suffix. That is
 <list_of_transitions> ::= <transition> | <transition>\n <list_of_transitions>
 <transition> ::= <state> <alphabet> <state> 
 ```
+
+## Part Two
+
+For ID we have the following DFA:
+<img src='./images/machine_ID.jpeg'>
+
+For real numbers we have:
+<img src='./images/machine_real.jpeg'>
+
+For char literals we have:
+<img src='./images/machine_char.jpeg'>

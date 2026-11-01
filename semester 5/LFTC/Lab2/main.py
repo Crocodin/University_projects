@@ -43,6 +43,10 @@ def need_fa(context):
 
 
 # --------------------------------------------------------------- commands
+def cmd_is_it_deterministic(context):
+  if fa := need_fa(context):
+    print("State Machine is", "deterministic" if context["fa"].is_deterministic() else "nondeterministic")
+
 def cmd_load_file(context):
   path = input("File path: ").strip()
   try:
@@ -120,6 +124,7 @@ MENU = {
   "6": ("Show the set of final states", cmd_finals),
   "7": ("Check if a sequence is accepted", cmd_accepts),
   "8": ("Longest accepted prefix of a sequence", cmd_longest_prefix),
+  "9": ("Check if is deterministic", cmd_is_it_deterministic),
 }
 
 

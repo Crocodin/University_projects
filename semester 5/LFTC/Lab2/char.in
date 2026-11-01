@@ -1,0 +1,9 @@
+states:q0,q1,q2,q3,q4
+alphabet:',\,n
+initial:q0
+final:q4
+transitions:
+q0 ' q1
+q1 \ q2
+q2 n q3
+q3 ' q4
