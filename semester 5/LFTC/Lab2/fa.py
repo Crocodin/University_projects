@@ -5,12 +5,23 @@ class FAFormatError(Exception):
 
 class FA:
   def __init__(self, states, alphabet, initial, finals, transitions):
-    """transitions: dict {(state, symbol_or_EPS): set(of states)}"""
+    """
+    FA - Finite automate
+
+    states: list of strings, the names of each state
+    alphabet: list of strings, the symbols of the alphabet
+    initial: string, the name of the initial state
+    finals: set of strings, the names of the final states
+    transitions: dictionary(key,value), key - tuple (string,string), value - string
+    dict {(state, symbol_or_EPS): set(of states)},
+      key being a tuple formed from the state and the alphabet symbol,
+      the value being a set of states
+    """
     self.states: list[str] = list(states)             # keeps the order from the file
     self.alphabet: list[str] = list(alphabet)
     self.initial: str = initial
     self.finals: set = set(finals)
-    self.transitions: dict[(str, str), str] = transitions
+    self.transitions: dict[(str, str), set[str]] = transitions
 
   def is_deterministic(self):
     return all(sym != EPS and len(tgt) == 1 for (_, sym), tgt in self.transitions.items())
