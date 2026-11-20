@@ -7,10 +7,18 @@ void error(const char *msg, const char *text);
 
 %option noyywrap yylineno
 
-ID         [a-zA-Z][a-zA-Z0-9]*
-CONST      [0-9]+(\.[0-9]+)?
+ID         [a-zA-Z_][a-zA-Z0-9_]*
+SUFFIX     [uUlL]{2}
+HEXA       0[xX][0-9a-fA-F]+{SUFFIX}?
+BIN        0[bB][01]+{SUFFIX}?
+OCT        0[0-7]*{SUFFIX}?
+DEC        [1-9][0-9]*{SUFFIX}?
+INT        {HEXA}|{BIN}|{OCT}|{DEC}
+REAL       [0-9]+\.[0-9]+
 CHAR       '\\n'
-BAD_CONST  {CONST}{ID}
+CONST      {INT}|{REAL}|{CHAR}
+BAD_CONST  ({INT}|{REAL}){ID}
+BAD_OCT    0[0-9]*[89][0-9]*
 
 %%
 [ \t\r\n]+      { /* skip */ }
@@ -52,49 +60,54 @@ BAD_CONST  {CONST}{ID}
 ";"             { emit(36, "SEPARATOR", yytext); }
 ","             { emit(37, "SEPARATOR", yytext); }
 "#"             { emit(38, "SEPARATOR", yytext); }
+"daca"          { emit(39, "KEYWORD",   yytext); }
+"atunci"        { emit(40, "KEYWORD",   yytext); }
+"sfdaca"        { emit(41, "KEYWORD",   yytext); }
 
-{CHAR}          { emit(1, "CONST", yytext); }
-{BAD_CONST}     { error("invalid token", yytext); }
 {CONST}         { emit(1, "CONST", yytext); }
-{ID}            { emit(0, "ID", yytext); }
+{BAD_CONST}     { error("invalid token", yytext); }
+{BAD_OCT}       { error("invalid octal constant", yytext); }
+{ID}            { emit(0, "ID",    yytext); }
 .               { error("unknown character", yytext); }
+
+
 %%
 
 void emit(int code, const char *kind, const char *text) {
-  fprintf(yyout, "%-6d%-6d%-11s%s\n", yylineno, code, kind, text);
+	fprintf(yyout, "%-6d%-6d%-11s%s\n", yylineno, code, kind, text);
 }
 
 void error(const char *msg, const char *text) {
-  fprintf(yyout, "Line %d: %s '%s'\n", yylineno, msg, text);
+	fprintf(yyout, "Line %d: %s '%s'\n", yylineno, msg, text);
 }
 
 int main(int argc, char *argv[]) {
-  if (argc != 3) {
-    printf("Invalid usage!\nusage: lexical_analizator input output");
-    return 1;
-  }
-  const char *in_name = argv[1];
-  const char *out_name = argv[2];
+	if (argc != 3) {
+		printf("Invalid usage!\nusage: lexical_analizator input output\n");
+		return 1;
+	}
+	const char *in_name = argv[1];
+	const char *out_name = argv[2];
 
-  FILE *fptr = fopen(in_name, "r");
-  if (fptr == NULL) {
-    fprintf(stderr, "The input file '%s' is not opened.\n", in_name);
-    return 1;
-  }
+	FILE *fptr = fopen(in_name, "r");
+	if (fptr == NULL) {
+		fprintf(stderr, "The input file '%s' is not opened.\n", in_name);
+		return 1;
+	}
 
-  FILE *optr = fopen(out_name, "w");
-  if (optr == NULL) {
-    fprintf(stderr, "The output file '%s' is not opened.\n", out_name);
-    fclose(fptr);
-    return 1;
-  }
+	FILE *optr = fopen(out_name, "w");
+	if (optr == NULL) {
+		fprintf(stderr, "The output file '%s' is not opened.\n", out_name);
+		fclose(fptr);
+		return 1;
+	}
 
-  yyin = fptr;
-  yyout = optr;
+	yyin = fptr;
+	yyout = optr;
 
-  yylex();
+	yylex();
 
-  fclose(fptr);
-  fclose(optr);
-  return 0;
+	fclose(fptr);
+	fclose(optr);
+	return 0;
 }
