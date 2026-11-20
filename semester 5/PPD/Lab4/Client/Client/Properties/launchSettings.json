@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "Client": {
+      "commandName": "Project",
+      "commandLineArgs": "3 localhost 1234 /Files/a.txt /Files/b.txt /Files/c.txt /Files/d.txt",
+      "workingDirectory": "E:\\GitHub\\University_projects\\semester 5\\PPD\\Lab4"
+    }
+  }
+}

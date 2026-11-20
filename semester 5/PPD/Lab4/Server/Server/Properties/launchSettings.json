@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "Server": {
+      "commandName": "Project",
+      "commandLineArgs": "1234",
+      "workingDirectory": "E:\\GitHub\\University_projects\\semester 5\\PPD\\Lab4",
+    }
+  }
+}

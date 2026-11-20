@@ -1,0 +1,17 @@
+[
+  {
+    "Name": "Lab RUN",
+    "Projects": [
+      {
+        "Path": "Server\\Server.csproj",
+        "Action": "Start",
+        "DebugTarget": "Server"
+      },
+      {
+        "Path": "..\\Client\\Client\\Client.csproj",
+        "Action": "Start",
+        "DebugTarget": "Client"
+      }
+    ]
+  }
+]
