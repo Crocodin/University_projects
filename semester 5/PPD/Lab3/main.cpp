@@ -5,8 +5,8 @@
 #include <random>
 #include <vector>
 
-static int n = 1000;
-static int theta = 100;
+static int n = 100;
+static int theta = 10;
 static int offset = n * n / theta;
 static std::barrier<>startBarrier(theta);
 
@@ -26,7 +26,7 @@ void threadFunction(const int k) {
     const int end = (k == theta - 1) ? n * n : (k + 1) * offset;
 
     for (int index = start; index < end; ++index)
-        computeElement(index / n, index % n);
+        computeElement(index % n, index / n);
 }
 
 int main() {
@@ -48,14 +48,14 @@ int main() {
     const auto t1 = std::chrono::steady_clock::now();
 
     // Verification against a plain sequential computation
-    // std::vector<long long> expected(n * n, 0);
-    // for (int i = 0; i < n; ++i)
-    //     for (int k = 0; k < n; ++k)
-    //         for (int j = 0; j < n; ++j)
-    //             expected[i * n + j] += A[i * n + k] * B[k * n + j];
-    const bool ok = true;
+    std::vector<long long> expected(n * n, 0);
+    for (int i = 0; i < n; ++i)
+        for (int k = 0; k < n; ++k)
+            for (int j = 0; j < n; ++j)
+                expected[i * n + j] += A[i * n + k] * B[k * n + j];
+    const bool ok = expected == C;
 
     const double ms = std::chrono::duration<double, std::milli>(t1 - t0).count();
-    std::cout << "n = " << n << " | threads = " << theta << " | time = " << ms << " ms | result " << (ok ? "OK" : "WRONG") << "\n";
+    std::cout << "n = " << n << " | threads = " << theta << " | time = " << ms << " ms | result " << (ok ? "CORECT" : "WRONG") << "\n";
     return ok ? 0 : 2;
 }
